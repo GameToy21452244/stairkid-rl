@@ -344,10 +344,22 @@ def create_live_environment(
         else config.capture.height
         or target.client_rect.height - (config.capture.top or 0)
     )
+    vision_reference_width = (
+        config.vision.reference_width or reference_width
+    )
+    playfield_scale_x = reference_width / vision_reference_width
+    playfield_left = (
+        float(config.vision.playfield_left or 0) * playfield_scale_x
+    )
+    playfield_width = float(
+        config.vision.playfield_width or vision_reference_width
+    ) * playfield_scale_x
     env = StairAgentEnv(
         adapter,
         config.environment,
         reference_width=reference_width,
         reference_height=reference_height,
+        playfield_left=playfield_left,
+        playfield_right=playfield_left + playfield_width,
     )
     return env, target

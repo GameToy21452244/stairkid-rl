@@ -365,6 +365,45 @@ def test_reward_penalizes_top_danger_after_grace_steps() -> None:
     )
 
 
+@pytest.mark.parametrize(
+    ("player_x", "action", "expected_wall"),
+    [
+        (35.0, Action.LEFT, "left"),
+        (35.0, Action.RIGHT, None),
+        (396.0, Action.RIGHT, "right"),
+        (396.0, Action.LEFT, None),
+        (200.0, Action.LEFT, None),
+    ],
+)
+def test_reward_penalizes_only_actions_pushing_outward_at_playfield_wall(
+    player_x: float,
+    action: Action,
+    expected_wall: str | None,
+) -> None:
+    calculator = RewardCalculator(
+        step_penalty=0.0,
+        playfield_left=24,
+        playfield_right=407,
+        wall_margin_pixels=20,
+        wall_push_penalty=0.05,
+    )
+    item = observation(player_x=player_x)
+
+    reward = calculator.calculate(
+        item,
+        terminated=False,
+        action=action,
+    )
+
+    assert calculator.last_components["wall_push"] == expected_wall
+    assert calculator.last_components["wall_push_penalty"] == (
+        pytest.approx(-0.05) if expected_wall else 0.0
+    )
+    assert reward == (
+        pytest.approx(-0.05) if expected_wall else 0.0
+    )
+
+
 def test_environment_maps_actions_and_returns_gym_tuple() -> None:
     adapter = FakeAdapter(
         step_observations=[

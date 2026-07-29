@@ -157,6 +157,8 @@ class EnvironmentConfig:
     top_danger_penalty: float = 0.03
     top_danger_grace_steps: int = 2
     top_danger_y_ratio: float = 0.33
+    wall_margin_pixels: int = 20
+    wall_push_penalty: float = 0.05
     damage_penalty_per_segment: float = 0.2
     death_penalty: float = 5.0
     velocity_scale: float = 500.0
@@ -426,6 +428,7 @@ class AppConfig:
             "idle_action_penalty",
             "platform_dwell_penalty",
             "top_danger_penalty",
+            "wall_push_penalty",
             "damage_penalty_per_segment",
             "death_penalty",
             "reset_post_action_delay_seconds",
@@ -440,6 +443,7 @@ class AppConfig:
             "platform_dwell_grace_steps",
             "platform_dwell_max_gap",
             "top_danger_grace_steps",
+            "wall_margin_pixels",
         ):
             if getattr(self.environment, name) < 0:
                 raise ConfigError(f"environment.{name} 不可小於 0。")

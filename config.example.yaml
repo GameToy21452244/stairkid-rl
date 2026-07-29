@@ -125,6 +125,8 @@ environment:
   top_danger_penalty: 0.03
   top_danger_grace_steps: 2
   top_danger_y_ratio: 0.33
+  wall_margin_pixels: 20
+  wall_push_penalty: 0.05
   damage_penalty_per_segment: 0.2
   death_penalty: 5.0
   velocity_scale: 500.0

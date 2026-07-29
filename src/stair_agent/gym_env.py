@@ -271,6 +271,10 @@ class RewardCalculator:
         top_danger_penalty: float = 0.0,
         top_danger_grace_steps: int = 0,
         top_danger_y_ratio: float = 0.0,
+        playfield_left: float = 0.0,
+        playfield_right: float = 634.0,
+        wall_margin_pixels: int = 0,
+        wall_push_penalty: float = 0.0,
         damage_penalty_per_segment: float = 0.2,
         death_penalty: float = 5.0,
     ) -> None:
@@ -310,6 +314,15 @@ class RewardCalculator:
         self.top_danger_y_ratio = float(
             np.clip(top_danger_y_ratio, 0.0, 1.0)
         )
+        self.playfield_left = float(playfield_left)
+        self.playfield_right = float(playfield_right)
+        if self.playfield_right <= self.playfield_left:
+            raise ValueError("playfield_right 必須大於 playfield_left。")
+        self.wall_margin_pixels = min(
+            max(0.0, float(wall_margin_pixels)),
+            (self.playfield_right - self.playfield_left) / 2,
+        )
+        self.wall_push_penalty = float(wall_push_penalty)
         self.damage_penalty_per_segment = float(damage_penalty_per_segment)
         self.death_penalty = float(death_penalty)
         self.last_components: dict[str, Any] = {}
@@ -340,6 +353,8 @@ class RewardCalculator:
             "top_danger": False,
             "top_danger_steps": 0,
             "top_danger_penalty": 0.0,
+            "wall_push": None,
+            "wall_push_penalty": 0.0,
         }
 
     def _update_direction(self, action: Action) -> bool:
@@ -439,6 +454,8 @@ class RewardCalculator:
             "top_danger": False,
             "top_danger_steps": 0,
             "top_danger_penalty": 0.0,
+            "wall_push": None,
+            "wall_push_penalty": 0.0,
         }
         took_damage = False
         for event in observation.events:
@@ -458,6 +475,28 @@ class RewardCalculator:
             reward -= self.death_penalty
             components["death_penalty"] = -self.death_penalty
         if action is not None:
+            player = observation.player
+            wall_push: str | None = None
+            if player is not None:
+                player_x = float(player.get("center_x", 0.0))
+                if (
+                    action is Action.LEFT
+                    and player_x
+                    <= self.playfield_left + self.wall_margin_pixels
+                ):
+                    wall_push = "left"
+                elif (
+                    action is Action.RIGHT
+                    and player_x
+                    >= self.playfield_right - self.wall_margin_pixels
+                ):
+                    wall_push = "right"
+            components["wall_push"] = wall_push
+            if wall_push is not None:
+                reward -= self.wall_push_penalty
+                components["wall_push_penalty"] = (
+                    -self.wall_push_penalty
+                )
             self._idle_action_steps = (
                 self._idle_action_steps + 1
                 if action is Action.RELEASE_ALL
@@ -530,6 +569,8 @@ class StairAgentEnv(gym.Env[np.ndarray, int]):
         *,
         reference_width: int = 634,
         reference_height: int = 431,
+        playfield_left: float | None = None,
+        playfield_right: float | None = None,
     ) -> None:
         super().__init__()
         self.adapter = adapter
@@ -564,6 +605,16 @@ class StairAgentEnv(gym.Env[np.ndarray, int]):
             top_danger_penalty=self.config.top_danger_penalty,
             top_danger_grace_steps=self.config.top_danger_grace_steps,
             top_danger_y_ratio=self.config.top_danger_y_ratio,
+            playfield_left=(
+                0.0 if playfield_left is None else playfield_left
+            ),
+            playfield_right=(
+                float(reference_width)
+                if playfield_right is None
+                else playfield_right
+            ),
+            wall_margin_pixels=self.config.wall_margin_pixels,
+            wall_push_penalty=self.config.wall_push_penalty,
             damage_penalty_per_segment=self.config.damage_penalty_per_segment,
             death_penalty=self.config.death_penalty,
         )

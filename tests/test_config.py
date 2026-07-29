@@ -30,6 +30,8 @@ def test_defaults() -> None:
     assert config.environment.top_danger_penalty == 0.03
     assert config.environment.top_danger_grace_steps == 2
     assert config.environment.top_danger_y_ratio == 0.33
+    assert config.environment.wall_margin_pixels == 20
+    assert config.environment.wall_push_penalty == 0.05
     assert not config.environment.auto_restart_on_reset
     assert config.environment.reset_required_consecutive_frames == 3
     assert config.environment.reset_focus_max_observation_frames == 225
@@ -109,6 +111,11 @@ def test_invalid_environment_config() -> None:
     with pytest.raises(ConfigError, match="top_danger_y_ratio"):
         AppConfig.from_dict(
             {"environment": {"top_danger_y_ratio": 1.1}}
+        )
+
+    with pytest.raises(ConfigError, match="wall_margin_pixels"):
+        AppConfig.from_dict(
+            {"environment": {"wall_margin_pixels": -1}}
         )
 
     with pytest.raises(ConfigError, match="inner_dark_ratio"):
