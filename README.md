@@ -324,6 +324,20 @@ observation space。動作空間為：
 `damage_penalty_per_segment` 扣分；回合終止再扣 `death_penalty`。每個控制步
 另扣很小的 `environment.step_penalty`，避免角色站在正下方平台時把長期
 `RELEASE_ALL` 當成零成本策略。預設 `0.01` 遠小於下樓的 `+1` 與死亡的 `−5`。
+為降低短訓練時常見的左右抖動，LEFT 與 RIGHT 若在
+`direction_change_window_steps`（預設 2 個控制步）內直接反轉，另扣
+`direction_change_penalty`（預設 `0.02`）；超過時間窗的正常路線修正不扣。
+若角色下方最近的水平重疊平台是尖刺，且距離不超過
+`spike_contact_max_gap`（預設 12 像素），連續接觸超過
+`spike_dwell_grace_steps`（預設 2 步）後，每步另扣
+`spike_dwell_penalty`（預設 `0.03`）。離開尖刺接觸區會立刻清除停留計數。
+這兩項都只是小幅 shaping，不取代實際掉血與死亡懲罰，也不加入容易鼓勵原地
+拖時間的存活獎勵。
+
+每次 Gym `step()` 的 `info["reward_components"]` 會分別記錄反向切換、尖刺
+接觸步數及各項 reward，方便後續量化抖動率與危險停留。這些控制 shaping
+只在具有 LEFT／RIGHT／RELEASE 動作的 Gym 控制步生效；人工與離線逐幀稽核
+沒有等價控制頻率，因此不套用，避免把 15 FPS 畫面誤算成控制步。
 回血與
 `spring_bounce` 會保留在觀測／事件資訊，但不重複加獎勵。這可避免「下樓回血」
 被同一事件計分兩次，也不會讓模型只為了彈簧獎勵偏離主要目標。

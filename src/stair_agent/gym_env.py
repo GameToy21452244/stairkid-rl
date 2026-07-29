@@ -250,37 +250,142 @@ class TemporalObservationStack:
 
 
 class RewardCalculator:
-    """第一版保守獎勵：下樓得分、掉血扣分、死亡額外扣分。"""
+    """保守獎勵與可重設的短期控制 shaping。"""
 
     def __init__(
         self,
         *,
         floor_reward: float = 1.0,
         step_penalty: float = 0.0,
+        direction_change_penalty: float = 0.0,
+        direction_change_window_steps: int = 0,
+        spike_dwell_penalty: float = 0.0,
+        spike_dwell_grace_steps: int = 0,
+        spike_contact_max_gap: int = 12,
         damage_penalty_per_segment: float = 0.2,
         death_penalty: float = 5.0,
     ) -> None:
         self.floor_reward = float(floor_reward)
         self.step_penalty = float(step_penalty)
+        self.direction_change_penalty = float(direction_change_penalty)
+        self.direction_change_window_steps = max(
+            0,
+            int(direction_change_window_steps),
+        )
+        self.spike_dwell_penalty = float(spike_dwell_penalty)
+        self.spike_dwell_grace_steps = max(
+            0,
+            int(spike_dwell_grace_steps),
+        )
+        self.spike_contact_max_gap = max(0, int(spike_contact_max_gap))
         self.damage_penalty_per_segment = float(damage_penalty_per_segment)
         self.death_penalty = float(death_penalty)
+        self.last_components: dict[str, Any] = {}
+        self.reset()
+
+    def reset(self) -> None:
+        self._last_direction: Action | None = None
+        self._steps_since_direction = 0
+        self._spike_dwell_steps = 0
+        self.last_components = {
+            "step_penalty": 0.0,
+            "floor_reward": 0.0,
+            "damage_penalty": 0.0,
+            "death_penalty": 0.0,
+            "direction_changed": False,
+            "direction_change_penalty": 0.0,
+            "spike_contact": False,
+            "spike_dwell_steps": 0,
+            "spike_dwell_penalty": 0.0,
+        }
+
+    def _update_direction(self, action: Action) -> bool:
+        if action not in {Action.LEFT, Action.RIGHT}:
+            if self._last_direction is not None:
+                self._steps_since_direction += 1
+            return False
+        changed = (
+            self._last_direction is not None
+            and action != self._last_direction
+            and self._steps_since_direction
+            <= self.direction_change_window_steps
+        )
+        self._last_direction = action
+        self._steps_since_direction = 0
+        return changed
+
+    def _update_spike_contact(
+        self,
+        observation: GameObservation,
+    ) -> bool:
+        nearest = observation.nearest_platform
+        gap = None if nearest is None else nearest.get("vertical_gap")
+        contact = bool(
+            nearest is not None
+            and str(nearest.get("kind", "")) == "spikes"
+            and gap is not None
+            and 0 <= float(gap) <= self.spike_contact_max_gap
+        )
+        self._spike_dwell_steps = (
+            self._spike_dwell_steps + 1 if contact else 0
+        )
+        return contact
 
     def calculate(
         self,
         observation: GameObservation,
         *,
         terminated: bool,
+        action: Action | None = None,
     ) -> float:
         reward = -self.step_penalty
+        components: dict[str, Any] = {
+            "step_penalty": -self.step_penalty,
+            "floor_reward": 0.0,
+            "damage_penalty": 0.0,
+            "death_penalty": 0.0,
+            "direction_changed": False,
+            "direction_change_penalty": 0.0,
+            "spike_contact": False,
+            "spike_dwell_steps": 0,
+            "spike_dwell_penalty": 0.0,
+        }
         for event in observation.events:
             event_type = event.get("type")
             if event_type == "floor_descended":
                 reward += self.floor_reward
+                components["floor_reward"] += self.floor_reward
             elif event_type in {"damage", "spike_damage"}:
                 health_delta = min(0, int(event.get("health_delta") or 0))
-                reward += health_delta * self.damage_penalty_per_segment
+                damage_penalty = (
+                    health_delta * self.damage_penalty_per_segment
+                )
+                reward += damage_penalty
+                components["damage_penalty"] += damage_penalty
         if terminated:
             reward -= self.death_penalty
+            components["death_penalty"] = -self.death_penalty
+        if action is not None:
+            direction_changed = self._update_direction(action)
+            components["direction_changed"] = direction_changed
+            if direction_changed:
+                reward -= self.direction_change_penalty
+                components["direction_change_penalty"] = (
+                    -self.direction_change_penalty
+                )
+            spike_contact = self._update_spike_contact(observation)
+            components["spike_contact"] = spike_contact
+            components["spike_dwell_steps"] = self._spike_dwell_steps
+            if (
+                spike_contact
+                and self._spike_dwell_steps
+                > self.spike_dwell_grace_steps
+            ):
+                reward -= self.spike_dwell_penalty
+                components["spike_dwell_penalty"] = (
+                    -self.spike_dwell_penalty
+                )
+        self.last_components = components
         return float(reward)
 
 
@@ -310,6 +415,15 @@ class StairAgentEnv(gym.Env[np.ndarray, int]):
         self.reward_calculator = RewardCalculator(
             floor_reward=self.config.floor_reward,
             step_penalty=self.config.step_penalty,
+            direction_change_penalty=(
+                self.config.direction_change_penalty
+            ),
+            direction_change_window_steps=(
+                self.config.direction_change_window_steps
+            ),
+            spike_dwell_penalty=self.config.spike_dwell_penalty,
+            spike_dwell_grace_steps=self.config.spike_dwell_grace_steps,
+            spike_contact_max_gap=self.config.spike_contact_max_gap,
             damage_penalty_per_segment=self.config.damage_penalty_per_segment,
             death_penalty=self.config.death_penalty,
         )
@@ -323,8 +437,13 @@ class StairAgentEnv(gym.Env[np.ndarray, int]):
         self._step_count = 0
         self.last_observation: GameObservation | None = None
 
-    def _info(self, observation: GameObservation) -> dict[str, Any]:
-        return {
+    def _info(
+        self,
+        observation: GameObservation,
+        *,
+        reward_components: dict[str, Any] | None = None,
+    ) -> dict[str, Any]:
+        info = {
             "phase": observation.phase,
             "events": [
                 str(event.get("type", "unknown"))
@@ -334,6 +453,9 @@ class StairAgentEnv(gym.Env[np.ndarray, int]):
             "raw_feature_count": self.encoder.feature_count,
             "stacked_feature_count": self.observation_space.shape[0],
         }
+        if reward_components is not None:
+            info["reward_components"] = dict(reward_components)
+        return info
 
     @staticmethod
     def _is_terminated(phase: str) -> bool:
@@ -353,6 +475,7 @@ class StairAgentEnv(gym.Env[np.ndarray, int]):
         super().reset(seed=seed)
         del options
         self._step_count = 0
+        self.reward_calculator.reset()
         try:
             observation = self.adapter.reset()
             self.last_observation = observation
@@ -386,6 +509,7 @@ class StairAgentEnv(gym.Env[np.ndarray, int]):
             reward = self.reward_calculator.calculate(
                 observation,
                 terminated=terminated,
+                action=mapped_action,
             )
             if terminated or truncated:
                 self.adapter.release_all()
@@ -397,7 +521,12 @@ class StairAgentEnv(gym.Env[np.ndarray, int]):
                 reward,
                 terminated,
                 truncated,
-                self._info(observation),
+                self._info(
+                    observation,
+                    reward_components=(
+                        self.reward_calculator.last_components
+                    ),
+                ),
             )
         except Exception:
             self.adapter.release_all()

@@ -1,3 +1,5 @@
+from dataclasses import replace
+
 import numpy as np
 import pytest
 from gymnasium.utils.env_checker import check_env
@@ -124,6 +126,112 @@ def test_reward_uses_floor_progress_and_raw_damage() -> None:
     assert calculator.calculate(item, terminated=True) == pytest.approx(-4.81)
 
 
+def test_reward_penalizes_only_recent_direction_reversal_and_resets() -> None:
+    calculator = RewardCalculator(
+        step_penalty=0.0,
+        direction_change_penalty=0.05,
+        direction_change_window_steps=2,
+    )
+    item = observation()
+
+    assert calculator.calculate(
+        item,
+        terminated=False,
+        action=Action.LEFT,
+    ) == 0.0
+    assert calculator.calculate(
+        item,
+        terminated=False,
+        action=Action.RELEASE_ALL,
+    ) == 0.0
+    assert calculator.calculate(
+        item,
+        terminated=False,
+        action=Action.RIGHT,
+    ) == pytest.approx(-0.05)
+    assert calculator.last_components["direction_changed"]
+    assert calculator.last_components["direction_change_penalty"] == pytest.approx(
+        -0.05
+    )
+
+    calculator.reset()
+
+    assert calculator.calculate(
+        item,
+        terminated=False,
+        action=Action.RIGHT,
+    ) == 0.0
+    assert not calculator.last_components["direction_changed"]
+
+    calculator.reset()
+    calculator.calculate(item, terminated=False, action=Action.LEFT)
+    for _ in range(3):
+        calculator.calculate(
+            item,
+            terminated=False,
+            action=Action.RELEASE_ALL,
+        )
+
+    assert calculator.calculate(
+        item,
+        terminated=False,
+        action=Action.RIGHT,
+    ) == 0.0
+    assert not calculator.last_components["direction_changed"]
+
+
+def test_reward_penalizes_spike_contact_only_after_grace_steps() -> None:
+    item = observation()
+    spike = replace(
+        item,
+        nearest_platform={
+            **item.nearest_platform,
+            "kind": "spikes",
+            "vertical_gap": 6,
+        },
+    )
+    calculator = RewardCalculator(
+        step_penalty=0.0,
+        spike_dwell_penalty=0.03,
+        spike_dwell_grace_steps=2,
+        spike_contact_max_gap=12,
+    )
+
+    first = calculator.calculate(
+        spike,
+        terminated=False,
+        action=Action.RELEASE_ALL,
+    )
+    second = calculator.calculate(
+        spike,
+        terminated=False,
+        action=Action.RELEASE_ALL,
+    )
+    third = calculator.calculate(
+        spike,
+        terminated=False,
+        action=Action.RELEASE_ALL,
+    )
+
+    assert first == 0.0
+    assert second == 0.0
+    assert third == pytest.approx(-0.03)
+    assert calculator.last_components["spike_contact"]
+    assert calculator.last_components["spike_dwell_steps"] == 3
+    assert calculator.last_components["spike_dwell_penalty"] == pytest.approx(
+        -0.03
+    )
+
+    calculator.calculate(
+        item,
+        terminated=False,
+        action=Action.RELEASE_ALL,
+    )
+
+    assert not calculator.last_components["spike_contact"]
+    assert calculator.last_components["spike_dwell_steps"] == 0
+
+
 def test_environment_maps_actions_and_returns_gym_tuple() -> None:
     adapter = FakeAdapter(
         step_observations=[
@@ -147,6 +255,7 @@ def test_environment_maps_actions_and_returns_gym_tuple() -> None:
     assert not terminated
     assert not truncated
     assert step_info["events"] == ["floor_descended"]
+    assert "reward_components" in step_info
 
 
 def test_environment_stacks_recent_features_and_action_history() -> None:

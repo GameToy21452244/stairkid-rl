@@ -144,6 +144,11 @@ class EnvironmentConfig:
     max_episode_steps: int = 3000
     floor_reward: float = 1.0
     step_penalty: float = 0.01
+    direction_change_penalty: float = 0.02
+    direction_change_window_steps: int = 2
+    spike_dwell_penalty: float = 0.03
+    spike_dwell_grace_steps: int = 2
+    spike_contact_max_gap: int = 12
     damage_penalty_per_segment: float = 0.2
     death_penalty: float = 5.0
     velocity_scale: float = 500.0
@@ -408,9 +413,18 @@ class AppConfig:
         for name in (
             "floor_reward",
             "step_penalty",
+            "direction_change_penalty",
+            "spike_dwell_penalty",
             "damage_penalty_per_segment",
             "death_penalty",
             "reset_post_action_delay_seconds",
+        ):
+            if getattr(self.environment, name) < 0:
+                raise ConfigError(f"environment.{name} 不可小於 0。")
+        for name in (
+            "direction_change_window_steps",
+            "spike_dwell_grace_steps",
+            "spike_contact_max_gap",
         ):
             if getattr(self.environment, name) < 0:
                 raise ConfigError(f"environment.{name} 不可小於 0。")

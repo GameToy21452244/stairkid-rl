@@ -17,6 +17,11 @@ def test_defaults() -> None:
     assert config.environment.max_episode_steps == 3000
     assert config.environment.floor_reward == 1.0
     assert config.environment.step_penalty == 0.01
+    assert config.environment.direction_change_penalty == 0.02
+    assert config.environment.direction_change_window_steps == 2
+    assert config.environment.spike_dwell_penalty == 0.03
+    assert config.environment.spike_dwell_grace_steps == 2
+    assert config.environment.spike_contact_max_gap == 12
     assert not config.environment.auto_restart_on_reset
     assert config.environment.reset_required_consecutive_frames == 3
     assert config.environment.reset_focus_max_observation_frames == 225
@@ -72,6 +77,16 @@ def test_invalid_environment_config() -> None:
 
     with pytest.raises(ConfigError, match="step_penalty"):
         AppConfig.from_dict({"environment": {"step_penalty": -0.1}})
+
+    with pytest.raises(ConfigError, match="direction_change_window_steps"):
+        AppConfig.from_dict(
+            {"environment": {"direction_change_window_steps": -1}}
+        )
+
+    with pytest.raises(ConfigError, match="spike_dwell_grace_steps"):
+        AppConfig.from_dict(
+            {"environment": {"spike_dwell_grace_steps": -1}}
+        )
 
     with pytest.raises(ConfigError, match="inner_dark_ratio"):
         AppConfig.from_dict(
