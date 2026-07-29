@@ -21,6 +21,7 @@ from stair_agent.diagnostics import (
     prepare_preview_window,
 )
 from stair_agent.game_state import GamePhase, GameStateDetector
+from stair_agent.game_events import GameEvent, SpringBounceDetector
 from stair_agent.hud_detection import HealthTracker, HudDetector
 from stair_agent.object_detection import ObjectDetector, PlatformKind
 from stair_agent.object_tracking import PlatformStabilizer, PlayerTracker
@@ -97,10 +98,14 @@ def run_live(
         persistent_kinds={
             PlatformKind.CONVEYOR,
             PlatformKind.FLIPPING,
+            PlatformKind.SPRING,
         },
         persistence_frames=2,
     )
     health_tracker = HealthTracker()
+    spring_bounce_detector = SpringBounceDetector()
+    recent_event = ""
+    recent_event_until = 0.0
     with ScreenCapture(config.capture, manager, target.hwnd) as capture:
         try:
             while True:
@@ -112,6 +117,13 @@ def run_live(
                     objects = platform_stabilizer.update(objects)
                     preview = object_detector.annotate(frame, objects)
                     tracking = player_tracker.update(objects, time.monotonic())
+                    event = spring_bounce_detector.update(tracking)
+                    if event.event is GameEvent.SPRING_BOUNCE:
+                        recent_event = event.event.value
+                        recent_event_until = time.monotonic() + 1.0
+                        print("事件：角色踩到彈簧平台後向上反彈。")
+                    if time.monotonic() >= recent_event_until:
+                        recent_event = ""
                     health = hud_detector.detect_health(frame)
                     health_update = health_tracker.update(health.segments)
                     player_text = (
@@ -139,12 +151,16 @@ def run_live(
                         f"PLAYING player={player_text} "
                         f"motion={tracking.motion.value} "
                         f"near={nearest} life={health.segments}{delta} "
+                        f"event={recent_event or 'none'} "
                         f"[{platform_counts(objects)}]"
                     )
                 else:
                     player_tracker.reset()
                     platform_stabilizer.reset()
                     health_tracker.reset()
+                    spring_bounce_detector.reset()
+                    recent_event = ""
+                    recent_event_until = 0.0
                     preview = frame.copy()
                     message = f"{phase.value} score={state_score:.3f}"
                 preview = annotate_frame(

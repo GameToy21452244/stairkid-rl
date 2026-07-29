@@ -67,6 +67,7 @@ vision:
   spikes_platform_template_path: "captures/templates/platform_spikes.png"
   spikes_platform_threshold: 0.90
   green_platform_template_path: "captures/templates/platform_green.png"
+  green_platform_template_paths: []
   green_platform_threshold: 0.90
   metal_platform_template_path: "captures/templates/platform_metal.png"
   metal_platform_template_paths: []

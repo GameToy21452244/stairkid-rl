@@ -34,7 +34,8 @@ class PlatformKind(Enum):
     UNKNOWN = "unknown"
     HAZARD = "hazard"
     SPIKES = "spikes"
-    GREEN_SPECIAL = "green_special"
+    SPRING = "spring"
+    GREEN_SPECIAL = "spring"
     CONVEYOR = "conveyor"
     FLIPPING = "flipping"
     METAL_SPECIAL = "conveyor"
@@ -64,6 +65,7 @@ class ObjectDetector:
         *,
         spikes_platform_template: np.ndarray | None = None,
         green_platform_template: np.ndarray | None = None,
+        green_platform_templates: list[np.ndarray] | None = None,
         metal_platform_template: np.ndarray | None = None,
         metal_platform_templates: list[np.ndarray] | None = None,
         flipping_platform_templates: list[np.ndarray] | None = None,
@@ -71,7 +73,11 @@ class ObjectDetector:
         self.config = config
         self.normal_platform_template = normal_platform_template
         self.spikes_platform_template = spikes_platform_template
-        self.green_platform_template = green_platform_template
+        self.green_platform_templates = [
+            template
+            for template in [green_platform_template, *(green_platform_templates or [])]
+            if template is not None
+        ]
         self.metal_platform_templates = [
             template
             for template in [metal_platform_template, *(metal_platform_templates or [])]
@@ -115,6 +121,9 @@ class ObjectDetector:
             ),
             green_platform_template=optional_template(
                 config.green_platform_template_path
+            ),
+            green_platform_templates=optional_templates(
+                config.green_platform_template_paths
             ),
             metal_platform_template=optional_template(
                 config.metal_platform_template_path
@@ -301,12 +310,15 @@ class ObjectDetector:
                 cfg.spikes_platform_threshold,
                 PlatformKind.SPIKES,
             ),
-            (
-                self.green_platform_template,
-                cfg.green_platform_threshold,
-                PlatformKind.GREEN_SPECIAL,
-            ),
         ]
+        templates.extend(
+            (
+                template,
+                cfg.green_platform_threshold,
+                PlatformKind.SPRING,
+            )
+            for template in self.green_platform_templates
+        )
         templates.extend(
             (
                 template,
@@ -377,7 +389,7 @@ class ObjectDetector:
             colors = {
                 PlatformKind.NORMAL: (255, 255, 0),
                 PlatformKind.SPIKES: (0, 0, 255),
-                PlatformKind.GREEN_SPECIAL: (0, 255, 255),
+                PlatformKind.SPRING: (0, 255, 255),
                 PlatformKind.CONVEYOR: (255, 0, 255),
                 PlatformKind.FLIPPING: (0, 165, 255),
             }

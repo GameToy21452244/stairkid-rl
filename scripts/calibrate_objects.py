@@ -21,13 +21,25 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--kind",
-        choices=("normal", "spikes", "green", "conveyor", "metal", "flipping"),
+        choices=(
+            "normal",
+            "spikes",
+            "spring",
+            "green",
+            "conveyor",
+            "metal",
+            "flipping",
+        ),
         default="normal",
         help="要校正的平台類型（預設：normal）。",
     )
     parser.add_argument(
         "--variant",
-        help="動畫範本編號，例如 2；適用 conveyor／flipping。",
+        help="動畫範本編號，例如 2；適用 spring／conveyor／flipping。",
+    )
+    parser.add_argument(
+        "--box",
+        help="已知範圍 left,top,width,height；省略時以滑鼠框選。",
     )
     return parser.parse_args()
 
@@ -58,15 +70,36 @@ def select_box(name: str, frame, instruction: str) -> tuple[int, int, int, int]:
     return values
 
 
+def parse_box(value: str, frame) -> tuple[int, int, int, int]:
+    try:
+        box = tuple(int(part.strip()) for part in value.split(","))
+    except ValueError as exc:
+        raise RuntimeError("--box 必須是四個整數：left,top,width,height。") from exc
+    if len(box) != 4:
+        raise RuntimeError("--box 必須是四個整數：left,top,width,height。")
+    left, top, width, height = box
+    if (
+        left < 0
+        or top < 0
+        or width <= 0
+        or height <= 0
+        or left + width > frame.shape[1]
+        or top + height > frame.shape[0]
+    ):
+        raise RuntimeError("--box 超出樣本畫面或尺寸無效。")
+    return left, top, width, height
+
+
 def main() -> None:
     args = parse_args()
     config = load_config()
     sample_path = choose_sample(args.sample)
     frame = load_image(sample_path)
     print(f"使用樣本：{sample_path}")
-    kind = "conveyor" if args.kind == "metal" else args.kind
-    if args.variant and kind not in {"conveyor", "flipping"}:
-        raise RuntimeError("--variant 只適用 conveyor 或 flipping。")
+    aliases = {"metal": "conveyor", "green": "spring"}
+    kind = aliases.get(args.kind, args.kind)
+    if args.variant and kind not in {"spring", "conveyor", "flipping"}:
+        raise RuntimeError("--variant 只適用 spring、conveyor 或 flipping。")
 
     playfield = None
     if kind == "normal":
@@ -82,17 +115,21 @@ def main() -> None:
         "conveyor": "完整的輸送帶（包含兩端圓輪）",
         "flipping": "完整的向下翻轉石板",
     }
-    platform = select_box(
-        f"框選 {kind} 平台",
-        frame,
-        f"請精確框住一個{labels[kind]}，不要包含其他物件。",
+    platform = (
+        parse_box(args.box, frame)
+        if args.box
+        else select_box(
+            f"框選 {kind} 平台",
+            frame,
+            f"請精確框住一個{labels[kind]}，不要包含其他物件。",
+        )
     )
     left, top, width, height = platform
     template = frame[top : top + height, left : left + width]
     path_attributes = {
         "normal": "normal_platform_template_path",
         "spikes": "spikes_platform_template_path",
-        "green": "green_platform_template_path",
+        "spring": "green_platform_template_path",
         "conveyor": "metal_platform_template_path",
     }
     if kind == "flipping":
@@ -101,12 +138,17 @@ def main() -> None:
         if relative_path not in config.vision.flipping_platform_template_paths:
             config.vision.flipping_platform_template_paths.append(relative_path)
         template_path = Path(relative_path)
-    elif kind == "conveyor" and args.variant:
+    elif kind in {"spring", "conveyor"} and args.variant:
         relative_path = (
-            f"captures/templates/platform_conveyor_{args.variant}.png"
+            f"captures/templates/platform_{kind}_{args.variant}.png"
         )
-        if relative_path not in config.vision.metal_platform_template_paths:
-            config.vision.metal_platform_template_paths.append(relative_path)
+        paths = (
+            config.vision.green_platform_template_paths
+            if kind == "spring"
+            else config.vision.metal_platform_template_paths
+        )
+        if relative_path not in paths:
+            paths.append(relative_path)
         template_path = Path(relative_path)
     else:
         template_path = Path(getattr(config.vision, path_attributes[kind]))

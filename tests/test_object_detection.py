@@ -127,6 +127,28 @@ def test_multiple_conveyor_animation_templates_share_one_kind() -> None:
     assert len(conveyor) == 1
 
 
+def test_multiple_spring_animation_templates_share_one_kind() -> None:
+    frame, normal_template = make_scene()
+    extended = np.zeros((10, 36, 3), dtype=np.uint8)
+    extended[:] = (20, 20, 20)
+    extended[:, ::5] = (30, 255, 30)
+    compressed = extended[3:].copy()
+    frame[98:105, 72:108] = compressed
+    detector = ObjectDetector(
+        vision_config(),
+        normal_template,
+        green_platform_templates=[extended, compressed],
+    )
+
+    objects = detector.detect(frame)
+
+    springs = [
+        item for item in objects.platforms
+        if item.kind is PlatformKind.SPRING
+    ]
+    assert len(springs) == 1
+
+
 def test_no_player_or_template_returns_empty_candidates() -> None:
     frame = np.zeros((160, 220, 3), dtype=np.uint8)
     frame[:] = (80, 0, 0)

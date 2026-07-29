@@ -93,6 +93,7 @@ class VisionConfig:
     spikes_platform_template_path: str = "captures/templates/platform_spikes.png"
     spikes_platform_threshold: float = 0.90
     green_platform_template_path: str = "captures/templates/platform_green.png"
+    green_platform_template_paths: list[str] = field(default_factory=list)
     green_platform_threshold: float = 0.90
     metal_platform_template_path: str = "captures/templates/platform_metal.png"
     metal_platform_template_paths: list[str] = field(default_factory=list)
@@ -207,6 +208,7 @@ class AppConfig:
                 raise ConfigError(f"vision.{name} 必須介於 0 與 1。")
         for name in (
             "metal_platform_template_paths",
+            "green_platform_template_paths",
             "flipping_platform_template_paths",
         ):
             values = getattr(self.vision, name)

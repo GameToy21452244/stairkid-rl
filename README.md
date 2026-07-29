@@ -178,9 +178,8 @@ python scripts/test_session_loop.py --max-seconds 60
 尺寸／密度篩選；普通亮青色冰平台使用由實際 playing 樣本裁出的模板比對與
 非極大值抑制。現在已分別使用實際樣本建立普通、尖刺、綠色特殊與輸送帶
 平台範本，重疊候選只保留信心最高的類型。角色追蹤器會從連續畫面估計上升、
-下降與畫面速度，並找出角色下方最近且水平重疊的平台。向下翻轉石板已建立
-型別、動畫多範本與校正流程，但仍需要使用者提供包含它的實際 playing 畫面，
-不會憑空猜測外觀。
+下降與畫面速度，並找出角色下方最近且水平重疊的平台。向下翻轉石板已使用
+實際 playing 畫面建立薄型與展開型兩個範本；輸送帶也加入另一個動畫相位。
 
 如需重新校正場地與普通平台：
 
@@ -192,7 +191,7 @@ python scripts/test_session_loop.py --max-seconds 60
 
 ```powershell
 .\.venv\Scripts\python.exe scripts\calibrate_objects.py --kind spikes
-.\.venv\Scripts\python.exe scripts\calibrate_objects.py --kind green
+.\.venv\Scripts\python.exe scripts\calibrate_objects.py --kind spring
 .\.venv\Scripts\python.exe scripts\calibrate_objects.py --kind conveyor
 .\.venv\Scripts\python.exe scripts\calibrate_objects.py --kind flipping
 ```
@@ -224,10 +223,19 @@ python scripts/test_session_loop.py --max-seconds 60
 .\.venv\Scripts\python.exe scripts\inspect_game_objects.py
 ```
 
-綠框代表角色、青框代表普通平台、紅框代表尖刺、黃框代表綠色特殊平台、
+綠框代表角色、青框代表普通平台、紅框代表尖刺、黃框代表彈簧平台、
 洋紅框代表輸送帶、橘框代表翻轉石板，灰框代表可遊玩場地 ROI。即時工具同時顯示角色
 座標、移動狀態、下方最近平台、距離及平台數量；它只在 `PLAYING` 狀態執行
 物件辨識，對話框出現時不會輸出假的角色或平台結果。
+
+彈簧被踩下時外觀會短暫改變，因此單張模板的黃框可能消失。即時流程會保留
+彈簧最近 2 幀的位置，並使用連續條件「角色下降且接近彈簧 → 數幀內轉為上升」
+輸出 `spring_bounce` 事件。這比只依賴壓縮後的外觀可靠，也讓後續 AI 知道角色
+將獲得一小段向上速度；事件只描述遊戲狀態，不會替玩家送出任何按鍵。
+
+目前 `collect_frames.py` 的標記鍵由 OpenCV 預覽視窗接收，點擊預覽會使遊戲
+失去前景，因此動畫瞬間較難擷取。現有翻轉石板與輸送帶樣本已足夠；若後續仍
+需大量補圖，再加入不搶遊戲焦點的全域截圖熱鍵，並避開 F8 緊急停止鍵。
 
 ## LIFE 血量辨識與遊戲機制
 
@@ -284,6 +292,6 @@ pytest -q
 - 不會執行來源不明檔案；`auto_launch` 僅允許設定中經驗證為 `.exe` 的單一路徑。
 - `captures/`、`logs/`、exe、模型與影片均由 `.gitignore` 排除。
 
-下一階段預計加入平台跨幀追蹤、下降成功／受傷事件判定與回合觀測記錄；確認
+下一階段預計加入更完整的平台跨幀追蹤、下降成功／受傷事件判定與回合觀測記錄；確認
 穩定後才建立 Gymnasium 環境。本階段仍不包含 Gymnasium、Stable-Baselines3
 或任何模型訓練。
