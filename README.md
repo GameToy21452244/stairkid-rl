@@ -497,7 +497,8 @@ JSONL 也會記錄每步的 `policy_decision`，包括原因、鎖定平台 ID�
 .\.venv\Scripts\python.exe scripts\train_ppo.py `
   --timesteps 128 `
   --max-episodes 3 `
-  --max-seconds 45
+  --max-seconds 45 `
+  --focus-target
 ```
 
 工具要求輸入大寫 `TRAIN` 並倒數 3 秒。PPO 初期是探索策略，可能快速換向、
@@ -505,6 +506,8 @@ JSONL 也會記錄每步的 `policy_decision`，包括原因、鎖定平台 ID�
 避免 Stable-Baselines3 為完成 rollout 而超過核准的送鍵數。回合數、時間或
 步數任一上限到達便停止；最後一個核准回合結束時不會自動多按一次 Enter。
 F8、失焦、額外姓名視窗、例外與 Ctrl+C 都會停止並釋放方向鍵。
+`--focus-target` 只在倒數後嘗試一次 Windows 前景切換並立即驗證；若 Windows
+拒絕切換便停止。省略此旗標時仍要求使用者手動保持遊戲前景。
 
 模型與 checkpoint 存於 `models/ppo/時間戳/`，整個 `models/` 已由 Git 忽略。
 目前只允許 CPU 訓練；短期目標是先驗證資料流與安全重設，不以這次短訓練的

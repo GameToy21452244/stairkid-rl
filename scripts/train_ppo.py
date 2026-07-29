@@ -24,6 +24,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--timesteps", type=int)
     parser.add_argument("--max-episodes", type=int)
     parser.add_argument("--max-seconds", type=float)
+    parser.add_argument(
+        "--focus-target",
+        action="store_true",
+        help="倒數後只嘗試一次將已驗證的遊戲視窗切到前景。",
+    )
     return parser.parse_args()
 
 
@@ -109,6 +114,14 @@ def main() -> None:
         for value in (3, 2, 1):
             print(f"{value}...")
             time.sleep(1)
+        if args.focus_target:
+            env.adapter.controller.window_manager.focus(target.hwnd)
+            time.sleep(0.2)
+            if not env.adapter.is_foreground():
+                raise RuntimeError(
+                    "嘗試切換後遊戲仍不是前景視窗；已停止。"
+                )
+            print("遊戲前景切換與驗證通過。")
 
         stamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
         run_dir = model_root / stamp
