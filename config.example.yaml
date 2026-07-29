@@ -117,6 +117,14 @@ environment:
   spike_dwell_penalty: 0.03
   spike_dwell_grace_steps: 2
   spike_contact_max_gap: 12
+  idle_action_penalty: 0.02
+  idle_action_grace_steps: 2
+  platform_dwell_penalty: 0.02
+  platform_dwell_grace_steps: 12
+  platform_dwell_max_gap: 80
+  top_danger_penalty: 0.03
+  top_danger_grace_steps: 2
+  top_danger_y_ratio: 0.33
   damage_penalty_per_segment: 0.2
   death_penalty: 5.0
   velocity_scale: 500.0

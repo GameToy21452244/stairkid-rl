@@ -149,6 +149,14 @@ class EnvironmentConfig:
     spike_dwell_penalty: float = 0.03
     spike_dwell_grace_steps: int = 2
     spike_contact_max_gap: int = 12
+    idle_action_penalty: float = 0.02
+    idle_action_grace_steps: int = 2
+    platform_dwell_penalty: float = 0.02
+    platform_dwell_grace_steps: int = 12
+    platform_dwell_max_gap: int = 80
+    top_danger_penalty: float = 0.03
+    top_danger_grace_steps: int = 2
+    top_danger_y_ratio: float = 0.33
     damage_penalty_per_segment: float = 0.2
     death_penalty: float = 5.0
     velocity_scale: float = 500.0
@@ -415,6 +423,9 @@ class AppConfig:
             "step_penalty",
             "direction_change_penalty",
             "spike_dwell_penalty",
+            "idle_action_penalty",
+            "platform_dwell_penalty",
+            "top_danger_penalty",
             "damage_penalty_per_segment",
             "death_penalty",
             "reset_post_action_delay_seconds",
@@ -425,9 +436,17 @@ class AppConfig:
             "direction_change_window_steps",
             "spike_dwell_grace_steps",
             "spike_contact_max_gap",
+            "idle_action_grace_steps",
+            "platform_dwell_grace_steps",
+            "platform_dwell_max_gap",
+            "top_danger_grace_steps",
         ):
             if getattr(self.environment, name) < 0:
                 raise ConfigError(f"environment.{name} 不可小於 0。")
+        if not 0.0 <= self.environment.top_danger_y_ratio <= 1.0:
+            raise ConfigError(
+                "environment.top_danger_y_ratio 必須介於 0 與 1。"
+            )
         if self.training.algorithm != "ppo":
             raise ConfigError("training.algorithm 目前只支援 ppo。")
         if self.training.device != "cpu":

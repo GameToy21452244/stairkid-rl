@@ -331,12 +331,27 @@ observation space。動作空間為：
 `spike_contact_max_gap`（預設 12 像素），連續接觸超過
 `spike_dwell_grace_steps`（預設 2 步）後，每步另扣
 `spike_dwell_penalty`（預設 `0.03`）。離開尖刺接觸區會立刻清除停留計數。
-這兩項都只是小幅 shaping，不取代實際掉血與死亡懲罰，也不加入容易鼓勵原地
+連續選擇 `RELEASE_ALL` 時，前 `idle_action_grace_steps`（預設 2 步）不扣分，
+第 3 步起每步另扣 `idle_action_penalty`（預設 `0.02`）；任何 LEFT 或 RIGHT
+都會立刻清除 idle 計數。這讓角色仍可短暫等待正下方平台，但不鼓勵在彈簧或
+其他平台長期原地反覆跳躍。
+同一個最近平台 `track_id` 持續位於角色下方、距離不超過
+`platform_dwell_max_gap`（預設 80 像素）時，也會累計平台停留步數；超過
+`platform_dwell_grace_steps`（預設 12 步）後，每步扣
+`platform_dwell_penalty`（預設 `0.02`）。換到新平台或原平台不再位於角色
+下方時立即清零。若畫面事件同時顯示掉血，會先清除舊平台停留歷史，避免把
+最上方尖刺造成的強制下墜／穿越平台誤判成模型仍停在原平台。
+角色中心高度進入畫面頂端 `top_danger_y_ratio`（預設前 33%）且超過
+`top_danger_grace_steps`（預設 2 步）時，每步另扣
+`top_danger_penalty`（預設 `0.03`），讓策略在真正撞到頂端尖刺前就有離開
+高風險區的學習訊號。
+這些項目都只是小幅 shaping，不取代實際掉血與死亡懲罰，也不加入容易鼓勵原地
 拖時間的存活獎勵。
 
 每次 Gym `step()` 的 `info["reward_components"]` 會分別記錄反向切換、尖刺
-接觸步數及各項 reward，方便後續量化抖動率與危險停留。這些控制 shaping
-只在具有 LEFT／RIGHT／RELEASE 動作的 Gym 控制步生效；人工與離線逐幀稽核
+接觸步數、idle 步數、同平台停留、頂端危險區及各項 reward，方便後續量化
+抖動率與危險停留。這些
+控制 shaping 只在具有 LEFT／RIGHT／RELEASE 動作的 Gym 控制步生效；人工與離線逐幀稽核
 沒有等價控制頻率，因此不套用，避免把 15 FPS 畫面誤算成控制步。
 回血與
 `spring_bounce` 會保留在觀測／事件資訊，但不重複加獎勵。這可避免「下樓回血」

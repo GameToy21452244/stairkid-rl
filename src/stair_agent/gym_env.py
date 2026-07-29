@@ -262,6 +262,15 @@ class RewardCalculator:
         spike_dwell_penalty: float = 0.0,
         spike_dwell_grace_steps: int = 0,
         spike_contact_max_gap: int = 12,
+        idle_action_penalty: float = 0.0,
+        idle_action_grace_steps: int = 0,
+        platform_dwell_penalty: float = 0.0,
+        platform_dwell_grace_steps: int = 0,
+        platform_dwell_max_gap: int = 80,
+        reference_height: int = 431,
+        top_danger_penalty: float = 0.0,
+        top_danger_grace_steps: int = 0,
+        top_danger_y_ratio: float = 0.0,
         damage_penalty_per_segment: float = 0.2,
         death_penalty: float = 5.0,
     ) -> None:
@@ -278,6 +287,29 @@ class RewardCalculator:
             int(spike_dwell_grace_steps),
         )
         self.spike_contact_max_gap = max(0, int(spike_contact_max_gap))
+        self.idle_action_penalty = float(idle_action_penalty)
+        self.idle_action_grace_steps = max(
+            0,
+            int(idle_action_grace_steps),
+        )
+        self.platform_dwell_penalty = float(platform_dwell_penalty)
+        self.platform_dwell_grace_steps = max(
+            0,
+            int(platform_dwell_grace_steps),
+        )
+        self.platform_dwell_max_gap = max(
+            0,
+            int(platform_dwell_max_gap),
+        )
+        self.reference_height = max(1.0, float(reference_height))
+        self.top_danger_penalty = float(top_danger_penalty)
+        self.top_danger_grace_steps = max(
+            0,
+            int(top_danger_grace_steps),
+        )
+        self.top_danger_y_ratio = float(
+            np.clip(top_danger_y_ratio, 0.0, 1.0)
+        )
         self.damage_penalty_per_segment = float(damage_penalty_per_segment)
         self.death_penalty = float(death_penalty)
         self.last_components: dict[str, Any] = {}
@@ -287,6 +319,10 @@ class RewardCalculator:
         self._last_direction: Action | None = None
         self._steps_since_direction = 0
         self._spike_dwell_steps = 0
+        self._idle_action_steps = 0
+        self._platform_dwell_key: tuple[int, str] | None = None
+        self._platform_dwell_steps = 0
+        self._top_danger_steps = 0
         self.last_components = {
             "step_penalty": 0.0,
             "floor_reward": 0.0,
@@ -297,6 +333,13 @@ class RewardCalculator:
             "spike_contact": False,
             "spike_dwell_steps": 0,
             "spike_dwell_penalty": 0.0,
+            "idle_action_steps": 0,
+            "idle_action_penalty": 0.0,
+            "platform_dwell_steps": 0,
+            "platform_dwell_penalty": 0.0,
+            "top_danger": False,
+            "top_danger_steps": 0,
+            "top_danger_penalty": 0.0,
         }
 
     def _update_direction(self, action: Action) -> bool:
@@ -331,6 +374,46 @@ class RewardCalculator:
         )
         return contact
 
+    def _update_platform_dwell(
+        self,
+        observation: GameObservation,
+    ) -> int:
+        nearest = observation.nearest_platform
+        gap = None if nearest is None else nearest.get("vertical_gap")
+        track_id = None if nearest is None else nearest.get("track_id")
+        if (
+            nearest is None
+            or track_id is None
+            or gap is None
+            or not 0 <= float(gap) <= self.platform_dwell_max_gap
+        ):
+            self._platform_dwell_key = None
+            self._platform_dwell_steps = 0
+            return 0
+        key = (int(track_id), str(nearest.get("kind", "")))
+        if key == self._platform_dwell_key:
+            self._platform_dwell_steps += 1
+        else:
+            self._platform_dwell_key = key
+            self._platform_dwell_steps = 1
+        return self._platform_dwell_steps
+
+    def _update_top_danger(
+        self,
+        observation: GameObservation,
+    ) -> bool:
+        player = observation.player
+        in_danger = bool(
+            player is not None
+            and float(player.get("center_y", self.reference_height))
+            / self.reference_height
+            <= self.top_danger_y_ratio
+        )
+        self._top_danger_steps = (
+            self._top_danger_steps + 1 if in_danger else 0
+        )
+        return in_danger
+
     def calculate(
         self,
         observation: GameObservation,
@@ -349,13 +432,22 @@ class RewardCalculator:
             "spike_contact": False,
             "spike_dwell_steps": 0,
             "spike_dwell_penalty": 0.0,
+            "idle_action_steps": 0,
+            "idle_action_penalty": 0.0,
+            "platform_dwell_steps": 0,
+            "platform_dwell_penalty": 0.0,
+            "top_danger": False,
+            "top_danger_steps": 0,
+            "top_danger_penalty": 0.0,
         }
+        took_damage = False
         for event in observation.events:
             event_type = event.get("type")
             if event_type == "floor_descended":
                 reward += self.floor_reward
                 components["floor_reward"] += self.floor_reward
             elif event_type in {"damage", "spike_damage"}:
+                took_damage = True
                 health_delta = min(0, int(event.get("health_delta") or 0))
                 damage_penalty = (
                     health_delta * self.damage_penalty_per_segment
@@ -366,6 +458,43 @@ class RewardCalculator:
             reward -= self.death_penalty
             components["death_penalty"] = -self.death_penalty
         if action is not None:
+            self._idle_action_steps = (
+                self._idle_action_steps + 1
+                if action is Action.RELEASE_ALL
+                else 0
+            )
+            components["idle_action_steps"] = self._idle_action_steps
+            if self._idle_action_steps > self.idle_action_grace_steps:
+                reward -= self.idle_action_penalty
+                components["idle_action_penalty"] = (
+                    -self.idle_action_penalty
+                )
+            if took_damage:
+                # 頂端尖刺可能強制角色向下穿越原平台；掉血時先清除
+                # 舊平台停留歷史，避免把遊戲的強制位移算成持續駐留。
+                self._platform_dwell_key = None
+                self._platform_dwell_steps = 0
+            platform_dwell_steps = self._update_platform_dwell(observation)
+            components["platform_dwell_steps"] = platform_dwell_steps
+            if (
+                platform_dwell_steps
+                > self.platform_dwell_grace_steps
+            ):
+                reward -= self.platform_dwell_penalty
+                components["platform_dwell_penalty"] = (
+                    -self.platform_dwell_penalty
+                )
+            top_danger = self._update_top_danger(observation)
+            components["top_danger"] = top_danger
+            components["top_danger_steps"] = self._top_danger_steps
+            if (
+                top_danger
+                and self._top_danger_steps > self.top_danger_grace_steps
+            ):
+                reward -= self.top_danger_penalty
+                components["top_danger_penalty"] = (
+                    -self.top_danger_penalty
+                )
             direction_changed = self._update_direction(action)
             components["direction_changed"] = direction_changed
             if direction_changed:
@@ -424,6 +553,17 @@ class StairAgentEnv(gym.Env[np.ndarray, int]):
             spike_dwell_penalty=self.config.spike_dwell_penalty,
             spike_dwell_grace_steps=self.config.spike_dwell_grace_steps,
             spike_contact_max_gap=self.config.spike_contact_max_gap,
+            idle_action_penalty=self.config.idle_action_penalty,
+            idle_action_grace_steps=self.config.idle_action_grace_steps,
+            platform_dwell_penalty=self.config.platform_dwell_penalty,
+            platform_dwell_grace_steps=(
+                self.config.platform_dwell_grace_steps
+            ),
+            platform_dwell_max_gap=self.config.platform_dwell_max_gap,
+            reference_height=reference_height,
+            top_danger_penalty=self.config.top_danger_penalty,
+            top_danger_grace_steps=self.config.top_danger_grace_steps,
+            top_danger_y_ratio=self.config.top_danger_y_ratio,
             damage_penalty_per_segment=self.config.damage_penalty_per_segment,
             death_penalty=self.config.death_penalty,
         )

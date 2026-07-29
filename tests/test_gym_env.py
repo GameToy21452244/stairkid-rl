@@ -232,6 +232,139 @@ def test_reward_penalizes_spike_contact_only_after_grace_steps() -> None:
     assert calculator.last_components["spike_dwell_steps"] == 0
 
 
+def test_reward_penalizes_idle_action_only_after_grace_and_resets() -> None:
+    calculator = RewardCalculator(
+        step_penalty=0.0,
+        idle_action_penalty=0.02,
+        idle_action_grace_steps=2,
+    )
+    item = observation()
+
+    first = calculator.calculate(
+        item,
+        terminated=False,
+        action=Action.RELEASE_ALL,
+    )
+    second = calculator.calculate(
+        item,
+        terminated=False,
+        action=Action.RELEASE_ALL,
+    )
+    third = calculator.calculate(
+        item,
+        terminated=False,
+        action=Action.RELEASE_ALL,
+    )
+
+    assert first == 0.0
+    assert second == 0.0
+    assert third == pytest.approx(-0.02)
+    assert calculator.last_components["idle_action_steps"] == 3
+    assert calculator.last_components["idle_action_penalty"] == pytest.approx(
+        -0.02
+    )
+
+    calculator.calculate(
+        item,
+        terminated=False,
+        action=Action.LEFT,
+    )
+
+    assert calculator.last_components["idle_action_steps"] == 0
+    assert calculator.last_components["idle_action_penalty"] == 0.0
+
+
+def test_reward_penalizes_same_platform_dwell_and_new_platform_resets() -> None:
+    calculator = RewardCalculator(
+        step_penalty=0.0,
+        platform_dwell_penalty=0.02,
+        platform_dwell_grace_steps=2,
+        platform_dwell_max_gap=80,
+    )
+    item = observation()
+
+    first = calculator.calculate(
+        item,
+        terminated=False,
+        action=Action.LEFT,
+    )
+    second = calculator.calculate(
+        item,
+        terminated=False,
+        action=Action.LEFT,
+    )
+    third = calculator.calculate(
+        item,
+        terminated=False,
+        action=Action.LEFT,
+    )
+
+    assert first == 0.0
+    assert second == 0.0
+    assert third == pytest.approx(-0.02)
+    assert calculator.last_components["platform_dwell_steps"] == 3
+    assert calculator.last_components["platform_dwell_penalty"] == pytest.approx(
+        -0.02
+    )
+
+    next_platform = replace(
+        item,
+        nearest_platform={
+            **item.nearest_platform,
+            "track_id": 8,
+        },
+    )
+    calculator.calculate(
+        next_platform,
+        terminated=False,
+        action=Action.LEFT,
+    )
+
+    assert calculator.last_components["platform_dwell_steps"] == 1
+    assert calculator.last_components["platform_dwell_penalty"] == 0.0
+
+
+def test_reward_penalizes_top_danger_after_grace_steps() -> None:
+    item = observation()
+    top_player = replace(
+        item,
+        player={
+            **item.player,
+            "center_y": 100.0,
+        },
+    )
+    calculator = RewardCalculator(
+        step_penalty=0.0,
+        reference_height=431,
+        top_danger_penalty=0.03,
+        top_danger_grace_steps=2,
+        top_danger_y_ratio=0.33,
+    )
+
+    calculator.calculate(
+        top_player,
+        terminated=False,
+        action=Action.LEFT,
+    )
+    calculator.calculate(
+        top_player,
+        terminated=False,
+        action=Action.LEFT,
+    )
+    reward = calculator.calculate(
+        top_player,
+        terminated=False,
+        action=Action.LEFT,
+    )
+
+    assert reward == pytest.approx(-0.03)
+    assert calculator.last_components["top_danger"]
+    assert calculator.last_components["top_danger_steps"] == 3
+    assert calculator.last_components["top_danger_penalty"] == pytest.approx(
+        -0.03
+    )
+
+
 def test_environment_maps_actions_and_returns_gym_tuple() -> None:
     adapter = FakeAdapter(
         step_observations=[
