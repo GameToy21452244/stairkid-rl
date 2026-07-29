@@ -41,6 +41,7 @@ class ControlsConfig:
     pause_key: str | None = None
     action_duration_ms: int = 80
     restart_duration_ms: int = 200
+    menu_focus_correction_key: str | None = None
     input_backend: str = "pyautogui"
 
 
@@ -150,6 +151,7 @@ class EnvironmentConfig:
     auto_restart_on_reset: bool = False
     reset_required_consecutive_frames: int = 3
     reset_max_observation_frames: int = 30
+    reset_focus_max_observation_frames: int = 75
     reset_post_action_delay_seconds: float = 0.4
     max_observation_platforms: int = 8
     observation_history_frames: int = 4
@@ -296,6 +298,13 @@ class AppConfig:
             raise ConfigError("controls.action_duration_ms 必須大於 0。")
         if self.controls.restart_duration_ms <= 0:
             raise ConfigError("controls.restart_duration_ms 必須大於 0。")
+        if (
+            self.controls.menu_focus_correction_key is not None
+            and not self.controls.menu_focus_correction_key.strip()
+        ):
+            raise ConfigError(
+                "controls.menu_focus_correction_key 必須是非空字串或 null。"
+            )
         if not 0.0 < self.detection.dialog_threshold <= 1.0:
             raise ConfigError("detection.dialog_threshold 必須介於 0 與 1 之間。")
         if self.detection.search_margin < 0:
@@ -370,6 +379,7 @@ class AppConfig:
             "max_platforms_per_type",
             "reset_required_consecutive_frames",
             "reset_max_observation_frames",
+            "reset_focus_max_observation_frames",
             "max_observation_platforms",
             "observation_history_frames",
         ):
@@ -385,6 +395,14 @@ class AppConfig:
         ):
             raise ConfigError(
                 "environment.reset_max_observation_frames 不可小於"
+                " reset_required_consecutive_frames。"
+            )
+        if (
+            self.environment.reset_focus_max_observation_frames
+            < self.environment.reset_required_consecutive_frames
+        ):
+            raise ConfigError(
+                "environment.reset_focus_max_observation_frames 不可小於"
                 " reset_required_consecutive_frames。"
             )
         for name in (

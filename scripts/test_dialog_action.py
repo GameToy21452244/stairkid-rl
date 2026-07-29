@@ -125,9 +125,14 @@ def main() -> None:
                 max_observation_frames=max_frames,
                 observation_delay_seconds=frame_delay,
                 focus_guard=focus_guard,
-                focus_correction_key=config.controls.right_key,
+                focus_correction_key=(
+                    config.controls.menu_focus_correction_key
+                ),
                 focus_correction_duration_ms=(
                     config.controls.action_duration_ms
+                ),
+                focus_max_observation_frames=(
+                    config.environment.reset_focus_max_observation_frames
                 ),
             )
             with SafetyMonitor(

@@ -135,9 +135,12 @@ def test_dialog_corrects_two_player_focus_once_before_enter() -> None:
     two_player[70, 25:55] = 100
     start = np.full((100, 100, 3), 240, dtype=np.uint8)
     start[70, 60:90] = 100
+    delayed = np.full((100, 100, 3), 240, dtype=np.uint8)
     playing = np.zeros((100, 100, 3), dtype=np.uint8)
     detector = SequenceDetector(
         [
+            GamePhase.DIALOG,
+            GamePhase.DIALOG,
             GamePhase.DIALOG,
             GamePhase.DIALOG,
             GamePhase.DIALOG,
@@ -155,6 +158,8 @@ def test_dialog_corrects_two_player_focus_once_before_enter() -> None:
             [
                 two_player,
                 two_player,
+                delayed,
+                delayed,
                 start,
                 start,
                 playing,
@@ -164,6 +169,7 @@ def test_dialog_corrects_two_player_focus_once_before_enter() -> None:
         key_duration_ms=200,
         required_consecutive=2,
         max_observation_frames=2,
+        focus_max_observation_frames=6,
         observation_delay_seconds=0,
         post_action_delay_seconds=0,
         focus_guard=guard,

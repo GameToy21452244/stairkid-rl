@@ -9,6 +9,7 @@ def test_defaults() -> None:
     config = AppConfig.from_dict({})
     assert config.capture.target_fps == 15
     assert config.controls.input_backend == "pyautogui"
+    assert config.controls.menu_focus_correction_key is None
     assert config.safety.emergency_stop_key == "f8"
     assert config.safety.block_on_related_windows
     assert config.events.landing_contact_gap == 6
@@ -18,6 +19,7 @@ def test_defaults() -> None:
     assert config.environment.step_penalty == 0.01
     assert not config.environment.auto_restart_on_reset
     assert config.environment.reset_required_consecutive_frames == 3
+    assert config.environment.reset_focus_max_observation_frames == 75
     assert config.environment.max_observation_platforms == 8
     assert config.environment.observation_history_frames == 4
     assert config.environment.include_action_history
@@ -54,6 +56,15 @@ def test_invalid_environment_config() -> None:
             {"environment": {"observation_history_frames": 0}}
         )
 
+    with pytest.raises(ConfigError, match="reset_focus_max"):
+        AppConfig.from_dict(
+            {
+                "environment": {
+                    "reset_focus_max_observation_frames": 2,
+                }
+            }
+        )
+
     with pytest.raises(ConfigError, match="include_action_history"):
         AppConfig.from_dict(
             {"environment": {"include_action_history": "yes"}}
@@ -69,6 +80,11 @@ def test_invalid_environment_config() -> None:
                     "menu_focus_inner_dark_ratio_min": 1.1,
                 }
             }
+        )
+
+    with pytest.raises(ConfigError, match="menu_focus_correction_key"):
+        AppConfig.from_dict(
+            {"controls": {"menu_focus_correction_key": ""}}
         )
 
 

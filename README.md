@@ -402,9 +402,24 @@ online RL 訓練仍應在本機執行。
   避免最後一次 LEFT／RIGHT 改變選單焦點。
 - 連續 3 幀穩定為主遊戲 `DIALOG`，且右側單人「開始」按鈕具有校正後的焦點
   外框：最多短按一次設定中的 `restart_key`。
-- 焦點明確位於中央雙人模式：最多短按一次 RIGHT，重新擷取並確認焦點已移到
-  右側單人開始，之後才允許 Enter。修正後仍不正確便停止，不會連按或循環。
+- 焦點明確位於中央雙人模式：只有
+  `controls.menu_focus_correction_key` 已經實機校正時，才最多短按該鍵一次，
+  重新擷取並確認焦點已移到右側單人開始，之後才允許 Enter。舊遊戲重繪焦點
+  可能較慢，因此只擷取等待最多 `reset_focus_max_observation_frames`
+  （預設約 5 秒）；期間不增加按鍵。修正後仍不正確便停止，不會連按或循環。
 - 焦點位置不明或按鈕 ROI 未校正：停止且不送方向鍵或 Enter。
+
+自動焦點修正鍵預設為 `null`，因此未校正時遇到雙人焦點只會停止。可先執行
+下列工具；它不會自行製造雙人焦點，只有目前真實停在中央雙人時才測試一次
+候選鍵，全程不按 Enter：
+
+```powershell
+.\.venv\Scripts\python.exe scripts\calibrate_menu_focus.py `
+  --candidate-key tab
+```
+
+只有工具在真實畫面回報成功後，才把
+`controls.menu_focus_correction_key` 設為該鍵。
 - Enter 後必須重新辨識為 `PLAYING` 才算成功。
 - Enter 後仍是對話框、狀態不明、失焦、F8 或例外：立即停止，不補按第二次。
 - 不搜尋、不聚焦，也不對另一個螢幕上的未知姓名輸入視窗送鍵。

@@ -231,6 +231,7 @@ class DialogActionHandler:
         focus_correction_key: str | None = None,
         focus_correction_duration_ms: int | None = None,
         focus_correction_delay_seconds: float = 0.1,
+        focus_max_observation_frames: int | None = None,
         sleep_fn: Callable[[float], None] = time.sleep,
     ) -> None:
         if required_consecutive <= 0:
@@ -255,6 +256,15 @@ class DialogActionHandler:
             0.0,
             focus_correction_delay_seconds,
         )
+        self.focus_max_observation_frames = (
+            self.max_observation_frames
+            if focus_max_observation_frames is None
+            else int(focus_max_observation_frames)
+        )
+        if self.focus_max_observation_frames < self.required_consecutive:
+            raise ValueError(
+                "focus_max_observation_frames 不可小於 required_consecutive。"
+            )
         self.sleep_fn = sleep_fn
 
     def observe_stable(self) -> StableObservation:
@@ -284,6 +294,31 @@ class DialogActionHandler:
             consecutive,
         )
 
+    def _observe_stable_start_focus(self) -> StableObservation | None:
+        assert self.focus_guard is not None
+        consecutive = 0
+        for index in range(self.focus_max_observation_frames):
+            frame = self.frame_source()
+            phase, score = self.detector.detect_with_score(frame)
+            if (
+                phase is GamePhase.DIALOG
+                and self.focus_guard.focus_location(frame)
+                is DialogFocusLocation.START
+            ):
+                consecutive += 1
+                if consecutive >= self.required_consecutive:
+                    return StableObservation(
+                        phase,
+                        score,
+                        frame.copy(),
+                        consecutive,
+                    )
+            else:
+                consecutive = 0
+            if index + 1 < self.focus_max_observation_frames:
+                self.sleep_fn(self.observation_delay_seconds)
+        return None
+
     def execute_once(
         self,
         confirmed_before: StableObservation | None = None,
@@ -311,12 +346,8 @@ class DialogActionHandler:
                     )
                     self.controller.release_all()
                     self.sleep_fn(self.focus_correction_delay_seconds)
-                    corrected = self.observe_stable()
-                    if (
-                        corrected.phase is not GamePhase.DIALOG
-                        or self.focus_guard.focus_location(corrected.frame)
-                        is not DialogFocusLocation.START
-                    ):
+                    corrected = self._observe_stable_start_focus()
+                    if corrected is None:
                         raise DialogActionError(
                             "已嘗試一次焦點修正，但無法確認單人開始；"
                             "沒有送出 Enter。"
