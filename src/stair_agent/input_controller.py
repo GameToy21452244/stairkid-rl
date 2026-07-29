@@ -36,13 +36,15 @@ class PyAutoGUIBackend:
         self.module = pyautogui
 
     def key_down(self, key: str) -> None:
-        self.module.keyDown(key)
+        # 保留每次呼叫前的 FAILSAFE 檢查，只略過 PyAutoGUI 預設的
+        # 0.1 秒通用 PAUSE；實際按住時間仍由 LiveGameAdapter 控制。
+        self.module.keyDown(key, _pause=False)
 
     def key_up(self, key: str) -> None:
-        self.module.keyUp(key)
+        self.module.keyUp(key, _pause=False)
 
     def press(self, key: str) -> None:
-        self.module.press(key)
+        self.module.press(key, _pause=False)
 
 
 class PyDirectInputBackend:

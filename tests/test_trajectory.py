@@ -83,6 +83,7 @@ def test_trajectory_writer_writes_jsonl_and_summary(tmp_path: Path) -> None:
         result=result,
         cumulative_reward=auditor.total_reward,
         policy_decision={"reason": "test"},
+        decision_observation=observation(health=9),
     )
     writer.close(auditor.summary())
 
@@ -99,6 +100,7 @@ def test_trajectory_writer_writes_jsonl_and_summary(tmp_path: Path) -> None:
     assert len(rows[0]["features"]) == 64
     assert rows[0]["observation"]["phase"] == "playing"
     assert rows[0]["policy_decision"]["reason"] == "test"
+    assert rows[0]["decision_observation"]["health"]["segments"] == 9
     assert summary["steps"] == 1
     assert summary["event_counts"] == {"floor_descended": 1}
 

@@ -107,19 +107,31 @@ environment:
   reset_max_observation_frames: 30
   reset_post_action_delay_seconds: 0.4
   max_observation_platforms: 8
+  observation_history_frames: 4
+  include_action_history: true
 
 baseline:
   max_episode_steps: 300
   max_episode_seconds: 30.0
   horizontal_deadzone_pixels: 12.0
   min_target_vertical_gap_pixels: 25.0
-  max_target_vertical_gap_pixels: 200.0
+  max_target_vertical_gap_pixels: 260.0
   hazard_vertical_gap_pixels: 180.0
   hazard_horizontal_margin_pixels: 64.0
   direction_switch_release_frames: 1
   rising_origin_exclusion_gap_pixels: 150.0
   rising_origin_horizontal_margin_pixels: 12.0
   target_reacquire_distance_pixels: 80.0
+  landing_margin_pixels: 10.0
+  reachability_base_pixels: 70.0
+  reachability_per_vertical_pixel: 0.8
+  launch_platform_vertical_gap_pixels: 30.0
+  launch_escape_clearance_pixels: 16.0
+  post_launch_coast_frames: 2
+  fallback_center_x_pixels: 231.5
+  top_danger_player_y_threshold: 140.0
+  deep_landing_horizontal_cost: 0.75
+  emergency_spike_min_health_segments: 6
   safe_platform_kinds:
     - normal
     - spring

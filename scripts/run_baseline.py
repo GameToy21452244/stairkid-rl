@@ -60,8 +60,8 @@ def main() -> None:
         )
         print("這是規則基準，不是強化學習，也不會更新或建立模型。")
         print(
-            "策略只會朝最近的下方非尖刺平台短按左／右；"
-            "沒有安全目標時全部放開。"
+            "策略會先選可達安全落點，再短按左／右；"
+            "接近尖刺會離台，頂端危險時會偏好更深落點。"
         )
         print(
             f"只跑 1 回合，最多 {max_steps} 步或 {max_seconds:.1f} 秒；"
@@ -101,7 +101,8 @@ def main() -> None:
                 print("遊戲失焦或出現額外遊戲視窗，停止基準。")
                 break
 
-            decision = policy.choose(env.last_observation)
+            decision_observation = env.last_observation
+            decision = policy.choose(decision_observation)
             action_counts[decision.action.name] += 1
             features, reward, terminated, truncated, info = env.step(
                 int(decision.action)
@@ -125,6 +126,7 @@ def main() -> None:
                     "target_platform_kind": decision.target_platform_kind,
                     "horizontal_delta": decision.horizontal_delta,
                 },
+                decision_observation=decision_observation,
             )
             if (
                 decision.action is not last_action

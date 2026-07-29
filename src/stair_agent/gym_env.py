@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections import deque
 from typing import Any, Protocol
 
 import gymnasium as gym
@@ -168,6 +169,86 @@ class FeatureEncoder:
         return values
 
 
+class TemporalObservationStack:
+    """以固定長度堆疊特徵，並選擇性附加造成該觀測的動作。"""
+
+    def __init__(
+        self,
+        feature_count: int,
+        *,
+        history_frames: int,
+        include_action_history: bool,
+    ) -> None:
+        if feature_count <= 0 or history_frames <= 0:
+            raise ValueError("特徵數與歷史幀數必須大於 0。")
+        self.feature_count = int(feature_count)
+        self.history_frames = int(history_frames)
+        self.include_action_history = bool(include_action_history)
+        self.action_feature_count = 3 if include_action_history else 0
+        self.frame_width = self.feature_count + self.action_feature_count
+        self.feature_shape = (self.history_frames * self.frame_width,)
+        self.space = spaces.Box(
+            low=-1.0,
+            high=1.0,
+            shape=self.feature_shape,
+            dtype=np.float32,
+        )
+        self._frames: deque[np.ndarray] = deque(
+            maxlen=self.history_frames
+        )
+        self._actions: deque[np.ndarray] = deque(
+            maxlen=self.history_frames
+        )
+
+    def _action_features(self, action: Action | None) -> np.ndarray:
+        values = np.zeros(self.action_feature_count, dtype=np.float32)
+        if self.include_action_history and action is not None:
+            values[int(action)] = 1.0
+        return values
+
+    def _flatten(self) -> np.ndarray:
+        chunks = []
+        for frame, action in zip(self._frames, self._actions):
+            chunks.append(
+                np.concatenate((frame, action)).astype(
+                    np.float32,
+                    copy=False,
+                )
+            )
+        return np.concatenate(chunks).astype(np.float32, copy=False)
+
+    def reset(self, features: np.ndarray) -> np.ndarray:
+        frame = np.asarray(features, dtype=np.float32)
+        if frame.shape != (self.feature_count,):
+            raise ValueError(
+                f"單幀特徵尺寸必須是 {(self.feature_count,)}，"
+                f"實際為 {frame.shape}。"
+            )
+        self._frames.clear()
+        self._actions.clear()
+        for _ in range(self.history_frames):
+            self._frames.append(frame.copy())
+            self._actions.append(self._action_features(None))
+        return self._flatten()
+
+    def append(
+        self,
+        features: np.ndarray,
+        action: Action,
+    ) -> np.ndarray:
+        if len(self._frames) != self.history_frames:
+            raise RuntimeError("時序觀測尚未 reset。")
+        frame = np.asarray(features, dtype=np.float32)
+        if frame.shape != (self.feature_count,):
+            raise ValueError(
+                f"單幀特徵尺寸必須是 {(self.feature_count,)}，"
+                f"實際為 {frame.shape}。"
+            )
+        self._frames.append(frame.copy())
+        self._actions.append(self._action_features(action))
+        return self._flatten()
+
+
 class RewardCalculator:
     """第一版保守獎勵：下樓得分、掉血扣分、死亡額外扣分。"""
 
@@ -229,19 +310,26 @@ class StairAgentEnv(gym.Env[np.ndarray, int]):
             damage_penalty_per_segment=self.config.damage_penalty_per_segment,
             death_penalty=self.config.death_penalty,
         )
+        self.temporal_stack = TemporalObservationStack(
+            self.encoder.feature_count,
+            history_frames=self.config.observation_history_frames,
+            include_action_history=self.config.include_action_history,
+        )
         self.action_space = spaces.Discrete(3)
-        self.observation_space = self.encoder.space
+        self.observation_space = self.temporal_stack.space
         self._step_count = 0
         self.last_observation: GameObservation | None = None
 
-    @staticmethod
-    def _info(observation: GameObservation) -> dict[str, Any]:
+    def _info(self, observation: GameObservation) -> dict[str, Any]:
         return {
             "phase": observation.phase,
             "events": [
                 str(event.get("type", "unknown"))
                 for event in observation.events
             ],
+            "history_frames": self.temporal_stack.history_frames,
+            "raw_feature_count": self.encoder.feature_count,
+            "stacked_feature_count": self.observation_space.shape[0],
         }
 
     @staticmethod
@@ -270,7 +358,8 @@ class StairAgentEnv(gym.Env[np.ndarray, int]):
                     "reset adapter 未能讓遊戲進入 PLAYING；"
                     f"目前為 {observation.phase!r}。"
                 )
-            return self.encoder.encode(observation), self._info(observation)
+            features = self.encoder.encode(observation)
+            return self.temporal_stack.reset(features), self._info(observation)
         except Exception:
             self.adapter.release_all()
             raise
@@ -298,7 +387,10 @@ class StairAgentEnv(gym.Env[np.ndarray, int]):
             if terminated or truncated:
                 self.adapter.release_all()
             return (
-                self.encoder.encode(observation),
+                self.temporal_stack.append(
+                    self.encoder.encode(observation),
+                    mapped_action,
+                ),
                 reward,
                 terminated,
                 truncated,

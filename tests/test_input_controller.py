@@ -1,4 +1,6 @@
 import time
+import sys
+from types import SimpleNamespace
 
 import pytest
 
@@ -7,6 +9,7 @@ from stair_agent.input_controller import (
     Action,
     InputController,
     InputError,
+    PyAutoGUIBackend,
     SafetyMonitor,
 )
 
@@ -139,3 +142,28 @@ def test_safety_monitor_stops_when_related_window_appears() -> None:
 
     assert controller.related_window_stopped
     assert not controller.held_keys
+
+
+def test_pyautogui_backend_skips_only_generic_pause_and_keeps_failsafe(
+    monkeypatch,
+) -> None:
+    calls = []
+    fake = SimpleNamespace(
+        FAILSAFE=True,
+        keyDown=lambda key, **kwargs: calls.append(("down", key, kwargs)),
+        keyUp=lambda key, **kwargs: calls.append(("up", key, kwargs)),
+        press=lambda key, **kwargs: calls.append(("press", key, kwargs)),
+    )
+    monkeypatch.setitem(sys.modules, "pyautogui", fake)
+    backend = PyAutoGUIBackend()
+
+    backend.key_down("left")
+    backend.key_up("left")
+    backend.press("enter")
+
+    assert calls == [
+        ("down", "left", {"_pause": False}),
+        ("up", "left", {"_pause": False}),
+        ("press", "enter", {"_pause": False}),
+    ]
+    assert fake.FAILSAFE is True

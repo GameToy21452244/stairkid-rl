@@ -139,6 +139,8 @@ class EnvironmentConfig:
     reset_max_observation_frames: int = 30
     reset_post_action_delay_seconds: float = 0.4
     max_observation_platforms: int = 8
+    observation_history_frames: int = 4
+    include_action_history: bool = True
 
 
 @dataclass
@@ -147,13 +149,23 @@ class BaselineConfig:
     max_episode_seconds: float = 30.0
     horizontal_deadzone_pixels: float = 12.0
     min_target_vertical_gap_pixels: float = 25.0
-    max_target_vertical_gap_pixels: float = 200.0
+    max_target_vertical_gap_pixels: float = 260.0
     hazard_vertical_gap_pixels: float = 180.0
     hazard_horizontal_margin_pixels: float = 64.0
     direction_switch_release_frames: int = 1
     rising_origin_exclusion_gap_pixels: float = 150.0
     rising_origin_horizontal_margin_pixels: float = 12.0
     target_reacquire_distance_pixels: float = 80.0
+    landing_margin_pixels: float = 10.0
+    reachability_base_pixels: float = 70.0
+    reachability_per_vertical_pixel: float = 0.8
+    launch_platform_vertical_gap_pixels: float = 30.0
+    launch_escape_clearance_pixels: float = 16.0
+    post_launch_coast_frames: int = 2
+    fallback_center_x_pixels: float = 231.5
+    top_danger_player_y_threshold: float = 140.0
+    deep_landing_horizontal_cost: float = 0.75
+    emergency_spike_min_health_segments: int = 6
     safe_platform_kinds: list[str] = field(
         default_factory=lambda: [
             "normal",
@@ -300,9 +312,14 @@ class AppConfig:
             "reset_required_consecutive_frames",
             "reset_max_observation_frames",
             "max_observation_platforms",
+            "observation_history_frames",
         ):
             if getattr(self.environment, name) <= 0:
                 raise ConfigError(f"environment.{name} 必須大於 0。")
+        if not isinstance(self.environment.include_action_history, bool):
+            raise ConfigError(
+                "environment.include_action_history 必須是布林值。"
+            )
         if (
             self.environment.reset_max_observation_frames
             < self.environment.reset_required_consecutive_frames
@@ -331,12 +348,28 @@ class AppConfig:
             "rising_origin_exclusion_gap_pixels",
             "rising_origin_horizontal_margin_pixels",
             "target_reacquire_distance_pixels",
+            "landing_margin_pixels",
+            "reachability_base_pixels",
+            "reachability_per_vertical_pixel",
+            "launch_platform_vertical_gap_pixels",
+            "launch_escape_clearance_pixels",
+            "top_danger_player_y_threshold",
+            "deep_landing_horizontal_cost",
+            "fallback_center_x_pixels",
         ):
             if getattr(self.baseline, name) < 0:
                 raise ConfigError(f"baseline.{name} 不可小於 0。")
         if self.baseline.direction_switch_release_frames <= 0:
             raise ConfigError(
                 "baseline.direction_switch_release_frames 必須大於 0。"
+            )
+        if self.baseline.emergency_spike_min_health_segments <= 0:
+            raise ConfigError(
+                "baseline.emergency_spike_min_health_segments 必須大於 0。"
+            )
+        if self.baseline.post_launch_coast_frames < 0:
+            raise ConfigError(
+                "baseline.post_launch_coast_frames 不可小於 0。"
             )
         if (
             self.baseline.max_target_vertical_gap_pixels

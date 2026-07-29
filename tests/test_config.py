@@ -18,6 +18,8 @@ def test_defaults() -> None:
     assert not config.environment.auto_restart_on_reset
     assert config.environment.reset_required_consecutive_frames == 3
     assert config.environment.max_observation_platforms == 8
+    assert config.environment.observation_history_frames == 4
+    assert config.environment.include_action_history
     assert config.baseline.max_episode_steps == 300
     assert config.baseline.direction_switch_release_frames == 1
 
@@ -41,6 +43,16 @@ def test_invalid_environment_config() -> None:
     with pytest.raises(ConfigError, match="reset_max_observation_frames"):
         AppConfig.from_dict(
             {"environment": {"reset_max_observation_frames": 0}}
+        )
+
+    with pytest.raises(ConfigError, match="observation_history_frames"):
+        AppConfig.from_dict(
+            {"environment": {"observation_history_frames": 0}}
+        )
+
+    with pytest.raises(ConfigError, match="include_action_history"):
+        AppConfig.from_dict(
+            {"environment": {"include_action_history": "yes"}}
         )
 
 

@@ -20,12 +20,13 @@ def observation(
     events=None,
     health=12,
     health_delta=0,
+    player_x=200.0,
 ):
     return GameObservation(
         timestamp=1.0,
         phase=phase,
         player={
-            "center_x": 200.0,
+            "center_x": player_x,
             "center_y": 160.0,
             "velocity_x": 20.0,
             "velocity_y": -30.0,
@@ -142,6 +143,73 @@ def test_environment_maps_actions_and_returns_gym_tuple() -> None:
     assert not terminated
     assert not truncated
     assert step_info["events"] == ["floor_descended"]
+
+
+def test_environment_stacks_recent_features_and_action_history() -> None:
+    adapter = FakeAdapter(
+        step_observations=[observation(player_x=300.0)]
+    )
+    env = StairAgentEnv(
+        adapter,
+        EnvironmentConfig(
+            observation_history_frames=3,
+            include_action_history=True,
+        ),
+    )
+
+    initial, info = env.reset()
+    result, *_rest = env.step(1)
+    initial_chunks = initial.reshape(3, 67)
+    result_chunks = result.reshape(3, 67)
+
+    assert initial.shape == (201,)
+    assert info["history_frames"] == 3
+    assert info["raw_feature_count"] == 64
+    assert np.all(initial_chunks[:, 64:] == 0.0)
+    assert np.allclose(initial_chunks[0, :64], initial_chunks[2, :64])
+    assert result_chunks[-1, 1] == pytest.approx(300 / 634)
+    assert result_chunks[-1, 64:].tolist() == [0.0, 1.0, 0.0]
+    assert result_chunks[-2, 1] == pytest.approx(200 / 634)
+    assert env.observation_space.contains(result)
+
+
+def test_reset_clears_temporal_action_history() -> None:
+    adapter = FakeAdapter(
+        step_observations=[observation(player_x=300.0)]
+    )
+    env = StairAgentEnv(
+        adapter,
+        EnvironmentConfig(
+            observation_history_frames=2,
+            include_action_history=True,
+        ),
+    )
+    env.reset()
+    stepped, *_rest = env.step(2)
+    assert stepped.reshape(2, 67)[-1, 64:].tolist() == [0.0, 0.0, 1.0]
+
+    adapter.reset_observation = observation(player_x=250.0)
+    reset_features, _info = env.reset()
+    chunks = reset_features.reshape(2, 67)
+
+    assert np.all(chunks[:, 64:] == 0.0)
+    assert np.allclose(chunks[0], chunks[1])
+    assert chunks[-1, 1] == pytest.approx(250 / 634)
+
+
+def test_environment_can_disable_action_history() -> None:
+    env = StairAgentEnv(
+        FakeAdapter(),
+        EnvironmentConfig(
+            observation_history_frames=4,
+            include_action_history=False,
+        ),
+    )
+
+    features, _info = env.reset()
+
+    assert features.shape == (256,)
+    assert env.observation_space.contains(features)
 
 
 def test_dialog_terminates_episode_and_releases_keys() -> None:

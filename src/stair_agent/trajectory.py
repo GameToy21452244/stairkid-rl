@@ -102,6 +102,7 @@ class TrajectoryJsonlWriter:
         result: AuditResult,
         cumulative_reward: float,
         policy_decision: dict[str, Any] | None = None,
+        decision_observation: GameObservation | None = None,
     ) -> None:
         payload = {
             "step": step,
@@ -116,6 +117,8 @@ class TrajectoryJsonlWriter:
         }
         if policy_decision is not None:
             payload["policy_decision"] = policy_decision
+        if decision_observation is not None:
+            payload["decision_observation"] = decision_observation.to_dict()
         self._file.write(json.dumps(payload, ensure_ascii=False) + "\n")
         self._file.flush()
 
