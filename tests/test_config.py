@@ -62,6 +62,15 @@ def test_invalid_environment_config() -> None:
     with pytest.raises(ConfigError, match="step_penalty"):
         AppConfig.from_dict({"environment": {"step_penalty": -0.1}})
 
+    with pytest.raises(ConfigError, match="inner_dark_ratio"):
+        AppConfig.from_dict(
+            {
+                "detection": {
+                    "menu_focus_inner_dark_ratio_min": 1.1,
+                }
+            }
+        )
+
 
 def test_invalid_baseline_config() -> None:
     with pytest.raises(ConfigError, match="horizontal_deadzone_pixels"):

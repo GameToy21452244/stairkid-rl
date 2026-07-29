@@ -231,6 +231,10 @@ def build_dialog_focus_guard(
         ),
         focused_border_mean_max=config.menu_focus_border_mean_max,
         minimum_contrast=config.menu_focus_minimum_contrast,
+        focused_inner_gray_max=config.menu_focus_inner_gray_max,
+        focused_inner_dark_ratio_min=(
+            config.menu_focus_inner_dark_ratio_min
+        ),
     )
 
 

@@ -80,6 +80,8 @@ class DetectionConfig:
     menu_two_player_button_height: int | None = None
     menu_focus_border_mean_max: float = 180.0
     menu_focus_minimum_contrast: float = 20.0
+    menu_focus_inner_gray_max: int = 80
+    menu_focus_inner_dark_ratio_min: float = 0.20
 
 
 @dataclass
@@ -305,6 +307,19 @@ class AppConfig:
         if self.detection.menu_focus_minimum_contrast < 0:
             raise ConfigError(
                 "detection.menu_focus_minimum_contrast 不可小於 0。"
+            )
+        if not 0 <= self.detection.menu_focus_inner_gray_max <= 255:
+            raise ConfigError(
+                "detection.menu_focus_inner_gray_max 必須介於 0 與 255。"
+            )
+        if not (
+            0.0
+            <= self.detection.menu_focus_inner_dark_ratio_min
+            <= 1.0
+        ):
+            raise ConfigError(
+                "detection.menu_focus_inner_dark_ratio_min "
+                "必須介於 0 與 1。"
             )
         if not 0.0 < self.vision.normal_platform_threshold <= 1.0:
             raise ConfigError("vision.normal_platform_threshold 必須介於 0 與 1。")

@@ -106,8 +106,14 @@ def test_dialog_focus_guard_only_accepts_single_player_start() -> None:
     safe[70, 60:90] = 100
     unsafe = np.full((100, 100, 3), 240, dtype=np.uint8)
     unsafe[70, 25:55] = 100
+    safe_dotted = np.full((100, 100, 3), 240, dtype=np.uint8)
+    safe_dotted[73, 64:86:2] = 0
+    safe_dotted[78, 64:86:2] = 0
+    safe_dotted[73:79:2, 64] = 0
+    safe_dotted[73:79:2, 85] = 0
 
     assert guard(safe)
+    assert guard(safe_dotted)
     assert not guard(unsafe)
     assert guard.focus_location(safe) is DialogFocusLocation.START
     assert (

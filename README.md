@@ -414,6 +414,7 @@ online RL 訓練仍應在本機執行。
 按鈕 ROI 位於 `detection.menu_start_button_*` 與
 `detection.menu_two_player_button_*`，座標以 `detection.reference_width`、
 `reference_height` 為基準。目前本機 `634×431` client 已依實際截圖校正；
+焦點守門器同時辨識按鈕粗深色預設外框與內側鍵盤虛線框，鍵盤焦點優先。
 其他版本或尺寸不可直接猜測，必須重新擷取選單畫面校正。
 
 第一次實機驗證請保持 `auto_restart_on_reset: false`，只使用有明確回合上限的

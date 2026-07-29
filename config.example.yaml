@@ -56,6 +56,8 @@ detection:
   menu_two_player_button_height: null
   menu_focus_border_mean_max: 180.0
   menu_focus_minimum_contrast: 20.0
+  menu_focus_inner_gray_max: 80
+  menu_focus_inner_dark_ratio_min: 0.20
 
 vision:
   playfield_left: null

@@ -32,6 +32,8 @@ class DialogFocusGuard:
     two_player_button_rect: tuple[int, int, int, int]
     focused_border_mean_max: float = 180.0
     minimum_contrast: float = 20.0
+    focused_inner_gray_max: int = 80
+    focused_inner_dark_ratio_min: float = 0.20
 
     def _top_border_mean(
         self,
@@ -54,6 +56,50 @@ class DialogFocusGuard:
             return 255.0
         border_height = max(1, round(scale_y))
         return float(np.mean(gray[y : y + border_height, x : x + w]))
+
+    def _inner_border_dark_ratio(
+        self,
+        gray: np.ndarray,
+        rect: tuple[int, int, int, int],
+    ) -> float:
+        left, top, width, height = rect
+        scale_x = gray.shape[1] / self.reference_width
+        scale_y = gray.shape[0] / self.reference_height
+        x = round(left * scale_x)
+        y = round(top * scale_y)
+        w = max(1, round(width * scale_x))
+        h = max(1, round(height * scale_y))
+        inset_x = max(1, round(4 * scale_x))
+        inset_y = max(1, round(3 * scale_y))
+        if (
+            x < 0
+            or y < 0
+            or x + w > gray.shape[1]
+            or y + h > gray.shape[0]
+            or w <= inset_x * 2
+            or h <= inset_y * 2
+        ):
+            return 0.0
+        top_line = gray[
+            y + inset_y,
+            x + inset_x : x + w - inset_x,
+        ]
+        bottom_line = gray[
+            y + h - inset_y - 1,
+            x + inset_x : x + w - inset_x,
+        ]
+        left_line = gray[
+            y + inset_y : y + h - inset_y,
+            x + inset_x,
+        ]
+        right_line = gray[
+            y + inset_y : y + h - inset_y,
+            x + w - inset_x - 1,
+        ]
+        border = np.concatenate(
+            (top_line, bottom_line, left_line, right_line)
+        )
+        return float(np.mean(border <= self.focused_inner_gray_max))
 
     def focus_location(
         self,
@@ -78,6 +124,28 @@ class DialogFocusGuard:
             gray,
             self.two_player_button_rect,
         )
+        start_inner = self._inner_border_dark_ratio(
+            gray,
+            self.start_button_rect,
+        )
+        two_player_inner = self._inner_border_dark_ratio(
+            gray,
+            self.two_player_button_rect,
+        )
+        start_has_inner_focus = (
+            start_inner >= self.focused_inner_dark_ratio_min
+        )
+        two_player_has_inner_focus = (
+            two_player_inner >= self.focused_inner_dark_ratio_min
+        )
+        if start_has_inner_focus != two_player_has_inner_focus:
+            return (
+                DialogFocusLocation.START
+                if start_has_inner_focus
+                else DialogFocusLocation.TWO_PLAYER
+            )
+        if start_has_inner_focus:
+            return DialogFocusLocation.UNKNOWN
         if (
             start_mean <= self.focused_border_mean_max
             and two_player_mean - start_mean >= self.minimum_contrast
