@@ -119,7 +119,7 @@ environment:
   auto_restart_on_reset: false
   reset_required_consecutive_frames: 3
   reset_max_observation_frames: 30
-  reset_focus_max_observation_frames: 75
+  reset_focus_max_observation_frames: 225
   reset_post_action_delay_seconds: 0.4
   max_observation_platforms: 8
   observation_history_frames: 4

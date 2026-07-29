@@ -37,11 +37,13 @@ class SingleEnterEpisodeResetter:
         self.reset_pipeline = reset_pipeline
         self.last_enter_sent = False
         self.last_focus_corrected = False
+        self.last_focus_recovered_without_input = False
         self.last_stable: StableObservation | None = None
 
     def reset(self) -> GameObservation:
         self.last_enter_sent = False
         self.last_focus_corrected = False
+        self.last_focus_recovered_without_input = False
         self.last_stable = None
         self.controller.release_all()
         try:
@@ -53,6 +55,9 @@ class SingleEnterEpisodeResetter:
                 self.last_enter_sent = True
                 result = self.handler.execute_once(before)
                 self.last_focus_corrected = result.focus_corrected
+                self.last_focus_recovered_without_input = (
+                    result.focus_recovered_without_input
+                )
                 self.last_stable = result.after
                 if result.outcome is not DialogActionOutcome.PLAYING:
                     raise EpisodeResetError(

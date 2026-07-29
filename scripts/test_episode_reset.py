@@ -115,10 +115,15 @@ def main() -> None:
                 resetter is not None
                 and resetter.last_focus_corrected
             )
+            focus_recovered = bool(
+                resetter is not None
+                and resetter.last_focus_recovered_without_input
+            )
             print(
                 f"回合 {cycle}/{args.cycles} reset 通過："
                 f"phase={info['phase']}，enter_sent={enter_sent}，"
                 f"focus_corrected={focus_corrected}，"
+                f"focus_recovered={focus_recovered}，"
                 f"features={observation.shape}"
             )
             reason = wait_for_round_end(

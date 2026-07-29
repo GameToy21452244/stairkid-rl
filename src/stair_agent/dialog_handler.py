@@ -193,6 +193,7 @@ class DialogActionResult:
     outcome: DialogActionOutcome
     frame_change: float
     focus_corrected: bool = False
+    focus_recovered_without_input: bool = False
 
 
 def normalized_frame_difference(before: np.ndarray, after: np.ndarray) -> float:
@@ -326,6 +327,7 @@ class DialogActionHandler:
         try:
             before = confirmed_before or self.observe_stable()
             focus_corrected = False
+            focus_recovered_without_input = False
             if before.phase is not GamePhase.DIALOG:
                 raise DialogActionError(
                     f"目前穩定狀態不是 DIALOG，而是 {before.phase.value}；"
@@ -334,26 +336,35 @@ class DialogActionHandler:
             if self.focus_guard is not None:
                 location = self.focus_guard.focus_location(before.frame)
                 if location is DialogFocusLocation.TWO_PLAYER:
-                    if not self.focus_correction_key:
-                        raise DialogActionError(
-                            "焦點位於雙人模式，但未設定安全修正鍵；"
-                            "沒有送出 Enter。"
-                        )
+                    # 死亡可能發生在方向鍵狀態切換期間。再次送出純
+                    # key-up，再等待舊遊戲完成對話框焦點重繪；此處
+                    # 不送任何 key-down，也不主動切換選項。
                     self.controller.release_all()
-                    self.controller.tap(
-                        self.focus_correction_key,
-                        self.focus_correction_duration_ms,
-                    )
-                    self.controller.release_all()
-                    self.sleep_fn(self.focus_correction_delay_seconds)
                     corrected = self._observe_stable_start_focus()
-                    if corrected is None:
-                        raise DialogActionError(
-                            "已嘗試一次焦點修正，但無法確認單人開始；"
-                            "沒有送出 Enter。"
+                    if corrected is not None:
+                        before = corrected
+                        focus_recovered_without_input = True
+                    else:
+                        if not self.focus_correction_key:
+                            raise DialogActionError(
+                                "雙人焦點未在等待期限內自然恢復，且未設定"
+                                "安全修正鍵；沒有送出 Enter。"
+                            )
+                        self.controller.release_all()
+                        self.controller.tap(
+                            self.focus_correction_key,
+                            self.focus_correction_duration_ms,
                         )
-                    before = corrected
-                    focus_corrected = True
+                        self.controller.release_all()
+                        self.sleep_fn(self.focus_correction_delay_seconds)
+                        corrected = self._observe_stable_start_focus()
+                        if corrected is None:
+                            raise DialogActionError(
+                                "已嘗試一次焦點修正，但無法確認單人開始；"
+                                "沒有送出 Enter。"
+                            )
+                        before = corrected
+                        focus_corrected = True
                 elif location is not DialogFocusLocation.START:
                     raise DialogActionError(
                         "無法判斷選單焦點位置；沒有送出 Enter。"
@@ -388,6 +399,7 @@ class DialogActionHandler:
                 outcome,
                 frame_change,
                 focus_corrected,
+                focus_recovered_without_input,
             )
         finally:
             self.controller.release_all()
