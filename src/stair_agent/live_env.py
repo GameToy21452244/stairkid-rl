@@ -298,7 +298,11 @@ def create_live_environment(
             post_action_delay_seconds=(
                 config.environment.reset_post_action_delay_seconds
             ),
-            confirm_guard=focus_guard,
+            focus_guard=focus_guard,
+            focus_correction_key=config.controls.right_key,
+            focus_correction_duration_ms=(
+                config.controls.action_duration_ms
+            ),
         )
         episode_resetter = SingleEnterEpisodeResetter(
             handler=handler,

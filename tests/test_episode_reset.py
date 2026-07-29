@@ -108,6 +108,7 @@ def test_dialog_reset_sends_at_most_one_enter_and_requires_playing() -> None:
     assert result.phase == "playing"
     assert handler.execute_calls == [handler.before]
     assert resetter.last_enter_sent
+    assert not resetter.last_focus_corrected
     assert reset_calls == [True]
     assert controller.release_count >= 2
 

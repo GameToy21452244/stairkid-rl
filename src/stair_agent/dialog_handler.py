@@ -16,6 +16,12 @@ class DialogActionError(RuntimeError):
     """對話框動作的安全前置條件不成立。"""
 
 
+class DialogFocusLocation(Enum):
+    START = "start"
+    TWO_PLAYER = "two_player"
+    UNKNOWN = "unknown"
+
+
 @dataclass(frozen=True)
 class DialogFocusGuard:
     """只在單人開始按鈕具有深色焦點外框時允許確認。"""
@@ -49,13 +55,16 @@ class DialogFocusGuard:
         border_height = max(1, round(scale_y))
         return float(np.mean(gray[y : y + border_height, x : x + w]))
 
-    def __call__(self, frame: np.ndarray) -> bool:
+    def focus_location(
+        self,
+        frame: np.ndarray,
+    ) -> DialogFocusLocation:
         if (
             self.reference_width <= 0
             or self.reference_height <= 0
             or frame.size == 0
         ):
-            return False
+            return DialogFocusLocation.UNKNOWN
         gray = (
             cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
             if frame.ndim == 3
@@ -69,10 +78,20 @@ class DialogFocusGuard:
             gray,
             self.two_player_button_rect,
         )
-        return (
+        if (
             start_mean <= self.focused_border_mean_max
             and two_player_mean - start_mean >= self.minimum_contrast
-        )
+        ):
+            return DialogFocusLocation.START
+        if (
+            two_player_mean <= self.focused_border_mean_max
+            and start_mean - two_player_mean >= self.minimum_contrast
+        ):
+            return DialogFocusLocation.TWO_PLAYER
+        return DialogFocusLocation.UNKNOWN
+
+    def __call__(self, frame: np.ndarray) -> bool:
+        return self.focus_location(frame) is DialogFocusLocation.START
 
 
 class Detector(Protocol):
@@ -105,6 +124,7 @@ class DialogActionResult:
     after: StableObservation
     outcome: DialogActionOutcome
     frame_change: float
+    focus_corrected: bool = False
 
 
 def normalized_frame_difference(before: np.ndarray, after: np.ndarray) -> float:
@@ -139,6 +159,10 @@ class DialogActionHandler:
         post_action_delay_seconds: float = 0.4,
         dialog_change_threshold: float = 0.05,
         confirm_guard: Callable[[np.ndarray], bool] | None = None,
+        focus_guard: DialogFocusGuard | None = None,
+        focus_correction_key: str | None = None,
+        focus_correction_duration_ms: int | None = None,
+        focus_correction_delay_seconds: float = 0.1,
         sleep_fn: Callable[[float], None] = time.sleep,
     ) -> None:
         if required_consecutive <= 0:
@@ -156,6 +180,13 @@ class DialogActionHandler:
         self.post_action_delay_seconds = max(0.0, post_action_delay_seconds)
         self.dialog_change_threshold = max(0.0, dialog_change_threshold)
         self.confirm_guard = confirm_guard
+        self.focus_guard = focus_guard
+        self.focus_correction_key = focus_correction_key
+        self.focus_correction_duration_ms = focus_correction_duration_ms
+        self.focus_correction_delay_seconds = max(
+            0.0,
+            focus_correction_delay_seconds,
+        )
         self.sleep_fn = sleep_fn
 
     def observe_stable(self) -> StableObservation:
@@ -191,11 +222,43 @@ class DialogActionHandler:
     ) -> DialogActionResult:
         try:
             before = confirmed_before or self.observe_stable()
+            focus_corrected = False
             if before.phase is not GamePhase.DIALOG:
                 raise DialogActionError(
                     f"目前穩定狀態不是 DIALOG，而是 {before.phase.value}；"
                     "沒有送出 Enter。"
                 )
+            if self.focus_guard is not None:
+                location = self.focus_guard.focus_location(before.frame)
+                if location is DialogFocusLocation.TWO_PLAYER:
+                    if not self.focus_correction_key:
+                        raise DialogActionError(
+                            "焦點位於雙人模式，但未設定安全修正鍵；"
+                            "沒有送出 Enter。"
+                        )
+                    self.controller.release_all()
+                    self.controller.tap(
+                        self.focus_correction_key,
+                        self.focus_correction_duration_ms,
+                    )
+                    self.controller.release_all()
+                    self.sleep_fn(self.focus_correction_delay_seconds)
+                    corrected = self.observe_stable()
+                    if (
+                        corrected.phase is not GamePhase.DIALOG
+                        or self.focus_guard.focus_location(corrected.frame)
+                        is not DialogFocusLocation.START
+                    ):
+                        raise DialogActionError(
+                            "已嘗試一次焦點修正，但無法確認單人開始；"
+                            "沒有送出 Enter。"
+                        )
+                    before = corrected
+                    focus_corrected = True
+                elif location is not DialogFocusLocation.START:
+                    raise DialogActionError(
+                        "無法判斷選單焦點位置；沒有送出 Enter。"
+                    )
             if (
                 self.confirm_guard is not None
                 and not self.confirm_guard(before.frame)
@@ -220,6 +283,12 @@ class DialogActionHandler:
                 )
             else:
                 outcome = DialogActionOutcome.UNKNOWN
-            return DialogActionResult(before, after, outcome, frame_change)
+            return DialogActionResult(
+                before,
+                after,
+                outcome,
+                frame_change,
+                focus_corrected,
+            )
         finally:
             self.controller.release_all()

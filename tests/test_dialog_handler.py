@@ -6,6 +6,7 @@ from stair_agent.dialog_handler import (
     DialogActionHandler,
     DialogActionOutcome,
     DialogFocusGuard,
+    DialogFocusLocation,
     StableObservation,
 )
 from stair_agent.game_state import GamePhase
@@ -108,6 +109,97 @@ def test_dialog_focus_guard_only_accepts_single_player_start() -> None:
 
     assert guard(safe)
     assert not guard(unsafe)
+    assert guard.focus_location(safe) is DialogFocusLocation.START
+    assert (
+        guard.focus_location(unsafe)
+        is DialogFocusLocation.TWO_PLAYER
+    )
+
+
+def test_dialog_corrects_two_player_focus_once_before_enter() -> None:
+    guard = DialogFocusGuard(
+        reference_width=100,
+        reference_height=100,
+        start_button_rect=(60, 70, 30, 12),
+        two_player_button_rect=(25, 70, 30, 12),
+        focused_border_mean_max=180.0,
+        minimum_contrast=20.0,
+    )
+    two_player = np.full((100, 100, 3), 240, dtype=np.uint8)
+    two_player[70, 25:55] = 100
+    start = np.full((100, 100, 3), 240, dtype=np.uint8)
+    start[70, 60:90] = 100
+    playing = np.zeros((100, 100, 3), dtype=np.uint8)
+    detector = SequenceDetector(
+        [
+            GamePhase.DIALOG,
+            GamePhase.DIALOG,
+            GamePhase.DIALOG,
+            GamePhase.DIALOG,
+            GamePhase.PLAYING,
+            GamePhase.PLAYING,
+        ]
+    )
+    controller = FakeController()
+    handler = DialogActionHandler(
+        detector,
+        controller,
+        "enter",
+        frame_source(
+            [
+                two_player,
+                two_player,
+                start,
+                start,
+                playing,
+                playing,
+            ]
+        ),
+        key_duration_ms=200,
+        required_consecutive=2,
+        max_observation_frames=2,
+        observation_delay_seconds=0,
+        post_action_delay_seconds=0,
+        focus_guard=guard,
+        focus_correction_key="right",
+        focus_correction_duration_ms=80,
+        sleep_fn=lambda _seconds: None,
+    )
+
+    result = handler.execute_once()
+
+    assert result.outcome is DialogActionOutcome.PLAYING
+    assert result.focus_corrected
+    assert controller.taps == [("right", 80), ("enter", 200)]
+
+
+def test_dialog_unknown_focus_never_attempts_correction_or_enter() -> None:
+    guard = DialogFocusGuard(
+        reference_width=100,
+        reference_height=100,
+        start_button_rect=(60, 70, 30, 12),
+        two_player_button_rect=(25, 70, 30, 12),
+    )
+    unknown = np.full((100, 100, 3), 240, dtype=np.uint8)
+    detector = SequenceDetector([GamePhase.DIALOG, GamePhase.DIALOG])
+    controller = FakeController()
+    handler = DialogActionHandler(
+        detector,
+        controller,
+        "enter",
+        frame_source([unknown, unknown]),
+        required_consecutive=2,
+        max_observation_frames=2,
+        observation_delay_seconds=0,
+        focus_guard=guard,
+        focus_correction_key="right",
+        sleep_fn=lambda _seconds: None,
+    )
+
+    with pytest.raises(DialogActionError, match="焦點"):
+        handler.execute_once()
+
+    assert controller.taps == []
 
 
 def test_dialog_does_not_press_enter_when_start_focus_is_unconfirmed() -> None:

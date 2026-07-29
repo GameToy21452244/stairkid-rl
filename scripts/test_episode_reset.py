@@ -111,9 +111,14 @@ def main() -> None:
             enter_sent = bool(
                 resetter is not None and resetter.last_enter_sent
             )
+            focus_corrected = bool(
+                resetter is not None
+                and resetter.last_focus_corrected
+            )
             print(
                 f"回合 {cycle}/{args.cycles} reset 通過："
                 f"phase={info['phase']}，enter_sent={enter_sent}，"
+                f"focus_corrected={focus_corrected}，"
                 f"features={observation.shape}"
             )
             reason = wait_for_round_end(

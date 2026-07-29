@@ -124,7 +124,11 @@ def main() -> None:
                 required_consecutive=args.consecutive_frames,
                 max_observation_frames=max_frames,
                 observation_delay_seconds=frame_delay,
-                confirm_guard=focus_guard,
+                focus_guard=focus_guard,
+                focus_correction_key=config.controls.right_key,
+                focus_correction_duration_ms=(
+                    config.controls.action_duration_ms
+                ),
             )
             with SafetyMonitor(
                 controller,
