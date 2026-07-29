@@ -14,6 +14,7 @@ from stair_agent.object_tracking import (
     PlayerTrackingState,
 )
 import json
+import pytest
 
 from stair_agent.observation import ObservationBuilder, ObservationJsonlWriter
 
@@ -93,3 +94,13 @@ def test_observation_jsonl_writer_writes_one_record(tmp_path) -> None:
 
     record = json.loads(path.read_text(encoding="utf-8"))
     assert record["nearest_platform"]["track_id"] == 7
+
+
+def test_observation_writer_does_not_append_to_existing_session(tmp_path) -> None:
+    path = tmp_path / "observations.jsonl"
+    path.write_text("existing\n", encoding="utf-8")
+
+    with pytest.raises(FileExistsError):
+        ObservationJsonlWriter(path)
+
+    assert path.read_text(encoding="utf-8") == "existing\n"

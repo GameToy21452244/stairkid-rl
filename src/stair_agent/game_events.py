@@ -25,12 +25,29 @@ class GameEventDetection:
     health_delta: int | None = None
 
 
+def describe_event_zh(event: GameEventDetection) -> str:
+    names = {
+        GameEvent.LANDED: "角色落地",
+        GameEvent.FLOOR_DESCENDED: "成功下降至新平台",
+        GameEvent.SPRING_BOUNCE: "彈簧向上反彈",
+        GameEvent.HEALTH_GAINED: "血量增加",
+        GameEvent.DAMAGE: "受到未分類傷害",
+        GameEvent.SPIKE_DAMAGE: "尖刺傷害",
+    }
+    description = names.get(event.event, event.event.value)
+    if event.source_platform is not None:
+        description += f"({event.source_platform.kind.value})"
+    if event.health_delta is not None:
+        description += f"(delta={event.health_delta:+d})"
+    return description
+
+
 class SpringBounceDetector:
     """以接近彈簧後轉為上升的連續畫面辨識反彈事件。"""
 
     def __init__(
         self,
-        contact_gap: int = 6,
+        contact_gap: int = 12,
         max_wait_frames: int = 5,
         cooldown_frames: int = 5,
     ) -> None:
@@ -151,11 +168,16 @@ class GameplayEventDetector:
 
     def __init__(
         self,
-        contact_gap: int = 6,
+        landing_contact_gap: int = 6,
+        spring_contact_gap: int = 12,
         correlation_frames: int = 5,
     ) -> None:
-        self.landing_detector = LandingDetector(contact_gap=contact_gap)
-        self.spring_detector = SpringBounceDetector(contact_gap=contact_gap)
+        self.landing_detector = LandingDetector(
+            contact_gap=landing_contact_gap
+        )
+        self.spring_detector = SpringBounceDetector(
+            contact_gap=spring_contact_gap
+        )
         self.correlation_frames = max(1, correlation_frames)
         self._recent_platform: PlatformDetection | None = None
         self._recent_frames = 0

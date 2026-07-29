@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import time
 from collections import Counter
+from datetime import datetime
 from pathlib import Path
 
 from _common import (
@@ -22,7 +23,7 @@ from stair_agent.diagnostics import (
     prepare_preview_window,
 )
 from stair_agent.game_state import GamePhase, GameStateDetector
-from stair_agent.game_events import GameEvent, GameplayEventDetector
+from stair_agent.game_events import describe_event_zh, GameplayEventDetector
 from stair_agent.hud_detection import HealthTracker, HudDetector
 from stair_agent.object_detection import ObjectDetector, PlatformKind
 from stair_agent.object_tracking import (
@@ -47,11 +48,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--record-jsonl",
         nargs="?",
-        const=Path("logs/observations.jsonl"),
+        const=Path("__auto__"),
         type=Path,
         help=(
-            "選擇性記錄每幀結構化觀測；可省略路徑並使用 "
-            "logs/observations.jsonl。"
+            "選擇性記錄每幀結構化觀測；省略路徑時在 logs/ "
+            "建立帶時間戳的新檔案。"
         ),
     )
     parser.add_argument(
@@ -143,15 +144,27 @@ def run_live(
         persistence_frames=2,
     )
     health_tracker = HealthTracker()
-    gameplay_event_detector = GameplayEventDetector()
+    gameplay_event_detector = GameplayEventDetector(
+        landing_contact_gap=config.events.landing_contact_gap,
+        spring_contact_gap=config.events.spring_contact_gap,
+        correlation_frames=config.events.correlation_frames,
+    )
     observation_builder = ObservationBuilder()
     writer = None
     if record_path is not None:
-        resolved = (
-            record_path
-            if record_path.is_absolute()
-            else PROJECT_ROOT / record_path
-        )
+        if record_path == Path("__auto__"):
+            stamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
+            resolved = (
+                PROJECT_ROOT
+                / "logs"
+                / f"observations_{stamp}.jsonl"
+            )
+        else:
+            resolved = (
+                record_path
+                if record_path.is_absolute()
+                else PROJECT_ROOT / record_path
+            )
         writer = ObservationJsonlWriter(resolved)
         print(f"結構化觀測將寫入：{resolved}")
     recent_events = ""
@@ -189,21 +202,21 @@ def run_live(
                     )
                     if events:
                         recent_events = ",".join(
-                            item.event.value for item in events
+                            (
+                                item.event.value
+                                + (
+                                    f":{item.source_platform.kind.value}"
+                                    if item.source_platform is not None
+                                    else ""
+                                )
+                            )
+                            for item in events
                         )
                         recent_event_until = now + 1.5
-                        event_names = {
-                            GameEvent.LANDED: "角色落地",
-                            GameEvent.FLOOR_DESCENDED: "成功下降至新平台",
-                            GameEvent.SPRING_BOUNCE: "彈簧向上反彈",
-                            GameEvent.HEALTH_GAINED: "血量增加",
-                            GameEvent.DAMAGE: "受到未分類傷害",
-                            GameEvent.SPIKE_DAMAGE: "尖刺傷害",
-                        }
                         print(
                             "事件："
                             + "、".join(
-                                event_names[item.event] for item in events
+                                describe_event_zh(item) for item in events
                             )
                         )
                     if time.monotonic() >= recent_event_until:

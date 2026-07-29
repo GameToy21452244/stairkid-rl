@@ -119,6 +119,13 @@ class HudConfig:
 
 
 @dataclass
+class EventsConfig:
+    landing_contact_gap: int = 6
+    spring_contact_gap: int = 12
+    correlation_frames: int = 5
+
+
+@dataclass
 class AppConfig:
     game: GameConfig = field(default_factory=GameConfig)
     capture: CaptureConfig = field(default_factory=CaptureConfig)
@@ -128,6 +135,7 @@ class AppConfig:
     detection: DetectionConfig = field(default_factory=DetectionConfig)
     vision: VisionConfig = field(default_factory=VisionConfig)
     hud: HudConfig = field(default_factory=HudConfig)
+    events: EventsConfig = field(default_factory=EventsConfig)
 
     @classmethod
     def from_dict(cls, data: dict[str, Any] | None) -> "AppConfig":
@@ -141,6 +149,7 @@ class AppConfig:
             "detection",
             "vision",
             "hud",
+            "events",
         }
         unknown = set(data) - known
         if unknown:
@@ -154,6 +163,7 @@ class AppConfig:
             detection=DetectionConfig(**data.get("detection", {})),
             vision=VisionConfig(**data.get("vision", {})),
             hud=HudConfig(**data.get("hud", {})),
+            events=EventsConfig(**data.get("events", {})),
         )
         config.validate()
         return config
@@ -231,6 +241,13 @@ class AppConfig:
         for name in ("life_red_min", "life_green_min", "life_blue_max"):
             if not 0 <= getattr(self.hud, name) <= 255:
                 raise ConfigError(f"hud.{name} 必須介於 0 與 255。")
+        for name in (
+            "landing_contact_gap",
+            "spring_contact_gap",
+            "correlation_frames",
+        ):
+            if getattr(self.events, name) <= 0:
+                raise ConfigError(f"events.{name} 必須大於 0。")
 
     def validated_exe_path(self) -> Path:
         path = Path(self.game.exe_path).expanduser()

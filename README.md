@@ -45,6 +45,8 @@ Copy-Item config.example.yaml config.yaml
 - `controls.input_backend`：預設 `pyautogui`；只有遊戲不接受時才改為
   `pydirectinput`。
 - `capture`：擷取模式、校正值、輸出尺寸與 FPS。
+- `events.landing_contact_gap`：一般落地接觸距離，實機值為 6。
+- `events.spring_contact_gap`：彈簧接觸距離；依實際 JSONL 校正為 12。
 
 `config.yaml` 已加入 `.gitignore`，本機路徑不會提交。`client_area` 模式下，
 `left`、`top` 是相對於遊戲 client area 左上角的偏移；視窗移動時會重新取得
@@ -231,7 +233,9 @@ python scripts/test_session_loop.py --max-seconds 60
 彈簧被踩下時外觀會短暫改變，因此單張模板的黃框可能消失。即時流程會保留
 彈簧最近 2 幀的位置，並使用連續條件「角色下降且接近彈簧 → 數幀內轉為上升」
 輸出 `spring_bounce` 事件。這比只依賴壓縮後的外觀可靠，也讓後續 AI 知道角色
-將獲得一小段向上速度；事件只描述遊戲狀態，不會替玩家送出任何按鍵。
+將獲得一小段向上速度。實機觀測的反彈接觸距離為 9–10 像素，因此彈簧門檻
+獨立設為 12；一般落地仍維持 6，避免提早判定。事件只描述遊戲狀態，不會替
+玩家送出任何按鍵。
 
 目前 `collect_frames.py` 的標記鍵由 OpenCV 預覽視窗接收，點擊預覽會使遊戲
 失去前景，因此動畫瞬間較難擷取。現有翻轉石板與輸送帶樣本已足夠；若後續仍
@@ -270,9 +274,15 @@ python scripts/test_session_loop.py --max-seconds 60
 .\.venv\Scripts\python.exe scripts\inspect_game_objects.py --record-jsonl
 ```
 
-預設寫到 `logs/observations.jsonl`；也可在參數後指定其他路徑。每筆包含角色
-位置／速度、平台 ID／類型／矩形、最近平台、血量、畫面捲動速度及當幀事件。
-不加參數就不會逐幀寫入硬碟。整個 `logs/` 已被 Git 忽略。
+省略路徑時，每次執行會建立新的
+`logs/observations_YYYYMMDD_HHMMSS_ffffff.jsonl`，不會把不同執行混在同一
+檔案；也可在參數後指定新路徑。若指定檔案已存在，工具會拒絕覆寫或追加。
+每筆包含角色位置／速度、平台 ID／類型／矩形、最近平台、血量、畫面捲動速度
+及當幀事件。不加參數就不會逐幀寫入硬碟。整個 `logs/` 已被 Git 忽略。
+
+終端事件會附帶來源平台，例如
+`成功下降至新平台(flipping)`、`角色落地(conveyor)`；傷害則會附帶原始
+`delta`，方便分辨平台分類與血量證據。
 
 ## LIFE 血量辨識與遊戲機制
 

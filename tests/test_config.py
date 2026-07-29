@@ -10,6 +10,8 @@ def test_defaults() -> None:
     assert config.capture.target_fps == 15
     assert config.controls.input_backend == "pyautogui"
     assert config.safety.emergency_stop_key == "f8"
+    assert config.events.landing_contact_gap == 6
+    assert config.events.spring_contact_gap == 12
 
 
 def test_parse_yaml(tmp_path: Path) -> None:

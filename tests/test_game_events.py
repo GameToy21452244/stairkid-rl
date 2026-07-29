@@ -1,5 +1,7 @@
 from stair_agent.game_events import (
+    describe_event_zh,
     GameEvent,
+    GameEventDetection,
     GameplayEventDetector,
     SpringBounceDetector,
 )
@@ -86,7 +88,10 @@ def tracked_platform(kind, track_id):
 
 
 def test_second_distinct_landing_emits_floor_descended() -> None:
-    detector = GameplayEventDetector(contact_gap=4)
+    detector = GameplayEventDetector(
+        landing_contact_gap=4,
+        spring_contact_gap=8,
+    )
     first = tracked_platform(PlatformKind.NORMAL, 1)
     second = tracked_platform(PlatformKind.NORMAL, 2)
     detector.update(
@@ -125,7 +130,11 @@ def test_positive_health_delta_emits_health_gained() -> None:
 
 
 def test_spike_landing_correlates_net_minus_four_as_spike_damage() -> None:
-    detector = GameplayEventDetector(contact_gap=4, correlation_frames=4)
+    detector = GameplayEventDetector(
+        landing_contact_gap=4,
+        spring_contact_gap=8,
+        correlation_frames=4,
+    )
     spikes = tracked_platform(PlatformKind.SPIKES, 3)
     detector.update(
         state(MotionState.FALLING, spikes, gap=3),
@@ -154,3 +163,27 @@ def test_unattributed_health_loss_remains_generic_damage() -> None:
     )
 
     assert [item.event for item in events] == [GameEvent.DAMAGE]
+
+
+def test_gameplay_default_detects_observed_spring_gap_nine() -> None:
+    detector = GameplayEventDetector()
+    detector.update(
+        state(MotionState.FALLING, SPRING, gap=9),
+        HealthUpdate(8, 0, HealthEvent.UNCHANGED),
+    )
+
+    events = detector.update(
+        state(MotionState.RISING, SPRING, gap=10),
+        HealthUpdate(9, 1, HealthEvent.INCREASED),
+    )
+
+    assert GameEvent.SPRING_BOUNCE in [item.event for item in events]
+
+
+def test_event_description_includes_source_platform_and_delta() -> None:
+    platform = tracked_platform(PlatformKind.FLIPPING, 7)
+    landing = GameEventDetection(GameEvent.FLOOR_DESCENDED, platform)
+    damage = GameEventDetection(GameEvent.DAMAGE, health_delta=-5)
+
+    assert describe_event_zh(landing) == "成功下降至新平台(flipping)"
+    assert describe_event_zh(damage) == "受到未分類傷害(delta=-5)"

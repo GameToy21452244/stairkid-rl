@@ -121,7 +121,7 @@ class ObservationJsonlWriter:
     def __init__(self, path: str | Path) -> None:
         self.path = Path(path)
         self.path.parent.mkdir(parents=True, exist_ok=True)
-        self._file = self.path.open("a", encoding="utf-8")
+        self._file = self.path.open("x", encoding="utf-8")
 
     def write(self, observation: GameObservation) -> None:
         self._file.write(

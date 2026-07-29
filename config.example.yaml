@@ -88,3 +88,8 @@ hud:
   life_green_min: 100
   life_blue_max: 100
   life_filled_ratio: 0.50
+
+events:
+  landing_contact_gap: 6
+  spring_contact_gap: 12
+  correlation_frames: 5
