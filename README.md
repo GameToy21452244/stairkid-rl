@@ -568,13 +568,16 @@ F8、失焦、額外姓名視窗、例外與 Ctrl+C 都會停止並釋放方向�
 .\.venv\Scripts\python.exe scripts\evaluate_ppo.py `
   --max-steps 128 `
   --max-episodes 3 `
-  --max-seconds 45
+  --max-seconds 45 `
+  --focus-target
 ```
 
 未指定 `--model` 時會選擇 `models/ppo/` 下最新的 `final_model.zip`。也可傳入
 專案 `models/` 內的特定 `.zip`；工具拒絕載入該目錄以外或非 zip 的檔案。
 開始前必須輸入大寫 `EVAL` 並倒數 3 秒。評估不更新模型，結果會存成模型旁的
 `evaluation_時間戳.json`，同樣不會提交到 Git。
+`--focus-target` 的行為與訓練工具相同：倒數後只嘗試一次聚焦並立即驗證，
+失敗便停止且不送評估動作。
 
 related-window 列舉可能比單次按鍵昂貴，因此現在由安全背景監控每 0.25 秒更新
 快取；每個控制步只讀快取，不再同步列舉所有視窗。一旦背景偵測到額外遊戲
