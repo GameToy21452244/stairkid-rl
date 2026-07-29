@@ -11,6 +11,7 @@ from stair_agent.config import TrainingConfig
 from stair_agent.rl_training import (
     TrainingSafetyWrapper,
     create_ppo_model,
+    load_ppo_model,
 )
 
 
@@ -82,6 +83,77 @@ def test_create_ppo_model_uses_bounded_cpu_configuration() -> None:
     assert model.n_epochs == 1
     assert model.device.type == "cpu"
     env.close()
+
+
+def test_load_ppo_model_attaches_env_and_preserves_rollout_config(
+    tmp_path,
+) -> None:
+    source_env = TrainingSafetyWrapper(
+        TwoStepEpisodeEnv(),
+        max_episodes=20,
+    )
+    config = TrainingConfig(
+        n_steps=8,
+        batch_size=4,
+        n_epochs=1,
+        device="cpu",
+    )
+    source = create_ppo_model(source_env, config, verbose=0)
+    model_path = tmp_path / "model"
+    source.save(model_path)
+    source_env.close()
+
+    target_env = TrainingSafetyWrapper(
+        TwoStepEpisodeEnv(),
+        max_episodes=20,
+    )
+    loaded = load_ppo_model(
+        target_env,
+        model_path.with_suffix(".zip"),
+        config,
+        verbose=0,
+    )
+
+    assert loaded.get_env() is not None
+    assert loaded.n_steps == 8
+    assert loaded.batch_size == 4
+    assert loaded.device.type == "cpu"
+    target_env.close()
+
+
+def test_load_ppo_model_rejects_rollout_config_mismatch(tmp_path) -> None:
+    source_env = TrainingSafetyWrapper(
+        TwoStepEpisodeEnv(),
+        max_episodes=20,
+    )
+    source_config = TrainingConfig(
+        n_steps=8,
+        batch_size=4,
+        n_epochs=1,
+        device="cpu",
+    )
+    source = create_ppo_model(source_env, source_config, verbose=0)
+    model_path = tmp_path / "model"
+    source.save(model_path)
+    source_env.close()
+    target_env = TrainingSafetyWrapper(
+        TwoStepEpisodeEnv(),
+        max_episodes=20,
+    )
+
+    with pytest.raises(ValueError, match="n_steps"):
+        load_ppo_model(
+            target_env,
+            model_path.with_suffix(".zip"),
+            TrainingConfig(
+                n_steps=16,
+                batch_size=4,
+                n_epochs=1,
+                device="cpu",
+            ),
+            verbose=0,
+        )
+    target_env.close()
 
 
 @pytest.mark.parametrize("total_timesteps", [4, 9])

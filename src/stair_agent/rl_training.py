@@ -117,6 +117,35 @@ def create_ppo_model(
     )
 
 
+def load_ppo_model(
+    env: gym.Env,
+    model_path: str | Path,
+    config: TrainingConfig,
+    *,
+    verbose: int = 1,
+):
+    """載入既有 PPO 並拒絕會改變 rollout 預算的設定不一致。"""
+    from stable_baselines3 import PPO
+
+    validate_training_budget(config)
+    model = PPO.load(
+        model_path,
+        env=env,
+        device=config.device,
+        verbose=verbose,
+    )
+    if int(model.n_steps) != int(config.n_steps):
+        raise ValueError(
+            "續訓模型的 n_steps 與目前 training.n_steps 不一致；"
+            "拒絕以不同 rollout 大小繼續。"
+        )
+    if int(model.batch_size) != int(config.batch_size):
+        raise ValueError(
+            "續訓模型的 batch_size 與目前 training.batch_size 不一致。"
+        )
+    return model
+
+
 def resolve_model_directory(
     project_root: str | Path,
     configured_path: str,

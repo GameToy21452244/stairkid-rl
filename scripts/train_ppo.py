@@ -8,10 +8,12 @@ from datetime import datetime
 from _common import PROJECT_ROOT, load_config, run_main
 
 from stair_agent.live_env import create_live_environment
+from stair_agent.rl_evaluation import resolve_evaluation_model
 from stair_agent.rl_training import (
     SafetyStopCallback,
     TrainingSafetyWrapper,
     create_ppo_model,
+    load_ppo_model,
     resolve_model_directory,
     validate_training_budget,
 )
@@ -24,6 +26,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--timesteps", type=int)
     parser.add_argument("--max-episodes", type=int)
     parser.add_argument("--max-seconds", type=float)
+    parser.add_argument(
+        "--resume-model",
+        help=(
+            "只允許載入專案 models/ 內的既有 .zip，"
+            "並在新的執行目錄繼續訓練。"
+        ),
+    )
     parser.add_argument(
         "--focus-target",
         action="store_true",
@@ -73,6 +82,14 @@ def main() -> None:
         PROJECT_ROOT,
         training.model_dir,
     )
+    resume_path = (
+        None
+        if args.resume_model is None
+        else resolve_evaluation_model(
+            PROJECT_ROOT,
+            args.resume_model,
+        )
+    )
     env, target = create_live_environment(
         config,
         PROJECT_ROOT,
@@ -103,6 +120,8 @@ def main() -> None:
             f"episodes={training.max_episodes}，"
             f"seconds={training.max_training_seconds:.1f}。"
         )
+        if resume_path is not None:
+            print(f"續訓來源：{resume_path}")
         print(
             "每次回合 reset 最多送一次 Enter；最後核准回合死亡時"
             "會阻止自動重開。F8、失焦或額外視窗會停止並釋放按鍵。"
@@ -127,7 +146,16 @@ def main() -> None:
         run_dir = model_root / stamp
         checkpoint_dir = run_dir / "checkpoints"
         checkpoint_dir.mkdir(parents=True, exist_ok=False)
-        model = create_ppo_model(wrapped, training, verbose=1)
+        model = (
+            create_ppo_model(wrapped, training, verbose=1)
+            if resume_path is None
+            else load_ppo_model(
+                wrapped,
+                resume_path,
+                training,
+                verbose=1,
+            )
+        )
         safety_callback = SafetyStopCallback(
             max_seconds=training.max_training_seconds,
         )
@@ -140,6 +168,7 @@ def main() -> None:
             total_timesteps=training.total_timesteps,
             callback=[safety_callback, checkpoint_callback],
             progress_bar=False,
+            reset_num_timesteps=resume_path is None,
         )
         final_path = run_dir / "final_model"
         model.save(final_path)

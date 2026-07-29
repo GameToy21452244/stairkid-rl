@@ -567,6 +567,22 @@ F8、失焦、額外姓名視窗、例外與 Ctrl+C 都會停止並釋放方向�
 目前只允許 CPU 訓練；短期目標是先驗證資料流與安全重設，不以這次短訓練的
 遊玩成績判斷 PPO 效果。
 
+若短訓練已安全完成，可在新的執行目錄續訓同一模型：
+
+```powershell
+.\.venv\Scripts\python.exe scripts\train_ppo.py `
+  --resume-model models\ppo\既有時間戳\final_model.zip `
+  --timesteps 1024 `
+  --max-episodes 50 `
+  --max-seconds 180 `
+  --focus-target
+```
+
+`--timesteps` 表示本次額外收集的步數。續訓來源必須是本專案 `models/` 下的
+`.zip`；工具拒絕外部路徑，並要求模型的 `n_steps`、`batch_size` 與目前設定
+一致，避免悄悄改變實機 rollout 與送鍵預算。來源模型不會被覆寫，續訓結果
+存入新的時間戳目錄。
+
 訓練完成後，使用 deterministic 動作進行相同硬上限的受限評估：
 
 ```powershell
