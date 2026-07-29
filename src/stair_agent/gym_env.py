@@ -206,8 +206,8 @@ class StairAgentEnv(gym.Env[np.ndarray, int]):
             observation = self.adapter.reset()
             if observation.phase != GamePhase.PLAYING.value:
                 raise GymEnvironmentError(
-                    "reset 前必須由使用者手動讓遊戲進入 PLAYING；"
-                    f"目前為 {observation.phase!r}。環境不會自動按 Enter。"
+                    "reset adapter 未能讓遊戲進入 PLAYING；"
+                    f"目前為 {observation.phase!r}。"
                 )
             return self.encoder.encode(observation), self._info(observation)
         except Exception:

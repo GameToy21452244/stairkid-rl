@@ -10,10 +10,13 @@ def test_defaults() -> None:
     assert config.capture.target_fps == 15
     assert config.controls.input_backend == "pyautogui"
     assert config.safety.emergency_stop_key == "f8"
+    assert config.safety.block_on_related_windows
     assert config.events.landing_contact_gap == 6
     assert config.events.spring_contact_gap == 12
     assert config.environment.max_episode_steps == 3000
     assert config.environment.floor_reward == 1.0
+    assert not config.environment.auto_restart_on_reset
+    assert config.environment.reset_required_consecutive_frames == 3
 
 
 def test_parse_yaml(tmp_path: Path) -> None:
@@ -31,3 +34,8 @@ def test_invalid_exe_path() -> None:
 def test_invalid_environment_config() -> None:
     with pytest.raises(ConfigError, match="max_episode_steps"):
         AppConfig.from_dict({"environment": {"max_episode_steps": 0}})
+
+    with pytest.raises(ConfigError, match="reset_max_observation_frames"):
+        AppConfig.from_dict(
+            {"environment": {"reset_max_observation_frames": 0}}
+        )

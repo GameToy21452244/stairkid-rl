@@ -29,6 +29,7 @@ safety:
   emergency_stop_key: "f8"
   require_foreground_window: true
   release_keys_on_error: true
+  block_on_related_windows: true
 
 diagnostics:
   save_debug_frames: true
@@ -101,3 +102,7 @@ environment:
   death_penalty: 5.0
   velocity_scale: 500.0
   max_platforms_per_type: 8
+  auto_restart_on_reset: false
+  reset_required_consecutive_frames: 3
+  reset_max_observation_frames: 30
+  reset_post_action_delay_seconds: 0.4

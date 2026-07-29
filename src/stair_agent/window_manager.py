@@ -232,3 +232,8 @@ class WindowManager:
             )
         ]
         return sorted(related, key=lambda item: (item.rect.top, item.rect.left, item.hwnd))
+
+    def blocking_related_windows(self, hwnd: int) -> list[WindowInfo]:
+        """回傳可能是模態對話框的同程序／owner 可見視窗。"""
+        target = self.refresh(hwnd)
+        return self.related_windows(target)

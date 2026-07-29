@@ -6,6 +6,8 @@ from pathlib import Path
 from typing import Any
 
 from .config import AppConfig
+from .dialog_handler import DialogActionHandler
+from .episode_reset import SingleEnterEpisodeResetter
 from .game_events import GameplayEventDetector
 from .game_state import GamePhase, GameStateDetector
 from .gym_env import StairAgentEnv
@@ -121,6 +123,7 @@ class LiveGameAdapter:
         action_duration_ms: int,
         capture: ScreenCapture | Any | None = None,
         monitor: SafetyMonitor | Any | None = None,
+        episode_resetter: SingleEnterEpisodeResetter | Any | None = None,
         sleeper: Callable[[float], None] = time.sleep,
     ) -> None:
         self.controller = controller
@@ -129,11 +132,14 @@ class LiveGameAdapter:
         self.action_duration_ms = action_duration_ms
         self.capture = capture
         self.monitor = monitor
+        self.episode_resetter = episode_resetter
         self.sleeper = sleeper
         self._closed = False
 
     def reset(self) -> GameObservation:
         self.controller.release_all()
+        if self.episode_resetter is not None:
+            return self.episode_resetter.reset()
         self.reset_pipeline()
         return self.observe()
 
@@ -153,11 +159,7 @@ class LiveGameAdapter:
         return bool(self.controller.emergency_stopped)
 
     def is_foreground(self) -> bool:
-        return bool(
-            self.controller.window_manager.is_foreground(
-                self.controller.hwnd
-            )
-        )
+        return bool(self.controller.is_target_active())
 
     def close(self) -> None:
         if self._closed:
@@ -175,6 +177,8 @@ class LiveGameAdapter:
 def create_live_environment(
     config: AppConfig,
     project_root: str | Path,
+    *,
+    allow_single_enter_reset: bool | None = None,
 ) -> tuple[StairAgentEnv, WindowInfo]:
     """建立真實環境，但不啟動遊戲、不聚焦視窗，也不送出任何按鍵。"""
 
@@ -205,6 +209,36 @@ def create_live_environment(
         config.safety.emergency_stop_key,
     )
     monitor.start()
+    reset_enabled = (
+        config.environment.auto_restart_on_reset
+        if allow_single_enter_reset is None
+        else allow_single_enter_reset
+    )
+    episode_resetter = None
+    if reset_enabled:
+        handler = DialogActionHandler(
+            pipeline.state_detector,
+            controller,
+            config.controls.restart_key,
+            capture.capture,
+            key_duration_ms=config.controls.restart_duration_ms,
+            required_consecutive=(
+                config.environment.reset_required_consecutive_frames
+            ),
+            max_observation_frames=(
+                config.environment.reset_max_observation_frames
+            ),
+            observation_delay_seconds=1.0 / config.capture.target_fps,
+            post_action_delay_seconds=(
+                config.environment.reset_post_action_delay_seconds
+            ),
+        )
+        episode_resetter = SingleEnterEpisodeResetter(
+            handler=handler,
+            controller=controller,
+            observe=pipeline.observe,
+            reset_pipeline=pipeline.reset,
+        )
     adapter = LiveGameAdapter(
         controller=controller,
         observe=pipeline.observe,
@@ -212,6 +246,7 @@ def create_live_environment(
         action_duration_ms=config.controls.action_duration_ms,
         capture=capture,
         monitor=monitor,
+        episode_resetter=episode_resetter,
     )
 
     reference_width = (

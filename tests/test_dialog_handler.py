@@ -5,6 +5,7 @@ from stair_agent.dialog_handler import (
     DialogActionError,
     DialogActionHandler,
     DialogActionOutcome,
+    StableObservation,
 )
 from stair_agent.game_state import GamePhase
 
@@ -144,3 +145,36 @@ def test_release_all_runs_when_observation_fails_after_enter() -> None:
 
     assert controller.taps == [("enter", None)]
     assert controller.release_count >= 2
+
+
+def test_execute_can_reuse_previously_confirmed_dialog() -> None:
+    before_frame = np.zeros((20, 30, 3), dtype=np.uint8)
+    after_frames = [
+        np.ones((20, 30, 3), dtype=np.uint8),
+        np.ones((20, 30, 3), dtype=np.uint8),
+    ]
+    detector = SequenceDetector([GamePhase.PLAYING, GamePhase.PLAYING])
+    controller = FakeController()
+    handler = DialogActionHandler(
+        detector,
+        controller,
+        "enter",
+        frame_source(after_frames),
+        required_consecutive=2,
+        max_observation_frames=2,
+        observation_delay_seconds=0,
+        post_action_delay_seconds=0,
+        sleep_fn=lambda _seconds: None,
+    )
+    confirmed = StableObservation(
+        GamePhase.DIALOG,
+        0.99,
+        before_frame,
+        3,
+    )
+
+    result = handler.execute_once(confirmed)
+
+    assert result.before is confirmed
+    assert result.outcome is DialogActionOutcome.PLAYING
+    assert controller.taps == [("enter", None)]

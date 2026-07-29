@@ -99,6 +99,7 @@ def test_related_windows_use_same_process_id() -> None:
     manager = WindowManager(FakeBackend([game, name_dialog, unrelated]))
 
     assert manager.related_windows(game) == [name_dialog]
+    assert manager.blocking_related_windows(game.hwnd) == [name_dialog]
 
 
 def test_window_not_found() -> None:

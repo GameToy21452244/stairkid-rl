@@ -124,9 +124,12 @@ class DialogActionHandler:
             consecutive,
         )
 
-    def execute_once(self) -> DialogActionResult:
+    def execute_once(
+        self,
+        confirmed_before: StableObservation | None = None,
+    ) -> DialogActionResult:
         try:
-            before = self.observe_stable()
+            before = confirmed_before or self.observe_stable()
             if before.phase is not GamePhase.DIALOG:
                 raise DialogActionError(
                     f"目前穩定狀態不是 DIALOG，而是 {before.phase.value}；"

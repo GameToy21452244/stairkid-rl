@@ -3,7 +3,12 @@ import time
 import pytest
 
 from stair_agent.config import ControlsConfig, SafetyConfig
-from stair_agent.input_controller import Action, InputController, SafetyMonitor
+from stair_agent.input_controller import (
+    Action,
+    InputController,
+    InputError,
+    SafetyMonitor,
+)
 
 
 class FakeBackend:
@@ -23,9 +28,13 @@ class FakeBackend:
 class FakeManager:
     def __init__(self):
         self.foreground = True
+        self.related = []
 
     def is_foreground(self, _hwnd):
         return self.foreground
+
+    def blocking_related_windows(self, _hwnd):
+        return self.related
 
 
 def make_controller():
@@ -78,3 +87,22 @@ def test_f8_monitor_uses_mock_checker() -> None:
     monitor.stop()
     assert controller.emergency_stopped
     assert not controller.held_keys
+
+
+def test_related_game_window_blocks_input_and_releases() -> None:
+    controller, backend = make_controller()
+    controller.window_manager.related = [object()]
+
+    with pytest.raises(InputError, match="其他可見視窗"):
+        controller.apply(Action.LEFT)
+
+    assert controller.held_keys == set()
+    assert ("down", "left") not in backend.events
+
+
+def test_target_active_requires_foreground_and_no_related_window() -> None:
+    controller, _backend = make_controller()
+
+    assert controller.is_target_active()
+    controller.window_manager.related = [object()]
+    assert not controller.is_target_active()

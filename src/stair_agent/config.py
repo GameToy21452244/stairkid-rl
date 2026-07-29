@@ -49,6 +49,7 @@ class SafetyConfig:
     emergency_stop_key: str = "f8"
     require_foreground_window: bool = True
     release_keys_on_error: bool = True
+    block_on_related_windows: bool = True
 
 
 @dataclass
@@ -133,6 +134,10 @@ class EnvironmentConfig:
     death_penalty: float = 5.0
     velocity_scale: float = 500.0
     max_platforms_per_type: int = 8
+    auto_restart_on_reset: bool = False
+    reset_required_consecutive_frames: int = 3
+    reset_max_observation_frames: int = 30
+    reset_post_action_delay_seconds: float = 0.4
 
 
 @dataclass
@@ -265,13 +270,24 @@ class AppConfig:
             "max_episode_steps",
             "velocity_scale",
             "max_platforms_per_type",
+            "reset_required_consecutive_frames",
+            "reset_max_observation_frames",
         ):
             if getattr(self.environment, name) <= 0:
                 raise ConfigError(f"environment.{name} 必須大於 0。")
+        if (
+            self.environment.reset_max_observation_frames
+            < self.environment.reset_required_consecutive_frames
+        ):
+            raise ConfigError(
+                "environment.reset_max_observation_frames 不可小於"
+                " reset_required_consecutive_frames。"
+            )
         for name in (
             "floor_reward",
             "damage_penalty_per_segment",
             "death_penalty",
+            "reset_post_action_delay_seconds",
         ):
             if getattr(self.environment, name) < 0:
                 raise ConfigError(f"environment.{name} 不可小於 0。")

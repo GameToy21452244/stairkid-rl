@@ -18,10 +18,18 @@ class FakeController:
     def release_all(self):
         self.release_count += 1
 
+    def is_target_active(self):
+        return self.window_manager.is_foreground(
+            self.hwnd
+        ) and not self.window_manager.blocking_related_windows(self.hwnd)
+
 
 class FakeWindowManager:
     def is_foreground(self, hwnd):
         return hwnd == 123
+
+    def blocking_related_windows(self, _hwnd):
+        return []
 
 
 class FakeResource:
@@ -114,3 +122,24 @@ def test_live_adapter_exposes_safety_state() -> None:
     assert not adapter.emergency_stopped
     controller.emergency_stopped = True
     assert adapter.emergency_stopped
+
+
+def test_live_adapter_uses_optional_episode_resetter() -> None:
+    controller = FakeController()
+    resetter = FakeResource()
+    expected = object()
+    resetter.reset = lambda: expected
+    reset_pipeline_calls = []
+    adapter = LiveGameAdapter(
+        controller=controller,
+        observe=lambda: object(),
+        reset_pipeline=lambda: reset_pipeline_calls.append(True),
+        action_duration_ms=80,
+        episode_resetter=resetter,
+        sleeper=lambda seconds: None,
+    )
+
+    result = adapter.reset()
+
+    assert result is expected
+    assert reset_pipeline_calls == []

@@ -101,6 +101,28 @@ class InputController:
         ):
             self.release_all()
             raise InputError("遊戲不是前景視窗；已釋放按鍵並停止輸入。")
+        if (
+            self.safety.block_on_related_windows
+            and self.window_manager.blocking_related_windows(self.hwnd)
+        ):
+            self.release_all()
+            raise InputError(
+                "偵測到遊戲的其他可見視窗（可能是姓名輸入框）；"
+                "已釋放按鍵並停止輸入。"
+            )
+
+    def is_target_active(self) -> bool:
+        if (
+            self.safety.require_foreground_window
+            and not self.window_manager.is_foreground(self.hwnd)
+        ):
+            return False
+        if (
+            self.safety.block_on_related_windows
+            and self.window_manager.blocking_related_windows(self.hwnd)
+        ):
+            return False
+        return True
 
     def key_down(self, key: str) -> None:
         with self._lock:
@@ -227,11 +249,8 @@ class SafetyMonitor:
                     self._stop.set()
                     break
                 if (
-                    self.controller.safety.require_foreground_window
-                    and self.controller.held_keys
-                    and not self.controller.window_manager.is_foreground(
-                        self.controller.hwnd
-                    )
+                    self.controller.held_keys
+                    and not self.controller.is_target_active()
                 ):
                     self.controller.release_all()
                     self._stop.set()
