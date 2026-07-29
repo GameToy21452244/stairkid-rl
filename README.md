@@ -479,6 +479,20 @@ F8、失焦、額外姓名視窗、例外與 Ctrl+C 都會停止並釋放方向�
 目前只允許 CPU 訓練；短期目標是先驗證資料流與安全重設，不以這次短訓練的
 遊玩成績判斷 PPO 效果。
 
+訓練完成後，使用 deterministic 動作進行相同硬上限的受限評估：
+
+```powershell
+.\.venv\Scripts\python.exe scripts\evaluate_ppo.py `
+  --max-steps 128 `
+  --max-episodes 3 `
+  --max-seconds 45
+```
+
+未指定 `--model` 時會選擇 `models/ppo/` 下最新的 `final_model.zip`。也可傳入
+專案 `models/` 內的特定 `.zip`；工具拒絕載入該目錄以外或非 zip 的檔案。
+開始前必須輸入大寫 `EVAL` 並倒數 3 秒。評估不更新模型，結果會存成模型旁的
+`evaluation_時間戳.json`，同樣不會提交到 Git。
+
 related-window 列舉可能比單次按鍵昂貴，因此現在由安全背景監控每 0.25 秒更新
 快取；每個控制步只讀快取，不再同步列舉所有視窗。一旦背景偵測到額外遊戲
 視窗，停止狀態具有黏性，該次程序即使視窗稍後消失也不會恢復送鍵。這項最佳化
