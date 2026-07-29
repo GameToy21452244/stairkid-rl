@@ -34,7 +34,7 @@ def test_defaults() -> None:
     assert config.environment.wall_push_penalty == 0.08
     assert not config.environment.auto_restart_on_reset
     assert config.environment.reset_required_consecutive_frames == 3
-    assert config.environment.reset_focus_max_observation_frames == 225
+    assert config.environment.reset_focus_max_observation_frames == 450
     assert (
         config.environment.reset_focus_correction_max_observation_frames
         == 450

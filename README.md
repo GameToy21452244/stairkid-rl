@@ -443,10 +443,13 @@ online RL 訓練仍應在本機執行。
   外框：最多短按一次設定中的 `restart_key`。
 - 焦點明確位於中央雙人模式：先再次釋放控制器實際追蹤的方向鍵（不送新的
   key-down），再唯讀等待最多 `reset_focus_max_observation_frames`
-  （預設約 15 秒），因為實機確認這可能只是死亡對話框重繪期間的暫態。只有
+  （預設 450 幀，約 30 秒），因為實機確認這可能只是死亡對話框重繪期間的
+  暫態。只有
   單人開始焦點連續穩定後才允許 Enter。等待逾時時，僅在
   `controls.menu_focus_correction_key` 已經實機校正的情況下，才最多短按該鍵
-  一次並再次驗證。NS-SHAFT 可能依序重繪 Logo、紀錄清單與按鈕，因此 Tab
+  一次並再次驗證。實機後續觀察顯示自動 Tab 可能干擾暫態重繪，因此本機與
+  範例設定均維持 `null`，自動訓練只等待自然恢復。NS-SHAFT 可能依序重繪
+  Logo、紀錄清單與按鈕，因此人工 Tab
   後只讀驗證使用獨立的
   `reset_focus_correction_max_observation_frames`（預設 450 幀，約 30 秒）；
   等待期間不補按第二次。未校正修正鍵時逾時仍會停止。

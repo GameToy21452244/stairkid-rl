@@ -166,7 +166,7 @@ class EnvironmentConfig:
     auto_restart_on_reset: bool = False
     reset_required_consecutive_frames: int = 3
     reset_max_observation_frames: int = 30
-    reset_focus_max_observation_frames: int = 225
+    reset_focus_max_observation_frames: int = 450
     reset_focus_correction_max_observation_frames: int = 450
     reset_post_action_delay_seconds: float = 0.4
     max_observation_platforms: int = 8
