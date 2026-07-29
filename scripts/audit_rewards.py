@@ -65,6 +65,9 @@ def make_offline_encoder(config) -> FeatureEncoder:
         reference_height=height,
         velocity_scale=config.environment.velocity_scale,
         max_platforms_per_type=config.environment.max_platforms_per_type,
+        max_observation_platforms=(
+            config.environment.max_observation_platforms
+        ),
     )
 
 

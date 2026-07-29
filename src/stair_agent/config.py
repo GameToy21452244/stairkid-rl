@@ -138,6 +138,24 @@ class EnvironmentConfig:
     reset_required_consecutive_frames: int = 3
     reset_max_observation_frames: int = 30
     reset_post_action_delay_seconds: float = 0.4
+    max_observation_platforms: int = 8
+
+
+@dataclass
+class BaselineConfig:
+    max_episode_steps: int = 300
+    max_episode_seconds: float = 30.0
+    horizontal_deadzone_pixels: float = 12.0
+    min_target_vertical_gap_pixels: float = 25.0
+    max_target_vertical_gap_pixels: float = 200.0
+    safe_platform_kinds: list[str] = field(
+        default_factory=lambda: [
+            "normal",
+            "spring",
+            "conveyor",
+            "flipping",
+        ]
+    )
 
 
 @dataclass
@@ -152,6 +170,7 @@ class AppConfig:
     hud: HudConfig = field(default_factory=HudConfig)
     events: EventsConfig = field(default_factory=EventsConfig)
     environment: EnvironmentConfig = field(default_factory=EnvironmentConfig)
+    baseline: BaselineConfig = field(default_factory=BaselineConfig)
 
     @classmethod
     def from_dict(cls, data: dict[str, Any] | None) -> "AppConfig":
@@ -167,6 +186,7 @@ class AppConfig:
             "hud",
             "events",
             "environment",
+            "baseline",
         }
         unknown = set(data) - known
         if unknown:
@@ -182,6 +202,7 @@ class AppConfig:
             hud=HudConfig(**data.get("hud", {})),
             events=EventsConfig(**data.get("events", {})),
             environment=EnvironmentConfig(**data.get("environment", {})),
+            baseline=BaselineConfig(**data.get("baseline", {})),
         )
         config.validate()
         return config
@@ -272,6 +293,7 @@ class AppConfig:
             "max_platforms_per_type",
             "reset_required_consecutive_frames",
             "reset_max_observation_frames",
+            "max_observation_platforms",
         ):
             if getattr(self.environment, name) <= 0:
                 raise ConfigError(f"environment.{name} 必須大於 0。")
@@ -291,6 +313,41 @@ class AppConfig:
         ):
             if getattr(self.environment, name) < 0:
                 raise ConfigError(f"environment.{name} 不可小於 0。")
+        for name in ("max_episode_steps", "max_episode_seconds"):
+            if getattr(self.baseline, name) <= 0:
+                raise ConfigError(f"baseline.{name} 必須大於 0。")
+        for name in (
+            "horizontal_deadzone_pixels",
+            "min_target_vertical_gap_pixels",
+            "max_target_vertical_gap_pixels",
+        ):
+            if getattr(self.baseline, name) < 0:
+                raise ConfigError(f"baseline.{name} 不可小於 0。")
+        if (
+            self.baseline.max_target_vertical_gap_pixels
+            <= self.baseline.min_target_vertical_gap_pixels
+        ):
+            raise ConfigError(
+                "baseline.max_target_vertical_gap_pixels 必須大於"
+                " min_target_vertical_gap_pixels。"
+            )
+        allowed_kinds = {
+            "normal",
+            "spikes",
+            "spring",
+            "conveyor",
+            "flipping",
+        }
+        if (
+            not self.baseline.safe_platform_kinds
+            or not all(
+                isinstance(kind, str) and kind in allowed_kinds
+                for kind in self.baseline.safe_platform_kinds
+            )
+        ):
+            raise ConfigError(
+                "baseline.safe_platform_kinds 必須是已知平台類型的非空清單。"
+            )
 
     def validated_exe_path(self) -> Path:
         path = Path(self.game.exe_path).expanduser()

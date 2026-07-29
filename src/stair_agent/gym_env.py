@@ -48,19 +48,26 @@ class FeatureEncoder:
         reference_height: int = 431,
         velocity_scale: float = 500.0,
         max_platforms_per_type: int = 8,
+        max_observation_platforms: int = 8,
     ) -> None:
         if reference_width <= 0 or reference_height <= 0:
             raise ValueError("觀測參考尺寸必須大於 0。")
-        if velocity_scale <= 0 or max_platforms_per_type <= 0:
+        if (
+            velocity_scale <= 0
+            or max_platforms_per_type <= 0
+            or max_observation_platforms <= 0
+        ):
             raise ValueError("速度尺度與平台數尺度必須大於 0。")
         self.reference_width = float(reference_width)
         self.reference_height = float(reference_height)
         self.velocity_scale = float(velocity_scale)
         self.max_platforms_per_type = float(max_platforms_per_type)
+        self.max_observation_platforms = int(max_observation_platforms)
+        self.feature_count = 16 + self.max_observation_platforms * 6
         self.space = spaces.Box(
             low=-1.0,
             high=1.0,
-            shape=(16,),
+            shape=(self.feature_count,),
             dtype=np.float32,
         )
 
@@ -73,7 +80,7 @@ class FeatureEncoder:
         nearest = observation.nearest_platform
         health = observation.health
 
-        values = np.zeros(16, dtype=np.float32)
+        values = np.zeros(self.feature_count, dtype=np.float32)
         if player is not None:
             values[0] = 1.0
             values[1] = self._clip(float(player.get("center_x", 0.0)) / self.reference_width)
@@ -106,6 +113,57 @@ class FeatureEncoder:
         for index, kind in enumerate(self.PLATFORM_KINDS, start=11):
             values[index] = self._clip(
                 counts[kind] / self.max_platforms_per_type
+            )
+
+        player_x = (
+            float(player.get("center_x", 0.0))
+            if player is not None
+            else self.reference_width / 2
+        )
+        player_y = (
+            float(player.get("center_y", 0.0))
+            if player is not None
+            else 0.0
+        )
+
+        def platform_order(item: dict[str, Any]) -> tuple[float, float, float]:
+            box = item.get("box") or {}
+            center_x = float(box.get("left", 0.0)) + float(
+                box.get("width", 0.0)
+            ) / 2
+            delta_y = float(box.get("top", 0.0)) - player_y
+            return (
+                0.0 if delta_y >= -10.0 else 1.0,
+                abs(delta_y),
+                abs(center_x - player_x),
+            )
+
+        ordered = sorted(observation.platforms, key=platform_order)
+        for slot, platform in enumerate(
+            ordered[: self.max_observation_platforms]
+        ):
+            box = platform.get("box") or {}
+            center_x = float(box.get("left", 0.0)) + float(
+                box.get("width", 0.0)
+            ) / 2
+            base = 16 + slot * 6
+            values[base] = 1.0
+            values[base + 1] = self._clip(
+                (center_x - player_x) / self.reference_width
+            )
+            values[base + 2] = self._clip(
+                (float(box.get("top", 0.0)) - player_y)
+                / self.reference_height
+            )
+            values[base + 3] = self._clip(
+                float(box.get("width", 0.0)) / self.reference_width
+            )
+            values[base + 4] = self._clip(
+                float(box.get("height", 0.0)) / self.reference_height
+            )
+            values[base + 5] = self.PLATFORM_CODES.get(
+                str(platform.get("kind", "")),
+                -1.0,
             )
         return values
 
@@ -164,6 +222,7 @@ class StairAgentEnv(gym.Env[np.ndarray, int]):
             reference_height=reference_height,
             velocity_scale=self.config.velocity_scale,
             max_platforms_per_type=self.config.max_platforms_per_type,
+            max_observation_platforms=self.config.max_observation_platforms,
         )
         self.reward_calculator = RewardCalculator(
             floor_reward=self.config.floor_reward,
@@ -173,6 +232,7 @@ class StairAgentEnv(gym.Env[np.ndarray, int]):
         self.action_space = spaces.Discrete(3)
         self.observation_space = self.encoder.space
         self._step_count = 0
+        self.last_observation: GameObservation | None = None
 
     @staticmethod
     def _info(observation: GameObservation) -> dict[str, Any]:
@@ -204,6 +264,7 @@ class StairAgentEnv(gym.Env[np.ndarray, int]):
         self._step_count = 0
         try:
             observation = self.adapter.reset()
+            self.last_observation = observation
             if observation.phase != GamePhase.PLAYING.value:
                 raise GymEnvironmentError(
                     "reset adapter 未能讓遊戲進入 PLAYING；"
@@ -223,6 +284,7 @@ class StairAgentEnv(gym.Env[np.ndarray, int]):
         mapped_action = Action(int(action))
         try:
             observation = self.adapter.step(mapped_action)
+            self.last_observation = observation
             self._step_count += 1
             terminated = self._is_terminated(observation.phase)
             truncated = (

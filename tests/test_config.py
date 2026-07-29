@@ -17,6 +17,8 @@ def test_defaults() -> None:
     assert config.environment.floor_reward == 1.0
     assert not config.environment.auto_restart_on_reset
     assert config.environment.reset_required_consecutive_frames == 3
+    assert config.environment.max_observation_platforms == 8
+    assert config.baseline.max_episode_steps == 300
 
 
 def test_parse_yaml(tmp_path: Path) -> None:
@@ -38,4 +40,11 @@ def test_invalid_environment_config() -> None:
     with pytest.raises(ConfigError, match="reset_max_observation_frames"):
         AppConfig.from_dict(
             {"environment": {"reset_max_observation_frames": 0}}
+        )
+
+
+def test_invalid_baseline_config() -> None:
+    with pytest.raises(ConfigError, match="horizontal_deadzone_pixels"):
+        AppConfig.from_dict(
+            {"baseline": {"horizontal_deadzone_pixels": -1}}
         )

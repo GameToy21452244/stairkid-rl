@@ -91,10 +91,16 @@ def test_feature_encoder_returns_observation_space_value() -> None:
 
     features = encoder.encode(observation(health=8, health_delta=-4))
 
-    assert features.shape == (16,)
+    assert features.shape == (64,)
     assert features.dtype == np.float32
     assert encoder.space.contains(features)
     assert features[6] == pytest.approx(8 / 12)
+    assert features[16] == 1.0
+    assert features[17] == pytest.approx(8 / 634)
+    assert features[18] == pytest.approx(40 / 431)
+    assert features[19] == pytest.approx(96 / 634)
+    assert features[20] == pytest.approx(16 / 431)
+    assert features[21] == 0.0
 
 
 def test_reward_uses_floor_progress_and_raw_damage() -> None:
@@ -128,6 +134,7 @@ def test_environment_maps_actions_and_returns_gym_tuple() -> None:
     result, reward, terminated, truncated, step_info = env.step(1)
 
     assert env.observation_space.contains(initial)
+    assert env.last_observation is not None
     assert info["phase"] == "playing"
     assert adapter.actions == [Action.LEFT]
     assert env.observation_space.contains(result)

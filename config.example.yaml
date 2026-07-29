@@ -106,3 +106,16 @@ environment:
   reset_required_consecutive_frames: 3
   reset_max_observation_frames: 30
   reset_post_action_delay_seconds: 0.4
+  max_observation_platforms: 8
+
+baseline:
+  max_episode_steps: 300
+  max_episode_seconds: 30.0
+  horizontal_deadzone_pixels: 12.0
+  min_target_vertical_gap_pixels: 25.0
+  max_target_vertical_gap_pixels: 200.0
+  safe_platform_kinds:
+    - normal
+    - spring
+    - conveyor
+    - flipping
