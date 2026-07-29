@@ -237,6 +237,43 @@ python scripts/test_session_loop.py --max-seconds 60
 失去前景，因此動畫瞬間較難擷取。現有翻轉石板與輸送帶樣本已足夠；若後續仍
 需大量補圖，再加入不搶遊戲焦點的全域截圖熱鍵，並避開 F8 緊急停止鍵。
 
+## 跨幀平台與遊戲事件
+
+即時流程現在會替每個平台配置回合內的 `track_id`，框線標籤會顯示例如
+`#7 normal`。平台移動後仍保留相同 ID；新進入畫面的平台取得新 ID。多個成功
+配對平台的垂直速度中位數會成為 `scroll`，用來估計整體畫面向上捲動，避免把
+捲動全部誤認成角色自身速度。
+
+目前事件定義如下：
+
+- `landed`：角色下降接近平台後轉為穩定或上升。
+- `floor_descended`：落到與上一次不同的有效平台 ID；第一次落地只建立基準。
+- `spring_bounce`：接近彈簧後數幀內轉為上升。
+- `health_gained`：LIFE 的有效相鄰觀測增加。
+- `spike_damage`：近期接觸尖刺且 LIFE 淨變化不大於 `−4`。
+- `damage`：有掉血但沒有足夠畫面證據歸因到尖刺。
+
+尖刺同時伴隨下降回血時可能看到 `−4`，所以 `spike_damage` 接受這個淨變化；
+若沒有尖刺接觸證據仍維持 generic `damage`。這些規則是可檢查的畫面推論，不是
+讀取遊戲內部資料，也不會把不確定事件強制分類。
+
+即時預覽底部改為三行半透明面板，確保事件、血量、角色速度、捲動速度、最近
+平台與平台數量都留在畫面內。只讀預覽：
+
+```powershell
+.\.venv\Scripts\python.exe scripts\inspect_game_objects.py
+```
+
+若要保留之後建立 RL 環境所需的結構化觀測，可明確加入參數：
+
+```powershell
+.\.venv\Scripts\python.exe scripts\inspect_game_objects.py --record-jsonl
+```
+
+預設寫到 `logs/observations.jsonl`；也可在參數後指定其他路徑。每筆包含角色
+位置／速度、平台 ID／類型／矩形、最近平台、血量、畫面捲動速度及當幀事件。
+不加參數就不會逐幀寫入硬碟。整個 `logs/` 已被 Git 忽略。
+
 ## LIFE 血量辨識與遊戲機制
 
 `hud` 設定集中保存 LIFE 第一格位置、每格尺寸、間距與最大 12 格。辨識器只讀取
@@ -292,6 +329,6 @@ pytest -q
 - 不會執行來源不明檔案；`auto_launch` 僅允許設定中經驗證為 `.exe` 的單一路徑。
 - `captures/`、`logs/`、exe、模型與影片均由 `.gitignore` 排除。
 
-下一階段預計加入更完整的平台跨幀追蹤、下降成功／受傷事件判定與回合觀測記錄；確認
-穩定後才建立 Gymnasium 環境。本階段仍不包含 Gymnasium、Stable-Baselines3
-或任何模型訓練。
+下一階段會先以實際完整回合驗證 `floor_descended`、`spike_damage` 與
+`scroll`，再將目前的結構化觀測封裝成 Gymnasium 環境。本階段仍不包含
+Gymnasium、Stable-Baselines3 或任何模型訓練。

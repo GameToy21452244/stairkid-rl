@@ -46,6 +46,7 @@ class PlatformDetection:
     box: BoundingBox
     kind: PlatformKind
     confidence: float
+    track_id: int | None = None
 
 
 @dataclass(frozen=True)
@@ -402,7 +403,11 @@ class ObjectDetector:
             )
             cv2.putText(
                 output,
-                platform.kind.value,
+                (
+                    f"#{platform.track_id} {platform.kind.value}"
+                    if platform.track_id is not None
+                    else platform.kind.value
+                ),
                 (box.left, max(12, box.top - 3)),
                 cv2.FONT_HERSHEY_SIMPLEX,
                 0.35,

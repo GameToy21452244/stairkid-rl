@@ -7,6 +7,7 @@ from stair_agent.object_detection import (
 )
 from stair_agent.object_tracking import (
     MotionState,
+    PlatformTracker,
     PlatformStabilizer,
     PlayerTracker,
 )
@@ -136,3 +137,72 @@ def test_platform_stabilizer_updates_position_when_detection_returns() -> None:
     result = stabilizer.update(objects(None, [moved]))
 
     assert result.platforms == [moved]
+
+
+def test_platform_tracker_keeps_ids_and_estimates_upward_scroll() -> None:
+    tracker = PlatformTracker(match_distance=20.0)
+    first_platforms = [
+        PlatformDetection(
+            BoundingBox(20, 100, 80, 12),
+            PlatformKind.NORMAL,
+            0.99,
+        ),
+        PlatformDetection(
+            BoundingBox(120, 140, 80, 12),
+            PlatformKind.SPIKES,
+            0.98,
+        ),
+    ]
+    first = tracker.update(objects(None, first_platforms), timestamp=1.0)
+    moved_platforms = [
+        PlatformDetection(
+            BoundingBox(20, 97, 80, 12),
+            PlatformKind.NORMAL,
+            0.99,
+        ),
+        PlatformDetection(
+            BoundingBox(120, 137, 80, 12),
+            PlatformKind.SPIKES,
+            0.98,
+        ),
+    ]
+
+    moved = tracker.update(objects(None, moved_platforms), timestamp=1.1)
+
+    assert [item.track_id for item in first.objects.platforms] == [1, 2]
+    assert [item.track_id for item in moved.objects.platforms] == [1, 2]
+    assert round(moved.scroll_velocity_y) == -30
+    assert moved.matched_platforms == 2
+
+
+def test_platform_tracker_assigns_new_id_to_new_platform() -> None:
+    tracker = PlatformTracker(match_distance=10.0)
+    tracker.update(
+        objects(
+            None,
+            [
+                PlatformDetection(
+                    BoundingBox(20, 100, 80, 12),
+                    PlatformKind.NORMAL,
+                    0.99,
+                )
+            ],
+        ),
+        timestamp=1.0,
+    )
+
+    result = tracker.update(
+        objects(
+            None,
+            [
+                PlatformDetection(
+                    BoundingBox(140, 140, 50, 12),
+                    PlatformKind.NORMAL,
+                    0.99,
+                )
+            ],
+        ),
+        timestamp=2.0,
+    )
+
+    assert result.objects.platforms[0].track_id == 2

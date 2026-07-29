@@ -1,4 +1,9 @@
-from stair_agent.game_events import GameEvent, SpringBounceDetector
+from stair_agent.game_events import (
+    GameEvent,
+    GameplayEventDetector,
+    SpringBounceDetector,
+)
+from stair_agent.hud_detection import HealthEvent, HealthUpdate
 from stair_agent.object_detection import (
     BoundingBox,
     PlatformDetection,
@@ -69,3 +74,83 @@ def test_spring_bounce_has_cooldown_to_avoid_duplicate_events() -> None:
 
     assert first.event is GameEvent.SPRING_BOUNCE
     assert repeated.event is GameEvent.NONE
+
+
+def tracked_platform(kind, track_id):
+    return PlatformDetection(
+        BoundingBox(40, 80, 96, 16),
+        kind,
+        0.95,
+        track_id=track_id,
+    )
+
+
+def test_second_distinct_landing_emits_floor_descended() -> None:
+    detector = GameplayEventDetector(contact_gap=4)
+    first = tracked_platform(PlatformKind.NORMAL, 1)
+    second = tracked_platform(PlatformKind.NORMAL, 2)
+    detector.update(
+        state(MotionState.FALLING, first, gap=3),
+        HealthUpdate(12, 0, HealthEvent.UNCHANGED),
+    )
+    first_landing = detector.update(
+        state(MotionState.STABLE, first, gap=0),
+        HealthUpdate(12, 0, HealthEvent.UNCHANGED),
+    )
+    detector.update(
+        state(MotionState.FALLING, second, gap=3),
+        HealthUpdate(12, 0, HealthEvent.UNCHANGED),
+    )
+    second_landing = detector.update(
+        state(MotionState.STABLE, second, gap=0),
+        HealthUpdate(12, 0, HealthEvent.UNCHANGED),
+    )
+
+    assert [item.event for item in first_landing] == [GameEvent.LANDED]
+    assert [item.event for item in second_landing] == [
+        GameEvent.LANDED,
+        GameEvent.FLOOR_DESCENDED,
+    ]
+
+
+def test_positive_health_delta_emits_health_gained() -> None:
+    detector = GameplayEventDetector()
+
+    events = detector.update(
+        state(MotionState.STABLE, platform=None, gap=None),
+        HealthUpdate(8, 1, HealthEvent.INCREASED),
+    )
+
+    assert [item.event for item in events] == [GameEvent.HEALTH_GAINED]
+
+
+def test_spike_landing_correlates_net_minus_four_as_spike_damage() -> None:
+    detector = GameplayEventDetector(contact_gap=4, correlation_frames=4)
+    spikes = tracked_platform(PlatformKind.SPIKES, 3)
+    detector.update(
+        state(MotionState.FALLING, spikes, gap=3),
+        HealthUpdate(9, 0, HealthEvent.UNCHANGED),
+    )
+    detector.update(
+        state(MotionState.STABLE, spikes, gap=0),
+        HealthUpdate(9, 0, HealthEvent.UNCHANGED),
+    )
+
+    events = detector.update(
+        state(MotionState.STABLE, platform=None, gap=None),
+        HealthUpdate(5, -4, HealthEvent.DECREASED),
+    )
+
+    assert [item.event for item in events] == [GameEvent.SPIKE_DAMAGE]
+    assert events[0].health_delta == -4
+
+
+def test_unattributed_health_loss_remains_generic_damage() -> None:
+    detector = GameplayEventDetector()
+
+    events = detector.update(
+        state(MotionState.STABLE, platform=None, gap=None),
+        HealthUpdate(7, -5, HealthEvent.DECREASED),
+    )
+
+    assert [item.event for item in events] == [GameEvent.DAMAGE]

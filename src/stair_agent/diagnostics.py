@@ -45,7 +45,7 @@ def annotate_frame(
     frame: np.ndarray,
     fps: float | None = None,
     draw_border: bool = True,
-    message: str | None = None,
+    message: str | list[str] | tuple[str, ...] | None = None,
 ) -> np.ndarray:
     output = frame.copy()
     if output.ndim == 2:
@@ -65,14 +65,34 @@ def annotate_frame(
             cv2.LINE_AA,
         )
     if message:
-        cv2.putText(
-            output,
-            message,
-            (10, output.shape[0] - 12),
-            cv2.FONT_HERSHEY_SIMPLEX,
-            0.45,
-            (255, 255, 255),
-            1,
-            cv2.LINE_AA,
+        lines = [message] if isinstance(message, str) else list(message)
+        line_height = 17
+        panel_height = min(
+            output.shape[0],
+            len(lines) * line_height + 9,
         )
+        panel_top = output.shape[0] - panel_height
+        overlay = output.copy()
+        cv2.rectangle(
+            overlay,
+            (2, panel_top),
+            (output.shape[1] - 2, output.shape[0] - 2),
+            (0, 0, 0),
+            -1,
+        )
+        cv2.addWeighted(overlay, 0.72, output, 0.28, 0, output)
+        for index, line in enumerate(lines):
+            y = panel_top + 15 + index * line_height
+            if y >= output.shape[0]:
+                break
+            cv2.putText(
+                output,
+                line,
+                (8, y),
+                cv2.FONT_HERSHEY_SIMPLEX,
+                0.38,
+                (255, 255, 255),
+                1,
+                cv2.LINE_AA,
+            )
     return output

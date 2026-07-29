@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from enum import Enum
+from statistics import median
 
 from .object_detection import (
     GameObjects,
@@ -187,3 +188,116 @@ class PlatformStabilizer:
         self._tracks = next_tracks
         stable.sort(key=lambda item: (item.box.top, item.box.left))
         return GameObjects(objects.player, stable, objects.playfield)
+
+
+@dataclass(frozen=True)
+class PlatformTrackingState:
+    objects: GameObjects
+    scroll_velocity_y: float
+    matched_platforms: int
+
+
+@dataclass
+class _IdentityTrack:
+    detection: PlatformDetection
+    timestamp: float
+    missed_frames: int = 0
+
+
+class PlatformTracker:
+    """替平台配置跨幀 ID，並以配對平台的中位位移估計畫面捲動速度。"""
+
+    def __init__(
+        self,
+        match_distance: float = 24.0,
+        max_missed_frames: int = 2,
+    ) -> None:
+        self.match_distance = max(0.0, match_distance)
+        self.max_missed_frames = max(0, max_missed_frames)
+        self._tracks: dict[int, _IdentityTrack] = {}
+        self._next_id = 1
+
+    @staticmethod
+    def _distance(
+        first: PlatformDetection,
+        second: PlatformDetection,
+    ) -> float:
+        first_x, first_y = first.box.center
+        second_x, second_y = second.box.center
+        return ((first_x - second_x) ** 2 + (first_y - second_y) ** 2) ** 0.5
+
+    def reset(self) -> None:
+        self._tracks.clear()
+        self._next_id = 1
+
+    def update(
+        self,
+        objects: GameObjects,
+        timestamp: float,
+    ) -> PlatformTrackingState:
+        available = set(self._tracks)
+        next_tracks: dict[int, _IdentityTrack] = {}
+        tracked_platforms: list[PlatformDetection] = []
+        vertical_velocities: list[float] = []
+
+        for detection in objects.platforms:
+            candidates = [
+                track_id
+                for track_id in available
+                if self._tracks[track_id].detection.kind is detection.kind
+                and self._distance(
+                    self._tracks[track_id].detection,
+                    detection,
+                )
+                <= self.match_distance
+            ]
+            if candidates:
+                track_id = min(
+                    candidates,
+                    key=lambda item: self._distance(
+                        self._tracks[item].detection,
+                        detection,
+                    ),
+                )
+                previous = self._tracks[track_id].detection
+                track_elapsed = timestamp - self._tracks[track_id].timestamp
+                available.remove(track_id)
+                if track_elapsed > 0:
+                    vertical_velocities.append(
+                        (detection.box.top - previous.box.top) / track_elapsed
+                    )
+            else:
+                track_id = self._next_id
+                self._next_id += 1
+
+            tracked = PlatformDetection(
+                detection.box,
+                detection.kind,
+                detection.confidence,
+                track_id,
+            )
+            tracked_platforms.append(tracked)
+            next_tracks[track_id] = _IdentityTrack(tracked, timestamp)
+
+        for track_id in available:
+            track = self._tracks[track_id]
+            track.missed_frames += 1
+            if track.missed_frames <= self.max_missed_frames:
+                next_tracks[track_id] = track
+
+        self._tracks = next_tracks
+        tracked_objects = GameObjects(
+            objects.player,
+            tracked_platforms,
+            objects.playfield,
+        )
+        scroll_velocity = (
+            float(median(vertical_velocities))
+            if vertical_velocities
+            else 0.0
+        )
+        return PlatformTrackingState(
+            tracked_objects,
+            scroll_velocity,
+            len(vertical_velocities),
+        )
