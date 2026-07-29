@@ -144,6 +144,28 @@ class EnvironmentConfig:
 
 
 @dataclass
+class TrainingConfig:
+    algorithm: str = "ppo"
+    total_timesteps: int = 1024
+    max_episodes: int = 3
+    max_training_seconds: float = 120.0
+    n_steps: int = 128
+    batch_size: int = 64
+    n_epochs: int = 4
+    learning_rate: float = 0.0003
+    gamma: float = 0.99
+    gae_lambda: float = 0.95
+    ent_coef: float = 0.01
+    seed: int = 42
+    device: str = "cpu"
+    checkpoint_freq_steps: int = 256
+    model_dir: str = "models/ppo"
+    policy_hidden_sizes: list[int] = field(
+        default_factory=lambda: [128, 128]
+    )
+
+
+@dataclass
 class BaselineConfig:
     max_episode_steps: int = 300
     max_episode_seconds: float = 30.0
@@ -188,6 +210,7 @@ class AppConfig:
     hud: HudConfig = field(default_factory=HudConfig)
     events: EventsConfig = field(default_factory=EventsConfig)
     environment: EnvironmentConfig = field(default_factory=EnvironmentConfig)
+    training: TrainingConfig = field(default_factory=TrainingConfig)
     baseline: BaselineConfig = field(default_factory=BaselineConfig)
 
     @classmethod
@@ -204,6 +227,7 @@ class AppConfig:
             "hud",
             "events",
             "environment",
+            "training",
             "baseline",
         }
         unknown = set(data) - known
@@ -220,6 +244,7 @@ class AppConfig:
             hud=HudConfig(**data.get("hud", {})),
             events=EventsConfig(**data.get("events", {})),
             environment=EnvironmentConfig(**data.get("environment", {})),
+            training=TrainingConfig(**data.get("training", {})),
             baseline=BaselineConfig(**data.get("baseline", {})),
         )
         config.validate()
@@ -336,6 +361,54 @@ class AppConfig:
         ):
             if getattr(self.environment, name) < 0:
                 raise ConfigError(f"environment.{name} 不可小於 0。")
+        if self.training.algorithm != "ppo":
+            raise ConfigError("training.algorithm 目前只支援 ppo。")
+        if self.training.device != "cpu":
+            raise ConfigError("training.device 本階段只允許 cpu。")
+        for name in (
+            "total_timesteps",
+            "max_episodes",
+            "n_steps",
+            "batch_size",
+            "n_epochs",
+            "checkpoint_freq_steps",
+        ):
+            if getattr(self.training, name) <= 0:
+                raise ConfigError(f"training.{name} 必須大於 0。")
+        if self.training.max_training_seconds <= 0:
+            raise ConfigError(
+                "training.max_training_seconds 必須大於 0。"
+            )
+        if self.training.n_steps % self.training.batch_size != 0:
+            raise ConfigError(
+                "training.n_steps 必須可被 batch_size 整除。"
+            )
+        for name in (
+            "learning_rate",
+            "gamma",
+            "gae_lambda",
+        ):
+            value = getattr(self.training, name)
+            if not 0.0 < value <= 1.0:
+                raise ConfigError(f"training.{name} 必須介於 0 與 1。")
+        if self.training.ent_coef < 0:
+            raise ConfigError("training.ent_coef 不可小於 0。")
+        if (
+            not isinstance(self.training.model_dir, str)
+            or not self.training.model_dir.strip()
+        ):
+            raise ConfigError("training.model_dir 不可為空。")
+        if (
+            not isinstance(self.training.policy_hidden_sizes, list)
+            or not self.training.policy_hidden_sizes
+            or not all(
+                isinstance(size, int) and size > 0
+                for size in self.training.policy_hidden_sizes
+            )
+        ):
+            raise ConfigError(
+                "training.policy_hidden_sizes 必須是正整數清單。"
+            )
         for name in ("max_episode_steps", "max_episode_seconds"):
             if getattr(self.baseline, name) <= 0:
                 raise ConfigError(f"baseline.{name} 必須大於 0。")

@@ -1,0 +1,135 @@
+from __future__ import annotations
+
+import time
+from pathlib import Path
+from typing import Any
+
+import gymnasium as gym
+
+from .config import TrainingConfig
+
+
+class TrainingSafetyWrapper(gym.Wrapper):
+    """在最後核准回合阻止 VecEnv 自動 reset，避免多送一次 Enter。"""
+
+    def __init__(self, env: gym.Env, *, max_episodes: int) -> None:
+        if max_episodes <= 0:
+            raise ValueError("max_episodes 必須大於 0。")
+        super().__init__(env)
+        self.max_episodes = int(max_episodes)
+        self.completed_episodes = 0
+
+    def step(self, action):
+        observation, reward, terminated, truncated, info = self.env.step(
+            action
+        )
+        info = dict(info)
+        if terminated or truncated:
+            self.completed_episodes += 1
+            info["completed_episodes"] = self.completed_episodes
+            if self.completed_episodes >= self.max_episodes:
+                # DummyVecEnv 會在 done=True 時立刻 reset，早於 callback。
+                # 最後一回合改以 info 通知 callback，讓它在下一動作前停止。
+                info["training_budget_exhausted"] = True
+                terminated = False
+                truncated = False
+        return observation, reward, terminated, truncated, info
+
+
+class SafetyStopCallback:
+    """延遲匯入 SB3 callback，讓非 RL 工具不必安裝 PyTorch。"""
+
+    def __new__(
+        cls,
+        *,
+        max_seconds: float,
+        verbose: int = 0,
+    ):
+        from stable_baselines3.common.callbacks import BaseCallback
+
+        if max_seconds <= 0:
+            raise ValueError("max_seconds 必須大於 0。")
+
+        class _Callback(BaseCallback):
+            def __init__(self) -> None:
+                super().__init__(verbose=verbose)
+                self.started_at = 0.0
+                self.stop_reason: str | None = None
+
+            def _on_training_start(self) -> None:
+                self.started_at = time.monotonic()
+
+            def _on_step(self) -> bool:
+                infos = self.locals.get("infos") or []
+                if any(
+                    bool(info.get("training_budget_exhausted"))
+                    for info in infos
+                ):
+                    self.stop_reason = "episode_limit"
+                    return False
+                if time.monotonic() - self.started_at >= max_seconds:
+                    self.stop_reason = "time_limit"
+                    return False
+                return True
+
+        return _Callback()
+
+
+def validate_training_budget(config: TrainingConfig) -> None:
+    """避免 PPO 為完成 rollout 而超過核准的實機送鍵步數。"""
+    if config.total_timesteps < config.n_steps:
+        raise ValueError(
+            "training.total_timesteps 不可小於 training.n_steps，"
+            "否則 PPO 仍會多收集一個完整 rollout。"
+        )
+    if config.total_timesteps % config.n_steps != 0:
+        raise ValueError(
+            "training.total_timesteps 必須可被 training.n_steps 整除，"
+            "避免實際送鍵步數超過設定上限。"
+        )
+
+
+def create_ppo_model(
+    env: gym.Env,
+    config: TrainingConfig,
+    *,
+    verbose: int = 1,
+):
+    from stable_baselines3 import PPO
+
+    validate_training_budget(config)
+    return PPO(
+        "MlpPolicy",
+        env,
+        learning_rate=config.learning_rate,
+        n_steps=config.n_steps,
+        batch_size=config.batch_size,
+        n_epochs=config.n_epochs,
+        gamma=config.gamma,
+        gae_lambda=config.gae_lambda,
+        ent_coef=config.ent_coef,
+        policy_kwargs={
+            "net_arch": list(config.policy_hidden_sizes),
+        },
+        seed=config.seed,
+        device=config.device,
+        verbose=verbose,
+    )
+
+
+def resolve_model_directory(
+    project_root: str | Path,
+    configured_path: str,
+) -> Path:
+    root = Path(project_root).resolve()
+    raw = Path(configured_path)
+    if raw.is_absolute():
+        raise ValueError("training.model_dir 必須是專案內的相對路徑。")
+    target = (root / raw).resolve()
+    try:
+        relative = target.relative_to(root)
+    except ValueError as exc:
+        raise ValueError("training.model_dir 不可離開專案目錄。") from exc
+    if not relative.parts or relative.parts[0].casefold() != "models":
+        raise ValueError("training.model_dir 必須位於 models/ 之下。")
+    return target

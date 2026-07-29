@@ -20,6 +20,10 @@ dependencies = [
 
 [project.optional-dependencies]
 test = ["pytest>=8.0,<9"]
+rl = [
+  "torch==2.8.0",
+  "stable-baselines3==2.9.0",
+]
 
 [tool.setuptools.packages.find]
 where = ["src"]

@@ -1,9 +1,9 @@
 # AI Stair Agent：NS-SHAFT 遊戲介面層
 
 本專案以一般 Windows 視窗 API、螢幕擷取及鍵盤輸入控制既有的
-`NS Shaft.exe`。目前已完成遊戲介面層、角色／平台／血量事件辨識，以及第一版
-可測試的 Gymnasium 環境介面。**尚未安裝 Stable-Baselines3，也尚未開始訓練
-任何強化學習模型。**
+`NS Shaft.exe`。目前已完成遊戲介面層、角色／平台／血量事件辨識、Gymnasium
+環境，以及具有硬性安全上限的本機 PPO 訓練入口。PPO 仍在短時間實機驗證
+階段，尚未產生可用的遊玩模型。
 
 專案不修改、注入、掛鉤、反編譯遊戲，也不讀取遊戲程序記憶體。預設
 `auto_launch: false`，任何工具都不會自行執行遊戲；請由使用者手動啟動。
@@ -23,6 +23,16 @@ python -m pip install -r requirements.txt
 
 本專案不需要 editable install；腳本會從本專案的 `src` 載入套件。這也避免
 某些繁體中文 Windows 在含特殊字元的路徑建立 editable `.pth` 時遇到編碼問題。
+
+一般擷取、辨識與控制工具不需要 PyTorch。只有進行 PPO 訓練時才另外安裝：
+
+```powershell
+python -m pip install -r requirements-rl.txt
+```
+
+Windows CPU 版固定使用 PyTorch `2.8.0+cpu`，Stable-Baselines3 使用 `2.9.0`。
+PyTorch 2.9 在部分 Windows 環境有 DLL 載入回歸，因此本專案不使用該版本。
+這些套件只安裝在 `.venv`，不會修改遊戲或系統 Python，也不會在背景常駐。
 
 ## 設定
 
@@ -288,7 +298,7 @@ python scripts/test_session_loop.py --max-seconds 60
 `成功下降至新平台(flipping)`、`角色落地(conveyor)`；傷害則會附帶原始
 `delta`，方便分辨平台分類與血量證據。
 
-## Gymnasium 環境介面（尚未訓練）
+## Gymnasium 環境介面
 
 單幀觀測編碼器把既有辨識結果轉為 64 個 `float32` 特徵，範圍固定在
 `[-1, 1]`：
@@ -442,6 +452,33 @@ JSONL 也會記錄每步的 `policy_decision`，包括原因、鎖定平台 ID�
 差距，方便離線檢查是否因 `avoid_nearby_spikes` 避讓或
 `direction_change_brake` 暫停換向。
 
+## 受限 PPO 訓練
+
+先執行完全離線、使用 mock 環境的 smoke test；它不會擷取畫面或送出按鍵：
+
+```powershell
+.\.venv\Scripts\python.exe scripts\check_ppo.py
+```
+
+確認遊戲已手動開啟、位於前景並進入可開始回合的畫面後，才可執行受限訓練：
+
+```powershell
+.\.venv\Scripts\python.exe scripts\train_ppo.py `
+  --timesteps 128 `
+  --max-episodes 3 `
+  --max-seconds 45
+```
+
+工具要求輸入大寫 `TRAIN` 並倒數 3 秒。PPO 初期是探索策略，可能快速換向、
+踩刺或摔落；這不代表模型已學會遊戲。步數必須是 `training.n_steps` 的整數倍，
+避免 Stable-Baselines3 為完成 rollout 而超過核准的送鍵數。回合數、時間或
+步數任一上限到達便停止；最後一個核准回合結束時不會自動多按一次 Enter。
+F8、失焦、額外姓名視窗、例外與 Ctrl+C 都會停止並釋放方向鍵。
+
+模型與 checkpoint 存於 `models/ppo/時間戳/`，整個 `models/` 已由 Git 忽略。
+目前只允許 CPU 訓練；短期目標是先驗證資料流與安全重設，不以這次短訓練的
+遊玩成績判斷 PPO 效果。
+
 related-window 列舉可能比單次按鍵昂貴，因此現在由安全背景監控每 0.25 秒更新
 快取；每個控制步只讀快取，不再同步列舉所有視窗。一旦背景偵測到額外遊戲
 視窗，停止狀態具有黏性，該次程序即使視窗稍後消失也不會恢復送鍵。這項最佳化
@@ -509,7 +546,6 @@ pytest -q
 
 受限 reset 已實機通過連續兩回合。規則基準的實機紀錄陸續暴露方向抖動、缺少
 尖刺避讓、控制更新慢與彈簧重複落點；目前已改成可達落點優先、起跳平台邊界
-脫離、危急踩刺與保留 fail-safe 的低延遲 PyAutoGUI 呼叫。必須再實機驗證
-修正版，才
-決定是否加入 Stable-Baselines3 與 PPO 訓練設定。外部姓名輸入視窗仍不會被
-自動處理；目前仍未安裝 Stable-Baselines3，也沒有模型訓練。
+脫離、危急踩刺與保留 fail-safe 的低延遲 PyAutoGUI 呼叫。Stable-Baselines3
+與 PPO 安全訓練入口已加入，但外部姓名輸入視窗仍不會被自動處理，模型也尚未
+經過足夠訓練；目前成果不能視為會自動通關的代理。
