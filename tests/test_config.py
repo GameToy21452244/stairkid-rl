@@ -45,6 +45,9 @@ def test_defaults() -> None:
     assert config.training.algorithm == "ppo"
     assert config.training.device == "cpu"
     assert config.training.max_episodes == 3
+    assert config.training.n_epochs == 2
+    assert config.training.learning_rate == 0.0001
+    assert config.training.ent_coef == 0.03
     assert config.baseline.max_episode_steps == 300
     assert config.baseline.direction_switch_release_frames == 1
 

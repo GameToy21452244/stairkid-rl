@@ -156,6 +156,60 @@ def test_load_ppo_model_rejects_rollout_config_mismatch(tmp_path) -> None:
     target_env.close()
 
 
+@pytest.mark.parametrize(
+    ("overrides", "message"),
+    [
+        ({"n_epochs": 2}, "n_epochs"),
+        ({"learning_rate": 0.0001}, "learning_rate"),
+        ({"ent_coef": 0.03}, "ent_coef"),
+    ],
+)
+def test_load_ppo_model_rejects_optimizer_config_mismatch(
+    tmp_path,
+    overrides: dict[str, float | int],
+    message: str,
+) -> None:
+    source_env = TrainingSafetyWrapper(
+        TwoStepEpisodeEnv(),
+        max_episodes=20,
+    )
+    source_config = TrainingConfig(
+        n_steps=8,
+        batch_size=4,
+        n_epochs=1,
+        learning_rate=0.0003,
+        ent_coef=0.01,
+        device="cpu",
+    )
+    source = create_ppo_model(source_env, source_config, verbose=0)
+    model_path = tmp_path / "model"
+    source.save(model_path)
+    source_env.close()
+    target_env = TrainingSafetyWrapper(
+        TwoStepEpisodeEnv(),
+        max_episodes=20,
+    )
+
+    target_config = {
+        "n_steps": 8,
+        "batch_size": 4,
+        "n_epochs": 1,
+        "learning_rate": 0.0003,
+        "ent_coef": 0.01,
+        "device": "cpu",
+    }
+    target_config.update(overrides)
+
+    with pytest.raises(ValueError, match=message):
+        load_ppo_model(
+            target_env,
+            model_path.with_suffix(".zip"),
+            TrainingConfig(**target_config),
+            verbose=0,
+        )
+    target_env.close()
+
+
 @pytest.mark.parametrize("total_timesteps", [4, 9])
 def test_create_ppo_model_rejects_rollout_budget_overshoot(
     total_timesteps: int,

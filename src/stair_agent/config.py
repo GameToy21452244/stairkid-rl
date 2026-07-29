@@ -182,11 +182,11 @@ class TrainingConfig:
     max_training_seconds: float = 120.0
     n_steps: int = 128
     batch_size: int = 64
-    n_epochs: int = 4
-    learning_rate: float = 0.0003
+    n_epochs: int = 2
+    learning_rate: float = 0.0001
     gamma: float = 0.99
     gae_lambda: float = 0.95
-    ent_coef: float = 0.01
+    ent_coef: float = 0.03
     seed: int = 42
     device: str = "cpu"
     checkpoint_freq_steps: int = 256

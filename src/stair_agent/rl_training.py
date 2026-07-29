@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import time
+from math import isclose
 from pathlib import Path
 from typing import Any
 
@@ -124,7 +125,7 @@ def load_ppo_model(
     *,
     verbose: int = 1,
 ):
-    """載入既有 PPO 並拒絕會改變 rollout 預算的設定不一致。"""
+    """載入既有 PPO，並拒絕與目前訓練設定不相容的 checkpoint。"""
     from stable_baselines3 import PPO
 
     validate_training_budget(config)
@@ -142,6 +143,35 @@ def load_ppo_model(
     if int(model.batch_size) != int(config.batch_size):
         raise ValueError(
             "續訓模型的 batch_size 與目前 training.batch_size 不一致。"
+        )
+    if int(model.n_epochs) != int(config.n_epochs):
+        raise ValueError(
+            "續訓模型的 n_epochs 與目前 training.n_epochs 不一致；"
+            "請以新設定重新建立模型。"
+        )
+
+    model_learning_rate = model.learning_rate
+    if callable(model_learning_rate):
+        model_learning_rate = model.lr_schedule(1.0)
+    if not isclose(
+        float(model_learning_rate),
+        float(config.learning_rate),
+        rel_tol=1e-9,
+        abs_tol=1e-12,
+    ):
+        raise ValueError(
+            "續訓模型的 learning_rate 與目前 training.learning_rate "
+            "不一致；請以新設定重新建立模型。"
+        )
+    if not isclose(
+        float(model.ent_coef),
+        float(config.ent_coef),
+        rel_tol=1e-9,
+        abs_tol=1e-12,
+    ):
+        raise ValueError(
+            "續訓模型的 ent_coef 與目前 training.ent_coef 不一致；"
+            "請以新設定重新建立模型。"
         )
     return model
 
