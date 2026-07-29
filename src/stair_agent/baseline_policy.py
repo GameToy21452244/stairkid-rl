@@ -30,6 +30,9 @@ class SafePlatformPolicy:
         self._pending_direction: Action | None = None
         self._pending_frames = 0
         self._release_frames = 0
+        self._target_kind: str | None = None
+        self._target_center_x: float | None = None
+        self._target_top: float | None = None
 
     def _stabilize(self, desired: Action) -> tuple[Action, bool]:
         if desired is Action.RELEASE_ALL:
@@ -136,6 +139,8 @@ class SafePlatformPolicy:
             )
 
         candidates: list[tuple[float, float, dict]] = []
+        motion = str(player.get("motion", ""))
+        excluded_springs: list[tuple[float, dict]] = []
         for platform in observation.platforms:
             if str(platform.get("kind", "")) not in self.safe_kinds:
                 continue
@@ -151,9 +156,47 @@ class SafePlatformPolicy:
             center_x = float(box.get("left", 0.0)) + float(
                 box.get("width", 0.0)
             ) / 2
+            if (
+                motion == "rising"
+                and delta_y
+                <= self.config.rising_origin_exclusion_gap_pixels
+                and abs(center_x - player_x)
+                <= (
+                    float(box.get("width", 0.0)) / 2
+                    + self.config.rising_origin_horizontal_margin_pixels
+                )
+            ):
+                if str(platform.get("kind", "")) == "spring":
+                    excluded_springs.append((center_x, platform))
+                continue
             candidates.append((delta_y, abs(center_x - player_x), platform))
         if not candidates:
             self._target_id = None
+            self._target_kind = None
+            self._target_center_x = None
+            self._target_top = None
+            if excluded_springs:
+                spring_x, spring = min(
+                    excluded_springs,
+                    key=lambda item: abs(item[0] - player_x),
+                )
+                velocity_x = float(player.get("velocity_x", 0.0))
+                if abs(velocity_x) >= 5.0:
+                    desired = (
+                        Action.RIGHT if velocity_x > 0 else Action.LEFT
+                    )
+                else:
+                    desired = (
+                        Action.LEFT
+                        if player_x < spring_x
+                        else Action.RIGHT
+                    )
+                return self._decision(
+                    desired,
+                    "escape_spring_bounce",
+                    target=spring,
+                    horizontal_delta=spring_x - player_x,
+                )
             return self._decision(
                 Action.RELEASE_ALL,
                 "no_safe_platform",
@@ -167,6 +210,33 @@ class SafePlatformPolicy:
             ),
             None,
         )
+        if (
+            locked is None
+            and self._target_kind is not None
+            and self._target_center_x is not None
+            and self._target_top is not None
+        ):
+            spatial_matches = []
+            for item in candidates:
+                platform = item[2]
+                if str(platform.get("kind", "")) != self._target_kind:
+                    continue
+                box = platform.get("box") or {}
+                center_x = float(box.get("left", 0.0)) + float(
+                    box.get("width", 0.0)
+                ) / 2
+                top = float(box.get("top", 0.0))
+                distance = (
+                    (center_x - self._target_center_x) ** 2
+                    + (top - self._target_top) ** 2
+                ) ** 0.5
+                if distance <= self.config.target_reacquire_distance_pixels:
+                    spatial_matches.append((distance, item))
+            if spatial_matches:
+                locked = min(
+                    spatial_matches,
+                    key=lambda item: item[0],
+                )[1]
         _delta_y, _distance, target = locked or min(
             candidates, key=lambda item: (item[0], item[1])
         )
@@ -178,6 +248,9 @@ class SafePlatformPolicy:
         target_x = float(box.get("left", 0.0)) + float(
             box.get("width", 0.0)
         ) / 2
+        self._target_kind = str(target.get("kind", ""))
+        self._target_center_x = target_x
+        self._target_top = float(box.get("top", 0.0))
         horizontal_delta = target_x - player_x
         if abs(horizontal_delta) <= self.config.horizontal_deadzone_pixels:
             return self._decision(

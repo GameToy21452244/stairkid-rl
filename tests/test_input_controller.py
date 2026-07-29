@@ -29,11 +29,13 @@ class FakeManager:
     def __init__(self):
         self.foreground = True
         self.related = []
+        self.related_check_count = 0
 
     def is_foreground(self, _hwnd):
         return self.foreground
 
     def blocking_related_windows(self, _hwnd):
+        self.related_check_count += 1
         return self.related
 
 
@@ -105,4 +107,35 @@ def test_target_active_requires_foreground_and_no_related_window() -> None:
 
     assert controller.is_target_active()
     controller.window_manager.related = [object()]
+    controller.refresh_related_window_state()
     assert not controller.is_target_active()
+
+
+def test_related_window_cache_avoids_enumerating_every_action() -> None:
+    controller, _backend = make_controller()
+
+    controller.refresh_related_window_state()
+    controller.apply(Action.LEFT)
+    controller.release_all()
+    controller.apply(Action.RIGHT)
+
+    assert controller.window_manager.related_check_count == 1
+
+
+def test_safety_monitor_stops_when_related_window_appears() -> None:
+    controller, _backend = make_controller()
+    monitor = SafetyMonitor(
+        controller,
+        "f8",
+        key_checker=lambda _key: False,
+        interval=0.005,
+        related_window_interval=0.01,
+    )
+    monitor.start()
+    controller.key_down("left")
+    controller.window_manager.related = [object()]
+    time.sleep(0.05)
+    monitor.stop()
+
+    assert controller.related_window_stopped
+    assert not controller.held_keys

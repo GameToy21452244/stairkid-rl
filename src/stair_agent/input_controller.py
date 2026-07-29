@@ -85,6 +85,8 @@ class InputController:
         self.backend = backend or create_backend(controls.input_backend)
         self.held_keys: set[str] = set()
         self.emergency_stopped = False
+        self.related_window_stopped = False
+        self._related_window_state_initialized = False
         self._lock = threading.RLock()
 
     def __enter__(self) -> "InputController":
@@ -96,30 +98,49 @@ class InputController:
     def _ensure_safe_to_send(self) -> None:
         if self.emergency_stopped:
             raise InputError("F8 緊急停止已啟動。")
-        if self.safety.require_foreground_window and not self.window_manager.is_foreground(
-            self.hwnd
-        ):
-            self.release_all()
-            raise InputError("遊戲不是前景視窗；已釋放按鍵並停止輸入。")
         if (
             self.safety.block_on_related_windows
-            and self.window_manager.blocking_related_windows(self.hwnd)
+            and not self._related_window_state_initialized
         ):
+            self.refresh_related_window_state()
+        if self.related_window_stopped:
             self.release_all()
             raise InputError(
                 "偵測到遊戲的其他可見視窗（可能是姓名輸入框）；"
                 "已釋放按鍵並停止輸入。"
             )
+        if self.safety.require_foreground_window and not self.window_manager.is_foreground(
+            self.hwnd
+        ):
+            self.release_all()
+            raise InputError("遊戲不是前景視窗；已釋放按鍵並停止輸入。")
+
+    def refresh_related_window_state(self) -> bool:
+        if not self.safety.block_on_related_windows:
+            self._related_window_state_initialized = True
+            return False
+        blocked = bool(
+            self.window_manager.blocking_related_windows(self.hwnd)
+        )
+        with self._lock:
+            self._related_window_state_initialized = True
+            if blocked:
+                self.related_window_stopped = True
+        if blocked:
+            self.release_all()
+        return blocked
 
     def is_target_active(self) -> bool:
         if (
-            self.safety.require_foreground_window
-            and not self.window_manager.is_foreground(self.hwnd)
+            self.safety.block_on_related_windows
+            and not self._related_window_state_initialized
         ):
+            self.refresh_related_window_state()
+        if self.related_window_stopped:
             return False
         if (
-            self.safety.block_on_related_windows
-            and self.window_manager.blocking_related_windows(self.hwnd)
+            self.safety.require_foreground_window
+            and not self.window_manager.is_foreground(self.hwnd)
         ):
             return False
         return True
@@ -213,11 +234,13 @@ class SafetyMonitor:
         emergency_key: str,
         key_checker: Callable[[str], bool] = windows_key_pressed,
         interval: float = 0.02,
+        related_window_interval: float = 0.25,
     ) -> None:
         self.controller = controller
         self.emergency_key = emergency_key
         self.key_checker = key_checker
         self.interval = interval
+        self.related_window_interval = max(interval, related_window_interval)
         self._stop = threading.Event()
         self._thread: threading.Thread | None = None
 
@@ -232,6 +255,10 @@ class SafetyMonitor:
         if self._thread and self._thread.is_alive():
             return
         self._stop.clear()
+        self.controller.refresh_related_window_state()
+        if self.controller.related_window_stopped:
+            self._stop.set()
+            return
         self._thread = threading.Thread(target=self._run, daemon=True)
         self._thread.start()
 
@@ -242,12 +269,22 @@ class SafetyMonitor:
         self.controller.release_all()
 
     def _run(self) -> None:
+        last_related_check = time.monotonic()
         while not self._stop.is_set():
             try:
                 if self.key_checker(self.emergency_key):
                     self.controller.emergency_stop()
                     self._stop.set()
                     break
+                now = time.monotonic()
+                if (
+                    now - last_related_check
+                    >= self.related_window_interval
+                ):
+                    last_related_check = now
+                    if self.controller.refresh_related_window_state():
+                        self._stop.set()
+                        break
                 if (
                     self.controller.held_keys
                     and not self.controller.is_target_active()

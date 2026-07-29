@@ -150,7 +150,10 @@ class BaselineConfig:
     max_target_vertical_gap_pixels: float = 200.0
     hazard_vertical_gap_pixels: float = 180.0
     hazard_horizontal_margin_pixels: float = 64.0
-    direction_switch_release_frames: int = 2
+    direction_switch_release_frames: int = 1
+    rising_origin_exclusion_gap_pixels: float = 150.0
+    rising_origin_horizontal_margin_pixels: float = 12.0
+    target_reacquire_distance_pixels: float = 80.0
     safe_platform_kinds: list[str] = field(
         default_factory=lambda: [
             "normal",
@@ -325,6 +328,9 @@ class AppConfig:
             "max_target_vertical_gap_pixels",
             "hazard_vertical_gap_pixels",
             "hazard_horizontal_margin_pixels",
+            "rising_origin_exclusion_gap_pixels",
+            "rising_origin_horizontal_margin_pixels",
+            "target_reacquire_distance_pixels",
         ):
             if getattr(self.baseline, name) < 0:
                 raise ConfigError(f"baseline.{name} 不可小於 0。")

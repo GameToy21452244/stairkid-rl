@@ -162,3 +162,57 @@ def test_policy_reset_clears_target_and_direction_memory() -> None:
 
     assert decision.target_platform_id == 2
     assert decision.action is Action.LEFT
+
+
+def test_rising_player_skips_launch_platform_and_targets_next_floor() -> None:
+    policy = SafePlatformPolicy(BaselineConfig())
+    item = observation(
+        player_x=200,
+        motion="rising",
+        platforms=[
+            platform(1, "spring", 157, top=210),
+            platform(2, "normal", 300, top=270),
+        ],
+    )
+
+    decision = policy.choose(item)
+
+    assert decision.target_platform_id == 2
+    assert decision.action is Action.RIGHT
+
+
+def test_policy_reacquires_same_spatial_target_when_track_id_changes() -> None:
+    policy = SafePlatformPolicy(BaselineConfig())
+    first = observation(
+        platforms=[
+            platform(1, "normal", 300, top=220),
+            platform(2, "normal", 20, top=250),
+        ]
+    )
+    changed_ids = observation(
+        platforms=[
+            platform(99, "normal", 304, top=205),
+            platform(3, "normal", 20, top=190),
+        ]
+    )
+
+    assert policy.choose(first).target_platform_id == 1
+    decision = policy.choose(changed_ids)
+
+    assert decision.target_platform_id == 99
+    assert decision.action is Action.RIGHT
+
+
+def test_rising_player_escapes_spring_when_no_next_platform_visible() -> None:
+    policy = SafePlatformPolicy(BaselineConfig())
+    item = observation(
+        player_x=200,
+        motion="rising",
+        platforms=[platform(1, "spring", 157, top=210)],
+    )
+
+    decision = policy.choose(item)
+
+    assert decision.action is Action.LEFT
+    assert decision.target_platform_id == 1
+    assert decision.reason == "escape_spring_bounce"
