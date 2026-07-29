@@ -322,6 +322,39 @@ python scripts/test_session_loop.py --max-seconds 60
 送出本機按鍵。後續若改成離線資料訓練才適合考慮 Colab；需要與遊戲互動的
 online RL 訓練仍應在本機執行。
 
+### 短回合軌跡與 reward 稽核
+
+正式訓練前，先重播既有結構化觀測，確認 reward 規則與事件一致：
+
+```powershell
+.\.venv\Scripts\python.exe scripts\audit_rewards.py --offline logs\observations_檔名.jsonl
+```
+
+離線模式不尋找遊戲，也不載入或操作鍵盤。它會列出有事件或非零 reward 的
+步驟，最後彙總成功下降、傷害、彈簧等事件數量及總 reward。若要另外產生含
+16 維特徵的稽核軌跡，可加上尚不存在的輸出路徑：
+
+```powershell
+.\.venv\Scripts\python.exe scripts\audit_rewards.py `
+  --offline logs\observations_檔名.jsonl `
+  --output logs\offline_reward_audit.jsonl
+```
+
+實機人工遊玩稽核則執行：
+
+```powershell
+.\.venv\Scripts\python.exe scripts\audit_rewards.py --max-seconds 30
+```
+
+工具會先確認視窗並要求輸入大寫 `YES`。倒數後請點選遊戲，接著由你親自使用
+左右鍵遊玩；程式只旁觀畫面，不會送左右鍵、Enter 或任何隨機動作。每一幀的
+人工動作標記為 `manual`，並記錄 phase、血量、事件、16 維特徵、單步 reward、
+累計 reward 與終止狀態至新的 `logs/reward_audit_時間戳.jsonl`；精簡統計另存
+為同名 `.summary.json`。既有檔案一律拒絕覆寫。
+
+死亡對話框、未知狀態、時間上限、失焦、F8 與 Ctrl+C 都會安全結束；F8、失焦、
+例外及正常結束仍會釋放所有方向鍵。這個工具用來檢查獎勵，不會訓練模型。
+
 ## LIFE 血量辨識與遊戲機制
 
 `hud` 設定集中保存 LIFE 第一格位置、每格尺寸、間距與最大 12 格。辨識器只讀取
@@ -377,6 +410,6 @@ pytest -q
 - 不會執行來源不明檔案；`auto_launch` 僅允許設定中經驗證為 `.exe` 的單一路徑。
 - `captures/`、`logs/`、exe、模型與影片均由 `.gitignore` 排除。
 
-下一階段會用人工可控的短回合驗證 Gymnasium 每一步的觀測、獎勵與終止紀錄，
-再設計訓練用的安全 reset 流程。只有這些實機結果通過後，才會加入
-Stable-Baselines3、建立模型與正式訓練；目前仍沒有任何模型訓練。
+下一階段會先用人工遊玩軌跡確認死亡終止與完整回合 reward，再設計訓練用的
+安全 reset 流程。只有這些實機結果通過後，才會加入 Stable-Baselines3、
+建立模型與正式訓練；目前仍沒有任何模型訓練。

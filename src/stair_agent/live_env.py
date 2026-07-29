@@ -148,6 +148,17 @@ class LiveGameAdapter:
     def release_all(self) -> None:
         self.controller.release_all()
 
+    @property
+    def emergency_stopped(self) -> bool:
+        return bool(self.controller.emergency_stopped)
+
+    def is_foreground(self) -> bool:
+        return bool(
+            self.controller.window_manager.is_foreground(
+                self.controller.hwnd
+            )
+        )
+
     def close(self) -> None:
         if self._closed:
             return

@@ -8,12 +8,20 @@ class FakeController:
     def __init__(self):
         self.applied = []
         self.release_count = 0
+        self.emergency_stopped = False
+        self.hwnd = 123
+        self.window_manager = FakeWindowManager()
 
     def apply(self, action):
         self.applied.append(action)
 
     def release_all(self):
         self.release_count += 1
+
+
+class FakeWindowManager:
+    def is_foreground(self, hwnd):
+        return hwnd == 123
 
 
 class FakeResource:
@@ -90,3 +98,19 @@ def test_live_adapter_reset_and_close_clean_everything() -> None:
     assert controller.release_count >= 2
     assert monitor.calls == 1
     assert capture.calls == 1
+
+
+def test_live_adapter_exposes_safety_state() -> None:
+    controller = FakeController()
+    adapter = LiveGameAdapter(
+        controller=controller,
+        observe=lambda: object(),
+        reset_pipeline=lambda: None,
+        action_duration_ms=80,
+        sleeper=lambda seconds: None,
+    )
+
+    assert adapter.is_foreground()
+    assert not adapter.emergency_stopped
+    controller.emergency_stopped = True
+    assert adapter.emergency_stopped
