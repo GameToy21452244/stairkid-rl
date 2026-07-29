@@ -121,6 +121,10 @@ python scripts/test_input.py
 所有送鍵前都要求目標遊戲位於前景。失去焦點、發生例外、按 `F8`、按
 `Ctrl+C` 或正常離開時，都會執行 `release_all()`。PyAutoGUI 原生的滑鼠移至
 螢幕角落 fail-safe 保持啟用；程式若偵測它被外部關閉，會拒絕啟動控制器。
+控制器會在呼叫輸入後端前先登記按住的鍵，因此後端送鍵途中發生例外也能立即
+嘗試釋放；`release_all()` 只釋放本程序實際追蹤的鍵，不會在沒有按鍵被按住時
+額外送出 LEFT／RIGHT key-up，避免 NS-SHAFT 死亡選單把多餘 key-up 當成焦點
+導覽。
 
 ### 5. 人工收集遊戲狀態畫面
 
@@ -431,7 +435,7 @@ online RL 訓練仍應在本機執行。
   避免最後一次 LEFT／RIGHT 改變選單焦點。
 - 連續 3 幀穩定為主遊戲 `DIALOG`，且右側單人「開始」按鈕具有校正後的焦點
   外框：最多短按一次設定中的 `restart_key`。
-- 焦點明確位於中央雙人模式：先再次釋放所有方向鍵（只送 key-up，不送
+- 焦點明確位於中央雙人模式：先再次釋放控制器實際追蹤的方向鍵（不送新的
   key-down），再唯讀等待最多 `reset_focus_max_observation_frames`
   （預設約 15 秒），因為實機確認這可能只是死亡對話框重繪期間的暫態。只有
   單人開始焦點連續穩定後才允許 Enter。等待逾時時，僅在
@@ -456,12 +460,16 @@ Enter 的往返校正：
 ```powershell
 .\.venv\Scripts\python.exe scripts\calibrate_menu_focus.py `
   --candidate-key tab `
-  --round-trip-from-start
+  --round-trip-from-start `
+  --focus-target
 ```
 
-此模式只在先確認目前為單人開始時，逐次送出最多四次 Tab；每次都重新確認
-仍是同一個 DIALOG，找到中央雙人後才會再送一次候選鍵，並再次確認回到單人
-開始。任一步辨識失敗都會停止。
+此模式在目前為單人開始、中央雙人，或焦點可能位於名稱欄／終了按鈕時，逐次
+送出最多四次 Tab；每次都重新確認仍是同一個 DIALOG，辨識到單人開始便立刻
+停止，辨識到中央雙人則只再測試一次候選鍵。任一步辨識失敗都會停止，全程
+不按 Enter。
+`--focus-target` 與訓練工具相同，只在倒數後嘗試一次切換並驗證已知遊戲視窗；
+Windows 拒絕切換時不會送出 Tab。
 - Enter 後必須重新辨識為 `PLAYING` 才算成功。
 - Enter 後仍是對話框、狀態不明、失焦、F8 或例外：立即停止，不補按第二次。
 - 不搜尋、不聚焦，也不對另一個螢幕上的未知姓名輸入視窗送鍵。

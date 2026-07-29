@@ -35,6 +35,11 @@ def parse_args() -> argparse.Namespace:
             "再測試候選鍵能否回到單人；全程不按 Enter。"
         ),
     )
+    parser.add_argument(
+        "--focus-target",
+        action="store_true",
+        help="倒數後只嘗試一次將已驗證的遊戲視窗切到前景。",
+    )
     return parser.parse_args()
 
 
@@ -103,6 +108,14 @@ def main() -> None:
     for value in (3, 2, 1):
         print(f"{value}...")
         time.sleep(1)
+    if args.focus_target:
+        manager.focus(target.hwnd)
+        time.sleep(0.2)
+        if not manager.is_foreground(target.hwnd):
+            raise RuntimeError(
+                "嘗試切換後遊戲仍不是前景視窗；沒有送出按鍵。"
+            )
+        print("遊戲前景切換與驗證通過。")
 
     required = config.environment.reset_required_consecutive_frames
     max_frames = config.environment.reset_focus_max_observation_frames
@@ -142,7 +155,14 @@ def main() -> None:
                     )
                 location = guard.focus_location(initial.frame)
                 if location is DialogFocusLocation.UNKNOWN:
-                    raise RuntimeError("目前選單焦點不明，沒有送出按鍵。")
+                    if not args.round_trip_from_start:
+                        raise RuntimeError(
+                            "目前選單焦點不明，沒有送出按鍵。"
+                        )
+                    print(
+                        "目前可能位於名稱欄或終了按鈕；"
+                        "將以最多四次 Tab 尋找已校正的雙人／單人焦點。"
+                    )
                 if location is DialogFocusLocation.START:
                     if not args.round_trip_from_start:
                         raise RuntimeError(
@@ -150,6 +170,10 @@ def main() -> None:
                             "若要執行不按 Enter 的往返校正，請明確加入 "
                             "--round-trip-from-start。"
                         )
+                if location in {
+                    DialogFocusLocation.START,
+                    DialogFocusLocation.UNKNOWN,
+                }:
                     found_two_player = False
                     for tab_index in range(1, 5):
                         controller.tap(
@@ -171,6 +195,12 @@ def main() -> None:
                         if tab_location is DialogFocusLocation.TWO_PLAYER:
                             found_two_player = True
                             break
+                        if tab_location is DialogFocusLocation.START:
+                            print(
+                                "校正成功：有限 Tab 巡覽已直接回到"
+                                "右側單人開始。沒有按 Enter。"
+                            )
+                            return
                     if not found_two_player:
                         raise RuntimeError(
                             "四次 Tab 內未確認中央雙人焦點；"

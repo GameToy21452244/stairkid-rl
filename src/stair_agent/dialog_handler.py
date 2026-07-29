@@ -344,15 +344,13 @@ class DialogActionHandler:
             if self.focus_guard is not None:
                 location = self.focus_guard.focus_location(before.frame)
                 if location is DialogFocusLocation.TWO_PLAYER:
-                    # 死亡可能發生在方向鍵狀態切換期間。再次送出純
-                    # key-up，再等待舊遊戲完成對話框焦點重繪；此處
-                    # 不送任何 key-down，也不主動切換選項。
+                    # 死亡可能發生在方向鍵狀態切換期間。先釋放控制器
+                    # 實際追蹤的按鍵，再等待舊遊戲完成對話框焦點重繪；
+                    # 此處不送任何新 key-down，也不主動切換選項。
                     self.controller.release_all()
                     corrected = self._observe_stable_start_focus()
                     if corrected is None:
-                        # 實機觀察到舊版遊戲偶爾會漏掉選單剛出現時的
-                        # 第一批 key-up，但在程序結束的再次清理後恢復
-                        # 單人焦點。只重送一次 key-up 清理並短暫驗證；
+                        # 再次執行冪等的追蹤按鍵清理並短暫驗證；
                         # 不送 Tab、方向 key-down 或 Enter。
                         self.controller.release_all()
                         corrected = self._observe_stable_start_focus(

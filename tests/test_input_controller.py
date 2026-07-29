@@ -75,6 +75,36 @@ def test_release_all_after_exception() -> None:
     assert ("up", "left") in backend.events
 
 
+def test_release_all_does_not_emit_untracked_direction_keyups() -> None:
+    controller, backend = make_controller()
+
+    controller.release_all()
+
+    assert backend.events == []
+
+
+def test_failed_key_down_attempts_key_up_and_clears_tracking() -> None:
+    class FailingBackend(FakeBackend):
+        def key_down(self, key):
+            self.events.append(("down", key))
+            raise RuntimeError("backend failed")
+
+    backend = FailingBackend()
+    controller = InputController(
+        ControlsConfig(),
+        SafetyConfig(),
+        FakeManager(),
+        1,
+        backend,
+    )
+
+    with pytest.raises(RuntimeError, match="backend failed"):
+        controller.key_down("left")
+
+    assert backend.events == [("down", "left"), ("up", "left")]
+    assert controller.held_keys == set()
+
+
 def test_emergency_stop_state() -> None:
     controller, _backend = make_controller()
     controller.key_down("left")

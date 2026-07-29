@@ -159,8 +159,17 @@ class InputController:
                 self.backend.key_up(opposite)
                 self.held_keys.discard(opposite)
             if key not in self.held_keys:
-                self.backend.key_down(key)
                 self.held_keys.add(key)
+                try:
+                    self.backend.key_down(key)
+                except Exception:
+                    # 後端可能已送出 key-down 才拋出例外。先登記再送，
+                    # 並在失敗時立即嘗試 key-up，避免未追蹤的卡鍵。
+                    try:
+                        self.backend.key_up(key)
+                    finally:
+                        self.held_keys.discard(key)
+                    raise
 
     def key_up(self, key: str) -> None:
         with self._lock:
@@ -190,11 +199,10 @@ class InputController:
 
     def release_all(self) -> None:
         with self._lock:
-            # 即使追蹤集合因例外不完整，也固定釋放所有可能使用的方向鍵。
-            keys = self.held_keys | {
-                self.controls.left_key,
-                self.controls.right_key,
-            }
+            # 只釋放本控制器實際登記為按住的鍵。key_down 會在呼叫
+            # 後端前先登記，因此例外路徑仍可清理，同時避免舊遊戲
+            # 選單把多餘的 LEFT/RIGHT key-up 當成焦點導覽。
+            keys = set(self.held_keys)
             for key in keys:
                 try:
                     self.backend.key_up(key)
