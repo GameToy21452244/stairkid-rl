@@ -93,3 +93,11 @@ events:
   landing_contact_gap: 6
   spring_contact_gap: 12
   correlation_frames: 5
+
+environment:
+  max_episode_steps: 3000
+  floor_reward: 1.0
+  damage_penalty_per_segment: 0.2
+  death_penalty: 5.0
+  velocity_scale: 500.0
+  max_platforms_per_type: 8

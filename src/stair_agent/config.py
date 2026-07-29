@@ -126,6 +126,16 @@ class EventsConfig:
 
 
 @dataclass
+class EnvironmentConfig:
+    max_episode_steps: int = 3000
+    floor_reward: float = 1.0
+    damage_penalty_per_segment: float = 0.2
+    death_penalty: float = 5.0
+    velocity_scale: float = 500.0
+    max_platforms_per_type: int = 8
+
+
+@dataclass
 class AppConfig:
     game: GameConfig = field(default_factory=GameConfig)
     capture: CaptureConfig = field(default_factory=CaptureConfig)
@@ -136,6 +146,7 @@ class AppConfig:
     vision: VisionConfig = field(default_factory=VisionConfig)
     hud: HudConfig = field(default_factory=HudConfig)
     events: EventsConfig = field(default_factory=EventsConfig)
+    environment: EnvironmentConfig = field(default_factory=EnvironmentConfig)
 
     @classmethod
     def from_dict(cls, data: dict[str, Any] | None) -> "AppConfig":
@@ -150,6 +161,7 @@ class AppConfig:
             "vision",
             "hud",
             "events",
+            "environment",
         }
         unknown = set(data) - known
         if unknown:
@@ -164,6 +176,7 @@ class AppConfig:
             vision=VisionConfig(**data.get("vision", {})),
             hud=HudConfig(**data.get("hud", {})),
             events=EventsConfig(**data.get("events", {})),
+            environment=EnvironmentConfig(**data.get("environment", {})),
         )
         config.validate()
         return config
@@ -248,6 +261,20 @@ class AppConfig:
         ):
             if getattr(self.events, name) <= 0:
                 raise ConfigError(f"events.{name} 必須大於 0。")
+        for name in (
+            "max_episode_steps",
+            "velocity_scale",
+            "max_platforms_per_type",
+        ):
+            if getattr(self.environment, name) <= 0:
+                raise ConfigError(f"environment.{name} 必須大於 0。")
+        for name in (
+            "floor_reward",
+            "damage_penalty_per_segment",
+            "death_penalty",
+        ):
+            if getattr(self.environment, name) < 0:
+                raise ConfigError(f"environment.{name} 不可小於 0。")
 
     def validated_exe_path(self) -> Path:
         path = Path(self.game.exe_path).expanduser()

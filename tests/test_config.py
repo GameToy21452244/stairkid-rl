@@ -12,6 +12,8 @@ def test_defaults() -> None:
     assert config.safety.emergency_stop_key == "f8"
     assert config.events.landing_contact_gap == 6
     assert config.events.spring_contact_gap == 12
+    assert config.environment.max_episode_steps == 3000
+    assert config.environment.floor_reward == 1.0
 
 
 def test_parse_yaml(tmp_path: Path) -> None:
@@ -24,3 +26,8 @@ def test_invalid_exe_path() -> None:
     config = AppConfig.from_dict({"game": {"exe_path": "Z:/missing/game.exe"}})
     with pytest.raises(ConfigError, match="無效"):
         config.validated_exe_path()
+
+
+def test_invalid_environment_config() -> None:
+    with pytest.raises(ConfigError, match="max_episode_steps"):
+        AppConfig.from_dict({"environment": {"max_episode_steps": 0}})

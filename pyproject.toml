@@ -15,6 +15,7 @@ dependencies = [
   "PyDirectInput>=1.0.4,<2",
   "pywin32>=306",
   "PyYAML>=6.0,<7",
+  "gymnasium>=1.0,<2",
 ]
 
 [project.optional-dependencies]

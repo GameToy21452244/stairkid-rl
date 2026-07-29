@@ -1,9 +1,9 @@
 # AI Stair Agent：NS-SHAFT 遊戲介面層
 
 本專案以一般 Windows 視窗 API、螢幕擷取及鍵盤輸入控制既有的
-`NS Shaft.exe`。目前只完成「遊戲介面層」：尋找視窗、擷取畫面、安全測試
-左右鍵、校正擷取區域及人工收集畫面。**尚未建立 Gymnasium 環境，也尚未開始
-訓練強化學習模型。**
+`NS Shaft.exe`。目前已完成遊戲介面層、角色／平台／血量事件辨識，以及第一版
+可測試的 Gymnasium 環境介面。**尚未安裝 Stable-Baselines3，也尚未開始訓練
+任何強化學習模型。**
 
 專案不修改、注入、掛鉤、反編譯遊戲，也不讀取遊戲程序記憶體。預設
 `auto_launch: false`，任何工具都不會自行執行遊戲；請由使用者手動啟動。
@@ -284,6 +284,44 @@ python scripts/test_session_loop.py --max-seconds 60
 `成功下降至新平台(flipping)`、`角色落地(conveyor)`；傷害則會附帶原始
 `delta`，方便分辨平台分類與血量證據。
 
+## Gymnasium 環境介面（尚未訓練）
+
+第一版環境把既有辨識結果轉為 16 個 `float32` 特徵，範圍固定在 `[-1, 1]`：
+角色是否存在、位置、速度、升降狀態、血量、平台捲動速度、最近平台距離與
+類型，以及普通／尖刺／彈簧／輸送帶／翻轉平台的可見數量。動作空間為：
+
+- `0`：`RELEASE_ALL`，不按方向鍵。
+- `1`：`LEFT`，按左鍵一個設定中的短時間步。
+- `2`：`RIGHT`，按右鍵一個設定中的短時間步。
+
+第一版獎勵只採用已驗證、容易解釋的訊號：每次 `floor_descended` 加
+`environment.floor_reward`；掉血按實際格數乘
+`damage_penalty_per_segment` 扣分；回合終止再扣 `death_penalty`。回血與
+`spring_bounce` 會保留在觀測／事件資訊，但不重複加獎勵。這可避免「下樓回血」
+被同一事件計分兩次，也不會讓模型只為了彈簧獎勵偏離主要目標。
+
+先執行完全離線的 mock 相容性檢查：
+
+```powershell
+.\.venv\Scripts\python.exe scripts\check_gym_env.py
+```
+
+這個預設模式不尋找遊戲、不載入鍵盤後端，也不操作鍵盤或滑鼠。如要人工確認
+真實環境的接線，先手動開啟遊戲並進入角色正在遊玩的畫面，再執行：
+
+```powershell
+.\.venv\Scripts\python.exe scripts\check_gym_env.py --live
+```
+
+實機模式會先列出完整動作並要求輸入大寫 `YES`，接著倒數 3 秒，依序執行
+「放開、短按左、放開、短按右、放開」。它不會按 Enter、不會自動重開、不會
+執行隨機動作。若 reset 畫面不是 `PLAYING`，會立即停止。F8、失焦、例外與
+正常結束都會釋放方向鍵。
+
+本階段應在本機 Windows 驗證，因為 Colab 無法直接看到本機遊戲視窗或安全地
+送出本機按鍵。後續若改成離線資料訓練才適合考慮 Colab；需要與遊戲互動的
+online RL 訓練仍應在本機執行。
+
 ## LIFE 血量辨識與遊戲機制
 
 `hud` 設定集中保存 LIFE 第一格位置、每格尺寸、間距與最大 12 格。辨識器只讀取
@@ -339,6 +377,6 @@ pytest -q
 - 不會執行來源不明檔案；`auto_launch` 僅允許設定中經驗證為 `.exe` 的單一路徑。
 - `captures/`、`logs/`、exe、模型與影片均由 `.gitignore` 排除。
 
-下一階段會先以實際完整回合驗證 `floor_descended`、`spike_damage` 與
-`scroll`，再將目前的結構化觀測封裝成 Gymnasium 環境。本階段仍不包含
-Gymnasium、Stable-Baselines3 或任何模型訓練。
+下一階段會用人工可控的短回合驗證 Gymnasium 每一步的觀測、獎勵與終止紀錄，
+再設計訓練用的安全 reset 流程。只有這些實機結果通過後，才會加入
+Stable-Baselines3、建立模型與正式訓練；目前仍沒有任何模型訓練。
