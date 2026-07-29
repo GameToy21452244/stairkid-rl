@@ -394,8 +394,11 @@ online RL 訓練仍應在本機執行。
 在安裝 RL 訓練器前，可使用可解釋的基準策略檢查 64 維空間觀測與連續左右
 控制。它只考慮角色下方、設定距離內且類型位於
 `baseline.safe_platform_kinds` 的平台；尖刺預設不在安全清單。策略朝最近安全
-平台中心短按左／右，對齊或沒有安全目標時使用 `RELEASE_ALL`。它不會學習、
-不更新權重，也不執行隨機動作。
+平台中心短按左／右，對齊或沒有安全目標時使用 `RELEASE_ALL`。修正版會鎖定
+同一個平台 `track_id`，直到該平台消失或不再是有效的下方目標；要求反轉方向
+時先插入設定數量的 RELEASE 幀，避免每幀 LEFT／RIGHT 互切。尖刺進入設定的
+垂直與水平預警區時，避讓優先於安全平台目標，會朝遠離尖刺中心的方向移動。
+它不會學習、不更新權重，也不執行隨機動作。
 
 ```powershell
 .\.venv\Scripts\python.exe scripts\run_baseline.py `
@@ -408,6 +411,9 @@ online RL 訓練仍應在本機執行。
 決策、64 維觀測、reward 與事件會寫到新的
 `logs/baseline_時間戳.jsonl`，摘要另存 `.summary.json`。命令列硬上限為
 1000 步與 120 秒，且所有輸入仍通過前景、related-window 與 release_all 防線。
+JSONL 也會記錄每步的 `policy_decision`，包括原因、鎖定平台 ID／類型及水平
+差距，方便離線檢查是否因 `avoid_nearby_spikes` 避讓或
+`direction_change_brake` 暫停換向。
 
 ## LIFE 血量辨識與遊戲機制
 
@@ -469,6 +475,7 @@ pytest -q
 - 不會執行來源不明檔案；`auto_launch` 僅允許設定中經驗證為 `.exe` 的單一路徑。
 - `captures/`、`logs/`、exe、模型與影片均由 `.gitignore` 排除。
 
-受限 reset 已實機通過連續兩回合。下一階段先實機評估單回合規則基準的目標
-選擇與安全停止，再決定是否加入 Stable-Baselines3 與 PPO 訓練設定。外部姓名
+受限 reset 已實機通過連續兩回合。初版規則基準的三次實機紀錄顯示方向抖動與
+缺少主動尖刺避讓，現已加入目標鎖定、換向 RELEASE 遲滯與尖刺預警；必須再
+實機驗證修正版，才決定是否加入 Stable-Baselines3 與 PPO 訓練設定。外部姓名
 輸入視窗仍不會被自動處理；目前仍未安裝 Stable-Baselines3，也沒有模型訓練。

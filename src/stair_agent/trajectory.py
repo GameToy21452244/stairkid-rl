@@ -101,6 +101,7 @@ class TrajectoryJsonlWriter:
         features: np.ndarray,
         result: AuditResult,
         cumulative_reward: float,
+        policy_decision: dict[str, Any] | None = None,
     ) -> None:
         payload = {
             "step": step,
@@ -113,6 +114,8 @@ class TrajectoryJsonlWriter:
             "features": features.astype(float).tolist(),
             "observation": observation.to_dict(),
         }
+        if policy_decision is not None:
+            payload["policy_decision"] = policy_decision
         self._file.write(json.dumps(payload, ensure_ascii=False) + "\n")
         self._file.flush()
 

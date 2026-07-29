@@ -114,6 +114,9 @@ baseline:
   horizontal_deadzone_pixels: 12.0
   min_target_vertical_gap_pixels: 25.0
   max_target_vertical_gap_pixels: 200.0
+  hazard_vertical_gap_pixels: 180.0
+  hazard_horizontal_margin_pixels: 64.0
+  direction_switch_release_frames: 2
   safe_platform_kinds:
     - normal
     - spring

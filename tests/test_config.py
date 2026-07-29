@@ -19,6 +19,7 @@ def test_defaults() -> None:
     assert config.environment.reset_required_consecutive_frames == 3
     assert config.environment.max_observation_platforms == 8
     assert config.baseline.max_episode_steps == 300
+    assert config.baseline.direction_switch_release_frames == 2
 
 
 def test_parse_yaml(tmp_path: Path) -> None:

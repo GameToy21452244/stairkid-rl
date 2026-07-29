@@ -148,6 +148,9 @@ class BaselineConfig:
     horizontal_deadzone_pixels: float = 12.0
     min_target_vertical_gap_pixels: float = 25.0
     max_target_vertical_gap_pixels: float = 200.0
+    hazard_vertical_gap_pixels: float = 180.0
+    hazard_horizontal_margin_pixels: float = 64.0
+    direction_switch_release_frames: int = 2
     safe_platform_kinds: list[str] = field(
         default_factory=lambda: [
             "normal",
@@ -320,9 +323,15 @@ class AppConfig:
             "horizontal_deadzone_pixels",
             "min_target_vertical_gap_pixels",
             "max_target_vertical_gap_pixels",
+            "hazard_vertical_gap_pixels",
+            "hazard_horizontal_margin_pixels",
         ):
             if getattr(self.baseline, name) < 0:
                 raise ConfigError(f"baseline.{name} 不可小於 0。")
+        if self.baseline.direction_switch_release_frames <= 0:
+            raise ConfigError(
+                "baseline.direction_switch_release_frames 必須大於 0。"
+            )
         if (
             self.baseline.max_target_vertical_gap_pixels
             <= self.baseline.min_target_vertical_gap_pixels

@@ -79,6 +79,7 @@ def main() -> None:
             time.sleep(1)
 
         features, info = env.reset()
+        policy.reset()
         if env.last_observation is None:
             raise RuntimeError("reset 後缺少原始觀測。")
         stamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
@@ -118,6 +119,12 @@ def main() -> None:
                 features=features,
                 result=audit,
                 cumulative_reward=auditor.total_reward,
+                policy_decision={
+                    "reason": decision.reason,
+                    "target_platform_id": decision.target_platform_id,
+                    "target_platform_kind": decision.target_platform_kind,
+                    "horizontal_delta": decision.horizontal_delta,
+                },
             )
             if (
                 decision.action is not last_action

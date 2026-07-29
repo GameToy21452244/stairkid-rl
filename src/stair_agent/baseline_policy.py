@@ -22,13 +22,119 @@ class SafePlatformPolicy:
     def __init__(self, config: BaselineConfig) -> None:
         self.config = config
         self.safe_kinds = set(config.safe_platform_kinds)
+        self.reset()
+
+    def reset(self) -> None:
+        self._target_id: int | None = None
+        self._active_direction: Action | None = None
+        self._pending_direction: Action | None = None
+        self._pending_frames = 0
+        self._release_frames = 0
+
+    def _stabilize(self, desired: Action) -> tuple[Action, bool]:
+        if desired is Action.RELEASE_ALL:
+            self._release_frames += 1
+            self._pending_direction = None
+            self._pending_frames = 0
+            if (
+                self._release_frames
+                >= self.config.direction_switch_release_frames
+            ):
+                self._active_direction = None
+            return Action.RELEASE_ALL, False
+
+        self._release_frames = 0
+        if (
+            self._active_direction is None
+            or self._active_direction is desired
+        ):
+            self._active_direction = desired
+            self._pending_direction = None
+            self._pending_frames = 0
+            return desired, False
+
+        if self._pending_direction is desired:
+            self._pending_frames += 1
+        else:
+            self._pending_direction = desired
+            self._pending_frames = 1
+        if (
+            self._pending_frames
+            <= self.config.direction_switch_release_frames
+        ):
+            return Action.RELEASE_ALL, True
+
+        self._active_direction = desired
+        self._pending_direction = None
+        self._pending_frames = 0
+        return desired, False
+
+    def _decision(
+        self,
+        desired: Action,
+        reason: str,
+        *,
+        target: dict | None = None,
+        horizontal_delta: float | None = None,
+    ) -> PolicyDecision:
+        action, braking = self._stabilize(desired)
+        if braking:
+            reason = "direction_change_brake"
+        return PolicyDecision(
+            action,
+            reason,
+            target_platform_id=(
+                None if target is None else target.get("track_id")
+            ),
+            target_platform_kind=(
+                None if target is None else str(target.get("kind", ""))
+            ),
+            horizontal_delta=horizontal_delta,
+        )
 
     def choose(self, observation: GameObservation) -> PolicyDecision:
         player = observation.player
         if player is None:
-            return PolicyDecision(Action.RELEASE_ALL, "player_not_detected")
+            return self._decision(
+                Action.RELEASE_ALL,
+                "player_not_detected",
+            )
         player_x = float(player.get("center_x", 0.0))
         player_y = float(player.get("center_y", 0.0))
+
+        hazards: list[tuple[float, dict, float]] = []
+        for platform in observation.platforms:
+            if str(platform.get("kind", "")) != "spikes":
+                continue
+            box = platform.get("box") or {}
+            top = float(box.get("top", 0.0))
+            delta_y = top - player_y
+            left = float(box.get("left", 0.0))
+            right = left + float(box.get("width", 0.0))
+            margin = self.config.hazard_horizontal_margin_pixels
+            if (
+                -20.0 <= delta_y <= self.config.hazard_vertical_gap_pixels
+                and left - margin <= player_x <= right + margin
+            ):
+                center_x = (left + right) / 2
+                hazards.append((delta_y, platform, center_x - player_x))
+        if hazards:
+            _delta_y, hazard, horizontal_delta = min(
+                hazards,
+                key=lambda item: (item[0], abs(item[2])),
+            )
+            desired = (
+                Action.LEFT
+                if horizontal_delta >= 0
+                else Action.RIGHT
+            )
+            return self._decision(
+                desired,
+                "avoid_nearby_spikes",
+                target=hazard,
+                horizontal_delta=horizontal_delta,
+            )
+
         candidates: list[tuple[float, float, dict]] = []
         for platform in observation.platforms:
             if str(platform.get("kind", "")) not in self.safe_kinds:
@@ -47,30 +153,42 @@ class SafePlatformPolicy:
             ) / 2
             candidates.append((delta_y, abs(center_x - player_x), platform))
         if not candidates:
-            return PolicyDecision(Action.RELEASE_ALL, "no_safe_platform")
+            self._target_id = None
+            return self._decision(
+                Action.RELEASE_ALL,
+                "no_safe_platform",
+            )
 
-        _delta_y, _distance, target = min(
-            candidates,
-            key=lambda item: (item[0], item[1]),
+        locked = next(
+            (
+                item
+                for item in candidates
+                if item[2].get("track_id") == self._target_id
+            ),
+            None,
+        )
+        _delta_y, _distance, target = locked or min(
+            candidates, key=lambda item: (item[0], item[1])
+        )
+        target_id = target.get("track_id")
+        self._target_id = (
+            int(target_id) if target_id is not None else None
         )
         box = target.get("box") or {}
         target_x = float(box.get("left", 0.0)) + float(
             box.get("width", 0.0)
         ) / 2
         horizontal_delta = target_x - player_x
-        common = {
-            "target_platform_id": target.get("track_id"),
-            "target_platform_kind": str(target.get("kind", "")),
-            "horizontal_delta": horizontal_delta,
-        }
         if abs(horizontal_delta) <= self.config.horizontal_deadzone_pixels:
-            return PolicyDecision(
+            return self._decision(
                 Action.RELEASE_ALL,
                 "aligned_with_safe_platform",
-                **common,
+                target=target,
+                horizontal_delta=horizontal_delta,
             )
-        return PolicyDecision(
+        return self._decision(
             Action.RIGHT if horizontal_delta > 0 else Action.LEFT,
             "move_toward_safe_platform",
-            **common,
+            target=target,
+            horizontal_delta=horizontal_delta,
         )
