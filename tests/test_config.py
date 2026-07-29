@@ -15,6 +15,7 @@ def test_defaults() -> None:
     assert config.events.spring_contact_gap == 12
     assert config.environment.max_episode_steps == 3000
     assert config.environment.floor_reward == 1.0
+    assert config.environment.step_penalty == 0.01
     assert not config.environment.auto_restart_on_reset
     assert config.environment.reset_required_consecutive_frames == 3
     assert config.environment.max_observation_platforms == 8
@@ -57,6 +58,9 @@ def test_invalid_environment_config() -> None:
         AppConfig.from_dict(
             {"environment": {"include_action_history": "yes"}}
         )
+
+    with pytest.raises(ConfigError, match="step_penalty"):
+        AppConfig.from_dict({"environment": {"step_penalty": -0.1}})
 
 
 def test_invalid_baseline_config() -> None:

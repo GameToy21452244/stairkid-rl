@@ -70,6 +70,16 @@ class DetectionConfig:
     reference_height: int | None = None
     dialog_threshold: float = 0.80
     search_margin: int = 8
+    menu_start_button_left: int | None = None
+    menu_start_button_top: int | None = None
+    menu_start_button_width: int | None = None
+    menu_start_button_height: int | None = None
+    menu_two_player_button_left: int | None = None
+    menu_two_player_button_top: int | None = None
+    menu_two_player_button_width: int | None = None
+    menu_two_player_button_height: int | None = None
+    menu_focus_border_mean_max: float = 180.0
+    menu_focus_minimum_contrast: float = 20.0
 
 
 @dataclass
@@ -130,6 +140,7 @@ class EventsConfig:
 class EnvironmentConfig:
     max_episode_steps: int = 3000
     floor_reward: float = 1.0
+    step_penalty: float = 0.01
     damage_penalty_per_segment: float = 0.2
     death_penalty: float = 5.0
     velocity_scale: float = 500.0
@@ -287,6 +298,14 @@ class AppConfig:
             raise ConfigError("detection.dialog_threshold 必須介於 0 與 1 之間。")
         if self.detection.search_margin < 0:
             raise ConfigError("detection.search_margin 不可小於 0。")
+        if not 0 <= self.detection.menu_focus_border_mean_max <= 255:
+            raise ConfigError(
+                "detection.menu_focus_border_mean_max 必須介於 0 與 255。"
+            )
+        if self.detection.menu_focus_minimum_contrast < 0:
+            raise ConfigError(
+                "detection.menu_focus_minimum_contrast 不可小於 0。"
+            )
         if not 0.0 < self.vision.normal_platform_threshold <= 1.0:
             raise ConfigError("vision.normal_platform_threshold 必須介於 0 與 1。")
         for name in (
@@ -355,6 +374,7 @@ class AppConfig:
             )
         for name in (
             "floor_reward",
+            "step_penalty",
             "damage_penalty_per_segment",
             "death_penalty",
             "reset_post_action_delay_seconds",

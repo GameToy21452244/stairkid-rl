@@ -321,7 +321,10 @@ observation space。動作空間為：
 
 第一版獎勵只採用已驗證、容易解釋的訊號：每次 `floor_descended` 加
 `environment.floor_reward`；掉血按實際格數乘
-`damage_penalty_per_segment` 扣分；回合終止再扣 `death_penalty`。回血與
+`damage_penalty_per_segment` 扣分；回合終止再扣 `death_penalty`。每個控制步
+另扣很小的 `environment.step_penalty`，避免角色站在正下方平台時把長期
+`RELEASE_ALL` 當成零成本策略。預設 `0.01` 遠小於下樓的 `+1` 與死亡的 `−5`。
+回血與
 `spring_bounce` 會保留在觀測／事件資訊，但不重複加獎勵。這可避免「下樓回血」
 被同一事件計分兩次，也不會讓模型只為了彈簧獎勵偏離主要目標。
 
@@ -395,12 +398,22 @@ online RL 訓練仍應在本機執行。
 擅自從對話框開始下一回合。受限 reset 的規則是：
 
 - 穩定狀態已是 `PLAYING`：不送 Enter，只清除跨回合追蹤資料。
-- 連續 3 幀穩定為主遊戲 `DIALOG`：最多短按一次設定中的 `restart_key`。
+- 每個左右動作前重新確認仍是 `PLAYING`；若死亡選單已出現，立即釋放方向鍵，
+  避免最後一次 LEFT／RIGHT 改變選單焦點。
+- 連續 3 幀穩定為主遊戲 `DIALOG`，且右側單人「開始」按鈕具有校正後的焦點
+  外框：最多短按一次設定中的 `restart_key`。
+- 焦點位於中央雙人模式、焦點不明或按鈕 ROI 未校正：停止且不送 Enter；
+  不會嘗試用方向鍵猜測或修正選項。
 - Enter 後必須重新辨識為 `PLAYING` 才算成功。
 - Enter 後仍是對話框、狀態不明、失焦、F8 或例外：立即停止，不補按第二次。
 - 不搜尋、不聚焦，也不對另一個螢幕上的未知姓名輸入視窗送鍵。
 - 任一與遊戲同程序或由遊戲擁有的額外可見視窗都視為阻擋視窗；即使主畫面
   像素仍看起來是 `PLAYING`，也會禁止 Enter 和左右鍵。
+
+按鈕 ROI 位於 `detection.menu_start_button_*` 與
+`detection.menu_two_player_button_*`，座標以 `detection.reference_width`、
+`reference_height` 為基準。目前本機 `634×431` client 已依實際截圖校正；
+其他版本或尺寸不可直接猜測，必須重新擷取選單畫面校正。
 
 第一次實機驗證請保持 `auto_restart_on_reset: false`，只使用有明確回合上限的
 互動工具：

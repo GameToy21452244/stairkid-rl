@@ -16,6 +16,65 @@ class DialogActionError(RuntimeError):
     """對話框動作的安全前置條件不成立。"""
 
 
+@dataclass(frozen=True)
+class DialogFocusGuard:
+    """只在單人開始按鈕具有深色焦點外框時允許確認。"""
+
+    reference_width: int
+    reference_height: int
+    start_button_rect: tuple[int, int, int, int]
+    two_player_button_rect: tuple[int, int, int, int]
+    focused_border_mean_max: float = 180.0
+    minimum_contrast: float = 20.0
+
+    def _top_border_mean(
+        self,
+        gray: np.ndarray,
+        rect: tuple[int, int, int, int],
+    ) -> float:
+        left, top, width, height = rect
+        scale_x = gray.shape[1] / self.reference_width
+        scale_y = gray.shape[0] / self.reference_height
+        x = round(left * scale_x)
+        y = round(top * scale_y)
+        w = max(1, round(width * scale_x))
+        h = max(1, round(height * scale_y))
+        if (
+            x < 0
+            or y < 0
+            or x + w > gray.shape[1]
+            or y + h > gray.shape[0]
+        ):
+            return 255.0
+        border_height = max(1, round(scale_y))
+        return float(np.mean(gray[y : y + border_height, x : x + w]))
+
+    def __call__(self, frame: np.ndarray) -> bool:
+        if (
+            self.reference_width <= 0
+            or self.reference_height <= 0
+            or frame.size == 0
+        ):
+            return False
+        gray = (
+            cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+            if frame.ndim == 3
+            else frame
+        )
+        start_mean = self._top_border_mean(
+            gray,
+            self.start_button_rect,
+        )
+        two_player_mean = self._top_border_mean(
+            gray,
+            self.two_player_button_rect,
+        )
+        return (
+            start_mean <= self.focused_border_mean_max
+            and two_player_mean - start_mean >= self.minimum_contrast
+        )
+
+
 class Detector(Protocol):
     def detect_with_score(self, frame: np.ndarray) -> tuple[GamePhase, float]: ...
 
@@ -79,6 +138,7 @@ class DialogActionHandler:
         observation_delay_seconds: float = 1 / 15,
         post_action_delay_seconds: float = 0.4,
         dialog_change_threshold: float = 0.05,
+        confirm_guard: Callable[[np.ndarray], bool] | None = None,
         sleep_fn: Callable[[float], None] = time.sleep,
     ) -> None:
         if required_consecutive <= 0:
@@ -95,6 +155,7 @@ class DialogActionHandler:
         self.observation_delay_seconds = max(0.0, observation_delay_seconds)
         self.post_action_delay_seconds = max(0.0, post_action_delay_seconds)
         self.dialog_change_threshold = max(0.0, dialog_change_threshold)
+        self.confirm_guard = confirm_guard
         self.sleep_fn = sleep_fn
 
     def observe_stable(self) -> StableObservation:
@@ -134,6 +195,14 @@ class DialogActionHandler:
                 raise DialogActionError(
                     f"目前穩定狀態不是 DIALOG，而是 {before.phase.value}；"
                     "沒有送出 Enter。"
+                )
+            if (
+                self.confirm_guard is not None
+                and not self.confirm_guard(before.frame)
+            ):
+                raise DialogActionError(
+                    "無法確認焦點位於單人開始按鈕；沒有送出 Enter，"
+                    "避免誤選雙人模式。"
                 )
             self.controller.release_all()
             self.controller.tap(self.restart_key, self.key_duration_ms)

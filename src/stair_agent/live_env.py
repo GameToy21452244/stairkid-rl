@@ -5,8 +5,8 @@ from collections.abc import Callable
 from pathlib import Path
 from typing import Any
 
-from .config import AppConfig
-from .dialog_handler import DialogActionHandler
+from .config import AppConfig, DetectionConfig
+from .dialog_handler import DialogActionHandler, DialogFocusGuard
 from .episode_reset import SingleEnterEpisodeResetter
 from .game_events import GameplayEventDetector
 from .game_state import GamePhase, GameStateDetector
@@ -124,6 +124,7 @@ class LiveGameAdapter:
         capture: ScreenCapture | Any | None = None,
         monitor: SafetyMonitor | Any | None = None,
         episode_resetter: SingleEnterEpisodeResetter | Any | None = None,
+        action_phase_probe: Callable[[], GamePhase] | None = None,
         sleeper: Callable[[float], None] = time.sleep,
     ) -> None:
         self.controller = controller
@@ -133,6 +134,7 @@ class LiveGameAdapter:
         self.capture = capture
         self.monitor = monitor
         self.episode_resetter = episode_resetter
+        self.action_phase_probe = action_phase_probe
         self.sleeper = sleeper
         self._closed = False
 
@@ -145,6 +147,12 @@ class LiveGameAdapter:
 
     def step(self, action: Action) -> GameObservation:
         try:
+            if (
+                self.action_phase_probe is not None
+                and self.action_phase_probe() is not GamePhase.PLAYING
+            ):
+                self.controller.release_all()
+                return self.observe()
             self.controller.apply(action)
             self.sleeper(self.action_duration_ms / 1000.0)
         finally:
@@ -174,6 +182,58 @@ class LiveGameAdapter:
                 self.capture.close()
 
 
+def build_dialog_focus_guard(
+    config: DetectionConfig,
+) -> DialogFocusGuard:
+    focus_values = (
+        config.reference_width,
+        config.reference_height,
+        config.menu_start_button_left,
+        config.menu_start_button_top,
+        config.menu_start_button_width,
+        config.menu_start_button_height,
+        config.menu_two_player_button_left,
+        config.menu_two_player_button_top,
+        config.menu_two_player_button_width,
+        config.menu_two_player_button_height,
+    )
+    if any(value is None for value in focus_values):
+        raise RuntimeError(
+            "自動重設需要校正 detection.menu_start_button_* 與 "
+            "menu_two_player_button_*，否則無法避免誤選雙人模式。"
+        )
+    (
+        reference_width,
+        reference_height,
+        start_left,
+        start_top,
+        start_width,
+        start_height,
+        two_left,
+        two_top,
+        two_width,
+        two_height,
+    ) = (int(value) for value in focus_values)
+    return DialogFocusGuard(
+        reference_width=reference_width,
+        reference_height=reference_height,
+        start_button_rect=(
+            start_left,
+            start_top,
+            start_width,
+            start_height,
+        ),
+        two_player_button_rect=(
+            two_left,
+            two_top,
+            two_width,
+            two_height,
+        ),
+        focused_border_mean_max=config.menu_focus_border_mean_max,
+        minimum_contrast=config.menu_focus_minimum_contrast,
+    )
+
+
 def create_live_environment(
     config: AppConfig,
     project_root: str | Path,
@@ -183,6 +243,16 @@ def create_live_environment(
     """建立真實環境，但不啟動遊戲、不聚焦視窗，也不送出任何按鍵。"""
 
     root = Path(project_root)
+    reset_enabled = (
+        config.environment.auto_restart_on_reset
+        if allow_single_enter_reset is None
+        else allow_single_enter_reset
+    )
+    focus_guard = (
+        build_dialog_focus_guard(config.detection)
+        if reset_enabled
+        else None
+    )
     manager = WindowManager()
     target = manager.require_ready(
         config.game.window_title_contains,
@@ -209,13 +279,9 @@ def create_live_environment(
         config.safety.emergency_stop_key,
     )
     monitor.start()
-    reset_enabled = (
-        config.environment.auto_restart_on_reset
-        if allow_single_enter_reset is None
-        else allow_single_enter_reset
-    )
     episode_resetter = None
     if reset_enabled:
+        assert focus_guard is not None
         handler = DialogActionHandler(
             pipeline.state_detector,
             controller,
@@ -232,6 +298,7 @@ def create_live_environment(
             post_action_delay_seconds=(
                 config.environment.reset_post_action_delay_seconds
             ),
+            confirm_guard=focus_guard,
         )
         episode_resetter = SingleEnterEpisodeResetter(
             handler=handler,
@@ -247,6 +314,9 @@ def create_live_environment(
         capture=capture,
         monitor=monitor,
         episode_resetter=episode_resetter,
+        action_phase_probe=lambda: pipeline.state_detector.detect(
+            capture.capture()
+        ),
     )
 
     reference_width = (

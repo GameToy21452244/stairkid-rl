@@ -5,6 +5,7 @@ from stair_agent.dialog_handler import (
     DialogActionError,
     DialogActionHandler,
     DialogActionOutcome,
+    DialogFocusGuard,
     StableObservation,
 )
 from stair_agent.game_state import GamePhase
@@ -85,6 +86,48 @@ def test_non_dialog_never_sends_enter() -> None:
     )
 
     with pytest.raises(DialogActionError, match="不是 DIALOG"):
+        handler.execute_once()
+
+    assert controller.taps == []
+    assert controller.release_count >= 1
+
+
+def test_dialog_focus_guard_only_accepts_single_player_start() -> None:
+    guard = DialogFocusGuard(
+        reference_width=100,
+        reference_height=100,
+        start_button_rect=(60, 70, 30, 12),
+        two_player_button_rect=(25, 70, 30, 12),
+        focused_border_mean_max=180.0,
+        minimum_contrast=20.0,
+    )
+    safe = np.full((100, 100, 3), 240, dtype=np.uint8)
+    safe[70, 60:90] = 100
+    unsafe = np.full((100, 100, 3), 240, dtype=np.uint8)
+    unsafe[70, 25:55] = 100
+
+    assert guard(safe)
+    assert not guard(unsafe)
+
+
+def test_dialog_does_not_press_enter_when_start_focus_is_unconfirmed() -> None:
+    before = np.zeros((20, 30, 3), dtype=np.uint8)
+    detector = SequenceDetector([GamePhase.DIALOG, GamePhase.DIALOG])
+    controller = FakeController()
+    handler = DialogActionHandler(
+        detector,
+        controller,
+        "enter",
+        frame_source([before, before]),
+        required_consecutive=2,
+        max_observation_frames=2,
+        observation_delay_seconds=0,
+        post_action_delay_seconds=0,
+        confirm_guard=lambda _frame: False,
+        sleep_fn=lambda _seconds: None,
+    )
+
+    with pytest.raises(DialogActionError, match="單人開始"):
         handler.execute_once()
 
     assert controller.taps == []

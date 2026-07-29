@@ -256,10 +256,12 @@ class RewardCalculator:
         self,
         *,
         floor_reward: float = 1.0,
+        step_penalty: float = 0.0,
         damage_penalty_per_segment: float = 0.2,
         death_penalty: float = 5.0,
     ) -> None:
         self.floor_reward = float(floor_reward)
+        self.step_penalty = float(step_penalty)
         self.damage_penalty_per_segment = float(damage_penalty_per_segment)
         self.death_penalty = float(death_penalty)
 
@@ -269,7 +271,7 @@ class RewardCalculator:
         *,
         terminated: bool,
     ) -> float:
-        reward = 0.0
+        reward = -self.step_penalty
         for event in observation.events:
             event_type = event.get("type")
             if event_type == "floor_descended":
@@ -307,6 +309,7 @@ class StairAgentEnv(gym.Env[np.ndarray, int]):
         )
         self.reward_calculator = RewardCalculator(
             floor_reward=self.config.floor_reward,
+            step_penalty=self.config.step_penalty,
             damage_penalty_per_segment=self.config.damage_penalty_per_segment,
             death_penalty=self.config.death_penalty,
         )

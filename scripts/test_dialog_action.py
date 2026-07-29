@@ -22,6 +22,7 @@ from stair_agent.input_controller import (
     InputError,
     SafetyMonitor,
 )
+from stair_agent.live_env import build_dialog_focus_guard
 from stair_agent.screen_capture import ScreenCapture
 
 
@@ -85,6 +86,7 @@ def main() -> None:
     if args.consecutive_frames <= 0:
         raise RuntimeError("--consecutive-frames 必須大於 0。")
     config = load_config()
+    focus_guard = build_dialog_focus_guard(config.detection)
     manager = WindowManager()
     target = find_target(config, manager)
     detector = GameStateDetector.from_config(config.detection, PROJECT_ROOT)
@@ -122,6 +124,7 @@ def main() -> None:
                 required_consecutive=args.consecutive_frames,
                 max_observation_frames=max_frames,
                 observation_delay_seconds=frame_delay,
+                confirm_guard=focus_guard,
             )
             with SafetyMonitor(
                 controller,

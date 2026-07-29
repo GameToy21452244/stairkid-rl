@@ -109,6 +109,7 @@ def test_reward_uses_floor_progress_and_raw_damage() -> None:
         floor_reward=1.0,
         damage_penalty_per_segment=0.2,
         death_penalty=5.0,
+        step_penalty=0.01,
     )
     item = observation(
         events=[
@@ -119,8 +120,8 @@ def test_reward_uses_floor_progress_and_raw_damage() -> None:
         health_delta=-4,
     )
 
-    assert calculator.calculate(item, terminated=False) == pytest.approx(0.2)
-    assert calculator.calculate(item, terminated=True) == pytest.approx(-4.8)
+    assert calculator.calculate(item, terminated=False) == pytest.approx(0.19)
+    assert calculator.calculate(item, terminated=True) == pytest.approx(-4.81)
 
 
 def test_environment_maps_actions_and_returns_gym_tuple() -> None:
@@ -129,7 +130,10 @@ def test_environment_maps_actions_and_returns_gym_tuple() -> None:
             observation(events=[{"type": "floor_descended"}])
         ]
     )
-    env = StairAgentEnv(adapter, EnvironmentConfig(max_episode_steps=10))
+    env = StairAgentEnv(
+        adapter,
+        EnvironmentConfig(max_episode_steps=10, step_penalty=0.0),
+    )
     initial, info = env.reset()
 
     result, reward, terminated, truncated, step_info = env.step(1)
@@ -216,7 +220,10 @@ def test_dialog_terminates_episode_and_releases_keys() -> None:
     adapter = FakeAdapter(
         step_observations=[observation(phase="dialog")]
     )
-    env = StairAgentEnv(adapter, EnvironmentConfig(death_penalty=5.0))
+    env = StairAgentEnv(
+        adapter,
+        EnvironmentConfig(death_penalty=5.0, step_penalty=0.0),
+    )
     env.reset()
 
     _obs, reward, terminated, truncated, _info = env.step(0)
