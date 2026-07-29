@@ -118,7 +118,9 @@ def main() -> None:
         print("遊戲前景切換與驗證通過。")
 
     required = config.environment.reset_required_consecutive_frames
-    max_frames = config.environment.reset_focus_max_observation_frames
+    max_frames = (
+        config.environment.reset_focus_correction_max_observation_frames
+    )
     delay = 1.0 / config.capture.target_fps
     with ScreenCapture(
         config.capture,

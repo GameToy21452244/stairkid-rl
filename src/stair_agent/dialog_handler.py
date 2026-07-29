@@ -233,6 +233,7 @@ class DialogActionHandler:
         focus_correction_duration_ms: int | None = None,
         focus_correction_delay_seconds: float = 0.1,
         focus_max_observation_frames: int | None = None,
+        focus_correction_max_observation_frames: int | None = None,
         sleep_fn: Callable[[float], None] = time.sleep,
     ) -> None:
         if required_consecutive <= 0:
@@ -265,6 +266,19 @@ class DialogActionHandler:
         if self.focus_max_observation_frames < self.required_consecutive:
             raise ValueError(
                 "focus_max_observation_frames 不可小於 required_consecutive。"
+            )
+        self.focus_correction_max_observation_frames = (
+            self.focus_max_observation_frames
+            if focus_correction_max_observation_frames is None
+            else int(focus_correction_max_observation_frames)
+        )
+        if (
+            self.focus_correction_max_observation_frames
+            < self.required_consecutive
+        ):
+            raise ValueError(
+                "focus_correction_max_observation_frames "
+                "不可小於 required_consecutive。"
             )
         self.sleep_fn = sleep_fn
 
@@ -372,7 +386,9 @@ class DialogActionHandler:
                         )
                         self.controller.release_all()
                         self.sleep_fn(self.focus_correction_delay_seconds)
-                        corrected = self._observe_stable_start_focus()
+                        corrected = self._observe_stable_start_focus(
+                            self.focus_correction_max_observation_frames,
+                        )
                         if corrected is None:
                             raise DialogActionError(
                                 "已嘗試一次焦點修正，但無法確認單人開始；"

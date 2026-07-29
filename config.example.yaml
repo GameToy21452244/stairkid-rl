@@ -135,6 +135,7 @@ environment:
   reset_required_consecutive_frames: 3
   reset_max_observation_frames: 30
   reset_focus_max_observation_frames: 225
+  reset_focus_correction_max_observation_frames: 450
   reset_post_action_delay_seconds: 0.4
   max_observation_platforms: 8
   observation_history_frames: 4

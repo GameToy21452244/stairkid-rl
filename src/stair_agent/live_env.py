@@ -312,6 +312,10 @@ def create_live_environment(
             focus_max_observation_frames=(
                 config.environment.reset_focus_max_observation_frames
             ),
+            focus_correction_max_observation_frames=(
+                config.environment
+                .reset_focus_correction_max_observation_frames
+            ),
         )
         episode_resetter = SingleEnterEpisodeResetter(
             handler=handler,

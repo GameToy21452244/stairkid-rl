@@ -167,6 +167,7 @@ class EnvironmentConfig:
     reset_required_consecutive_frames: int = 3
     reset_max_observation_frames: int = 30
     reset_focus_max_observation_frames: int = 225
+    reset_focus_correction_max_observation_frames: int = 450
     reset_post_action_delay_seconds: float = 0.4
     max_observation_platforms: int = 8
     observation_history_frames: int = 4
@@ -395,6 +396,7 @@ class AppConfig:
             "reset_required_consecutive_frames",
             "reset_max_observation_frames",
             "reset_focus_max_observation_frames",
+            "reset_focus_correction_max_observation_frames",
             "max_observation_platforms",
             "observation_history_frames",
         ):
@@ -419,6 +421,14 @@ class AppConfig:
             raise ConfigError(
                 "environment.reset_focus_max_observation_frames 不可小於"
                 " reset_required_consecutive_frames。"
+            )
+        if (
+            self.environment.reset_focus_correction_max_observation_frames
+            < self.environment.reset_required_consecutive_frames
+        ):
+            raise ConfigError(
+                "environment.reset_focus_correction_max_observation_frames "
+                "不可小於 reset_required_consecutive_frames。"
             )
         for name in (
             "floor_reward",

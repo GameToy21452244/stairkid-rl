@@ -35,6 +35,10 @@ def test_defaults() -> None:
     assert not config.environment.auto_restart_on_reset
     assert config.environment.reset_required_consecutive_frames == 3
     assert config.environment.reset_focus_max_observation_frames == 225
+    assert (
+        config.environment.reset_focus_correction_max_observation_frames
+        == 450
+    )
     assert config.environment.max_observation_platforms == 8
     assert config.environment.observation_history_frames == 4
     assert config.environment.include_action_history
@@ -76,6 +80,15 @@ def test_invalid_environment_config() -> None:
             {
                 "environment": {
                     "reset_focus_max_observation_frames": 2,
+                }
+            }
+        )
+
+    with pytest.raises(ConfigError, match="reset_focus_correction_max"):
+        AppConfig.from_dict(
+            {
+                "environment": {
+                    "reset_focus_correction_max_observation_frames": 2,
                 }
             }
         )
