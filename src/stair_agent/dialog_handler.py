@@ -295,10 +295,18 @@ class DialogActionHandler:
             consecutive,
         )
 
-    def _observe_stable_start_focus(self) -> StableObservation | None:
+    def _observe_stable_start_focus(
+        self,
+        max_frames: int | None = None,
+    ) -> StableObservation | None:
         assert self.focus_guard is not None
+        observation_frames = (
+            self.focus_max_observation_frames
+            if max_frames is None
+            else max(self.required_consecutive, int(max_frames))
+        )
         consecutive = 0
-        for index in range(self.focus_max_observation_frames):
+        for index in range(observation_frames):
             frame = self.frame_source()
             phase, score = self.detector.detect_with_score(frame)
             if (
@@ -316,7 +324,7 @@ class DialogActionHandler:
                     )
             else:
                 consecutive = 0
-            if index + 1 < self.focus_max_observation_frames:
+            if index + 1 < observation_frames:
                 self.sleep_fn(self.observation_delay_seconds)
         return None
 
@@ -341,6 +349,15 @@ class DialogActionHandler:
                     # 不送任何 key-down，也不主動切換選項。
                     self.controller.release_all()
                     corrected = self._observe_stable_start_focus()
+                    if corrected is None:
+                        # 實機觀察到舊版遊戲偶爾會漏掉選單剛出現時的
+                        # 第一批 key-up，但在程序結束的再次清理後恢復
+                        # 單人焦點。只重送一次 key-up 清理並短暫驗證；
+                        # 不送 Tab、方向 key-down 或 Enter。
+                        self.controller.release_all()
+                        corrected = self._observe_stable_start_focus(
+                            self.max_observation_frames,
+                        )
                     if corrected is not None:
                         before = corrected
                         focus_recovered_without_input = True

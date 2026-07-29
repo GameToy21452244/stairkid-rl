@@ -27,6 +27,14 @@ def parse_args() -> argparse.Namespace:
         choices=("tab", "right"),
         default="tab",
     )
+    parser.add_argument(
+        "--round-trip-from-start",
+        action="store_true",
+        help=(
+            "目前若為單人開始焦點，以最多四次 Tab 尋找雙人焦點，"
+            "再測試候選鍵能否回到單人；全程不按 Enter。"
+        ),
+    )
     return parser.parse_args()
 
 
@@ -76,9 +84,14 @@ def main() -> None:
         f"{target.client_rect.width}x{target.client_rect.height}"
     )
     print(
-        "本工具不按 Enter，也不製造雙人焦點。只有目前已是中央雙人焦點時，"
+        "本工具不按 Enter。預設只有目前已是中央雙人焦點時，"
         "才測試一次候選鍵。"
     )
+    if args.round_trip_from_start:
+        print(
+            "往返校正已啟用：若目前是單人開始，會逐次送出最多四次 Tab，"
+            "確認雙人焦點後才測試候選鍵。"
+        )
     print(
         f"候選鍵：{args.candidate_key!r}；"
         f"按 {config.safety.emergency_stop_key.upper()} 可停止。"
@@ -131,9 +144,40 @@ def main() -> None:
                 if location is DialogFocusLocation.UNKNOWN:
                     raise RuntimeError("目前選單焦點不明，沒有送出按鍵。")
                 if location is DialogFocusLocation.START:
-                    raise RuntimeError(
-                        "目前已是單人開始焦點，不需要修正；沒有送出按鍵。"
-                        "請只在真實出現中央雙人焦點時執行本工具。"
+                    if not args.round_trip_from_start:
+                        raise RuntimeError(
+                            "目前已是單人開始焦點，不需要修正；沒有送出按鍵。"
+                            "若要執行不按 Enter 的往返校正，請明確加入 "
+                            "--round-trip-from-start。"
+                        )
+                    found_two_player = False
+                    for tab_index in range(1, 5):
+                        controller.tap(
+                            "tab",
+                            config.controls.action_duration_ms,
+                        )
+                        controller.release_all()
+                        observed = handler.observe_stable()
+                        if observed.phase is not GamePhase.DIALOG:
+                            raise RuntimeError(
+                                "Tab 後已不是穩定 DIALOG；立即停止，"
+                                "沒有測試候選鍵。"
+                            )
+                        tab_location = guard.focus_location(observed.frame)
+                        print(
+                            f"Tab {tab_index}/4："
+                            f"focus={tab_location.value}"
+                        )
+                        if tab_location is DialogFocusLocation.TWO_PLAYER:
+                            found_two_player = True
+                            break
+                    if not found_two_player:
+                        raise RuntimeError(
+                            "四次 Tab 內未確認中央雙人焦點；"
+                            "已停止，沒有測試候選鍵。"
+                        )
+                    print(
+                        "往程驗證通過：單人開始 → 有限 Tab 巡覽 → 中央雙人。"
                     )
 
                 controller.tap(

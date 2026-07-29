@@ -421,6 +421,18 @@ online RL 訓練仍應在本機執行。
 
 只有工具在真實畫面回報成功後，才把
 `controls.menu_focus_correction_key` 設為該鍵。
+若雙人焦點只在訓練程序內維持、程序結束後又回到單人開始，可執行不按
+Enter 的往返校正：
+
+```powershell
+.\.venv\Scripts\python.exe scripts\calibrate_menu_focus.py `
+  --candidate-key tab `
+  --round-trip-from-start
+```
+
+此模式只在先確認目前為單人開始時，逐次送出最多四次 Tab；每次都重新確認
+仍是同一個 DIALOG，找到中央雙人後才會再送一次候選鍵，並再次確認回到單人
+開始。任一步辨識失敗都會停止。
 - Enter 後必須重新辨識為 `PLAYING` 才算成功。
 - Enter 後仍是對話框、狀態不明、失焦、F8 或例外：立即停止，不補按第二次。
 - 不搜尋、不聚焦，也不對另一個螢幕上的未知姓名輸入視窗送鍵。

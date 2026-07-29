@@ -186,7 +186,7 @@ def test_dialog_waits_for_two_player_focus_to_recover_without_input() -> None:
     assert controller.taps == [("enter", 200)]
 
 
-def test_dialog_corrects_only_after_passive_focus_wait_expires() -> None:
+def test_dialog_retries_key_up_cleanup_before_rejecting_two_player_focus() -> None:
     guard = DialogFocusGuard(
         reference_width=100,
         reference_height=100,
@@ -209,6 +209,60 @@ def test_dialog_corrects_only_after_passive_focus_wait_expires() -> None:
         "enter",
         frame_source(
             [
+                two_player,
+                two_player,
+                two_player,
+                two_player,
+                start,
+                start,
+                playing,
+                playing,
+            ]
+        ),
+        key_duration_ms=200,
+        required_consecutive=2,
+        max_observation_frames=2,
+        focus_max_observation_frames=2,
+        observation_delay_seconds=0,
+        post_action_delay_seconds=0,
+        focus_guard=guard,
+        sleep_fn=lambda _seconds: None,
+    )
+
+    result = handler.execute_once()
+
+    assert result.outcome is DialogActionOutcome.PLAYING
+    assert result.focus_recovered_without_input
+    assert not result.focus_corrected
+    assert controller.taps == [("enter", 200)]
+    assert controller.release_count >= 4
+
+
+def test_dialog_corrects_only_after_passive_focus_wait_expires() -> None:
+    guard = DialogFocusGuard(
+        reference_width=100,
+        reference_height=100,
+        start_button_rect=(60, 70, 30, 12),
+        two_player_button_rect=(25, 70, 30, 12),
+    )
+    two_player = np.full((100, 100, 3), 240, dtype=np.uint8)
+    two_player[70, 25:55] = 100
+    start = np.full((100, 100, 3), 240, dtype=np.uint8)
+    start[70, 60:90] = 100
+    playing = np.zeros((100, 100, 3), dtype=np.uint8)
+    detector = SequenceDetector(
+        [GamePhase.DIALOG] * 8
+        + [GamePhase.PLAYING, GamePhase.PLAYING]
+    )
+    controller = FakeController()
+    handler = DialogActionHandler(
+        detector,
+        controller,
+        "enter",
+        frame_source(
+            [
+                two_player,
+                two_player,
                 two_player,
                 two_player,
                 two_player,
