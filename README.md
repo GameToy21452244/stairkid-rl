@@ -350,9 +350,10 @@ observation space。動作空間為：
 `top_danger_penalty`（預設 `0.03`），讓策略在真正撞到頂端尖刺前就有離開
 高風險區的學習訊號。
 playfield 左右界線直接使用 `vision.playfield_left`／`playfield_width` 的校正
-結果並依實際觀測尺寸縮放。角色進入 `wall_margin_pixels`（預設 20 像素）內，
+結果並依實際觀測尺寸縮放。依 2,765 筆既有實機觀測校正後，角色進入
+`wall_margin_pixels`（預設 32 像素）內，
 且動作仍朝牆外（左牆按 LEFT、右牆按 RIGHT）時，每步扣
-`wall_push_penalty`（預設 `0.05`）；朝場內轉身不扣。此值高於單次方向反轉
+`wall_push_penalty`（預設 `0.08`）；朝場內轉身不扣。此值高於單次方向反轉
 懲罰，避免模型為了不反轉而持續撞牆。
 這些項目都只是小幅 shaping，不取代實際掉血與死亡懲罰，也不加入容易鼓勵原地
 拖時間的存活獎勵。

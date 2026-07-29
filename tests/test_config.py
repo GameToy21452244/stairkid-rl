@@ -30,8 +30,8 @@ def test_defaults() -> None:
     assert config.environment.top_danger_penalty == 0.03
     assert config.environment.top_danger_grace_steps == 2
     assert config.environment.top_danger_y_ratio == 0.33
-    assert config.environment.wall_margin_pixels == 20
-    assert config.environment.wall_push_penalty == 0.05
+    assert config.environment.wall_margin_pixels == 32
+    assert config.environment.wall_push_penalty == 0.08
     assert not config.environment.auto_restart_on_reset
     assert config.environment.reset_required_consecutive_frames == 3
     assert config.environment.reset_focus_max_observation_frames == 225

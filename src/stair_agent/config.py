@@ -157,8 +157,8 @@ class EnvironmentConfig:
     top_danger_penalty: float = 0.03
     top_danger_grace_steps: int = 2
     top_danger_y_ratio: float = 0.33
-    wall_margin_pixels: int = 20
-    wall_push_penalty: float = 0.05
+    wall_margin_pixels: int = 32
+    wall_push_penalty: float = 0.08
     damage_penalty_per_segment: float = 0.2
     death_penalty: float = 5.0
     velocity_scale: float = 500.0
