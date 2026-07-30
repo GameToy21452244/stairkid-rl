@@ -22,6 +22,11 @@ Colab 只負責 headless simulator：
 並尋找同時包含 `pyproject.toml` 與 `src/stair_agent/` 的專案根目錄。如果已經
 用 Colab Files 面板解壓縮，也可在設定 cell 指定 `MANUAL_PROJECT_PATH`。
 安裝或定位失敗會立即中止，不會退回 `/content` 繼續執行。
+目前 Colab runtime 使用 Python 3.12；專案 metadata 同時支援本機 Python 3.11
+與 Colab Python 3.12。Notebook 安裝時不隱藏 pip 輸出，並在安裝後實際 import
+Gymnasium、Pymunk、Stable-Baselines3 與 `stair_agent`，避免只憑 pip
+return code 誤判成功。安裝前也會確認 Colab 既有的 setuptools 至少為 65，
+並以該 backend 直接建立 editable metadata，避免隔離建置環境重複下載。
 
 Colab 不得：
 

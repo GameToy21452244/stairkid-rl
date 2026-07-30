@@ -52,6 +52,9 @@
 - P1 完成後完整回歸 `python -m pytest -q`：219 passed，33.58 秒。
 - `python -m compileall -q src scripts`：通過。
 - `python -m json.tool notebooks/ns_shaft_colab.ipynb`：通過。
+- Colab 私人 repository 改採手動 ZIP 上傳；setup cell 的專案定位、安全
+  解壓與 traversal rejection 合成測試通過。metadata 已由僅限 Python 3.11
+  改為支援 3.11／3.12，並完成 editable metadata dry-run。
 - `git diff --check`：通過；只有 Windows checkout 的 LF→CRLF 提示。
 - `scripts/check_simulator.py --steps 10000 --baseline-steps 1000`：
   `check_env`、10k headless、1k baseline 全通過；v0.1 本機約
@@ -71,7 +74,9 @@
   RELEASE_ALL，視為 action collapse，不得續訓。
 - action effective 至 next observation 中位約 94 ms；observation transition
   中位 125 ms。
-- Colab notebook 仍只是骨架，尚未在 Colab runtime 執行。
+- Colab notebook 尚未完整跑完 runtime gate；已確認最初安裝失敗來自舊
+  `requires-python <3.12` 與目前 Colab Python 3.12 不相容，修正版仍需在
+  Colab 重新執行安裝後 import checks。
 
 ## Go / No-Go
 
