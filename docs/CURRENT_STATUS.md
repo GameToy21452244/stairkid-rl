@@ -54,7 +54,7 @@
 - `python -m json.tool notebooks/ns_shaft_colab.ipynb`：通過。
 - Colab 私人 repository 改採手動 ZIP 上傳；setup cell 的專案定位、安全
   解壓與 traversal rejection 合成測試通過。metadata 已由僅限 Python 3.11
-  改為支援 3.11／3.12，並完成 editable metadata dry-run。
+  改為支援 3.11／3.12，並完成 wheel metadata 與隔離 target import 驗證。
 - `git diff --check`：通過；只有 Windows checkout 的 LF→CRLF 提示。
 - `scripts/check_simulator.py --steps 10000 --baseline-steps 1000`：
   `check_env`、10k headless、1k baseline 全通過；v0.1 本機約
@@ -76,7 +76,8 @@
   中位 125 ms。
 - Colab notebook 尚未完整跑完 runtime gate；已確認最初安裝失敗來自舊
   `requires-python <3.12` 與目前 Colab Python 3.12 不相容，修正版仍需在
-  Colab 重新執行安裝後 import checks。
+  Colab 重新執行安裝後 import checks。第二次執行確認 editable install
+  已完成但目前 kernel 未重新載入 `.pth`；setup 已改為一般 wheel install。
 
 ## Go / No-Go
 

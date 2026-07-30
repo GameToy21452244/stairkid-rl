@@ -13,6 +13,9 @@ secrets*.yml
 __pycache__/
 *.py[cod]
 .pytest_cache/
+build/
+dist/
+*.egg-info/
 captures/*
 !captures/.gitkeep
 logs/*

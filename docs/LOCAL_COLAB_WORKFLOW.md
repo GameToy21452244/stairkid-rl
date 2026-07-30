@@ -26,7 +26,9 @@ Colab 只負責 headless simulator：
 與 Colab Python 3.12。Notebook 安裝時不隱藏 pip 輸出，並在安裝後實際 import
 Gymnasium、Pymunk、Stable-Baselines3 與 `stair_agent`，避免只憑 pip
 return code 誤判成功。安裝前也會確認 Colab 既有的 setuptools 至少為 65，
-並以該 backend 直接建立 editable metadata，避免隔離建置環境重複下載。
+並以該 backend 建立一般 wheel，避免隔離建置環境重複下載。Notebook 不使用
+editable install，因為新建立的 `.pth` 不會由已經運行中的 Colab kernel
+自動重新載入；一般 wheel 安裝則可在同一個 cell 立即執行 import checks。
 
 Colab 不得：
 
