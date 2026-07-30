@@ -13,9 +13,15 @@
 
 Colab 只負責 headless simulator：
 
-- clone、安裝依賴、執行 pytest／check_env；
+- 以手動上傳的 repository ZIP 安裝依賴、執行 pytest／check_env；
 - 1／4／8／16 個同步與非同步 env benchmark；
 - 後續短訓練、TensorBoard、checkpoint、video、Drive resume。
+
+本專案 repository 為私人存取時，不要求在 Colab 儲存 GitHub token。
+`notebooks/ns_shaft_colab.ipynb` 預設提示上傳完整 repository ZIP，自動解壓縮
+並尋找同時包含 `pyproject.toml` 與 `src/stair_agent/` 的專案根目錄。如果已經
+用 Colab Files 面板解壓縮，也可在設定 cell 指定 `MANUAL_PROJECT_PATH`。
+安裝或定位失敗會立即中止，不會退回 `/content` 繼續執行。
 
 Colab 不得：
 
