@@ -37,7 +37,14 @@ class TwoStepEvaluationEnv:
             1.0,
             terminated,
             False,
-            {"phase": "dialog" if terminated else "playing"},
+            {
+                "phase": "dialog" if terminated else "playing",
+                "reward_components": {
+                    "step_penalty": -0.01,
+                    "idle_action_penalty": -0.02,
+                    "idle_action_steps": self.episode_step,
+                },
+            },
         )
 
 
@@ -57,6 +64,17 @@ def test_evaluation_stops_without_reset_after_final_episode() -> None:
     assert result.completed_episodes == 2
     assert result.episode_lengths == [2, 2]
     assert result.episode_rewards == [2.0, 2.0]
+    assert result.action_counts == {
+        "RELEASE_ALL": 0,
+        "LEFT": 4,
+        "RIGHT": 0,
+    }
+    assert result.longest_same_action_streak == 4
+    assert result.direction_switches == 0
+    assert result.reward_component_totals == {
+        "idle_action_penalty": pytest.approx(-0.08),
+        "step_penalty": pytest.approx(-0.04),
+    }
     assert env.reset_count == 2
 
 

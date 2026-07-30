@@ -181,6 +181,11 @@ def main() -> None:
             f"completed_episodes={wrapped.completed_episodes}，"
             f"model={final_path.with_suffix('.zip')}"
         )
+        print(
+            f"實際訓練動作：{wrapped.action_counts}，"
+            f"最長連續同動作={wrapped.longest_same_action_streak}"
+        )
+        print(f"Reward 累計：{wrapped.reward_component_totals}")
     except KeyboardInterrupt:
         if model is not None and run_dir is not None:
             model.save(run_dir / "interrupted_model")

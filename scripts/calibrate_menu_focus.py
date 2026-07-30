@@ -36,6 +36,14 @@ def parse_args() -> argparse.Namespace:
         ),
     )
     parser.add_argument(
+        "--candidate-presses",
+        type=int,
+        choices=range(1, 5),
+        default=1,
+        metavar="1-4",
+        help="從雙人焦點最多測試幾次候選鍵；每次都重新辨識且全程不按 Enter。",
+    )
+    parser.add_argument(
         "--focus-target",
         action="store_true",
         help="倒數後只嘗試一次將已驗證的遊戲視窗切到前景。",
@@ -98,7 +106,8 @@ def main() -> None:
             "確認雙人焦點後才測試候選鍵。"
         )
     print(
-        f"候選鍵：{args.candidate_key!r}；"
+        f"候選鍵：{args.candidate_key!r}，"
+        f"最多 {args.candidate_presses} 次；"
         f"按 {config.safety.emergency_stop_key.upper()} 可停止。"
     )
     if input("確認執行焦點校正？輸入大寫 FOCUS：").strip() != "FOCUS":
@@ -212,27 +221,42 @@ def main() -> None:
                         "往程驗證通過：單人開始 → 有限 Tab 巡覽 → 中央雙人。"
                     )
 
-                controller.tap(
-                    args.candidate_key,
-                    config.controls.action_duration_ms,
-                )
-                controller.release_all()
-                if not wait_focus(
-                    capture=capture.capture,
-                    detector=detector,
-                    guard=guard,
-                    desired=DialogFocusLocation.START,
-                    required=required,
-                    max_frames=max_frames,
-                    delay=delay,
-                ):
-                    raise RuntimeError(
-                        f"一次 {args.candidate_key.upper()} 後未確認"
-                        "右側單人開始焦點。"
+                for press_index in range(1, args.candidate_presses + 1):
+                    controller.tap(
+                        args.candidate_key,
+                        config.controls.action_duration_ms,
                     )
-                print(
-                    f"校正成功：中央雙人 → {args.candidate_key.upper()} "
-                    "一次 → 右側單人開始。沒有按 Enter。"
+                    controller.release_all()
+                    if wait_focus(
+                        capture=capture.capture,
+                        detector=detector,
+                        guard=guard,
+                        desired=DialogFocusLocation.START,
+                        required=required,
+                        max_frames=max_frames,
+                        delay=delay,
+                    ):
+                        print(
+                            "校正成功：中央雙人 → "
+                            f"{args.candidate_key.upper()} {press_index} 次 "
+                            "→ 右側單人開始。沒有按 Enter。"
+                        )
+                        return
+                    observed = handler.observe_stable()
+                    if observed.phase is not GamePhase.DIALOG:
+                        raise RuntimeError(
+                            f"{args.candidate_key.upper()} {press_index} 次後"
+                            "已不是穩定 DIALOG；立即停止。"
+                        )
+                    print(
+                        f"{args.candidate_key.upper()} "
+                        f"{press_index}/{args.candidate_presses}："
+                        f"focus={guard.focus_location(observed.frame).value}"
+                    )
+                raise RuntimeError(
+                    f"{args.candidate_key.upper()} "
+                    f"{args.candidate_presses} 次後仍未確認"
+                    "右側單人開始焦點。"
                 )
 
 

@@ -1,0 +1,62 @@
+{
+  "schema_version": "simulator-fidelity-gate-v1",
+  "generated_at": "2026-07-30T11:03:47.311429+00:00",
+  "real_sources": [
+    {
+      "name": "calibration_v1_landing-focused_20260730_183435_997438.jsonl",
+      "sha256": "8eb2f407797911abc06075d68f850826ddf4f0db1e97200eba2b27c76260e1bd"
+    },
+    {
+      "name": "calibration_v1_landing-focused_20260730_183617_137729.jsonl",
+      "sha256": "d2a0d594151c55a60dfbae287d34b093184cefb5eb5a0d0d33b411e2b0d3f029"
+    },
+    {
+      "name": "calibration_v1_landing-focused_20260730_184108_548412.jsonl",
+      "sha256": "ed9698d698f69d8fc551a21033f893fb6636a5c893fbf271d128fe43ac792e36"
+    },
+    {
+      "name": "calibration_v1_landing-focused_20260730_184506_089744.jsonl",
+      "sha256": "af6f4902105449e5d9d25da70d23c838354562322939ef6c1e96676352961a78"
+    },
+    {
+      "name": "calibration_v1_landing-focused_20260730_184526_092592.jsonl",
+      "sha256": "6cab675326bb96def4a1b6e7fefcc0bfff9c2ac248f03f1fa3bd3f84bf1be5f5"
+    },
+    {
+      "name": "calibration_v1_landing-focused_20260730_184549_224541.jsonl",
+      "sha256": "29988bf99f3c52a600a4261323cd6a569fe008e84d817b570616eee2b6b1a811"
+    }
+  ],
+  "benchmark": {
+    "name": "SIMULATOR_BENCHMARK_V0_1_FIDELITY.json",
+    "sha256": "99344f9306c39ed6747d33880aa2377446084ce9d192f34c084323dbb5934ac6"
+  },
+  "real": {
+    "steps": 325,
+    "landings": 17,
+    "floors": 12,
+    "landing_rate": 0.052307692307692305,
+    "floor_rate": 0.036923076923076927
+  },
+  "simulator": {
+    "steps": 2490,
+    "landings": 150,
+    "floors": 150,
+    "landing_rate": 0.060240963855421686,
+    "floor_rate": 0.060240963855421686
+  },
+  "statistics": {
+    "landing_two_proportion_z": -0.5693976201851636,
+    "floor_two_proportion_z": -1.6976322363594318,
+    "two_sided_alpha": 0.05
+  },
+  "gates": {
+    "real_steps_at_least_300": true,
+    "simulated_steps_at_least_1000": true,
+    "landing_rate_two_proportion_abs_z_le_1_96": true,
+    "floor_rate_two_proportion_abs_z_le_1_96": true,
+    "fixed_seed_benchmark_100_episodes": true
+  },
+  "gate_pass": true,
+  "scope": "Allows only the bounded simulator learnability probe. It does not authorize BC, DAgger, RL long training, or real rollout."
+}

@@ -1,0 +1,2467 @@
+{
+  "schema_version": "simulator-benchmark-v1",
+  "generated_at": "2026-07-30T10:09:50.172124+00:00",
+  "simulator": "v0",
+  "seeds": [
+    1001,
+    1002,
+    1003,
+    1004,
+    1005
+  ],
+  "episodes_per_seed": 20,
+  "max_episode_steps": 500,
+  "results": {
+    "random": {
+      "episodes": 100,
+      "mean_floors": 0.76,
+      "median_floors": 0.0,
+      "mean_length": 219.42,
+      "mean_return": -5.7452000000000005,
+      "action_counts": {
+        "0": 7405,
+        "1": 7348,
+        "2": 7189
+      },
+      "terminal_reasons": {
+        "bottom": 64,
+        "top": 31,
+        "time_limit": 5
+      },
+      "episode_results": [
+        {
+          "seed": 1001,
+          "episode": 0,
+          "length": 137,
+          "return": -5.12,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 1,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1001,
+          "episode": 2,
+          "length": 185,
+          "return": -6.500000000000001,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 3,
+          "length": 379,
+          "return": -5.990000000000002,
+          "floors": 2,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1001,
+          "episode": 4,
+          "length": 112,
+          "return": -4.920000000000001,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 5,
+          "length": 60,
+          "return": -5.5,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 6,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1001,
+          "episode": 7,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1001,
+          "episode": 8,
+          "length": 60,
+          "return": -5.5,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 9,
+          "length": 289,
+          "return": -6.340000000000002,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 10,
+          "length": 110,
+          "return": -5.9,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 11,
+          "length": 185,
+          "return": -6.500000000000001,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 12,
+          "length": 215,
+          "return": -4.750000000000001,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 13,
+          "length": 110,
+          "return": -5.9,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 14,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1001,
+          "episode": 15,
+          "length": 60,
+          "return": -5.5,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 16,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1001,
+          "episode": 17,
+          "length": 185,
+          "return": -6.500000000000001,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 18,
+          "length": 468,
+          "return": -5.780000000000003,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 19,
+          "length": 237,
+          "return": -5.920000000000001,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 0,
+          "length": 60,
+          "return": -5.5,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 1,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1002,
+          "episode": 2,
+          "length": 289,
+          "return": -6.340000000000002,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 3,
+          "length": 137,
+          "return": -5.12,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 4,
+          "length": 135,
+          "return": -6.1000000000000005,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 5,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1002,
+          "episode": 6,
+          "length": 135,
+          "return": -6.1000000000000005,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 7,
+          "length": 185,
+          "return": -6.500000000000001,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 8,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1002,
+          "episode": 9,
+          "length": 137,
+          "return": -5.12,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 10,
+          "length": 87,
+          "return": -4.720000000000001,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 11,
+          "length": 112,
+          "return": -4.920000000000001,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 12,
+          "length": 235,
+          "return": -5.850000000000001,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 13,
+          "length": 135,
+          "return": -6.1000000000000005,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 14,
+          "length": 85,
+          "return": -5.7,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 15,
+          "length": 500,
+          "return": -2.806782584130474e-15,
+          "floors": 4,
+          "terminal_reason": "time_limit"
+        },
+        {
+          "seed": 1002,
+          "episode": 16,
+          "length": 500,
+          "return": 0.9999999999999967,
+          "floors": 5,
+          "terminal_reason": "time_limit"
+        },
+        {
+          "seed": 1002,
+          "episode": 17,
+          "length": 455,
+          "return": -5.600000000000002,
+          "floors": 3,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1002,
+          "episode": 18,
+          "length": 388,
+          "return": -7.129999999999999,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 19,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1003,
+          "episode": 0,
+          "length": 87,
+          "return": -4.720000000000001,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 1,
+          "length": 60,
+          "return": -5.5,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 2,
+          "length": 303,
+          "return": -6.380000000000002,
+          "floors": 1,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1003,
+          "episode": 3,
+          "length": 214,
+          "return": -5.740000000000001,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 4,
+          "length": 135,
+          "return": -6.1000000000000005,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 5,
+          "length": 110,
+          "return": -5.9,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 6,
+          "length": 85,
+          "return": -5.7,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 7,
+          "length": 60,
+          "return": -5.5,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 8,
+          "length": 185,
+          "return": -6.500000000000001,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 9,
+          "length": 212,
+          "return": -5.720000000000001,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 10,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1003,
+          "episode": 11,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1003,
+          "episode": 12,
+          "length": 235,
+          "return": -6.900000000000001,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 13,
+          "length": 60,
+          "return": -5.5,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 14,
+          "length": 292,
+          "return": -4.370000000000001,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 15,
+          "length": 160,
+          "return": -6.300000000000001,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 16,
+          "length": 60,
+          "return": -5.5,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 17,
+          "length": 110,
+          "return": -5.9,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 18,
+          "length": 303,
+          "return": -6.380000000000002,
+          "floors": 1,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1003,
+          "episode": 19,
+          "length": 185,
+          "return": -6.500000000000001,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 0,
+          "length": 303,
+          "return": -6.380000000000002,
+          "floors": 1,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1004,
+          "episode": 1,
+          "length": 303,
+          "return": -6.380000000000002,
+          "floors": 1,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1004,
+          "episode": 2,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1004,
+          "episode": 3,
+          "length": 60,
+          "return": -5.5,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 4,
+          "length": 379,
+          "return": -5.990000000000002,
+          "floors": 2,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1004,
+          "episode": 5,
+          "length": 500,
+          "return": -3.056582764671134e-15,
+          "floors": 4,
+          "terminal_reason": "time_limit"
+        },
+        {
+          "seed": 1004,
+          "episode": 6,
+          "length": 235,
+          "return": -6.900000000000001,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 7,
+          "length": 235,
+          "return": -6.900000000000001,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 8,
+          "length": 60,
+          "return": -5.5,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 9,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1004,
+          "episode": 10,
+          "length": 86,
+          "return": -4.71,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 11,
+          "length": 303,
+          "return": -6.380000000000002,
+          "floors": 1,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1004,
+          "episode": 12,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1004,
+          "episode": 13,
+          "length": 163,
+          "return": -5.330000000000001,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 14,
+          "length": 443,
+          "return": -6.580000000000003,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 15,
+          "length": 110,
+          "return": -5.9,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 16,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1004,
+          "episode": 17,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1004,
+          "episode": 18,
+          "length": 312,
+          "return": -6.520000000000001,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 19,
+          "length": 135,
+          "return": -6.1000000000000005,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 0,
+          "length": 303,
+          "return": -6.380000000000002,
+          "floors": 1,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1005,
+          "episode": 1,
+          "length": 379,
+          "return": -5.990000000000002,
+          "floors": 2,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1005,
+          "episode": 2,
+          "length": 188,
+          "return": -5.530000000000001,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 3,
+          "length": 135,
+          "return": -6.1000000000000005,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 4,
+          "length": 379,
+          "return": -5.990000000000002,
+          "floors": 2,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1005,
+          "episode": 5,
+          "length": 60,
+          "return": -5.5,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 6,
+          "length": 160,
+          "return": -6.300000000000001,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 7,
+          "length": 303,
+          "return": -6.380000000000002,
+          "floors": 1,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1005,
+          "episode": 8,
+          "length": 163,
+          "return": -5.330000000000001,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 9,
+          "length": 500,
+          "return": -2.949999999999977,
+          "floors": 1,
+          "terminal_reason": "time_limit"
+        },
+        {
+          "seed": 1005,
+          "episode": 10,
+          "length": 303,
+          "return": -6.380000000000002,
+          "floors": 1,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1005,
+          "episode": 11,
+          "length": 242,
+          "return": -2.969999999999995,
+          "floors": 4,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 12,
+          "length": 500,
+          "return": -2.8345381597461028e-15,
+          "floors": 4,
+          "terminal_reason": "time_limit"
+        },
+        {
+          "seed": 1005,
+          "episode": 13,
+          "length": 210,
+          "return": -6.700000000000001,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 14,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1005,
+          "episode": 15,
+          "length": 60,
+          "return": -5.5,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 16,
+          "length": 492,
+          "return": -6.970000000000002,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 17,
+          "length": 162,
+          "return": -5.32,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 18,
+          "length": 303,
+          "return": -6.380000000000002,
+          "floors": 1,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1005,
+          "episode": 19,
+          "length": 391,
+          "return": -6.160000000000002,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        }
+      ]
+    },
+    "release": {
+      "episodes": 100,
+      "mean_floors": 0.0,
+      "median_floors": 0.0,
+      "mean_length": 227.0,
+      "mean_return": -6.77,
+      "action_counts": {
+        "0": 22700
+      },
+      "terminal_reasons": {
+        "top": 100
+      },
+      "episode_results": [
+        {
+          "seed": 1001,
+          "episode": 0,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1001,
+          "episode": 1,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1001,
+          "episode": 2,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1001,
+          "episode": 3,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1001,
+          "episode": 4,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1001,
+          "episode": 5,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1001,
+          "episode": 6,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1001,
+          "episode": 7,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1001,
+          "episode": 8,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1001,
+          "episode": 9,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1001,
+          "episode": 10,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1001,
+          "episode": 11,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1001,
+          "episode": 12,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1001,
+          "episode": 13,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1001,
+          "episode": 14,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1001,
+          "episode": 15,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1001,
+          "episode": 16,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1001,
+          "episode": 17,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1001,
+          "episode": 18,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1001,
+          "episode": 19,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1002,
+          "episode": 0,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1002,
+          "episode": 1,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1002,
+          "episode": 2,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1002,
+          "episode": 3,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1002,
+          "episode": 4,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1002,
+          "episode": 5,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1002,
+          "episode": 6,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1002,
+          "episode": 7,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1002,
+          "episode": 8,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1002,
+          "episode": 9,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1002,
+          "episode": 10,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1002,
+          "episode": 11,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1002,
+          "episode": 12,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1002,
+          "episode": 13,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1002,
+          "episode": 14,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1002,
+          "episode": 15,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1002,
+          "episode": 16,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1002,
+          "episode": 17,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1002,
+          "episode": 18,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1002,
+          "episode": 19,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1003,
+          "episode": 0,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1003,
+          "episode": 1,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1003,
+          "episode": 2,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1003,
+          "episode": 3,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1003,
+          "episode": 4,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1003,
+          "episode": 5,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1003,
+          "episode": 6,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1003,
+          "episode": 7,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1003,
+          "episode": 8,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1003,
+          "episode": 9,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1003,
+          "episode": 10,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1003,
+          "episode": 11,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1003,
+          "episode": 12,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1003,
+          "episode": 13,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1003,
+          "episode": 14,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1003,
+          "episode": 15,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1003,
+          "episode": 16,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1003,
+          "episode": 17,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1003,
+          "episode": 18,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1003,
+          "episode": 19,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1004,
+          "episode": 0,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1004,
+          "episode": 1,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1004,
+          "episode": 2,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1004,
+          "episode": 3,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1004,
+          "episode": 4,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1004,
+          "episode": 5,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1004,
+          "episode": 6,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1004,
+          "episode": 7,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1004,
+          "episode": 8,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1004,
+          "episode": 9,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1004,
+          "episode": 10,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1004,
+          "episode": 11,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1004,
+          "episode": 12,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1004,
+          "episode": 13,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1004,
+          "episode": 14,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1004,
+          "episode": 15,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1004,
+          "episode": 16,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1004,
+          "episode": 17,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1004,
+          "episode": 18,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1004,
+          "episode": 19,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1005,
+          "episode": 0,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1005,
+          "episode": 1,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1005,
+          "episode": 2,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1005,
+          "episode": 3,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1005,
+          "episode": 4,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1005,
+          "episode": 5,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1005,
+          "episode": 6,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1005,
+          "episode": 7,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1005,
+          "episode": 8,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1005,
+          "episode": 9,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1005,
+          "episode": 10,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1005,
+          "episode": 11,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1005,
+          "episode": 12,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1005,
+          "episode": 13,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1005,
+          "episode": 14,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1005,
+          "episode": 15,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1005,
+          "episode": 16,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1005,
+          "episode": 17,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1005,
+          "episode": 18,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        },
+        {
+          "seed": 1005,
+          "episode": 19,
+          "length": 227,
+          "return": -6.770000000000001,
+          "floors": 0,
+          "terminal_reason": "top"
+        }
+      ]
+    },
+    "baseline": {
+      "episodes": 100,
+      "mean_floors": 1.46,
+      "median_floors": 1.0,
+      "mean_length": 86.28,
+      "mean_return": -4.2513,
+      "action_counts": {
+        "0": 1787,
+        "1": 3484,
+        "2": 3357
+      },
+      "terminal_reasons": {
+        "bottom": 100
+      },
+      "episode_results": [
+        {
+          "seed": 1001,
+          "episode": 0,
+          "length": 61,
+          "return": -4.51,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 1,
+          "length": 61,
+          "return": -4.51,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 2,
+          "length": 113,
+          "return": -3.9300000000000006,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 3,
+          "length": 61,
+          "return": -4.51,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 4,
+          "length": 113,
+          "return": -3.9300000000000006,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 5,
+          "length": 112,
+          "return": -4.92,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 6,
+          "length": 87,
+          "return": -3.7200000000000006,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 7,
+          "length": 61,
+          "return": -4.51,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 8,
+          "length": 190,
+          "return": -3.5499999999999985,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 9,
+          "length": 86,
+          "return": -4.71,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 10,
+          "length": 87,
+          "return": -3.7200000000000006,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 11,
+          "length": 165,
+          "return": -2.2999999999999985,
+          "floors": 4,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 12,
+          "length": 35,
+          "return": -5.3,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 13,
+          "length": 113,
+          "return": -3.9300000000000006,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 14,
+          "length": 138,
+          "return": -4.130000000000001,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 15,
+          "length": 86,
+          "return": -4.71,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 16,
+          "length": 61,
+          "return": -4.51,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 17,
+          "length": 112,
+          "return": -4.92,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 18,
+          "length": 61,
+          "return": -4.51,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 19,
+          "length": 61,
+          "return": -4.51,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 0,
+          "length": 87,
+          "return": -3.7200000000000006,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 1,
+          "length": 61,
+          "return": -4.51,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 2,
+          "length": 113,
+          "return": -3.9300000000000006,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 3,
+          "length": 35,
+          "return": -5.3,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 4,
+          "length": 61,
+          "return": -4.51,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 5,
+          "length": 61,
+          "return": -4.51,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 6,
+          "length": 165,
+          "return": -3.3499999999999983,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 7,
+          "length": 190,
+          "return": -3.549999999999998,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 8,
+          "length": 87,
+          "return": -3.7200000000000006,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 9,
+          "length": 61,
+          "return": -4.51,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 10,
+          "length": 61,
+          "return": -4.51,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 11,
+          "length": 35,
+          "return": -5.3,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 12,
+          "length": 138,
+          "return": -4.130000000000001,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 13,
+          "length": 87,
+          "return": -3.7200000000000006,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 14,
+          "length": 61,
+          "return": -4.51,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 15,
+          "length": 164,
+          "return": -4.340000000000001,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 16,
+          "length": 87,
+          "return": -3.7200000000000006,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 17,
+          "length": 165,
+          "return": -2.299999999999998,
+          "floors": 4,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 18,
+          "length": 61,
+          "return": -4.51,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 19,
+          "length": 61,
+          "return": -4.51,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 0,
+          "length": 35,
+          "return": -5.3,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 1,
+          "length": 35,
+          "return": -5.3,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 2,
+          "length": 87,
+          "return": -3.7200000000000006,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 3,
+          "length": 164,
+          "return": -3.290000000000001,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 4,
+          "length": 87,
+          "return": -3.7200000000000006,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 5,
+          "length": 86,
+          "return": -4.71,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 6,
+          "length": 61,
+          "return": -4.51,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 7,
+          "length": 113,
+          "return": -3.9300000000000006,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 8,
+          "length": 35,
+          "return": -5.3,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 9,
+          "length": 86,
+          "return": -4.71,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 10,
+          "length": 61,
+          "return": -4.51,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 11,
+          "length": 86,
+          "return": -4.71,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 12,
+          "length": 35,
+          "return": -5.3,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 13,
+          "length": 113,
+          "return": -3.9300000000000006,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 14,
+          "length": 61,
+          "return": -4.51,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 15,
+          "length": 87,
+          "return": -3.7200000000000006,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 16,
+          "length": 61,
+          "return": -4.51,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 17,
+          "length": 190,
+          "return": -3.5499999999999985,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 18,
+          "length": 61,
+          "return": -4.51,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 19,
+          "length": 190,
+          "return": -3.549999999999998,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 0,
+          "length": 87,
+          "return": -3.6700000000000004,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 1,
+          "length": 61,
+          "return": -4.51,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 2,
+          "length": 61,
+          "return": -4.51,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 3,
+          "length": 61,
+          "return": -4.51,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 4,
+          "length": 87,
+          "return": -3.7200000000000006,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 5,
+          "length": 61,
+          "return": -4.51,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 6,
+          "length": 61,
+          "return": -4.51,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 7,
+          "length": 61,
+          "return": -4.51,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 8,
+          "length": 61,
+          "return": -4.51,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 9,
+          "length": 61,
+          "return": -4.51,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 10,
+          "length": 61,
+          "return": -4.51,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 11,
+          "length": 61,
+          "return": -4.51,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 12,
+          "length": 87,
+          "return": -3.7200000000000006,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 13,
+          "length": 86,
+          "return": -4.71,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 14,
+          "length": 87,
+          "return": -3.6700000000000004,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 15,
+          "length": 61,
+          "return": -4.51,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 16,
+          "length": 87,
+          "return": -3.7200000000000006,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 17,
+          "length": 190,
+          "return": -3.5499999999999985,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 18,
+          "length": 61,
+          "return": -4.51,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 19,
+          "length": 164,
+          "return": -4.340000000000001,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 0,
+          "length": 87,
+          "return": -3.7200000000000006,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 1,
+          "length": 87,
+          "return": -3.7200000000000006,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 2,
+          "length": 87,
+          "return": -3.7200000000000006,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 3,
+          "length": 87,
+          "return": -3.7200000000000006,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 4,
+          "length": 61,
+          "return": -4.51,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 5,
+          "length": 61,
+          "return": -4.51,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 6,
+          "length": 87,
+          "return": -3.7200000000000006,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 7,
+          "length": 61,
+          "return": -4.51,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 8,
+          "length": 61,
+          "return": -4.51,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 9,
+          "length": 35,
+          "return": -5.3,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 10,
+          "length": 113,
+          "return": -3.9300000000000006,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 11,
+          "length": 35,
+          "return": -5.3,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 12,
+          "length": 61,
+          "return": -4.51,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 13,
+          "length": 87,
+          "return": -3.7200000000000006,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 14,
+          "length": 86,
+          "return": -4.71,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 15,
+          "length": 87,
+          "return": -3.7200000000000006,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 16,
+          "length": 86,
+          "return": -4.71,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 17,
+          "length": 165,
+          "return": -3.349999999999998,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 18,
+          "length": 61,
+          "return": -4.51,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 19,
+          "length": 87,
+          "return": -3.7200000000000006,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        }
+      ]
+    }
+  }
+}

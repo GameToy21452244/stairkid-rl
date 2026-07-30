@@ -159,6 +159,20 @@ class EnvironmentConfig:
     top_danger_y_ratio: float = 0.33
     wall_margin_pixels: int = 32
     wall_push_penalty: float = 0.08
+    platform_alignment_reward_scale: float = 0.5
+    platform_target_action_reward: float = 0.05
+    platform_alignment_min_vertical_gap: int = 25
+    platform_alignment_max_vertical_gap: int = 260
+    platform_alignment_landing_margin: int = 10
+    platform_alignment_rising_origin_exclusion_gap: int = 150
+    platform_alignment_safe_kinds: list[str] = field(
+        default_factory=lambda: [
+            "normal",
+            "spring",
+            "conveyor",
+            "flipping",
+        ]
+    )
     damage_penalty_per_segment: float = 0.2
     death_penalty: float = 5.0
     velocity_scale: float = 500.0
@@ -168,6 +182,7 @@ class EnvironmentConfig:
     reset_max_observation_frames: int = 30
     reset_focus_max_observation_frames: int = 450
     reset_focus_correction_max_observation_frames: int = 450
+    reset_focus_correction_max_presses: int = 1
     reset_post_action_delay_seconds: float = 0.4
     max_observation_platforms: int = 8
     observation_history_frames: int = 4
@@ -182,12 +197,13 @@ class TrainingConfig:
     max_training_seconds: float = 120.0
     n_steps: int = 128
     batch_size: int = 64
-    n_epochs: int = 2
-    learning_rate: float = 0.0001
+    n_epochs: int = 4
+    learning_rate: float = 0.0002
     gamma: float = 0.99
     gae_lambda: float = 0.95
     ent_coef: float = 0.03
-    seed: int = 42
+    target_kl: float = 0.01
+    seed: int = 2
     device: str = "cpu"
     checkpoint_freq_steps: int = 256
     model_dir: str = "models/ppo"
@@ -397,6 +413,7 @@ class AppConfig:
             "reset_max_observation_frames",
             "reset_focus_max_observation_frames",
             "reset_focus_correction_max_observation_frames",
+            "reset_focus_correction_max_presses",
             "max_observation_platforms",
             "observation_history_frames",
         ):
@@ -430,6 +447,11 @@ class AppConfig:
                 "environment.reset_focus_correction_max_observation_frames "
                 "不可小於 reset_required_consecutive_frames。"
             )
+        if self.environment.reset_focus_correction_max_presses > 4:
+            raise ConfigError(
+                "environment.reset_focus_correction_max_presses "
+                "不可大於 4。"
+            )
         for name in (
             "floor_reward",
             "step_penalty",
@@ -439,6 +461,8 @@ class AppConfig:
             "platform_dwell_penalty",
             "top_danger_penalty",
             "wall_push_penalty",
+            "platform_alignment_reward_scale",
+            "platform_target_action_reward",
             "damage_penalty_per_segment",
             "death_penalty",
             "reset_post_action_delay_seconds",
@@ -454,12 +478,42 @@ class AppConfig:
             "platform_dwell_max_gap",
             "top_danger_grace_steps",
             "wall_margin_pixels",
+            "platform_alignment_min_vertical_gap",
+            "platform_alignment_max_vertical_gap",
+            "platform_alignment_landing_margin",
+            "platform_alignment_rising_origin_exclusion_gap",
         ):
             if getattr(self.environment, name) < 0:
                 raise ConfigError(f"environment.{name} 不可小於 0。")
         if not 0.0 <= self.environment.top_danger_y_ratio <= 1.0:
             raise ConfigError(
                 "environment.top_danger_y_ratio 必須介於 0 與 1。"
+            )
+        if (
+            self.environment.platform_alignment_max_vertical_gap
+            < self.environment.platform_alignment_min_vertical_gap
+        ):
+            raise ConfigError(
+                "environment.platform_alignment_max_vertical_gap "
+                "不可小於 platform_alignment_min_vertical_gap。"
+            )
+        known_platform_kinds = {
+            "normal",
+            "spikes",
+            "spring",
+            "conveyor",
+            "flipping",
+        }
+        if (
+            not self.environment.platform_alignment_safe_kinds
+            or any(
+                kind not in known_platform_kinds
+                for kind in self.environment.platform_alignment_safe_kinds
+            )
+        ):
+            raise ConfigError(
+                "environment.platform_alignment_safe_kinds "
+                "必須是已知平台類型的非空清單。"
             )
         if self.training.algorithm != "ppo":
             raise ConfigError("training.algorithm 目前只支援 ppo。")
@@ -487,6 +541,7 @@ class AppConfig:
             "learning_rate",
             "gamma",
             "gae_lambda",
+            "target_kl",
         ):
             value = getattr(self.training, name)
             if not 0.0 < value <= 1.0:

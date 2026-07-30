@@ -64,6 +64,12 @@ def test_final_episode_budget_prevents_vec_env_auto_reset() -> None:
     assert final_done.tolist() == [False]
     assert infos[0]["training_budget_exhausted"]
     assert raw.reset_count == 2
+    assert wrapped.action_counts == {
+        "RELEASE_ALL": 4,
+        "LEFT": 0,
+        "RIGHT": 0,
+    }
+    assert wrapped.longest_same_action_streak == 4
     vec.close()
 
 
@@ -162,6 +168,7 @@ def test_load_ppo_model_rejects_rollout_config_mismatch(tmp_path) -> None:
         ({"n_epochs": 2}, "n_epochs"),
         ({"learning_rate": 0.0001}, "learning_rate"),
         ({"ent_coef": 0.03}, "ent_coef"),
+        ({"target_kl": 0.02}, "target_kl"),
     ],
 )
 def test_load_ppo_model_rejects_optimizer_config_mismatch(
@@ -196,6 +203,7 @@ def test_load_ppo_model_rejects_optimizer_config_mismatch(
         "n_epochs": 1,
         "learning_rate": 0.0003,
         "ent_coef": 0.01,
+        "target_kl": 0.01,
         "device": "cpu",
     }
     target_config.update(overrides)

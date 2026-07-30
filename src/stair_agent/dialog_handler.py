@@ -231,6 +231,7 @@ class DialogActionHandler:
         focus_guard: DialogFocusGuard | None = None,
         focus_correction_key: str | None = None,
         focus_correction_duration_ms: int | None = None,
+        focus_correction_max_presses: int = 1,
         focus_correction_delay_seconds: float = 0.1,
         focus_max_observation_frames: int | None = None,
         focus_correction_max_observation_frames: int | None = None,
@@ -254,6 +255,10 @@ class DialogActionHandler:
         self.focus_guard = focus_guard
         self.focus_correction_key = focus_correction_key
         self.focus_correction_duration_ms = focus_correction_duration_ms
+        self.focus_correction_max_presses = max(
+            1,
+            int(focus_correction_max_presses),
+        )
         self.focus_correction_delay_seconds = max(
             0.0,
             focus_correction_delay_seconds,
@@ -379,19 +384,40 @@ class DialogActionHandler:
                                 "雙人焦點未在等待期限內自然恢復，且未設定"
                                 "安全修正鍵；沒有送出 Enter。"
                             )
-                        self.controller.release_all()
-                        self.controller.tap(
-                            self.focus_correction_key,
-                            self.focus_correction_duration_ms,
-                        )
-                        self.controller.release_all()
-                        self.sleep_fn(self.focus_correction_delay_seconds)
-                        corrected = self._observe_stable_start_focus(
-                            self.focus_correction_max_observation_frames,
-                        )
+                        for _attempt in range(
+                            self.focus_correction_max_presses
+                        ):
+                            self.controller.release_all()
+                            self.controller.tap(
+                                self.focus_correction_key,
+                                self.focus_correction_duration_ms,
+                            )
+                            self.controller.release_all()
+                            self.sleep_fn(
+                                self.focus_correction_delay_seconds
+                            )
+                            corrected = self._observe_stable_start_focus(
+                                self.focus_correction_max_observation_frames,
+                            )
+                            if corrected is not None:
+                                break
+                            still_dialog = self.observe_stable()
+                            if still_dialog.phase is not GamePhase.DIALOG:
+                                raise DialogActionError(
+                                    "焦點修正後已不是穩定 DIALOG；"
+                                    "沒有送出 Enter。"
+                                )
+                            if (
+                                self.focus_guard.focus_location(
+                                    still_dialog.frame
+                                )
+                                is DialogFocusLocation.START
+                            ):
+                                corrected = still_dialog
+                                break
                         if corrected is None:
                             raise DialogActionError(
-                                "已嘗試一次焦點修正，但無法確認單人開始；"
+                                "已達焦點修正次數上限，但無法確認單人開始；"
                                 "沒有送出 Enter。"
                             )
                         before = corrected

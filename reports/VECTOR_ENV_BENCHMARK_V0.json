@@ -1,0 +1,53 @@
+{
+  "schema_version": "vector-env-benchmark-v1",
+  "generated_at": "2026-07-30T10:10:39.821795+00:00",
+  "vector_steps": 1000,
+  "results": [
+    {
+      "mode": "sync",
+      "env_count": 1,
+      "steps_per_second": 3935.605620823745
+    },
+    {
+      "mode": "async",
+      "env_count": 1,
+      "steps_per_second": 2633.804512188792
+    },
+    {
+      "mode": "sync",
+      "env_count": 4,
+      "steps_per_second": 4150.121946144253
+    },
+    {
+      "mode": "async",
+      "env_count": 4,
+      "steps_per_second": 7526.612219149346
+    },
+    {
+      "mode": "sync",
+      "env_count": 8,
+      "steps_per_second": 4165.089139154499
+    },
+    {
+      "mode": "async",
+      "env_count": 8,
+      "steps_per_second": 9228.211241611363
+    },
+    {
+      "mode": "sync",
+      "env_count": 16,
+      "steps_per_second": 4281.552540188282
+    },
+    {
+      "mode": "async",
+      "env_count": 16,
+      "steps_per_second": 11939.065398014482
+    }
+  ],
+  "throughput_recommendation": {
+    "mode": "async",
+    "env_count": 16,
+    "steps_per_second": 11939.065398014482
+  },
+  "note": "Colab 必須重新 benchmark；本機結果不可直接外推。"
+}

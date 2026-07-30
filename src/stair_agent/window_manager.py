@@ -71,6 +71,7 @@ class PyWin32Backend:
         self.win32con = win32con
         self.win32gui = win32gui
         self.win32process = win32process
+        self.user32 = ctypes.windll.user32
 
     def _info(self, hwnd: int) -> WindowInfo | None:
         w = self.win32gui
@@ -120,6 +121,14 @@ class PyWin32Backend:
                 self.win32gui.ShowWindow(hwnd, self.win32con.SW_RESTORE)
             self.win32gui.BringWindowToTop(hwnd)
             self.win32gui.SetForegroundWindow(hwnd)
+        except Exception:
+            pass
+        if self.foreground_hwnd() == hwnd:
+            return True
+        try:
+            # Windows 的 foreground lock 可能無聲拒絕 SetForegroundWindow。
+            # 只對呼叫者已驗證的同一個 hwnd 使用原生切換備援。
+            self.user32.SwitchToThisWindow(hwnd, True)
         except Exception:
             return False
         return self.foreground_hwnd() == hwnd

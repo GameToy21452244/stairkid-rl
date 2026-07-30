@@ -1,0 +1,934 @@
+{
+  "schema_version": "legacy-quarantine-manifest-v1",
+  "generated_at": "2026-07-30T10:06:58.635637+00:00",
+  "source_root": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs",
+  "file_count": 23,
+  "total_rows": 2912,
+  "eligible_for_bc_files": 0,
+  "eligible_for_dqn_files": 0,
+  "files": [
+    {
+      "path": "baseline_20260729_200743_034907.jsonl",
+      "family": "baseline",
+      "source_sha256": "aab4ccf6bcede18a083bb638a43139e6dfdb8366f9d75d8ed5feec0a1746cc44",
+      "size_bytes": 20281,
+      "rows": 9,
+      "json_errors": 0,
+      "top_level_keys": [
+        "action",
+        "cumulative_reward",
+        "events",
+        "features",
+        "observation",
+        "reward",
+        "step",
+        "terminated",
+        "truncated"
+      ],
+      "feature_dimensions": [
+        64
+      ],
+      "action_counts": {
+        "0": 2,
+        "1": 6,
+        "2": 1
+      },
+      "eligible_for_bc": false,
+      "eligible_for_dqn": false,
+      "quarantine": true,
+      "reasons": [
+        "missing_action_timestamps",
+        "missing_episode_id",
+        "missing_next_observation",
+        "missing_observation_schema_version",
+        "missing_reward_components",
+        "missing_reward_version",
+        "missing_schema_version",
+        "unverified_policy_source"
+      ]
+    },
+    {
+      "path": "baseline_20260729_200826_078249.jsonl",
+      "family": "baseline",
+      "source_sha256": "b5340ec84ee0b35d5aaa1de65858b1d9a01c6d95278c53c4de44eb0392daa59c",
+      "size_bytes": 29021,
+      "rows": 11,
+      "json_errors": 0,
+      "top_level_keys": [
+        "action",
+        "cumulative_reward",
+        "events",
+        "features",
+        "observation",
+        "reward",
+        "step",
+        "terminated",
+        "truncated"
+      ],
+      "feature_dimensions": [
+        64
+      ],
+      "action_counts": {
+        "0": 4,
+        "1": 2,
+        "2": 5
+      },
+      "eligible_for_bc": false,
+      "eligible_for_dqn": false,
+      "quarantine": true,
+      "reasons": [
+        "missing_action_timestamps",
+        "missing_episode_id",
+        "missing_next_observation",
+        "missing_observation_schema_version",
+        "missing_reward_components",
+        "missing_reward_version",
+        "missing_schema_version",
+        "unverified_policy_source"
+      ]
+    },
+    {
+      "path": "baseline_20260729_200844_612173.jsonl",
+      "family": "baseline",
+      "source_sha256": "ae0fa58e383aada7ff704fc49bbb447996828c97fd84cda7bdb354f913e05527",
+      "size_bytes": 24583,
+      "rows": 10,
+      "json_errors": 0,
+      "top_level_keys": [
+        "action",
+        "cumulative_reward",
+        "events",
+        "features",
+        "observation",
+        "reward",
+        "step",
+        "terminated",
+        "truncated"
+      ],
+      "feature_dimensions": [
+        64
+      ],
+      "action_counts": {
+        "1": 5,
+        "2": 5
+      },
+      "eligible_for_bc": false,
+      "eligible_for_dqn": false,
+      "quarantine": true,
+      "reasons": [
+        "missing_action_timestamps",
+        "missing_episode_id",
+        "missing_next_observation",
+        "missing_observation_schema_version",
+        "missing_reward_components",
+        "missing_reward_version",
+        "missing_schema_version",
+        "unverified_policy_source"
+      ]
+    },
+    {
+      "path": "baseline_20260729_201613_322663.jsonl",
+      "family": "baseline",
+      "source_sha256": "ccdd70a0a54c5916817b2566854fda856de059931552d86c52401d3d800a6cb7",
+      "size_bytes": 30631,
+      "rows": 11,
+      "json_errors": 0,
+      "top_level_keys": [
+        "action",
+        "cumulative_reward",
+        "events",
+        "features",
+        "observation",
+        "policy_decision",
+        "reward",
+        "step",
+        "terminated",
+        "truncated"
+      ],
+      "feature_dimensions": [
+        64
+      ],
+      "action_counts": {
+        "0": 8,
+        "1": 2,
+        "2": 1
+      },
+      "eligible_for_bc": false,
+      "eligible_for_dqn": false,
+      "quarantine": true,
+      "reasons": [
+        "missing_action_timestamps",
+        "missing_episode_id",
+        "missing_next_observation",
+        "missing_observation_schema_version",
+        "missing_reward_components",
+        "missing_reward_version",
+        "missing_schema_version",
+        "unverified_policy_source"
+      ]
+    },
+    {
+      "path": "baseline_20260729_201633_619889.jsonl",
+      "family": "baseline",
+      "source_sha256": "d32d549ab2ab2937728da4537d7b3c5c06da271b9ba2dae53f9c954936a7ef92",
+      "size_bytes": 31650,
+      "rows": 12,
+      "json_errors": 0,
+      "top_level_keys": [
+        "action",
+        "cumulative_reward",
+        "events",
+        "features",
+        "observation",
+        "policy_decision",
+        "reward",
+        "step",
+        "terminated",
+        "truncated"
+      ],
+      "feature_dimensions": [
+        64
+      ],
+      "action_counts": {
+        "0": 6,
+        "1": 5,
+        "2": 1
+      },
+      "eligible_for_bc": false,
+      "eligible_for_dqn": false,
+      "quarantine": true,
+      "reasons": [
+        "missing_action_timestamps",
+        "missing_episode_id",
+        "missing_next_observation",
+        "missing_observation_schema_version",
+        "missing_reward_components",
+        "missing_reward_version",
+        "missing_schema_version",
+        "unverified_policy_source"
+      ]
+    },
+    {
+      "path": "baseline_20260729_201707_142641.jsonl",
+      "family": "baseline",
+      "source_sha256": "03f5e52c19018fffd6bf961beb8ade3451c2bf2db23be3ca6c75b97a8290a7c5",
+      "size_bytes": 22358,
+      "rows": 8,
+      "json_errors": 0,
+      "top_level_keys": [
+        "action",
+        "cumulative_reward",
+        "events",
+        "features",
+        "observation",
+        "policy_decision",
+        "reward",
+        "step",
+        "terminated",
+        "truncated"
+      ],
+      "feature_dimensions": [
+        64
+      ],
+      "action_counts": {
+        "0": 4,
+        "1": 3,
+        "2": 1
+      },
+      "eligible_for_bc": false,
+      "eligible_for_dqn": false,
+      "quarantine": true,
+      "reasons": [
+        "missing_action_timestamps",
+        "missing_episode_id",
+        "missing_next_observation",
+        "missing_observation_schema_version",
+        "missing_reward_components",
+        "missing_reward_version",
+        "missing_schema_version",
+        "unverified_policy_source"
+      ]
+    },
+    {
+      "path": "baseline_20260729_202651_970916.jsonl",
+      "family": "baseline",
+      "source_sha256": "ad97d6c8dc22a2355b4d56854663850bf20f4afab7232eefffcee83534300fc0",
+      "size_bytes": 20664,
+      "rows": 8,
+      "json_errors": 0,
+      "top_level_keys": [
+        "action",
+        "cumulative_reward",
+        "events",
+        "features",
+        "observation",
+        "policy_decision",
+        "reward",
+        "step",
+        "terminated",
+        "truncated"
+      ],
+      "feature_dimensions": [
+        64
+      ],
+      "action_counts": {
+        "0": 5,
+        "1": 2,
+        "2": 1
+      },
+      "eligible_for_bc": false,
+      "eligible_for_dqn": false,
+      "quarantine": true,
+      "reasons": [
+        "missing_action_timestamps",
+        "missing_episode_id",
+        "missing_next_observation",
+        "missing_observation_schema_version",
+        "missing_reward_components",
+        "missing_reward_version",
+        "missing_schema_version",
+        "unverified_policy_source"
+      ]
+    },
+    {
+      "path": "baseline_20260729_202716_893683.jsonl",
+      "family": "baseline",
+      "source_sha256": "afb346dc105a472cf1495c5eb89ba3c1047ef88a80c56eb5a294de3089f81e12",
+      "size_bytes": 27590,
+      "rows": 10,
+      "json_errors": 0,
+      "top_level_keys": [
+        "action",
+        "cumulative_reward",
+        "events",
+        "features",
+        "observation",
+        "policy_decision",
+        "reward",
+        "step",
+        "terminated",
+        "truncated"
+      ],
+      "feature_dimensions": [
+        64
+      ],
+      "action_counts": {
+        "0": 2,
+        "1": 2,
+        "2": 6
+      },
+      "eligible_for_bc": false,
+      "eligible_for_dqn": false,
+      "quarantine": true,
+      "reasons": [
+        "missing_action_timestamps",
+        "missing_episode_id",
+        "missing_next_observation",
+        "missing_observation_schema_version",
+        "missing_reward_components",
+        "missing_reward_version",
+        "missing_schema_version",
+        "unverified_policy_source"
+      ]
+    },
+    {
+      "path": "baseline_20260729_202733_802722.jsonl",
+      "family": "baseline",
+      "source_sha256": "6f03b55f164e49cbf45825129ac826e929a9597524b72706cbc622a5c6304e1c",
+      "size_bytes": 20229,
+      "rows": 8,
+      "json_errors": 0,
+      "top_level_keys": [
+        "action",
+        "cumulative_reward",
+        "events",
+        "features",
+        "observation",
+        "policy_decision",
+        "reward",
+        "step",
+        "terminated",
+        "truncated"
+      ],
+      "feature_dimensions": [
+        64
+      ],
+      "action_counts": {
+        "0": 3,
+        "1": 4,
+        "2": 1
+      },
+      "eligible_for_bc": false,
+      "eligible_for_dqn": false,
+      "quarantine": true,
+      "reasons": [
+        "missing_action_timestamps",
+        "missing_episode_id",
+        "missing_next_observation",
+        "missing_observation_schema_version",
+        "missing_reward_components",
+        "missing_reward_version",
+        "missing_schema_version",
+        "unverified_policy_source"
+      ]
+    },
+    {
+      "path": "baseline_20260729_202824_682732.jsonl",
+      "family": "baseline",
+      "source_sha256": "089af1fb3f58270aa26c033f8fa7e167b8b925b9b4fff4de90e5182c0cee5f59",
+      "size_bytes": 17944,
+      "rows": 7,
+      "json_errors": 0,
+      "top_level_keys": [
+        "action",
+        "cumulative_reward",
+        "events",
+        "features",
+        "observation",
+        "policy_decision",
+        "reward",
+        "step",
+        "terminated",
+        "truncated"
+      ],
+      "feature_dimensions": [
+        64
+      ],
+      "action_counts": {
+        "0": 6,
+        "2": 1
+      },
+      "eligible_for_bc": false,
+      "eligible_for_dqn": false,
+      "quarantine": true,
+      "reasons": [
+        "missing_action_timestamps",
+        "missing_episode_id",
+        "missing_next_observation",
+        "missing_observation_schema_version",
+        "missing_reward_components",
+        "missing_reward_version",
+        "missing_schema_version",
+        "unverified_policy_source"
+      ]
+    },
+    {
+      "path": "baseline_20260729_202906_135127.jsonl",
+      "family": "baseline",
+      "source_sha256": "bdc3e415d911e3c45263036a5f6ad07c37f42adfba1d0a27f24a03d9b5f127c2",
+      "size_bytes": 8872,
+      "rows": 4,
+      "json_errors": 0,
+      "top_level_keys": [
+        "action",
+        "cumulative_reward",
+        "events",
+        "features",
+        "observation",
+        "policy_decision",
+        "reward",
+        "step",
+        "terminated",
+        "truncated"
+      ],
+      "feature_dimensions": [
+        64
+      ],
+      "action_counts": {
+        "0": 1,
+        "1": 3
+      },
+      "eligible_for_bc": false,
+      "eligible_for_dqn": false,
+      "quarantine": true,
+      "reasons": [
+        "missing_action_timestamps",
+        "missing_episode_id",
+        "missing_next_observation",
+        "missing_observation_schema_version",
+        "missing_reward_components",
+        "missing_reward_version",
+        "missing_schema_version",
+        "unverified_policy_source"
+      ]
+    },
+    {
+      "path": "baseline_20260729_213126_807202.jsonl",
+      "family": "baseline",
+      "source_sha256": "5788a92a2c097e1a85368a15363357c6095c13c8abd985b05eebead32af0ef5a",
+      "size_bytes": 227514,
+      "rows": 57,
+      "json_errors": 0,
+      "top_level_keys": [
+        "action",
+        "cumulative_reward",
+        "decision_observation",
+        "events",
+        "features",
+        "observation",
+        "policy_decision",
+        "reward",
+        "step",
+        "terminated",
+        "truncated"
+      ],
+      "feature_dimensions": [
+        64
+      ],
+      "action_counts": {
+        "0": 10,
+        "1": 27,
+        "2": 20
+      },
+      "eligible_for_bc": false,
+      "eligible_for_dqn": false,
+      "quarantine": true,
+      "reasons": [
+        "missing_action_timestamps",
+        "missing_episode_id",
+        "missing_next_observation",
+        "missing_observation_schema_version",
+        "missing_reward_components",
+        "missing_reward_version",
+        "missing_schema_version",
+        "unverified_policy_source"
+      ]
+    },
+    {
+      "path": "baseline_20260729_213351_440376.jsonl",
+      "family": "baseline",
+      "source_sha256": "288b1346e1b54fcc9bcc2b5f5d515defef53e70800157f312ddf74db6c07c688",
+      "size_bytes": 279516,
+      "rows": 77,
+      "json_errors": 0,
+      "top_level_keys": [
+        "action",
+        "cumulative_reward",
+        "decision_observation",
+        "events",
+        "features",
+        "observation",
+        "policy_decision",
+        "reward",
+        "step",
+        "terminated",
+        "truncated"
+      ],
+      "feature_dimensions": [
+        64
+      ],
+      "action_counts": {
+        "0": 44,
+        "1": 21,
+        "2": 12
+      },
+      "eligible_for_bc": false,
+      "eligible_for_dqn": false,
+      "quarantine": true,
+      "reasons": [
+        "missing_action_timestamps",
+        "missing_episode_id",
+        "missing_next_observation",
+        "missing_observation_schema_version",
+        "missing_reward_components",
+        "missing_reward_version",
+        "missing_schema_version",
+        "unverified_policy_source"
+      ]
+    },
+    {
+      "path": "baseline_20260729_213551_362859.jsonl",
+      "family": "baseline",
+      "source_sha256": "c741806e254988c6dcdffc57db2a1bd8f8ee4eb93ecd505cbede4e6776f2117f",
+      "size_bytes": 333653,
+      "rows": 83,
+      "json_errors": 0,
+      "top_level_keys": [
+        "action",
+        "cumulative_reward",
+        "decision_observation",
+        "events",
+        "features",
+        "observation",
+        "policy_decision",
+        "reward",
+        "step",
+        "terminated",
+        "truncated"
+      ],
+      "feature_dimensions": [
+        64
+      ],
+      "action_counts": {
+        "0": 46,
+        "1": 17,
+        "2": 20
+      },
+      "eligible_for_bc": false,
+      "eligible_for_dqn": false,
+      "quarantine": true,
+      "reasons": [
+        "missing_action_timestamps",
+        "missing_episode_id",
+        "missing_next_observation",
+        "missing_observation_schema_version",
+        "missing_reward_components",
+        "missing_reward_version",
+        "missing_schema_version",
+        "unverified_policy_source"
+      ]
+    },
+    {
+      "path": "baseline_20260729_213814_606940.jsonl",
+      "family": "baseline",
+      "source_sha256": "a06cb51de0c0b51f1ed5ac21f8ad06cf002617467ada5c3bf2da7ce6dbb36969",
+      "size_bytes": 124468,
+      "rows": 33,
+      "json_errors": 0,
+      "top_level_keys": [
+        "action",
+        "cumulative_reward",
+        "decision_observation",
+        "events",
+        "features",
+        "observation",
+        "policy_decision",
+        "reward",
+        "step",
+        "terminated",
+        "truncated"
+      ],
+      "feature_dimensions": [
+        64
+      ],
+      "action_counts": {
+        "0": 18,
+        "1": 6,
+        "2": 9
+      },
+      "eligible_for_bc": false,
+      "eligible_for_dqn": false,
+      "quarantine": true,
+      "reasons": [
+        "missing_action_timestamps",
+        "missing_episode_id",
+        "missing_next_observation",
+        "missing_observation_schema_version",
+        "missing_reward_components",
+        "missing_reward_version",
+        "missing_schema_version",
+        "unverified_policy_source"
+      ]
+    },
+    {
+      "path": "baseline_20260729_213939_978735.jsonl",
+      "family": "baseline",
+      "source_sha256": "f33648dcf1401e3c06b2ce219c38b52a5ea006c89265aa1a807a26a79c7a8882",
+      "size_bytes": 228920,
+      "rows": 58,
+      "json_errors": 0,
+      "top_level_keys": [
+        "action",
+        "cumulative_reward",
+        "decision_observation",
+        "events",
+        "features",
+        "observation",
+        "policy_decision",
+        "reward",
+        "step",
+        "terminated",
+        "truncated"
+      ],
+      "feature_dimensions": [
+        64
+      ],
+      "action_counts": {
+        "0": 39,
+        "1": 11,
+        "2": 8
+      },
+      "eligible_for_bc": false,
+      "eligible_for_dqn": false,
+      "quarantine": true,
+      "reasons": [
+        "missing_action_timestamps",
+        "missing_episode_id",
+        "missing_next_observation",
+        "missing_observation_schema_version",
+        "missing_reward_components",
+        "missing_reward_version",
+        "missing_schema_version",
+        "unverified_policy_source"
+      ]
+    },
+    {
+      "path": "baseline_20260729_214120_728943.jsonl",
+      "family": "baseline",
+      "source_sha256": "f395d7fe9fd85a151100ce5286df0e365e329b598472c2d8a7bc253fa7e1862b",
+      "size_bytes": 523136,
+      "rows": 134,
+      "json_errors": 0,
+      "top_level_keys": [
+        "action",
+        "cumulative_reward",
+        "decision_observation",
+        "events",
+        "features",
+        "observation",
+        "policy_decision",
+        "reward",
+        "step",
+        "terminated",
+        "truncated"
+      ],
+      "feature_dimensions": [
+        64
+      ],
+      "action_counts": {
+        "0": 85,
+        "1": 24,
+        "2": 25
+      },
+      "eligible_for_bc": false,
+      "eligible_for_dqn": false,
+      "quarantine": true,
+      "reasons": [
+        "missing_action_timestamps",
+        "missing_episode_id",
+        "missing_next_observation",
+        "missing_observation_schema_version",
+        "missing_reward_components",
+        "missing_reward_version",
+        "missing_schema_version",
+        "unverified_policy_source"
+      ]
+    },
+    {
+      "path": "baseline_20260729_214355_367375.jsonl",
+      "family": "baseline",
+      "source_sha256": "f938fa3ea2507e681945abf94fe212215ba4c0fc4fdbfd611fa0087847811456",
+      "size_bytes": 45966,
+      "rows": 12,
+      "json_errors": 0,
+      "top_level_keys": [
+        "action",
+        "cumulative_reward",
+        "decision_observation",
+        "events",
+        "features",
+        "observation",
+        "policy_decision",
+        "reward",
+        "step",
+        "terminated",
+        "truncated"
+      ],
+      "feature_dimensions": [
+        64
+      ],
+      "action_counts": {
+        "0": 5,
+        "2": 7
+      },
+      "eligible_for_bc": false,
+      "eligible_for_dqn": false,
+      "quarantine": true,
+      "reasons": [
+        "missing_action_timestamps",
+        "missing_episode_id",
+        "missing_next_observation",
+        "missing_observation_schema_version",
+        "missing_reward_components",
+        "missing_reward_version",
+        "missing_schema_version",
+        "unverified_policy_source"
+      ]
+    },
+    {
+      "path": "baseline_20260729_214517_894016.jsonl",
+      "family": "baseline",
+      "source_sha256": "858dd2df224a0d5da1a949dbfb2b1a51e4538c3ee9dc6c3e2c45a8d1214e9d3d",
+      "size_bytes": 82390,
+      "rows": 22,
+      "json_errors": 0,
+      "top_level_keys": [
+        "action",
+        "cumulative_reward",
+        "decision_observation",
+        "events",
+        "features",
+        "observation",
+        "policy_decision",
+        "reward",
+        "step",
+        "terminated",
+        "truncated"
+      ],
+      "feature_dimensions": [
+        64
+      ],
+      "action_counts": {
+        "0": 9,
+        "1": 2,
+        "2": 11
+      },
+      "eligible_for_bc": false,
+      "eligible_for_dqn": false,
+      "quarantine": true,
+      "reasons": [
+        "missing_action_timestamps",
+        "missing_episode_id",
+        "missing_next_observation",
+        "missing_observation_schema_version",
+        "missing_reward_components",
+        "missing_reward_version",
+        "missing_schema_version",
+        "unverified_policy_source"
+      ]
+    },
+    {
+      "path": "observations.jsonl",
+      "family": "unknown",
+      "source_sha256": "c9499cc34b7a462b5e38a181c42dafdb354eed6b1e062db61025baf7aedee54a",
+      "size_bytes": 1351565,
+      "rows": 966,
+      "json_errors": 0,
+      "top_level_keys": [
+        "events",
+        "health",
+        "nearest_platform",
+        "phase",
+        "platform_scroll_velocity_y",
+        "platforms",
+        "player",
+        "timestamp"
+      ],
+      "feature_dimensions": [],
+      "action_counts": {},
+      "eligible_for_bc": false,
+      "eligible_for_dqn": false,
+      "quarantine": true,
+      "reasons": [
+        "missing_action_timestamps",
+        "missing_episode_id",
+        "missing_next_observation",
+        "missing_observation_schema_version",
+        "missing_reward_components",
+        "missing_reward_version",
+        "missing_schema_version",
+        "unverified_policy_source"
+      ]
+    },
+    {
+      "path": "observations_20260729_192953_463197.jsonl",
+      "family": "observations",
+      "source_sha256": "51eebbe1ca08f2443bb15a3ad180b4af3e3e7a54d2236324b6753f6ba625e178",
+      "size_bytes": 506692,
+      "rows": 365,
+      "json_errors": 0,
+      "top_level_keys": [
+        "events",
+        "health",
+        "nearest_platform",
+        "phase",
+        "platform_scroll_velocity_y",
+        "platforms",
+        "player",
+        "timestamp"
+      ],
+      "feature_dimensions": [],
+      "action_counts": {},
+      "eligible_for_bc": false,
+      "eligible_for_dqn": false,
+      "quarantine": true,
+      "reasons": [
+        "missing_action",
+        "missing_action_timestamps",
+        "missing_episode_id",
+        "missing_next_observation",
+        "missing_observation_schema_version",
+        "missing_reward",
+        "missing_reward_components",
+        "missing_reward_version",
+        "missing_schema_version"
+      ]
+    },
+    {
+      "path": "reward_audit_20260729_194814_606232.jsonl",
+      "family": "reward_audit",
+      "source_sha256": "9b43a6ed3de5b3ccadf35989f0c056a7a70b8b51dffadaf7c1e96ad5131aea75",
+      "size_bytes": 176767,
+      "rows": 104,
+      "json_errors": 0,
+      "top_level_keys": [
+        "action",
+        "cumulative_reward",
+        "events",
+        "features",
+        "observation",
+        "reward",
+        "step",
+        "terminated",
+        "truncated"
+      ],
+      "feature_dimensions": [
+        16
+      ],
+      "action_counts": {
+        "manual": 104
+      },
+      "eligible_for_bc": false,
+      "eligible_for_dqn": false,
+      "quarantine": true,
+      "reasons": [
+        "missing_action_timestamps",
+        "missing_episode_id",
+        "missing_next_observation",
+        "missing_observation_schema_version",
+        "missing_reward_components",
+        "missing_reward_version",
+        "missing_schema_version",
+        "unverified_policy_source"
+      ]
+    },
+    {
+      "path": "reward_audit_20260729_194833_583918.jsonl",
+      "family": "reward_audit",
+      "source_sha256": "3aa4e71954a41bd30a5bee4222b0ae9f8703e6e01069d66592e0fa04b97df2d3",
+      "size_bytes": 1561091,
+      "rows": 903,
+      "json_errors": 0,
+      "top_level_keys": [
+        "action",
+        "cumulative_reward",
+        "events",
+        "features",
+        "observation",
+        "reward",
+        "step",
+        "terminated",
+        "truncated"
+      ],
+      "feature_dimensions": [
+        16
+      ],
+      "action_counts": {
+        "manual": 903
+      },
+      "eligible_for_bc": false,
+      "eligible_for_dqn": false,
+      "quarantine": true,
+      "reasons": [
+        "missing_action_timestamps",
+        "missing_episode_id",
+        "missing_next_observation",
+        "missing_observation_schema_version",
+        "missing_reward_components",
+        "missing_reward_version",
+        "missing_schema_version",
+        "unverified_policy_source"
+      ]
+    }
+  ]
+}

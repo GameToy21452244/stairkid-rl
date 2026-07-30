@@ -1,0 +1,2465 @@
+{
+  "schema_version": "simulator-benchmark-v1",
+  "generated_at": "2026-07-30T11:00:54.644367+00:00",
+  "simulator": "v0.1-calibrated",
+  "seeds": [
+    1001,
+    1002,
+    1003,
+    1004,
+    1005
+  ],
+  "episodes_per_seed": 20,
+  "max_episode_steps": 500,
+  "results": {
+    "random": {
+      "episodes": 100,
+      "mean_floors": 1.06,
+      "median_floors": 1.0,
+      "mean_length": 20.38,
+      "mean_return": -4.090800000000001,
+      "action_counts": {
+        "0": 695,
+        "1": 671,
+        "2": 672
+      },
+      "terminal_reasons": {
+        "bottom": 100
+      },
+      "episode_results": [
+        {
+          "seed": 1001,
+          "episode": 0,
+          "length": 20,
+          "return": -4.15,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 1,
+          "length": 20,
+          "return": -4.15,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 2,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 3,
+          "length": 40,
+          "return": -2.2499999999999973,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 4,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 5,
+          "length": 20,
+          "return": -4.15,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 6,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 7,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 8,
+          "length": 31,
+          "return": -3.21,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 9,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 10,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 11,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 12,
+          "length": 20,
+          "return": -4.15,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 13,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 14,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 15,
+          "length": 20,
+          "return": -4.15,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 16,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 17,
+          "length": 20,
+          "return": -4.15,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 18,
+          "length": 20,
+          "return": -4.15,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 19,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 0,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 1,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 2,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 3,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 4,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 5,
+          "length": 20,
+          "return": -4.1499999999999995,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 6,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 7,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 8,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 9,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 10,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 11,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 12,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 13,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 14,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 15,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 16,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 17,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 18,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 19,
+          "length": 20,
+          "return": -4.15,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 0,
+          "length": 31,
+          "return": -3.21,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 1,
+          "length": 20,
+          "return": -4.15,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 2,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 3,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 4,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 5,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 6,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 7,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 8,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 9,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 10,
+          "length": 40,
+          "return": -2.2499999999999973,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 11,
+          "length": 40,
+          "return": -2.2499999999999973,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 12,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 13,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 14,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 15,
+          "length": 20,
+          "return": -4.15,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 16,
+          "length": 20,
+          "return": -4.15,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 17,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 18,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 19,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 0,
+          "length": 21,
+          "return": -4.16,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 1,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 2,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 3,
+          "length": 20,
+          "return": -4.15,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 4,
+          "length": 20,
+          "return": -4.1499999999999995,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 5,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 6,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 7,
+          "length": 20,
+          "return": -4.15,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 8,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 9,
+          "length": 21,
+          "return": -3.11,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 10,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 11,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 12,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 13,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 14,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 15,
+          "length": 21,
+          "return": -4.16,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 16,
+          "length": 20,
+          "return": -4.1499999999999995,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 17,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 18,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 19,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 0,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 1,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 2,
+          "length": 20,
+          "return": -4.15,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 3,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 4,
+          "length": 21,
+          "return": -3.11,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 5,
+          "length": 20,
+          "return": -4.15,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 6,
+          "length": 30,
+          "return": -3.1999999999999997,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 7,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 8,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 9,
+          "length": 30,
+          "return": -3.1999999999999997,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 10,
+          "length": 21,
+          "return": -4.16,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 11,
+          "length": 20,
+          "return": -4.1499999999999995,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 12,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 13,
+          "length": 20,
+          "return": -4.15,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 14,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 15,
+          "length": 31,
+          "return": -3.21,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 16,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 17,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 18,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 19,
+          "length": 21,
+          "return": -4.16,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        }
+      ]
+    },
+    "release": {
+      "episodes": 100,
+      "mean_floors": 1.39,
+      "median_floors": 1.0,
+      "mean_length": 23.77,
+      "mean_return": -3.7781999999999996,
+      "action_counts": {
+        "0": 2377
+      },
+      "terminal_reasons": {
+        "bottom": 100
+      },
+      "episode_results": [
+        {
+          "seed": 1001,
+          "episode": 0,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 1,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 2,
+          "length": 20,
+          "return": -4.15,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 3,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 4,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 5,
+          "length": 20,
+          "return": -4.15,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 6,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 7,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 8,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 9,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 10,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 11,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 12,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 13,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 14,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 15,
+          "length": 20,
+          "return": -4.15,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 16,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 17,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 18,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 19,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 0,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 1,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 2,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 3,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 4,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 5,
+          "length": 20,
+          "return": -4.1499999999999995,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 6,
+          "length": 21,
+          "return": -4.16,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 7,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 8,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 9,
+          "length": 20,
+          "return": -4.15,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 10,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 11,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 12,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 13,
+          "length": 21,
+          "return": -4.16,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 14,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 15,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 16,
+          "length": 20,
+          "return": -4.15,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 17,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 18,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 19,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 0,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 1,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 2,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 3,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 4,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 5,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 6,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 7,
+          "length": 20,
+          "return": -4.15,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 8,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 9,
+          "length": 20,
+          "return": -4.15,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 10,
+          "length": 20,
+          "return": -4.15,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 11,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 12,
+          "length": 31,
+          "return": -3.21,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 13,
+          "length": 20,
+          "return": -4.15,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 14,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 15,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 16,
+          "length": 20,
+          "return": -4.15,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 17,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 18,
+          "length": 20,
+          "return": -4.15,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 19,
+          "length": 20,
+          "return": -4.15,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 0,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 1,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 2,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 3,
+          "length": 20,
+          "return": -4.15,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 4,
+          "length": 30,
+          "return": -3.1999999999999997,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 5,
+          "length": 31,
+          "return": -3.21,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 6,
+          "length": 20,
+          "return": -4.15,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 7,
+          "length": 20,
+          "return": -4.15,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 8,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 9,
+          "length": 40,
+          "return": -2.2499999999999973,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 10,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 11,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 12,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 13,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 14,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 15,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 16,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 17,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 18,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 19,
+          "length": 40,
+          "return": -2.2499999999999973,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 0,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 1,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 2,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 3,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 4,
+          "length": 20,
+          "return": -4.15,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 5,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 6,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 7,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 8,
+          "length": 20,
+          "return": -4.15,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 9,
+          "length": 20,
+          "return": -4.15,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 10,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 11,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 12,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 13,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 14,
+          "length": 20,
+          "return": -4.15,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 15,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 16,
+          "length": 40,
+          "return": -2.2499999999999973,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 17,
+          "length": 10,
+          "return": -5.1,
+          "floors": 0,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 18,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 19,
+          "length": 20,
+          "return": -4.15,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        }
+      ]
+    },
+    "baseline": {
+      "episodes": 100,
+      "mean_floors": 2.8,
+      "median_floors": 3.0,
+      "mean_length": 37.21,
+      "mean_return": -2.432099999999998,
+      "action_counts": {
+        "0": 2129,
+        "1": 862,
+        "2": 730
+      },
+      "terminal_reasons": {
+        "bottom": 100
+      },
+      "episode_results": [
+        {
+          "seed": 1001,
+          "episode": 0,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 1,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 2,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 3,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 4,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 5,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 6,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 7,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 8,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 9,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 10,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 11,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 12,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 13,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 14,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 15,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 16,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 17,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 18,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1001,
+          "episode": 19,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 0,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 1,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 2,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 3,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 4,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 5,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 6,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 7,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 8,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 9,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 10,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 11,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 12,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 13,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 14,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 15,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 16,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 17,
+          "length": 20,
+          "return": -4.15,
+          "floors": 1,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 18,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1002,
+          "episode": 19,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 0,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 1,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 2,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 3,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 4,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 5,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 6,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 7,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 8,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 9,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 10,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 11,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 12,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 13,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 14,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 15,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 16,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 17,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 18,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1003,
+          "episode": 19,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 0,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 1,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 2,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 3,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 4,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 5,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 6,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 7,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 8,
+          "length": 40,
+          "return": -2.2499999999999973,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 9,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 10,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 11,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 12,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 13,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 14,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 15,
+          "length": 40,
+          "return": -2.2499999999999973,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 16,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 17,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 18,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1004,
+          "episode": 19,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 0,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 1,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 2,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 3,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 4,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 5,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 6,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 7,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 8,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 9,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 10,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 11,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 12,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 13,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 14,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 15,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 16,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 17,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 18,
+          "length": 30,
+          "return": -3.2,
+          "floors": 2,
+          "terminal_reason": "bottom"
+        },
+        {
+          "seed": 1005,
+          "episode": 19,
+          "length": 39,
+          "return": -2.239999999999997,
+          "floors": 3,
+          "terminal_reason": "bottom"
+        }
+      ]
+    }
+  }
+}

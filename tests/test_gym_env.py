@@ -126,6 +126,129 @@ def test_reward_uses_floor_progress_and_raw_damage() -> None:
     assert calculator.calculate(item, terminated=True) == pytest.approx(-4.81)
 
 
+def test_reward_tracks_horizontal_progress_to_same_safe_platform() -> None:
+    calculator = RewardCalculator(
+        playfield_left=0,
+        playfield_right=400,
+        platform_alignment_reward_scale=0.5,
+        platform_alignment_min_vertical_gap=25,
+        platform_alignment_max_vertical_gap=260,
+        platform_alignment_landing_margin=10,
+    )
+
+    def falling(player_x):
+        item = observation(player_x=player_x)
+        return replace(
+            item,
+            player={**item.player, "motion": "falling"},
+        )
+
+    assert calculator.calculate(
+        falling(100),
+        terminated=False,
+        action=Action.RIGHT,
+    ) == pytest.approx(0.0)
+    assert calculator.calculate(
+        falling(120),
+        terminated=False,
+        action=Action.RIGHT,
+    ) == pytest.approx(0.025)
+    assert calculator.last_components["platform_alignment_reward"] == pytest.approx(
+        0.025
+    )
+    assert calculator.calculate(
+        falling(90),
+        terminated=False,
+        action=Action.LEFT,
+    ) == pytest.approx(-0.0375)
+
+
+def test_reward_ignores_unsafe_platform_for_alignment() -> None:
+    calculator = RewardCalculator(
+        platform_alignment_reward_scale=0.5,
+    )
+    item = observation(player_x=100)
+    unsafe = replace(
+        item,
+        player={**item.player, "motion": "falling"},
+        platforms=[{**item.platforms[0], "kind": "spikes"}],
+    )
+
+    assert calculator.calculate(
+        unsafe,
+        terminated=False,
+        action=Action.RIGHT,
+    ) == pytest.approx(0.0)
+    assert calculator.last_components["platform_alignment_target_id"] is None
+
+
+def test_reward_excludes_launch_origin_while_rising() -> None:
+    calculator = RewardCalculator(
+        platform_alignment_reward_scale=0.5,
+        platform_alignment_rising_origin_exclusion_gap=80,
+    )
+    item = observation(player_x=100)
+    next_platform = {
+        "track_id": 8,
+        "kind": "normal",
+        "confidence": 0.98,
+        "box": {
+            "left": 260,
+            "top": 300,
+            "width": 96,
+            "height": 16,
+        },
+    }
+    rising = replace(
+        item,
+        platforms=[item.platforms[0], next_platform],
+    )
+
+    calculator.calculate(
+        rising,
+        terminated=False,
+        action=Action.RIGHT,
+    )
+
+    assert calculator.last_components["platform_alignment_target_id"] == 8
+
+
+@pytest.mark.parametrize(
+    ("player_x", "action", "expected"),
+    [
+        (100, Action.RIGHT, 0.05),
+        (100, Action.LEFT, -0.05),
+        (100, Action.RELEASE_ALL, -0.025),
+        (300, Action.LEFT, 0.05),
+        (300, Action.RIGHT, -0.05),
+    ],
+)
+def test_reward_teaches_action_toward_safe_platform(
+    player_x: float,
+    action: Action,
+    expected: float,
+) -> None:
+    item = observation(player_x=player_x)
+    falling = replace(
+        item,
+        player={**item.player, "motion": "falling"},
+    )
+    calculator = RewardCalculator(
+        platform_target_action_reward=0.05,
+    )
+
+    reward = calculator.calculate(
+        falling,
+        terminated=False,
+        action=action,
+    )
+
+    assert reward == pytest.approx(expected)
+    assert calculator.last_components["platform_target_action_reward"] == (
+        pytest.approx(expected)
+    )
+
+
 def test_reward_penalizes_only_recent_direction_reversal_and_resets() -> None:
     calculator = RewardCalculator(
         step_penalty=0.0,

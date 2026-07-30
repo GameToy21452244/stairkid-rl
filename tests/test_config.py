@@ -32,6 +32,18 @@ def test_defaults() -> None:
     assert config.environment.top_danger_y_ratio == 0.33
     assert config.environment.wall_margin_pixels == 32
     assert config.environment.wall_push_penalty == 0.08
+    assert config.environment.platform_alignment_reward_scale == 0.5
+    assert config.environment.platform_target_action_reward == 0.05
+    assert (
+        config.environment.platform_alignment_rising_origin_exclusion_gap
+        == 150
+    )
+    assert config.environment.platform_alignment_safe_kinds == [
+        "normal",
+        "spring",
+        "conveyor",
+        "flipping",
+    ]
     assert not config.environment.auto_restart_on_reset
     assert config.environment.reset_required_consecutive_frames == 3
     assert config.environment.reset_focus_max_observation_frames == 450
@@ -45,9 +57,11 @@ def test_defaults() -> None:
     assert config.training.algorithm == "ppo"
     assert config.training.device == "cpu"
     assert config.training.max_episodes == 3
-    assert config.training.n_epochs == 2
-    assert config.training.learning_rate == 0.0001
+    assert config.training.n_epochs == 4
+    assert config.training.learning_rate == 0.0002
     assert config.training.ent_coef == 0.03
+    assert config.training.target_kl == 0.01
+    assert config.training.seed == 2
     assert config.baseline.max_episode_steps == 300
     assert config.baseline.direction_switch_release_frames == 1
 

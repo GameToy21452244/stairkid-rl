@@ -1,0 +1,54 @@
+{
+  "schema_version": "calibration-profile-v0",
+  "generated_at": "2026-07-30T10:21:58.626237+00:00",
+  "sources": [
+    {
+      "name": "calibration_v1_20260730_180831_356152.jsonl",
+      "sha256": "c5be2757f4ce099b47a965e39d787b74975695453ebd00b27289cef712982bae"
+    },
+    {
+      "name": "calibration_v1_right-first_20260730_182032_355200.jsonl",
+      "sha256": "fa0aed6e66796be7d337e43af4f8a1a97c31751e76c8f7a39140b75bc2a59d3d"
+    }
+  ],
+  "records": 99,
+  "clean_records": 81,
+  "sample_counts": {
+    "left_clean": 15,
+    "right_clean": 11,
+    "release_nonzero": 6,
+    "free_motion": 53
+  },
+  "event_counts": {
+    "damage": 4,
+    "landed": 2,
+    "health_gained": 8
+  },
+  "estimates": {
+    "left_acceleration_px_s2": -479.99998927116394,
+    "right_acceleration_px_s2": 639.9999856948853,
+    "release_velocity_ratio_per_step": 0.31904762612757115,
+    "screen_gravity_px_s2": 104.72726821899414,
+    "effective_to_next_observation_ms_median": 93.99999999914144
+  },
+  "current_simulator_errors": {
+    "one_step_x_mae_px": 4.762351433892119,
+    "one_step_y_mae_px": 13.876568568295736,
+    "one_step_vx_mae_px_s": 39.30057789125935,
+    "one_step_vy_mae_px_s": 113.791809145419
+  },
+  "gates": {
+    "left_clean_samples_30": false,
+    "right_clean_samples_30": false,
+    "release_nonzero_samples_20": false,
+    "free_motion_samples_30": true,
+    "landing_events_20": false,
+    "one_step_x_mae_le_6": true,
+    "one_step_y_mae_le_8": false,
+    "one_step_vx_mae_le_50": true,
+    "one_step_vy_mae_le_60": false,
+    "landing_precision_recall_measured": false,
+    "ten_and_thirty_step_rollout_measured": false
+  },
+  "gate_pass": false
+}

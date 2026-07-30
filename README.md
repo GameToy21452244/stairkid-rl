@@ -355,6 +355,13 @@ playfield 左右界線直接使用 `vision.playfield_left`／`playfield_width` �
 且動作仍朝牆外（左牆按 LEFT、右牆按 RIGHT）時，每步扣
 `wall_push_penalty`（預設 `0.08`）；朝場內轉身不扣。此值高於單次方向反轉
 懲罰，避免模型為了不反轉而持續撞牆。
+為了讓短期訓練能得到方向訊號，角色站穩、上升或下降時會追蹤下方最近的同一個
+安全平台；上升時先排除設定距離內、最可能是剛起跳原點的平台，再選下一個
+較低平台。水平落點距離縮短時依
+`platform_alignment_reward_scale`（預設 `0.5`，按場地寬度正規化）給小幅
+獎勵，遠離時等量扣分。只考慮設定清單中的普通、彈簧、輸送帶與翻轉平台，
+尖刺不列入；目標 ID 改變或辨識中斷時不計分。這避免在彈簧起跳時反而鼓勵
+角色回到原平台，同時讓平台上的左右動作能更早得到方向訊號。
 這些項目都只是小幅 shaping，不取代實際掉血與死亡懲罰，也不加入容易鼓勵原地
 拖時間的存活獎勵。
 
@@ -482,6 +489,13 @@ Enter 的往返校正：
 不按 Enter。
 `--focus-target` 與訓練工具相同，只在倒數後嘗試一次切換並驗證已知遊戲視窗；
 Windows 拒絕切換時不會送出 Tab。
+
+目前這台實機已用不按 Enter 的工具確認：中央雙人焦點需要最多 3 次 `Tab`
+才能回到右側單人開始，中間會經過兩個 `UNKNOWN` 焦點。因此被 Git 忽略的
+本機 `config.yaml` 設為 `menu_focus_correction_key: "tab"` 與
+`reset_focus_correction_max_presses: 3`。每次 Tab 後都必須重新確認仍是
+`DIALOG`；辨識到單人開始立即停止巡覽，只有連續穩定後才允許 Enter。範例
+設定仍是 `null` 與最多 1 次，其他電腦不可直接沿用。
 - Enter 後必須重新辨識為 `PLAYING` 才算成功。
 - Enter 後仍是對話框、狀態不明、失焦、F8 或例外：立即停止，不補按第二次。
 - 不搜尋、不聚焦，也不對另一個螢幕上的未知姓名輸入視窗送鍵。
@@ -566,6 +580,8 @@ JSONL 也會記錄每步的 `policy_decision`，包括原因、鎖定平台 ID�
 踩刺或摔落；這不代表模型已學會遊戲。步數必須是 `training.n_steps` 的整數倍，
 避免 Stable-Baselines3 為完成 rollout 而超過核准的送鍵數。回合數、時間或
 步數任一上限到達便停止；最後一個核准回合結束時不會自動多按一次 Enter。
+訓練結束時會列出實際送入環境的 RELEASE／LEFT／RIGHT 次數與最長連續同動作，
+用來區分模型動作偏向、遊戲慣性及鍵盤釋放問題。
 F8、失焦、額外姓名視窗、例外與 Ctrl+C 都會停止並釋放方向鍵。
 `--focus-target` 只在倒數後嘗試一次 Windows 前景切換並立即驗證；若 Windows
 拒絕切換便停止。省略此旗標時仍要求使用者手動保持遊戲前景。
@@ -575,10 +591,13 @@ F8、失焦、額外姓名視窗、例外與 Ctrl+C 都會停止並釋放方向�
 遊玩成績判斷 PPO 效果。
 
 實機早期續訓曾出現 deterministic 策略長期只選 LEFT：entropy 從接近三動作
-最大值下降，單次更新 KL 也偏高。為降低小樣本下的策略塌縮，預設
-`learning_rate` 已由 `0.0003` 降為 `0.0001`、`n_epochs` 由 4 降為 2，
-`ent_coef` 由 `0.01` 提高為 `0.03`。已經明顯單向塌縮的舊 checkpoint 不應
-再續訓；需使用新設定從頭建立模型。
+最大值下降，單次更新 KL 也偏高；過度保守的 `0.0001 / 2 epochs` 實機結果則
+維持接近均勻亂試，768 步後 deterministic 動作仍全部選 RIGHT。現在預設採用
+中間值 `learning_rate=0.0002`、`n_epochs=4`，並把 `ent_coef` 由 `0.01`
+提高為 `0.03`；`target_kl=0.01` 會在單次更新過大時提早停止該輪更新。
+已經明顯單向塌縮的舊 checkpoint 不應
+再續訓；需使用新設定從頭建立模型。固定種子改為 `2`，讓尚未學會前的第一個
+rollout 三種動作較接近均衡，避免 `seed=42` 可重現的初期向右淨偏移。
 
 若短訓練已安全完成，可在新的執行目錄續訓同一模型：
 
@@ -593,7 +612,8 @@ F8、失焦、額外姓名視窗、例外與 Ctrl+C 都會停止並釋放方向�
 
 `--timesteps` 表示本次額外收集的步數。續訓來源必須是本專案 `models/` 下的
 `.zip`；工具拒絕外部路徑，並要求模型的 `n_steps`、`batch_size` 與目前設定
-一致；`n_epochs`、`learning_rate` 與 `ent_coef` 也必須一致，避免把已經單向
+一致；`n_epochs`、`learning_rate`、`ent_coef` 與 `target_kl` 也必須一致，
+避免把已經單向
 塌縮的舊模型誤接到新設定續訓。來源模型不會被覆寫，續訓結果
 存入新的時間戳目錄。
 
@@ -610,7 +630,9 @@ F8、失焦、額外姓名視窗、例外與 Ctrl+C 都會停止並釋放方向�
 未指定 `--model` 時會選擇 `models/ppo/` 下最新的 `final_model.zip`。也可傳入
 專案 `models/` 內的特定 `.zip`；工具拒絕載入該目錄以外或非 zip 的檔案。
 開始前必須輸入大寫 `EVAL` 並倒數 3 秒。評估不更新模型，結果會存成模型旁的
-`evaluation_時間戳.json`，同樣不會提交到 Git。
+`evaluation_時間戳.json`，同樣不會提交到 Git。結果也會記錄
+RELEASE／LEFT／RIGHT 次數、最長連續同動作步數與左右切換次數，用來辨識
+deterministic 策略是否已塌縮成持續單向移動。
 `--focus-target` 的行為與訓練工具相同：倒數後只嘗試一次聚焦並立即驗證，
 失敗便停止且不送評估動作。
 
@@ -684,3 +706,61 @@ pytest -q
 脫離、危急踩刺與保留 fail-safe 的低延遲 PyAutoGUI 呼叫。Stable-Baselines3
 與 PPO 安全訓練入口已加入，但外部姓名輸入視窗仍不會被自動處理，模型也尚未
 經過足夠訓練；目前成果不能視為會自動通關的代理。
+
+## 2026-07 訓練策略重整
+
+目前不再把真實遊戲上的單步 PPO 當主要訓練路線。最新累積 PPO 的 deterministic
+評估已塌縮為 128/128 次 `RELEASE_ALL`，不得直接續訓。長期方向、Go/No-Go 與
+目前狀態請依序閱讀：
+
+- `../CODEX_NS_SHAFT_PROJECT_REFACTOR_PROMPT.md`
+- `docs/PROJECT_CONTEXT.md`
+- `docs/CURRENT_STATUS.md`
+- `docs/TRAINING_ROADMAP.md`
+- `docs/EXPERIMENT_PROTOCOL.md`
+
+已加入不接觸遊戲的 Pymunk simulator v0.1；control step、核心物理與平台
+分布已由有限 telemetry 校正：
+
+```powershell
+.\.venv\Scripts\python.exe scripts\check_simulator.py --steps 10000
+```
+
+以及新版 transition JSONL validator：
+
+```powershell
+.\.venv\Scripts\python.exe scripts\validate_dataset.py path\to\data.jsonl
+```
+
+舊 `observations`、`reward_audit` 與 `baseline` JSONL 尚未符合
+`ns-shaft-transition-v1`，在 migration／人工驗證前一律視為 quarantine，不可
+直接作 BC 或 DQfD 示範。Colab 只允許 headless simulator，骨架位於
+`notebooks/ns_shaft_colab.ipynb`。
+
+新版資料與離線 benchmark 工具：
+
+```powershell
+.\.venv\Scripts\python.exe scripts\quarantine_legacy_data.py
+.\.venv\Scripts\python.exe scripts\benchmark_simulator.py
+.\.venv\Scripts\python.exe scripts\benchmark_vector_envs.py
+.\.venv\Scripts\python.exe scripts\analyze_calibration.py
+.\.venv\Scripts\python.exe scripts\evaluate_simulator_fidelity.py
+```
+
+有限實機物理校正使用 `scripts/calibrate_dynamics.py`；它要求大寫
+`CALIBRATE`、3 秒倒數、唯一前景視窗，且最多一回合／20 秒；各 mode 的步數
+上限會在確認前顯示。輸出一律標為 `invalid` calibration telemetry，不可當
+expert demo。sample／一步／landing 與 seeded distribution gate 已達標，本階段
+不再追加實機 calibration。exact 30-control-step pixel replay 的
+partial-observability 結論見 `reports/PARTIAL_OBSERVABILITY_AUDIT.md`。
+
+短 simulator learnability probe：
+
+```powershell
+.\.venv\Scripts\python.exe scripts\run_learnability_probe.py
+.\.venv\Scripts\python.exe scripts\run_learnability_probe_p1.py
+```
+
+P0／P1 artifacts 採 immutable／拒絕覆寫設計；目前兩個 gate 均已通過，
+依 `docs/DECISIONS.md` D-010 不再追加本機 timesteps。下一步是 Colab
+runtime、throughput、checkpoint／resume 與 MP4 pipeline validation。

@@ -1,0 +1,66 @@
+{
+  "schema_version": "calibration-profile-v0",
+  "generated_at": "2026-07-30T10:30:24.533521+00:00",
+  "sources": [
+    {
+      "name": "calibration_v1_20260730_180831_356152.jsonl",
+      "sha256": "c5be2757f4ce099b47a965e39d787b74975695453ebd00b27289cef712982bae"
+    },
+    {
+      "name": "calibration_v1_passive_20260730_182958_613157.jsonl",
+      "sha256": "1b1a794a5eeca8640d5be3a269620691d5833eca98cfa6ade078b1e836563a3d"
+    },
+    {
+      "name": "calibration_v1_right-first_20260730_182032_355200.jsonl",
+      "sha256": "fa0aed6e66796be7d337e43af4f8a1a97c31751e76c8f7a39140b75bc2a59d3d"
+    }
+  ],
+  "records": 155,
+  "clean_records": 132,
+  "sample_counts": {
+    "left_clean": 15,
+    "right_clean": 11,
+    "release_nonzero": 6,
+    "free_motion": 103
+  },
+  "event_counts": {
+    "damage": 5,
+    "landed": 4,
+    "health_gained": 10,
+    "floor_descended": 1
+  },
+  "estimates": {
+    "left_acceleration_px_s2": -479.99998927116394,
+    "right_acceleration_px_s2": 639.9999856948853,
+    "release_velocity_ratio_per_step": 0.31904762612757115,
+    "screen_gravity_px_s2": 112.73396015167236,
+    "effective_to_next_observation_ms_median": 93.99999999914144
+  },
+  "current_simulator_errors": {
+    "one_step_x_mae_px": 3.0292865280881136,
+    "one_step_y_mae_px": 13.50566251434745,
+    "one_step_vx_mae_px_s": 25.029798206763218,
+    "one_step_vy_mae_px_s": 110.69541091067714,
+    "10_step_x_mae_px": 16.70958741702716,
+    "10_step_y_mae_px": 772.317411768887,
+    "10_step_windows": 55,
+    "30_step_x_mae_px": null,
+    "30_step_y_mae_px": null,
+    "30_step_windows": 0
+  },
+  "gates": {
+    "left_clean_samples_30": false,
+    "right_clean_samples_30": false,
+    "release_nonzero_samples_20": false,
+    "free_motion_samples_30": true,
+    "landing_events_20": false,
+    "one_step_x_mae_le_6": true,
+    "one_step_y_mae_le_8": false,
+    "one_step_vx_mae_le_50": true,
+    "one_step_vy_mae_le_60": false,
+    "landing_precision_recall_measured": false,
+    "ten_step_rollout_threshold": false,
+    "thirty_step_rollout_threshold": false
+  },
+  "gate_pass": false
+}

@@ -19,11 +19,53 @@ class TrainingSafetyWrapper(gym.Wrapper):
         super().__init__(env)
         self.max_episodes = int(max_episodes)
         self.completed_episodes = 0
+        self.action_counts = {
+            "RELEASE_ALL": 0,
+            "LEFT": 0,
+            "RIGHT": 0,
+        }
+        self.longest_same_action_streak = 0
+        self.reward_component_totals: dict[str, float] = {}
+        self._previous_action: int | None = None
+        self._current_action_streak = 0
 
     def step(self, action):
+        action_value = int(action)
+        action_name = {
+            0: "RELEASE_ALL",
+            1: "LEFT",
+            2: "RIGHT",
+        }.get(action_value, f"UNKNOWN_{action_value}")
+        self.action_counts[action_name] = (
+            self.action_counts.get(action_name, 0) + 1
+        )
+        if action_value == self._previous_action:
+            self._current_action_streak += 1
+        else:
+            self._previous_action = action_value
+            self._current_action_streak = 1
+        self.longest_same_action_streak = max(
+            self.longest_same_action_streak,
+            self._current_action_streak,
+        )
         observation, reward, terminated, truncated, info = self.env.step(
             action
         )
+        for name, value in (
+            info.get("reward_components") or {}
+        ).items():
+            if (
+                isinstance(value, (int, float))
+                and not isinstance(value, bool)
+                and (
+                    name.endswith("_reward")
+                    or name.endswith("_penalty")
+                )
+            ):
+                self.reward_component_totals[name] = (
+                    self.reward_component_totals.get(name, 0.0)
+                    + float(value)
+                )
         info = dict(info)
         if terminated or truncated:
             self.completed_episodes += 1
@@ -109,6 +151,7 @@ def create_ppo_model(
         gamma=config.gamma,
         gae_lambda=config.gae_lambda,
         ent_coef=config.ent_coef,
+        target_kl=config.target_kl,
         policy_kwargs={
             "net_arch": list(config.policy_hidden_sizes),
         },
@@ -171,6 +214,16 @@ def load_ppo_model(
     ):
         raise ValueError(
             "續訓模型的 ent_coef 與目前 training.ent_coef 不一致；"
+            "請以新設定重新建立模型。"
+        )
+    if not isclose(
+        float(model.target_kl),
+        float(config.target_kl),
+        rel_tol=1e-9,
+        abs_tol=1e-12,
+    ):
+        raise ValueError(
+            "續訓模型的 target_kl 與目前 training.target_kl 不一致；"
             "請以新設定重新建立模型。"
         )
     return model

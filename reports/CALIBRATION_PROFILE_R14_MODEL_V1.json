@@ -1,0 +1,125 @@
+{
+  "schema_version": "calibration-profile-v0",
+  "generated_at": "2026-07-30T10:46:09.598772+00:00",
+  "sources": [
+    {
+      "name": "calibration_v1_20260730_180831_356152.jsonl",
+      "sha256": "c5be2757f4ce099b47a965e39d787b74975695453ebd00b27289cef712982bae"
+    },
+    {
+      "name": "calibration_v1_landing-focused_20260730_183435_997438.jsonl",
+      "sha256": "8eb2f407797911abc06075d68f850826ddf4f0db1e97200eba2b27c76260e1bd"
+    },
+    {
+      "name": "calibration_v1_landing-focused_20260730_183617_137729.jsonl",
+      "sha256": "d2a0d594151c55a60dfbae287d34b093184cefb5eb5a0d0d33b411e2b0d3f029"
+    },
+    {
+      "name": "calibration_v1_landing-focused_20260730_184108_548412.jsonl",
+      "sha256": "ed9698d698f69d8fc551a21033f893fb6636a5c893fbf271d128fe43ac792e36"
+    },
+    {
+      "name": "calibration_v1_landing-focused_20260730_184506_089744.jsonl",
+      "sha256": "af6f4902105449e5d9d25da70d23c838354562322939ef6c1e96676352961a78"
+    },
+    {
+      "name": "calibration_v1_landing-focused_20260730_184526_092592.jsonl",
+      "sha256": "6cab675326bb96def4a1b6e7fefcc0bfff9c2ac248f03f1fa3bd3f84bf1be5f5"
+    },
+    {
+      "name": "calibration_v1_landing-focused_20260730_184549_224541.jsonl",
+      "sha256": "29988bf99f3c52a600a4261323cd6a569fe008e84d817b570616eee2b6b1a811"
+    },
+    {
+      "name": "calibration_v1_momentum-release_20260730_183401_127256.jsonl",
+      "sha256": "913b3dd33282694fa0528ba0093d78c3a8b03643a08006a9f9400c6926eceee4"
+    },
+    {
+      "name": "calibration_v1_momentum-release_20260730_183806_615026.jsonl",
+      "sha256": "94e18eff58d5803a751248239e42c2cc505f67ef5876632b29643feb31fabf1a"
+    },
+    {
+      "name": "calibration_v1_momentum-release_20260730_183947_812354.jsonl",
+      "sha256": "76e46b0202c01513e978b365e28edc51f14c422d59dd73bbc24f3899bad138ad"
+    },
+    {
+      "name": "calibration_v1_momentum-release_20260730_184014_029191.jsonl",
+      "sha256": "7b5d86e216bf5159f22e7d7c20939d09c5cdf5bef58b6a954ccbe63c702c1e05"
+    },
+    {
+      "name": "calibration_v1_momentum-release_20260730_184046_730590.jsonl",
+      "sha256": "fc70b1aade6a80e0cff7493a47d19b7567436e5d817f34d63867a15b39f71e92"
+    },
+    {
+      "name": "calibration_v1_passive_20260730_182958_613157.jsonl",
+      "sha256": "1b1a794a5eeca8640d5be3a269620691d5833eca98cfa6ade078b1e836563a3d"
+    },
+    {
+      "name": "calibration_v1_right-first_20260730_182032_355200.jsonl",
+      "sha256": "fa0aed6e66796be7d337e43af4f8a1a97c31751e76c8f7a39140b75bc2a59d3d"
+    }
+  ],
+  "records": 649,
+  "clean_records": 562,
+  "sample_counts": {
+    "left_clean": 125,
+    "right_clean": 131,
+    "release_nonzero": 29,
+    "free_motion": 237
+  },
+  "event_counts": {
+    "damage": 18,
+    "landed": 23,
+    "health_gained": 18,
+    "floor_descended": 13,
+    "spring_bounce": 4
+  },
+  "landing_metrics": {
+    "true_positive": 22,
+    "false_positive": 4,
+    "false_negative": 1,
+    "precision": 0.8461538461538461,
+    "recall": 0.9565217391304348,
+    "death_misclassifications": 0
+  },
+  "estimates": {
+    "left_acceleration_px_s2": -336.1467719078064,
+    "right_acceleration_px_s2": 511.9999647140503,
+    "release_velocity_ratio_per_step": 0.0344827612507624,
+    "screen_gravity_px_s2": 112.73396015167236,
+    "effective_to_next_observation_ms_median": 93.99999999914144
+  },
+  "current_simulator_errors": {
+    "one_step_x_mae_px": 6.11223645071299,
+    "one_step_y_mae_px": 13.146488981406156,
+    "one_step_vx_mae_px_s": 49.88254901768126,
+    "one_step_vy_mae_px_s": 107.39307311797285,
+    "10_step_x_mae_px": 65.27507074882014,
+    "10_step_y_mae_px": 780.0093162005871,
+    "10_step_windows": 230,
+    "30_step_x_mae_px": null,
+    "30_step_y_mae_px": null,
+    "30_step_windows": 0
+  },
+  "fitted_one_step_errors": {
+    "one_step_x_mae_px": 3.9850277324025214,
+    "one_step_y_mae_px": 6.833376330246908,
+    "one_step_vx_mae_px_s": 32.66925198294006,
+    "one_step_vy_mae_px_s": 56.16726645118304
+  },
+  "gates": {
+    "left_clean_samples_30": true,
+    "right_clean_samples_30": true,
+    "release_nonzero_samples_20": true,
+    "free_motion_samples_30": true,
+    "landing_events_20": true,
+    "one_step_x_mae_le_6": true,
+    "one_step_y_mae_le_8": true,
+    "one_step_vx_mae_le_50": true,
+    "one_step_vy_mae_le_60": true,
+    "landing_precision_recall_measured": true,
+    "ten_step_rollout_threshold": false,
+    "thirty_step_rollout_threshold": false
+  },
+  "gate_pass": false
+}

@@ -91,6 +91,9 @@ def test_live_adapter_sends_one_bounded_action() -> None:
     assert result is observed
     assert controller.applied == [Action.LEFT]
     assert controller.release_count == 1
+    assert adapter.last_action_timing is not None
+    assert adapter.last_action_timing.action_applied
+    assert adapter.last_action_timing.action_duration_ms == 80
 
 
 def test_live_adapter_releases_if_capture_fails() -> None:
@@ -130,6 +133,7 @@ def test_live_adapter_does_not_send_direction_after_dialog_appears() -> None:
     assert result is terminal
     assert controller.applied == []
     assert controller.release_count >= 1
+    assert not adapter.last_action_timing.action_applied
 
 
 def test_live_adapter_sends_direction_when_phase_probe_is_playing() -> None:

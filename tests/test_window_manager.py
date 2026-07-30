@@ -1,6 +1,12 @@
 import pytest
 
-from stair_agent.window_manager import Rect, WindowError, WindowInfo, WindowManager
+from stair_agent.window_manager import (
+    PyWin32Backend,
+    Rect,
+    WindowError,
+    WindowInfo,
+    WindowManager,
+)
 
 
 class FakeBackend:
@@ -117,3 +123,41 @@ def test_window_enumeration_error_is_clear() -> None:
     manager = WindowManager(BrokenBackend())
     with pytest.raises(WindowError, match="無法列舉"):
         manager.list_windows()
+
+
+def test_pywin32_focus_uses_target_only_native_fallback() -> None:
+    class FakeGui:
+        foreground = 999
+
+        @staticmethod
+        def IsIconic(hwnd):
+            assert hwnd == 123
+            return False
+
+        @staticmethod
+        def BringWindowToTop(hwnd):
+            assert hwnd == 123
+
+        @staticmethod
+        def SetForegroundWindow(hwnd):
+            assert hwnd == 123
+            # 模擬 Windows 接受呼叫但拒絕實際切換前景。
+
+        @classmethod
+        def GetForegroundWindow(cls):
+            return cls.foreground
+
+    class FakeUser32:
+        calls = []
+
+        @classmethod
+        def SwitchToThisWindow(cls, hwnd, alt_tab):
+            cls.calls.append((hwnd, alt_tab))
+            FakeGui.foreground = hwnd
+
+    backend = PyWin32Backend.__new__(PyWin32Backend)
+    backend.win32gui = FakeGui()
+    backend.user32 = FakeUser32()
+
+    assert backend.bring_to_foreground(123)
+    assert FakeUser32.calls == [(123, True)]

@@ -117,6 +117,12 @@ def main() -> None:
             f"reward={result.total_reward:.2f}，"
             f"summary={summary_path}"
         )
+        print(
+            f"動作統計：{result.action_counts}，"
+            f"最長連續同動作={result.longest_same_action_streak}，"
+            f"左右切換={result.direction_switches}"
+        )
+        print(f"Reward 累計：{result.reward_component_totals}")
     finally:
         env.close()
 

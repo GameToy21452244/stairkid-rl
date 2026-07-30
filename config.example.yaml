@@ -127,6 +127,17 @@ environment:
   top_danger_y_ratio: 0.33
   wall_margin_pixels: 32
   wall_push_penalty: 0.08
+  platform_alignment_reward_scale: 0.5
+  platform_target_action_reward: 0.05
+  platform_alignment_min_vertical_gap: 25
+  platform_alignment_max_vertical_gap: 260
+  platform_alignment_landing_margin: 10
+  platform_alignment_rising_origin_exclusion_gap: 150
+  platform_alignment_safe_kinds:
+    - "normal"
+    - "spring"
+    - "conveyor"
+    - "flipping"
   damage_penalty_per_segment: 0.2
   death_penalty: 5.0
   velocity_scale: 500.0
@@ -136,6 +147,7 @@ environment:
   reset_max_observation_frames: 30
   reset_focus_max_observation_frames: 450
   reset_focus_correction_max_observation_frames: 450
+  reset_focus_correction_max_presses: 1
   reset_post_action_delay_seconds: 0.4
   max_observation_platforms: 8
   observation_history_frames: 4
@@ -148,12 +160,13 @@ training:
   max_training_seconds: 120.0
   n_steps: 128
   batch_size: 64
-  n_epochs: 2
-  learning_rate: 0.0001
+  n_epochs: 4
+  learning_rate: 0.0002
   gamma: 0.99
   gae_lambda: 0.95
   ent_coef: 0.03
-  seed: 42
+  target_kl: 0.01
+  seed: 2
   device: "cpu"
   checkpoint_freq_steps: 256
   model_dir: "models/ppo"

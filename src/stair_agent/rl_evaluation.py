@@ -33,6 +33,10 @@ class EvaluationResult:
     elapsed_seconds: float
     episode_lengths: list[int]
     episode_rewards: list[float]
+    action_counts: dict[str, int]
+    longest_same_action_streak: int
+    direction_switches: int
+    reward_component_totals: dict[str, float]
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -60,6 +64,14 @@ def evaluate_policy(
     current_length = 0
     episode_rewards: list[float] = []
     episode_lengths: list[int] = []
+    action_names = {0: "RELEASE_ALL", 1: "LEFT", 2: "RIGHT"}
+    action_counts = {name: 0 for name in action_names.values()}
+    previous_action: int | None = None
+    current_action_streak = 0
+    longest_same_action_streak = 0
+    previous_direction: int | None = None
+    direction_switches = 0
+    reward_component_totals: dict[str, float] = {}
     stop_reason = "step_limit"
 
     while steps < max_steps:
@@ -71,9 +83,41 @@ def evaluate_policy(
             observation,
             deterministic=True,
         )
-        observation, reward, terminated, truncated, _info = env.step(
-            int(action)
+        action_value = int(action)
+        action_name = action_names.get(action_value, f"UNKNOWN_{action_value}")
+        action_counts[action_name] = action_counts.get(action_name, 0) + 1
+        if action_value == previous_action:
+            current_action_streak += 1
+        else:
+            previous_action = action_value
+            current_action_streak = 1
+        longest_same_action_streak = max(
+            longest_same_action_streak,
+            current_action_streak,
         )
+        if action_value in (1, 2):
+            if previous_direction is not None and action_value != previous_direction:
+                direction_switches += 1
+            previous_direction = action_value
+
+        observation, reward, terminated, truncated, step_info = env.step(
+            action_value
+        )
+        for name, value in (
+            step_info.get("reward_components") or {}
+        ).items():
+            if (
+                isinstance(value, (int, float))
+                and not isinstance(value, bool)
+                and (
+                    name.endswith("_reward")
+                    or name.endswith("_penalty")
+                )
+            ):
+                reward_component_totals[name] = (
+                    reward_component_totals.get(name, 0.0)
+                    + float(value)
+                )
         steps += 1
         current_length += 1
         current_reward += float(reward)
@@ -104,6 +148,10 @@ def evaluate_policy(
         elapsed_seconds=max(0.0, clock() - started_at),
         episode_lengths=episode_lengths,
         episode_rewards=episode_rewards,
+        action_counts=action_counts,
+        longest_same_action_streak=longest_same_action_streak,
+        direction_switches=direction_switches,
+        reward_component_totals=reward_component_totals,
     )
 
 

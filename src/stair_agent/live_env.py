@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any
 
 from .config import AppConfig, DetectionConfig
+from .data.writer import ActionTiming
 from .dialog_handler import DialogActionHandler, DialogFocusGuard
 from .episode_reset import SingleEnterEpisodeResetter
 from .game_events import GameplayEventDetector
@@ -137,6 +138,7 @@ class LiveGameAdapter:
         self.action_phase_probe = action_phase_probe
         self.sleeper = sleeper
         self._closed = False
+        self.last_action_timing: ActionTiming | None = None
 
     def reset(self) -> GameObservation:
         self.controller.release_all()
@@ -146,18 +148,43 @@ class LiveGameAdapter:
         return self.observe()
 
     def step(self, action: Action) -> GameObservation:
+        self.last_action_timing = None
         try:
             if (
                 self.action_phase_probe is not None
                 and self.action_phase_probe() is not GamePhase.PLAYING
             ):
                 self.controller.release_all()
-                return self.observe()
+                observation = self.observe()
+                now = time.monotonic()
+                self.last_action_timing = ActionTiming(
+                    now,
+                    now,
+                    float(getattr(observation, "timestamp", now)),
+                    False,
+                    0.0,
+                    False,
+                )
+                return observation
+            command_timestamp = time.monotonic()
             self.controller.apply(action)
+            effective_timestamp = time.monotonic()
             self.sleeper(self.action_duration_ms / 1000.0)
         finally:
             self.controller.release_all()
-        return self.observe()
+        observation = self.observe()
+        next_timestamp = float(
+            getattr(observation, "timestamp", time.monotonic())
+        )
+        self.last_action_timing = ActionTiming(
+            action_command_timestamp=command_timestamp,
+            action_effective_timestamp=effective_timestamp,
+            next_observation_timestamp=next_timestamp,
+            held_action=False,
+            action_duration_ms=float(self.action_duration_ms),
+            action_applied=True,
+        )
+        return observation
 
     def release_all(self) -> None:
         self.controller.release_all()
@@ -308,6 +335,9 @@ def create_live_environment(
             ),
             focus_correction_duration_ms=(
                 config.controls.action_duration_ms
+            ),
+            focus_correction_max_presses=(
+                config.environment.reset_focus_correction_max_presses
             ),
             focus_max_observation_frames=(
                 config.environment.reset_focus_max_observation_frames

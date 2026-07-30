@@ -275,6 +275,13 @@ class RewardCalculator:
         playfield_right: float = 634.0,
         wall_margin_pixels: int = 0,
         wall_push_penalty: float = 0.0,
+        platform_alignment_reward_scale: float = 0.0,
+        platform_target_action_reward: float = 0.0,
+        platform_alignment_min_vertical_gap: int = 25,
+        platform_alignment_max_vertical_gap: int = 260,
+        platform_alignment_landing_margin: int = 10,
+        platform_alignment_rising_origin_exclusion_gap: int = 150,
+        platform_alignment_safe_kinds: list[str] | None = None,
         damage_penalty_per_segment: float = 0.2,
         death_penalty: float = 5.0,
     ) -> None:
@@ -323,6 +330,32 @@ class RewardCalculator:
             (self.playfield_right - self.playfield_left) / 2,
         )
         self.wall_push_penalty = float(wall_push_penalty)
+        self.platform_alignment_reward_scale = float(
+            platform_alignment_reward_scale
+        )
+        self.platform_target_action_reward = float(
+            platform_target_action_reward
+        )
+        self.platform_alignment_min_vertical_gap = max(
+            0.0,
+            float(platform_alignment_min_vertical_gap),
+        )
+        self.platform_alignment_max_vertical_gap = max(
+            self.platform_alignment_min_vertical_gap,
+            float(platform_alignment_max_vertical_gap),
+        )
+        self.platform_alignment_landing_margin = max(
+            0.0,
+            float(platform_alignment_landing_margin),
+        )
+        self.platform_alignment_rising_origin_exclusion_gap = max(
+            0.0,
+            float(platform_alignment_rising_origin_exclusion_gap),
+        )
+        self.platform_alignment_safe_kinds = set(
+            platform_alignment_safe_kinds
+            or ["normal", "spring", "conveyor", "flipping"]
+        )
         self.damage_penalty_per_segment = float(damage_penalty_per_segment)
         self.death_penalty = float(death_penalty)
         self.last_components: dict[str, Any] = {}
@@ -336,6 +369,8 @@ class RewardCalculator:
         self._platform_dwell_key: tuple[int, str] | None = None
         self._platform_dwell_steps = 0
         self._top_danger_steps = 0
+        self._alignment_target_id: int | None = None
+        self._alignment_distance: float | None = None
         self.last_components = {
             "step_penalty": 0.0,
             "floor_reward": 0.0,
@@ -355,7 +390,156 @@ class RewardCalculator:
             "top_danger_penalty": 0.0,
             "wall_push": None,
             "wall_push_penalty": 0.0,
+            "platform_alignment_target_id": None,
+            "platform_alignment_distance": None,
+            "platform_alignment_reward": 0.0,
+            "platform_target_action_reward": 0.0,
         }
+
+    def _platform_alignment(
+        self,
+        observation: GameObservation,
+    ) -> tuple[int, float] | None:
+        player = observation.player
+        if player is None:
+            return None
+        motion = str(player.get("motion", ""))
+        if motion not in {"stable", "rising", "falling"}:
+            return None
+        player_x = float(player.get("center_x", 0.0))
+        player_y = float(player.get("center_y", 0.0))
+        candidates: list[tuple[float, float, int]] = []
+        for platform in observation.platforms:
+            if str(platform.get("kind", "")) not in (
+                self.platform_alignment_safe_kinds
+            ):
+                continue
+            track_id = platform.get("track_id")
+            box = platform.get("box")
+            if track_id is None or not isinstance(box, dict):
+                continue
+            top = float(box.get("top", 0.0))
+            vertical_gap = top - player_y
+            if not (
+                self.platform_alignment_min_vertical_gap
+                <= vertical_gap
+                <= self.platform_alignment_max_vertical_gap
+            ):
+                continue
+            left = float(box.get("left", 0.0))
+            width = max(0.0, float(box.get("width", 0.0)))
+            landing_left = left + self.platform_alignment_landing_margin
+            landing_right = (
+                left + width - self.platform_alignment_landing_margin
+            )
+            if landing_right < landing_left:
+                landing_left = left
+                landing_right = left + width
+            horizontal_distance = max(
+                landing_left - player_x,
+                0.0,
+                player_x - landing_right,
+            )
+            candidates.append(
+                (vertical_gap, horizontal_distance, int(track_id))
+            )
+        if not candidates:
+            return None
+        if motion == "rising":
+            origin = min(candidates)
+            if (
+                origin[0]
+                <= self.platform_alignment_rising_origin_exclusion_gap
+            ):
+                candidates.remove(origin)
+                if not candidates:
+                    return None
+        _gap, distance, track_id = min(candidates)
+        return track_id, distance
+
+    def _update_platform_alignment(
+        self,
+        observation: GameObservation,
+    ) -> tuple[int | None, float | None, float]:
+        target = self._platform_alignment(observation)
+        if target is None:
+            self._alignment_target_id = None
+            self._alignment_distance = None
+            return None, None, 0.0
+        track_id, distance = target
+        reward = 0.0
+        if (
+            track_id == self._alignment_target_id
+            and self._alignment_distance is not None
+        ):
+            playfield_width = self.playfield_right - self.playfield_left
+            reward = (
+                (self._alignment_distance - distance)
+                / playfield_width
+                * self.platform_alignment_reward_scale
+            )
+        self._alignment_target_id = track_id
+        self._alignment_distance = distance
+        return track_id, distance, float(reward)
+
+    def _target_action_reward(
+        self,
+        observation: GameObservation,
+        action: Action,
+    ) -> float:
+        player = observation.player
+        if (
+            player is None
+            or str(player.get("motion", "")) != "falling"
+            or not self.platform_target_action_reward
+        ):
+            return 0.0
+        player_x = float(player.get("center_x", 0.0))
+        candidates: list[tuple[float, float]] = []
+        for platform in observation.platforms:
+            if str(platform.get("kind", "")) not in (
+                self.platform_alignment_safe_kinds
+            ):
+                continue
+            box = platform.get("box")
+            if not isinstance(box, dict):
+                continue
+            vertical_gap = float(box.get("top", 0.0)) - float(
+                player.get("center_y", 0.0)
+            )
+            if not (
+                self.platform_alignment_min_vertical_gap
+                <= vertical_gap
+                <= self.platform_alignment_max_vertical_gap
+            ):
+                continue
+            left = float(box.get("left", 0.0))
+            width = max(0.0, float(box.get("width", 0.0)))
+            safe_left = left + self.platform_alignment_landing_margin
+            safe_right = left + width - self.platform_alignment_landing_margin
+            if safe_right < safe_left:
+                safe_left, safe_right = left, left + width
+            signed_offset = (
+                safe_left - player_x
+                if player_x < safe_left
+                else (
+                    safe_right - player_x
+                    if player_x > safe_right
+                    else 0.0
+                )
+            )
+            candidates.append((vertical_gap, signed_offset))
+        if not candidates:
+            return 0.0
+        _gap, signed_offset = min(candidates, key=lambda item: item[0])
+        if signed_offset == 0:
+            return 0.0
+        desired = Action.RIGHT if signed_offset > 0 else Action.LEFT
+        if action is desired:
+            return self.platform_target_action_reward
+        if action is Action.RELEASE_ALL:
+            return -self.platform_target_action_reward / 2
+        return -self.platform_target_action_reward
 
     def _update_direction(self, action: Action) -> bool:
         if action not in {Action.LEFT, Action.RIGHT}:
@@ -456,6 +640,10 @@ class RewardCalculator:
             "top_danger_penalty": 0.0,
             "wall_push": None,
             "wall_push_penalty": 0.0,
+            "platform_alignment_target_id": None,
+            "platform_alignment_distance": None,
+            "platform_alignment_reward": 0.0,
+            "platform_target_action_reward": 0.0,
         }
         took_damage = False
         for event in observation.events:
@@ -475,6 +663,25 @@ class RewardCalculator:
             reward -= self.death_penalty
             components["death_penalty"] = -self.death_penalty
         if action is not None:
+            (
+                alignment_target_id,
+                alignment_distance,
+                alignment_reward,
+            ) = self._update_platform_alignment(observation)
+            components["platform_alignment_target_id"] = (
+                alignment_target_id
+            )
+            components["platform_alignment_distance"] = alignment_distance
+            components["platform_alignment_reward"] = alignment_reward
+            reward += alignment_reward
+            target_action_reward = self._target_action_reward(
+                observation,
+                action,
+            )
+            components["platform_target_action_reward"] = (
+                target_action_reward
+            )
+            reward += target_action_reward
             player = observation.player
             wall_push: str | None = None
             if player is not None:
@@ -615,6 +822,28 @@ class StairAgentEnv(gym.Env[np.ndarray, int]):
             ),
             wall_margin_pixels=self.config.wall_margin_pixels,
             wall_push_penalty=self.config.wall_push_penalty,
+            platform_alignment_reward_scale=(
+                self.config.platform_alignment_reward_scale
+            ),
+            platform_target_action_reward=(
+                self.config.platform_target_action_reward
+            ),
+            platform_alignment_min_vertical_gap=(
+                self.config.platform_alignment_min_vertical_gap
+            ),
+            platform_alignment_max_vertical_gap=(
+                self.config.platform_alignment_max_vertical_gap
+            ),
+            platform_alignment_landing_margin=(
+                self.config.platform_alignment_landing_margin
+            ),
+            platform_alignment_rising_origin_exclusion_gap=(
+                self.config
+                .platform_alignment_rising_origin_exclusion_gap
+            ),
+            platform_alignment_safe_kinds=(
+                self.config.platform_alignment_safe_kinds
+            ),
             damage_penalty_per_segment=self.config.damage_penalty_per_segment,
             death_penalty=self.config.death_penalty,
         )
