@@ -82,7 +82,7 @@ def test_tracker_selects_nearest_overlapping_platform_below() -> None:
 
 
 def test_missing_player_resets_velocity_history() -> None:
-    tracker = PlayerTracker()
+    tracker = PlayerTracker(max_missing_frames=0)
     tracker.update(objects(BoundingBox(50, 40, 20, 20)), timestamp=1.0)
     missing = tracker.update(objects(None), timestamp=2.0)
     returned = tracker.update(
@@ -93,6 +93,36 @@ def test_missing_player_resets_velocity_history() -> None:
     assert missing.player is None
     assert returned.motion is MotionState.UNKNOWN
     assert returned.velocity_x == 0.0
+
+
+def test_tracker_bridges_two_missing_frames_then_expires() -> None:
+    tracker = PlayerTracker(max_missing_frames=2)
+    tracker.update(objects(BoundingBox(50, 40, 20, 20)), timestamp=1.0)
+    tracker.update(objects(BoundingBox(60, 40, 20, 20)), timestamp=1.1)
+
+    first = tracker.update(objects(None), timestamp=1.2)
+    second = tracker.update(objects(None), timestamp=1.3)
+    expired = tracker.update(objects(None), timestamp=1.4)
+
+    assert first.player is not None
+    assert first.detection_source == "tracked"
+    assert first.missing_streak == 1
+    assert first.player.box.center[0] > 70.0
+    assert second.player is not None
+    assert second.missing_streak == 2
+    assert expired.player is None
+    assert expired.detection_source == "missing"
+    assert expired.missing_streak == 3
+
+
+def test_tracker_does_not_invent_player_without_prior_detection() -> None:
+    state = PlayerTracker(max_missing_frames=2).update(
+        objects(None),
+        timestamp=1.0,
+    )
+
+    assert state.player is None
+    assert state.detection_source == "missing"
 
 
 def test_platform_stabilizer_bridges_short_animated_template_miss() -> None:

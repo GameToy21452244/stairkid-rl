@@ -132,6 +132,37 @@ class InputController:
             self.release_all()
         return blocked
 
+    def verified_name_entry_dialog(self):
+        """回傳唯一、精確符合的遊戲姓名 modal；其他 related window 一律拒絕。"""
+        return self.window_manager.find_name_entry_dialog(self.hwnd)
+
+    def dismiss_verified_name_entry_dialog(self):
+        """只對已驗證且位於前景的姓名 modal 送一次 Enter，不輸入文字。"""
+        self.release_all()
+        if self.emergency_stopped:
+            return None
+        dialog = self.verified_name_entry_dialog()
+        if dialog is None:
+            return None
+        if self.window_manager.foreground_hwnd() != dialog.hwnd:
+            return None
+        self.backend.press("enter")
+        return dialog
+
+    def resume_after_related_window(self) -> bool:
+        """只有 related window 已消失且遊戲重回前景時才解除 sticky stop。"""
+        if self.window_manager.blocking_related_windows(self.hwnd):
+            return False
+        if (
+            self.safety.require_foreground_window
+            and not self.window_manager.is_foreground(self.hwnd)
+        ):
+            return False
+        with self._lock:
+            self.related_window_stopped = False
+            self._related_window_state_initialized = True
+        return True
+
     def is_target_active(self) -> bool:
         if (
             self.safety.block_on_related_windows

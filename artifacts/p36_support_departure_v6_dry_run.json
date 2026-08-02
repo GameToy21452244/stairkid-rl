@@ -1,0 +1,47 @@
+{
+  "experiment": "teacher-real-game-micro-gate-v1",
+  "mode": "dry-run",
+  "gate_status": "PENDING",
+  "limits": {
+    "episodes": 3,
+    "max_steps_per_episode": 300,
+    "max_seconds_per_episode": 60.0,
+    "max_total_steps": 900,
+    "max_total_seconds": 180.0
+  },
+  "confirmation_phrase": "TEACHER REAL MICRO",
+  "safety": {
+    "auto_launch": false,
+    "unique_verified_foreground_required": true,
+    "f8_enabled": true,
+    "release_all_on_focus_loss_exception_ctrl_c_exit": true,
+    "dry_run_loads_input_backend": false,
+    "dry_run_sends_input": false,
+    "inward_wall_guard_enabled": true,
+    "latched_wall_evacuation_enabled": true,
+    "player_dropout_bridge_max_steps": 2,
+    "support_departure_latched": true
+  },
+  "required_gate_metrics": [
+    "outward_wall_push_count",
+    "max_outward_wall_push_streak",
+    "max_player_missing_streak",
+    "wall_reentry_cycle_count",
+    "max_rapid_direction_reversal_burst",
+    "max_wall_direction_reversal_burst",
+    "same_support_departure_cycle_count",
+    "support_departure_target_switch_count",
+    "support_departure_timeout_count",
+    "support_edge_release_ratio",
+    "support_departure_exit_sample_count",
+    "max_support_aligned_release_streak",
+    "floor_1_bottom_death_count"
+  ],
+  "actual_artifacts": [
+    "episode_XX.transitions.jsonl",
+    "episode_XX.controller.jsonl",
+    "episode_XX.mp4",
+    "teacher_real_game_micro_gate.json"
+  ],
+  "next_command": "python scripts/run_teacher_real_game_micro_gate.py --execute --episodes 3 --max-steps-per-episode 300 --max-seconds-per-episode 60 --max-total-steps 900 --max-total-seconds 180"
+}

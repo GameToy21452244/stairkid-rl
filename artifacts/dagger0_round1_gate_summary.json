@@ -1,0 +1,18 @@
+{
+  "experiment": "DAgger0-round1",
+  "source_bc0_mean_floors": 29.8,
+  "correction_records": 1634,
+  "aggregation_seeds": [300, 301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 311, 312, 313, 314, 315, 316, 317, 318, 319],
+  "failure_categories": {
+    "missed_platform_risk": 867,
+    "wrong_target": 371,
+    "brake_too_late": 276,
+    "wall_collision": 120
+  },
+  "round1_mean_floors": 23.2,
+  "absolute_difference_floors": -6.6,
+  "relative_difference": -0.2214765100671141,
+  "gate_floor_threshold": 23.84,
+  "passed": false,
+  "second_round_authorized": false
+}

@@ -1,0 +1,43 @@
+{
+  "experiment": "p36-teacher-real-retest2-development-audit",
+  "source_run": "logs/teacher_real_micro_20260801_031907_767286",
+  "gate_status": "FAIL_ABORTED",
+  "gate_eligible": false,
+  "reason": "Only episode 1 ran; a terminal safety no-op was misclassified as an exception.",
+  "observed": {
+    "transition_records": 71,
+    "controller_records": 71,
+    "video_frames": 72,
+    "hud_floor_start": 1,
+    "hud_floor_max": 4,
+    "action_counts": {
+      "RELEASE_ALL": 38,
+      "LEFT": 18,
+      "RIGHT": 15
+    },
+    "physical_response_samples": 10,
+    "physical_response_directions": [
+      "LEFT",
+      "RIGHT"
+    ],
+    "physical_response_latency_ms": 94.0,
+    "aligned_release_steps_50_70": 21,
+    "terminal_health_segments": 0
+  },
+  "perception_failure": {
+    "visual_contact": "spike-like damaging platform sequence",
+    "nearest_observation_kind": "normal",
+    "nearest_observation_gap_pixels": 57,
+    "terminal_damage_source_kind": null
+  },
+  "repair_v2": {
+    "accept_safe_terminal_noop": true,
+    "fabricate_unapplied_transition": false,
+    "aligned_dwell_escape_steps": 4,
+    "aligned_dwell_gap_tolerance_pixels": 3.0,
+    "top_danger_precedes_recovery": true,
+    "offline_replay_first_escape_frame": 53,
+    "offline_replay_escape_action": "RIGHT"
+  },
+  "next_gate": "A new bounded 3-episode real-game retest is required before P4.0."
+}

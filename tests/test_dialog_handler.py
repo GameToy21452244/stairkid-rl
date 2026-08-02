@@ -99,6 +99,7 @@ def test_dialog_focus_guard_only_accepts_single_player_start() -> None:
         reference_height=100,
         start_button_rect=(60, 70, 30, 12),
         two_player_button_rect=(25, 70, 30, 12),
+        exit_button_rect=(2, 70, 18, 12),
         focused_border_mean_max=180.0,
         minimum_contrast=20.0,
     )
@@ -106,6 +107,8 @@ def test_dialog_focus_guard_only_accepts_single_player_start() -> None:
     safe[70, 60:90] = 100
     unsafe = np.full((100, 100, 3), 240, dtype=np.uint8)
     unsafe[70, 25:55] = 100
+    exit_focused = np.full((100, 100, 3), 240, dtype=np.uint8)
+    exit_focused[70, 2:20] = 100
     safe_dotted = np.full((100, 100, 3), 240, dtype=np.uint8)
     safe_dotted[73, 64:86:2] = 0
     safe_dotted[78, 64:86:2] = 0
@@ -115,11 +118,71 @@ def test_dialog_focus_guard_only_accepts_single_player_start() -> None:
     assert guard(safe)
     assert guard(safe_dotted)
     assert not guard(unsafe)
+    assert not guard(exit_focused)
     assert guard.focus_location(safe) is DialogFocusLocation.START
     assert (
         guard.focus_location(unsafe)
         is DialogFocusLocation.TWO_PLAYER
     )
+    assert (
+        guard.focus_location(exit_focused)
+        is DialogFocusLocation.EXIT
+    )
+
+
+def test_dialog_corrects_exit_focus_to_start_before_enter() -> None:
+    guard = DialogFocusGuard(
+        reference_width=100,
+        reference_height=100,
+        start_button_rect=(60, 70, 30, 12),
+        two_player_button_rect=(25, 70, 30, 12),
+        exit_button_rect=(2, 70, 18, 12),
+    )
+    exit_focused = np.full((100, 100, 3), 240, dtype=np.uint8)
+    exit_focused[70, 2:20] = 100
+    two_player = np.full((100, 100, 3), 240, dtype=np.uint8)
+    two_player[70, 25:55] = 100
+    start = np.full((100, 100, 3), 240, dtype=np.uint8)
+    start[70, 60:90] = 100
+    playing = np.zeros((100, 100, 3), dtype=np.uint8)
+    detector = SequenceDetector(
+        [GamePhase.DIALOG] * 8
+        + [GamePhase.PLAYING, GamePhase.PLAYING]
+    )
+    controller = FakeController()
+    handler = DialogActionHandler(
+        detector,
+        controller,
+        "enter",
+        frame_source(
+            [exit_focused] * 2
+            + [two_player] * 4
+            + [start] * 2
+            + [playing] * 2
+        ),
+        key_duration_ms=200,
+        required_consecutive=2,
+        max_observation_frames=2,
+        focus_correction_max_observation_frames=2,
+        observation_delay_seconds=0,
+        post_action_delay_seconds=0,
+        focus_guard=guard,
+        focus_correction_key="tab",
+        focus_correction_duration_ms=80,
+        focus_correction_max_presses=3,
+        sleep_fn=lambda _seconds: None,
+    )
+
+    result = handler.execute_once()
+
+    assert result.focus_corrected
+    assert not result.focus_recovered_without_input
+    assert result.outcome is DialogActionOutcome.PLAYING
+    assert controller.taps == [
+        ("tab", 80),
+        ("tab", 80),
+        ("enter", 200),
+    ]
 
 
 def test_dialog_waits_for_two_player_focus_to_recover_without_input() -> None:

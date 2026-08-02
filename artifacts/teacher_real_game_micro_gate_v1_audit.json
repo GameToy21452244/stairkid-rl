@@ -1,0 +1,45 @@
+{
+  "experiment": "teacher-real-game-micro-gate-v1-audit",
+  "date": "2026-08-01",
+  "run_id": "teacher_real_micro_20260801_000521_887512",
+  "source_summary": "logs/teacher_real_micro_20260801_000521_887512/teacher_real_game_micro_gate.json",
+  "automated_gate_status": "FAIL",
+  "safety_event_count": 0,
+  "episodes": 3,
+  "total_steps": 146,
+  "action_counts": {
+    "RELEASE_ALL": 61,
+    "LEFT": 43,
+    "RIGHT": 42
+  },
+  "max_action_share": 0.4178082191780822,
+  "recorded_floor_descended_events": [0, 2, 2],
+  "manual_video_max_hud_floor": [3, 2, 2],
+  "manual_video_terminal_reason": ["top", "top", "top"],
+  "manual_video_reach_hud_floor_3_episodes": 1,
+  "manual_video_reach_hud_floor_5_episodes": 0,
+  "telemetry_consistent_with_video": false,
+  "episode_findings": [
+    {
+      "episode": 1,
+      "finding": "HUD progressed from floor 1 to floor 3, but floor_descended event count was 0; 42/62 decisions were launch escape and the episode ended at the top spikes."
+    },
+    {
+      "episode": 2,
+      "finding": "Two spring landing/spring_bounce events occurred; steps 22-34 contained 13 consecutive aligned_with_safe_platform RELEASE decisions while the player remained in a spring chain, followed by top damage and player detection loss."
+    },
+    {
+      "episode": 3,
+      "finding": "After a spike landing, steps 24-39 contained 16 consecutive aligned_with_recovery_platform RELEASE decisions; the player remained in the hazard/top-danger cycle too long and died at the top."
+    }
+  ],
+  "failed_checks": [
+    "reliable observation/floor telemetry",
+    "reach floor 5 actual success case",
+    "special-platform escape behavior",
+    "physical action-latency measurement",
+    "continuous same-direction key hold"
+  ],
+  "next_gate": "repair P3.6 observation and special-platform controller state, then run a new bounded 3-episode micro gate",
+  "downstream_gates_allowed": false
+}

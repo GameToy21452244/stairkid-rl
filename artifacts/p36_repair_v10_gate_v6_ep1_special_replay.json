@@ -1,0 +1,3385 @@
+{
+  "experiment": "p36-support-departure-offline-replay-v1",
+  "input": {
+    "glob": "logs/teacher_real_micro_20260803_010405_293428/episode_01.mp4",
+    "video_count": 1,
+    "evidence_limit": "MP4 是壓縮後 counterfactual replay；可拒絕明顯失敗，不能驗證新 action 是否真的造成 support-lost，亦不能取代全新真機 Gate。timeout／edge ratio 只列 telemetry，不作此離線 Gate 的 blocking check。"
+  },
+  "videos": [
+    {
+      "video": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_010405_293428\\episode_01.mp4",
+      "total_frames": 56,
+      "playing_frames": 55,
+      "raw_player_detected_steps": 55,
+      "raw_player_missing_steps": 0,
+      "tracked_bridge_steps": 0,
+      "effective_player_missing_steps": 0,
+      "max_player_missing_streak": 0,
+      "outward_wall_push_count": 0,
+      "wall_reentry_cycle_count": 0,
+      "rapid_direction_reversal_count": 4,
+      "max_rapid_direction_reversal_burst": 3,
+      "max_wall_direction_reversal_burst": 0,
+      "max_aligned_release_streak": 3,
+      "max_support_aligned_release_streak": 3,
+      "same_support_departure_cycle_count": 0,
+      "support_departure_target_switch_count": 0,
+      "support_departure_timeout_count": 0,
+      "support_edge_release_count": 4,
+      "support_edge_opportunity_count": 7,
+      "support_departure_exit_samples": [
+        3
+      ],
+      "max_support_departure_steps": 3,
+      "support_departure_active_step_count": 3,
+      "action_counts": {
+        "LEFT": 18,
+        "RELEASE_ALL": 14,
+        "RIGHT": 23
+      },
+      "reason_counts": {
+        "escape_special_contact": 23,
+        "aligned_with_visible_safe_platform": 6,
+        "escape_special_contact_forced_exit": 6,
+        "depart_support_platform": 3,
+        "direction_change_brake": 3,
+        "escape_launch_platform": 3,
+        "special_escape_safety_abort": 3,
+        "move_toward_safe_platform": 2,
+        "reposition_for_unseen_landing": 2,
+        "aligned_with_safe_platform": 1,
+        "escape_launch_platform_dwell": 1,
+        "approach_visible_safe_platform": 1,
+        "move_toward_recovery_platform": 1
+      },
+      "wall_trace": [
+        {
+          "step": 26,
+          "player_x": 87.0,
+          "velocity_x": -208.0,
+          "action": "RIGHT",
+          "reason": "escape_special_contact",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 27,
+          "player_x": 80.0,
+          "velocity_x": -56.0,
+          "action": "RIGHT",
+          "reason": "escape_special_contact",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 28,
+          "player_x": 90.0,
+          "velocity_x": 80.0,
+          "action": "RIGHT",
+          "reason": "escape_special_contact",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        }
+      ],
+      "departure_trace": [
+        {
+          "step": 0,
+          "support_platform_id": 6,
+          "support_edge_distance": 47.0,
+          "departure_active": true,
+          "source_id": 6,
+          "destination_id": 7,
+          "direction": "RIGHT",
+          "departure_steps": 1,
+          "action": "RIGHT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 1,
+          "support_platform_id": 6,
+          "support_edge_distance": 40.0,
+          "departure_active": true,
+          "source_id": 6,
+          "destination_id": 7,
+          "direction": "RIGHT",
+          "departure_steps": 2,
+          "action": "RIGHT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 2,
+          "support_platform_id": 6,
+          "support_edge_distance": 16.0,
+          "departure_active": true,
+          "source_id": 6,
+          "destination_id": 7,
+          "direction": "RIGHT",
+          "departure_steps": 3,
+          "action": "RIGHT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 7,
+          "support_platform_id": 7,
+          "support_edge_distance": 24.0,
+          "departure_active": false,
+          "source_id": null,
+          "destination_id": null,
+          "direction": null,
+          "departure_steps": 0,
+          "action": "RELEASE_ALL",
+          "reason": "aligned_with_visible_safe_platform"
+        },
+        {
+          "step": 14,
+          "support_platform_id": 12,
+          "support_edge_distance": 16.0,
+          "departure_active": false,
+          "source_id": null,
+          "destination_id": null,
+          "direction": null,
+          "departure_steps": 0,
+          "action": "RELEASE_ALL",
+          "reason": "aligned_with_visible_safe_platform"
+        },
+        {
+          "step": 15,
+          "support_platform_id": 12,
+          "support_edge_distance": 16.0,
+          "departure_active": false,
+          "source_id": null,
+          "destination_id": null,
+          "direction": null,
+          "departure_steps": 0,
+          "action": "RELEASE_ALL",
+          "reason": "aligned_with_visible_safe_platform"
+        },
+        {
+          "step": 16,
+          "support_platform_id": 12,
+          "support_edge_distance": 16.0,
+          "departure_active": false,
+          "source_id": null,
+          "destination_id": null,
+          "direction": null,
+          "departure_steps": 0,
+          "action": "RELEASE_ALL",
+          "reason": "aligned_with_visible_safe_platform"
+        },
+        {
+          "step": 17,
+          "support_platform_id": 12,
+          "support_edge_distance": 16.0,
+          "departure_active": false,
+          "source_id": null,
+          "destination_id": null,
+          "direction": null,
+          "departure_steps": 0,
+          "action": "LEFT",
+          "reason": "escape_launch_platform_dwell"
+        },
+        {
+          "step": 18,
+          "support_platform_id": 12,
+          "support_edge_distance": 1.0,
+          "departure_active": false,
+          "source_id": null,
+          "destination_id": null,
+          "direction": null,
+          "departure_steps": 0,
+          "action": "RELEASE_ALL",
+          "reason": "aligned_with_visible_safe_platform"
+        },
+        {
+          "step": 21,
+          "support_platform_id": 13,
+          "support_edge_distance": 1.0,
+          "departure_active": false,
+          "source_id": null,
+          "destination_id": null,
+          "direction": null,
+          "departure_steps": 0,
+          "action": "RIGHT",
+          "reason": "escape_special_contact"
+        }
+      ],
+      "aligned_trace": [
+        {
+          "step": 5,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 7,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 6,
+          "reason": "aligned_with_visible_safe_platform",
+          "target_id": 7,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 7,
+          "reason": "aligned_with_visible_safe_platform",
+          "target_id": 7,
+          "support_contact_active": true,
+          "support_platform_id": 7,
+          "support_edge_distance": 24.0,
+          "departure_active": false
+        },
+        {
+          "step": 14,
+          "reason": "aligned_with_visible_safe_platform",
+          "target_id": 12,
+          "support_contact_active": true,
+          "support_platform_id": 12,
+          "support_edge_distance": 16.0,
+          "departure_active": false
+        },
+        {
+          "step": 15,
+          "reason": "aligned_with_visible_safe_platform",
+          "target_id": 12,
+          "support_contact_active": true,
+          "support_platform_id": 12,
+          "support_edge_distance": 16.0,
+          "departure_active": false
+        },
+        {
+          "step": 16,
+          "reason": "aligned_with_visible_safe_platform",
+          "target_id": 12,
+          "support_contact_active": true,
+          "support_platform_id": 12,
+          "support_edge_distance": 16.0,
+          "departure_active": false
+        },
+        {
+          "step": 18,
+          "reason": "aligned_with_visible_safe_platform",
+          "target_id": 12,
+          "support_contact_active": true,
+          "support_platform_id": 12,
+          "support_edge_distance": 1.0,
+          "departure_active": false
+        }
+      ],
+      "special_trace": [
+        {
+          "step": 20,
+          "player": {
+            "center_x": 192.0,
+            "center_y": 339.0,
+            "velocity_x": -56.0,
+            "velocity_y": 4.0,
+            "motion": "stable",
+            "confidence": 0.6791044776119403,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "RIGHT",
+          "reason": "escape_special_contact",
+          "contact_id": 1,
+          "source_id": 13,
+          "source_kind": "spikes",
+          "direction": "RIGHT",
+          "direction_source": "active_direction",
+          "destination_id": null,
+          "escape_steps": 1,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 5,
+              "kind": "normal",
+              "confidence": 0.998184859752655,
+              "box": {
+                "left": 120,
+                "top": 100,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 9,
+              "kind": "normal",
+              "confidence": 0.9981799721717834,
+              "box": {
+                "left": 184,
+                "top": 148,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 11,
+              "kind": "flipping",
+              "confidence": 0.998714804649353,
+              "box": {
+                "left": 200,
+                "top": 196,
+                "width": 96,
+                "height": 18
+              }
+            },
+            {
+              "track_id": 8,
+              "kind": "spikes",
+              "confidence": 0.9871728420257568,
+              "box": {
+                "left": 168,
+                "top": 228,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 10,
+              "kind": "spring",
+              "confidence": 0.9970526099205017,
+              "box": {
+                "left": 120,
+                "top": 292,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 12,
+              "kind": "normal",
+              "confidence": 0.9980713725090027,
+              "box": {
+                "left": 216,
+                "top": 340,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 13,
+              "kind": "spikes",
+              "confidence": 0.9956533312797546,
+              "box": {
+                "left": 88,
+                "top": 372,
+                "width": 95,
+                "height": 32
+              }
+            }
+          ]
+        },
+        {
+          "step": 21,
+          "player": {
+            "center_x": 182.0,
+            "center_y": 343.0,
+            "velocity_x": -80.0,
+            "velocity_y": 32.0,
+            "motion": "falling",
+            "confidence": 0.7313432835820896,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "RIGHT",
+          "reason": "escape_special_contact",
+          "contact_id": 1,
+          "source_id": 13,
+          "source_kind": "spikes",
+          "direction": "RIGHT",
+          "direction_source": "active_direction",
+          "destination_id": null,
+          "escape_steps": 2,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 5,
+              "kind": "normal",
+              "confidence": 0.9982384443283081,
+              "box": {
+                "left": 120,
+                "top": 92,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 9,
+              "kind": "normal",
+              "confidence": 0.9981073141098022,
+              "box": {
+                "left": 184,
+                "top": 140,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 11,
+              "kind": "flipping",
+              "confidence": 0.9972143173217773,
+              "box": {
+                "left": 200,
+                "top": 188,
+                "width": 96,
+                "height": 18
+              }
+            },
+            {
+              "track_id": 8,
+              "kind": "spikes",
+              "confidence": 0.9778827428817749,
+              "box": {
+                "left": 168,
+                "top": 220,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 10,
+              "kind": "spring",
+              "confidence": 0.9970514178276062,
+              "box": {
+                "left": 120,
+                "top": 284,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 12,
+              "kind": "normal",
+              "confidence": 0.9979753494262695,
+              "box": {
+                "left": 216,
+                "top": 332,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 13,
+              "kind": "spikes",
+              "confidence": 0.9956769943237305,
+              "box": {
+                "left": 88,
+                "top": 364,
+                "width": 95,
+                "height": 32
+              }
+            }
+          ]
+        },
+        {
+          "step": 22,
+          "player": {
+            "center_x": 161.0,
+            "center_y": 355.5,
+            "velocity_x": -168.0,
+            "velocity_y": 100.0,
+            "motion": "falling",
+            "confidence": 0.6567164179104478,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "RIGHT",
+          "reason": "escape_special_contact",
+          "contact_id": 1,
+          "source_id": 13,
+          "source_kind": "spikes",
+          "direction": "RIGHT",
+          "direction_source": "active_direction",
+          "destination_id": null,
+          "escape_steps": 3,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 5,
+              "kind": "normal",
+              "confidence": 0.9982674717903137,
+              "box": {
+                "left": 120,
+                "top": 80,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 9,
+              "kind": "normal",
+              "confidence": 0.9981107115745544,
+              "box": {
+                "left": 184,
+                "top": 128,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 11,
+              "kind": "flipping",
+              "confidence": 0.9968248009681702,
+              "box": {
+                "left": 200,
+                "top": 176,
+                "width": 96,
+                "height": 18
+              }
+            },
+            {
+              "track_id": 8,
+              "kind": "spikes",
+              "confidence": 0.9777604341506958,
+              "box": {
+                "left": 168,
+                "top": 208,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 10,
+              "kind": "spring",
+              "confidence": 0.9973701238632202,
+              "box": {
+                "left": 120,
+                "top": 272,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 12,
+              "kind": "normal",
+              "confidence": 0.9980338215827942,
+              "box": {
+                "left": 216,
+                "top": 320,
+                "width": 95,
+                "height": 16
+              }
+            }
+          ]
+        },
+        {
+          "step": 23,
+          "player": {
+            "center_x": 145.0,
+            "center_y": 346.5,
+            "velocity_x": -128.0,
+            "velocity_y": -72.0,
+            "motion": "rising",
+            "confidence": 0.6716417910447762,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "RIGHT",
+          "reason": "escape_special_contact",
+          "contact_id": 1,
+          "source_id": 13,
+          "source_kind": "spikes",
+          "direction": "RIGHT",
+          "direction_source": "active_direction",
+          "destination_id": null,
+          "escape_steps": 4,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 9,
+              "kind": "normal",
+              "confidence": 0.998091995716095,
+              "box": {
+                "left": 184,
+                "top": 120,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 11,
+              "kind": "flipping",
+              "confidence": 0.9955798983573914,
+              "box": {
+                "left": 200,
+                "top": 168,
+                "width": 96,
+                "height": 18
+              }
+            },
+            {
+              "track_id": 8,
+              "kind": "spikes",
+              "confidence": 0.984394371509552,
+              "box": {
+                "left": 168,
+                "top": 200,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 10,
+              "kind": "spring",
+              "confidence": 0.9973704814910889,
+              "box": {
+                "left": 120,
+                "top": 264,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 12,
+              "kind": "normal",
+              "confidence": 0.9980518817901611,
+              "box": {
+                "left": 216,
+                "top": 312,
+                "width": 95,
+                "height": 16
+              }
+            }
+          ]
+        },
+        {
+          "step": 24,
+          "player": {
+            "center_x": 129.0,
+            "center_y": 339.0,
+            "velocity_x": -128.0,
+            "velocity_y": -60.0,
+            "motion": "rising",
+            "confidence": 0.6791044776119403,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "RIGHT",
+          "reason": "escape_special_contact",
+          "contact_id": 1,
+          "source_id": 13,
+          "source_kind": "spikes",
+          "direction": "RIGHT",
+          "direction_source": "active_direction",
+          "destination_id": null,
+          "escape_steps": 5,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 9,
+              "kind": "normal",
+              "confidence": 0.998273491859436,
+              "box": {
+                "left": 184,
+                "top": 112,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 11,
+              "kind": "flipping",
+              "confidence": 0.9959664940834045,
+              "box": {
+                "left": 200,
+                "top": 160,
+                "width": 96,
+                "height": 18
+              }
+            },
+            {
+              "track_id": 8,
+              "kind": "spikes",
+              "confidence": 0.9883722066879272,
+              "box": {
+                "left": 168,
+                "top": 192,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 10,
+              "kind": "spring",
+              "confidence": 0.9973405003547668,
+              "box": {
+                "left": 120,
+                "top": 256,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 12,
+              "kind": "normal",
+              "confidence": 0.9982708096504211,
+              "box": {
+                "left": 216,
+                "top": 304,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 13,
+              "kind": "spikes",
+              "confidence": 0.9832491278648376,
+              "box": {
+                "left": 88,
+                "top": 384,
+                "width": 95,
+                "height": 32
+              }
+            }
+          ]
+        },
+        {
+          "step": 25,
+          "player": {
+            "center_x": 113.0,
+            "center_y": 330.5,
+            "velocity_x": -128.0,
+            "velocity_y": -68.0,
+            "motion": "rising",
+            "confidence": 0.6343283582089553,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "RIGHT",
+          "reason": "escape_special_contact",
+          "contact_id": 1,
+          "source_id": 13,
+          "source_kind": "spikes",
+          "direction": "RIGHT",
+          "direction_source": "active_direction",
+          "destination_id": null,
+          "escape_steps": 6,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 9,
+              "kind": "normal",
+              "confidence": 0.9982422590255737,
+              "box": {
+                "left": 184,
+                "top": 104,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 11,
+              "kind": "flipping",
+              "confidence": 0.9990586638450623,
+              "box": {
+                "left": 200,
+                "top": 152,
+                "width": 96,
+                "height": 18
+              }
+            },
+            {
+              "track_id": 8,
+              "kind": "spikes",
+              "confidence": 0.9927241802215576,
+              "box": {
+                "left": 168,
+                "top": 184,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 10,
+              "kind": "spring",
+              "confidence": 0.9972605109214783,
+              "box": {
+                "left": 120,
+                "top": 248,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 12,
+              "kind": "normal",
+              "confidence": 0.9982847571372986,
+              "box": {
+                "left": 216,
+                "top": 296,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 13,
+              "kind": "spikes",
+              "confidence": 0.9874124526977539,
+              "box": {
+                "left": 88,
+                "top": 376,
+                "width": 95,
+                "height": 32
+              }
+            }
+          ]
+        },
+        {
+          "step": 26,
+          "player": {
+            "center_x": 87.0,
+            "center_y": 317.0,
+            "velocity_x": -208.0,
+            "velocity_y": -108.0,
+            "motion": "rising",
+            "confidence": 1.0,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "RIGHT",
+          "reason": "escape_special_contact",
+          "contact_id": 1,
+          "source_id": 13,
+          "source_kind": "spikes",
+          "direction": "RIGHT",
+          "direction_source": "active_direction",
+          "destination_id": null,
+          "escape_steps": 7,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 9,
+              "kind": "normal",
+              "confidence": 0.9979705214500427,
+              "box": {
+                "left": 184,
+                "top": 92,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 11,
+              "kind": "flipping",
+              "confidence": 0.9986975789070129,
+              "box": {
+                "left": 200,
+                "top": 140,
+                "width": 96,
+                "height": 18
+              }
+            },
+            {
+              "track_id": 8,
+              "kind": "spikes",
+              "confidence": 0.9927091002464294,
+              "box": {
+                "left": 168,
+                "top": 172,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 10,
+              "kind": "spring",
+              "confidence": 0.9973244667053223,
+              "box": {
+                "left": 120,
+                "top": 236,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 12,
+              "kind": "normal",
+              "confidence": 0.9980162978172302,
+              "box": {
+                "left": 216,
+                "top": 284,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 14,
+              "kind": "spikes",
+              "confidence": 0.9194694757461548,
+              "box": {
+                "left": 88,
+                "top": 316,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 13,
+              "kind": "spikes",
+              "confidence": 0.9914730191230774,
+              "box": {
+                "left": 88,
+                "top": 364,
+                "width": 95,
+                "height": 32
+              }
+            }
+          ]
+        },
+        {
+          "step": 27,
+          "player": {
+            "center_x": 80.0,
+            "center_y": 310.0,
+            "velocity_x": -56.0,
+            "velocity_y": -56.0,
+            "motion": "rising",
+            "confidence": 1.0,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "RIGHT",
+          "reason": "escape_special_contact",
+          "contact_id": 1,
+          "source_id": 13,
+          "source_kind": "spikes",
+          "direction": "RIGHT",
+          "direction_source": "active_direction",
+          "destination_id": null,
+          "escape_steps": 8,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 9,
+              "kind": "normal",
+              "confidence": 0.9979544281959534,
+              "box": {
+                "left": 184,
+                "top": 84,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 11,
+              "kind": "flipping",
+              "confidence": 0.9968668818473816,
+              "box": {
+                "left": 200,
+                "top": 132,
+                "width": 96,
+                "height": 18
+              }
+            },
+            {
+              "track_id": 8,
+              "kind": "spikes",
+              "confidence": 0.9929588437080383,
+              "box": {
+                "left": 168,
+                "top": 164,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 10,
+              "kind": "spring",
+              "confidence": 0.9973229765892029,
+              "box": {
+                "left": 120,
+                "top": 228,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 12,
+              "kind": "normal",
+              "confidence": 0.998123824596405,
+              "box": {
+                "left": 216,
+                "top": 276,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 14,
+              "kind": "spikes",
+              "confidence": 0.9600257873535156,
+              "box": {
+                "left": 88,
+                "top": 308,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 13,
+              "kind": "spikes",
+              "confidence": 0.9934538006782532,
+              "box": {
+                "left": 88,
+                "top": 356,
+                "width": 95,
+                "height": 32
+              }
+            }
+          ]
+        },
+        {
+          "step": 28,
+          "player": {
+            "center_x": 90.0,
+            "center_y": 301.0,
+            "velocity_x": 80.0,
+            "velocity_y": -72.0,
+            "motion": "rising",
+            "confidence": 1.0,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "RIGHT",
+          "reason": "escape_special_contact",
+          "contact_id": 1,
+          "source_id": 13,
+          "source_kind": "spikes",
+          "direction": "RIGHT",
+          "direction_source": "active_direction",
+          "destination_id": null,
+          "escape_steps": 9,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 9,
+              "kind": "normal",
+              "confidence": 0.9829447865486145,
+              "box": {
+                "left": 184,
+                "top": 76,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 11,
+              "kind": "flipping",
+              "confidence": 0.9962924718856812,
+              "box": {
+                "left": 200,
+                "top": 124,
+                "width": 96,
+                "height": 18
+              }
+            },
+            {
+              "track_id": 8,
+              "kind": "spikes",
+              "confidence": 0.9936288595199585,
+              "box": {
+                "left": 168,
+                "top": 156,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 10,
+              "kind": "spring",
+              "confidence": 0.9973397850990295,
+              "box": {
+                "left": 120,
+                "top": 220,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 12,
+              "kind": "normal",
+              "confidence": 0.9980463981628418,
+              "box": {
+                "left": 216,
+                "top": 268,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 14,
+              "kind": "spikes",
+              "confidence": 0.9469499588012695,
+              "box": {
+                "left": 88,
+                "top": 300,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 13,
+              "kind": "spikes",
+              "confidence": 0.9948013424873352,
+              "box": {
+                "left": 88,
+                "top": 348,
+                "width": 95,
+                "height": 32
+              }
+            }
+          ]
+        },
+        {
+          "step": 29,
+          "player": {
+            "center_x": 111.0,
+            "center_y": 291.0,
+            "velocity_x": 168.0,
+            "velocity_y": -80.0,
+            "motion": "rising",
+            "confidence": 0.6119402985074627,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "RIGHT",
+          "reason": "escape_special_contact",
+          "contact_id": 1,
+          "source_id": 13,
+          "source_kind": "spikes",
+          "direction": "RIGHT",
+          "direction_source": "active_direction",
+          "destination_id": null,
+          "escape_steps": 10,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 11,
+              "kind": "flipping",
+              "confidence": 0.9987527132034302,
+              "box": {
+                "left": 200,
+                "top": 112,
+                "width": 96,
+                "height": 18
+              }
+            },
+            {
+              "track_id": 8,
+              "kind": "spikes",
+              "confidence": 0.9950607419013977,
+              "box": {
+                "left": 168,
+                "top": 144,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 10,
+              "kind": "spring",
+              "confidence": 0.9973543286323547,
+              "box": {
+                "left": 120,
+                "top": 208,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 12,
+              "kind": "normal",
+              "confidence": 0.998060941696167,
+              "box": {
+                "left": 216,
+                "top": 256,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 13,
+              "kind": "spikes",
+              "confidence": 0.9951887726783752,
+              "box": {
+                "left": 88,
+                "top": 336,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 15,
+              "kind": "spikes",
+              "confidence": 0.9940800666809082,
+              "box": {
+                "left": 312,
+                "top": 384,
+                "width": 95,
+                "height": 32
+              }
+            }
+          ]
+        },
+        {
+          "step": 30,
+          "player": {
+            "center_x": 127.0,
+            "center_y": 283.0,
+            "velocity_x": 128.0,
+            "velocity_y": -64.0,
+            "motion": "rising",
+            "confidence": 0.6791044776119403,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "RIGHT",
+          "reason": "escape_special_contact",
+          "contact_id": 1,
+          "source_id": 13,
+          "source_kind": "spikes",
+          "direction": "RIGHT",
+          "direction_source": "active_direction",
+          "destination_id": null,
+          "escape_steps": 11,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 11,
+              "kind": "flipping",
+              "confidence": 0.9948313236236572,
+              "box": {
+                "left": 200,
+                "top": 104,
+                "width": 96,
+                "height": 18
+              }
+            },
+            {
+              "track_id": 8,
+              "kind": "spikes",
+              "confidence": 0.9946495294570923,
+              "box": {
+                "left": 168,
+                "top": 136,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 10,
+              "kind": "spring",
+              "confidence": 0.9972568154335022,
+              "box": {
+                "left": 120,
+                "top": 200,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 12,
+              "kind": "normal",
+              "confidence": 0.9980542063713074,
+              "box": {
+                "left": 216,
+                "top": 248,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 13,
+              "kind": "spikes",
+              "confidence": 0.9954971671104431,
+              "box": {
+                "left": 88,
+                "top": 328,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 15,
+              "kind": "spikes",
+              "confidence": 0.9917346239089966,
+              "box": {
+                "left": 312,
+                "top": 376,
+                "width": 95,
+                "height": 32
+              }
+            }
+          ]
+        },
+        {
+          "step": 31,
+          "player": {
+            "center_x": 151.0,
+            "center_y": 270.0,
+            "velocity_x": 192.0,
+            "velocity_y": -104.0,
+            "motion": "rising",
+            "confidence": 0.4253731343283582,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "RIGHT",
+          "reason": "escape_special_contact",
+          "contact_id": 1,
+          "source_id": 13,
+          "source_kind": "spikes",
+          "direction": "RIGHT",
+          "direction_source": "active_direction",
+          "destination_id": null,
+          "escape_steps": 12,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 11,
+              "kind": "flipping",
+              "confidence": 0.997259795665741,
+              "box": {
+                "left": 200,
+                "top": 92,
+                "width": 96,
+                "height": 18
+              }
+            },
+            {
+              "track_id": 8,
+              "kind": "spikes",
+              "confidence": 0.99477618932724,
+              "box": {
+                "left": 168,
+                "top": 124,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 10,
+              "kind": "spring",
+              "confidence": 0.9972445368766785,
+              "box": {
+                "left": 120,
+                "top": 188,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 12,
+              "kind": "normal",
+              "confidence": 0.9978435635566711,
+              "box": {
+                "left": 216,
+                "top": 236,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 13,
+              "kind": "spikes",
+              "confidence": 0.9959189891815186,
+              "box": {
+                "left": 88,
+                "top": 316,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 15,
+              "kind": "spikes",
+              "confidence": 0.9944983124732971,
+              "box": {
+                "left": 312,
+                "top": 364,
+                "width": 95,
+                "height": 32
+              }
+            }
+          ]
+        },
+        {
+          "step": 32,
+          "player": {
+            "center_x": 167.0,
+            "center_y": 258.5,
+            "velocity_x": 128.0,
+            "velocity_y": -92.0,
+            "motion": "rising",
+            "confidence": 0.43283582089552236,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "RIGHT",
+          "reason": "escape_special_contact_forced_exit",
+          "contact_id": 1,
+          "source_id": 13,
+          "source_kind": "spikes",
+          "direction": "RIGHT",
+          "direction_source": "active_direction",
+          "destination_id": null,
+          "escape_steps": 13,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": true,
+          "platforms": [
+            {
+              "track_id": 11,
+              "kind": "flipping",
+              "confidence": 0.9910286664962769,
+              "box": {
+                "left": 200,
+                "top": 84,
+                "width": 96,
+                "height": 18
+              }
+            },
+            {
+              "track_id": 8,
+              "kind": "spikes",
+              "confidence": 0.9956588745117188,
+              "box": {
+                "left": 168,
+                "top": 116,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 10,
+              "kind": "spring",
+              "confidence": 0.9973630905151367,
+              "box": {
+                "left": 120,
+                "top": 180,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 12,
+              "kind": "normal",
+              "confidence": 0.9980562329292297,
+              "box": {
+                "left": 216,
+                "top": 228,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 13,
+              "kind": "spikes",
+              "confidence": 0.9959750175476074,
+              "box": {
+                "left": 88,
+                "top": 308,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 15,
+              "kind": "spikes",
+              "confidence": 0.9870521426200867,
+              "box": {
+                "left": 312,
+                "top": 356,
+                "width": 95,
+                "height": 32
+              }
+            }
+          ]
+        },
+        {
+          "step": 33,
+          "player": {
+            "center_x": 183.0,
+            "center_y": 250.5,
+            "velocity_x": 128.0,
+            "velocity_y": -64.0,
+            "motion": "rising",
+            "confidence": 0.44029850746268656,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "RIGHT",
+          "reason": "escape_special_contact_forced_exit",
+          "contact_id": 1,
+          "source_id": 13,
+          "source_kind": "spikes",
+          "direction": "RIGHT",
+          "direction_source": "active_direction",
+          "destination_id": null,
+          "escape_steps": 14,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": true,
+          "platforms": [
+            {
+              "track_id": 11,
+              "kind": "flipping",
+              "confidence": 0.975679337978363,
+              "box": {
+                "left": 200,
+                "top": 76,
+                "width": 96,
+                "height": 18
+              }
+            },
+            {
+              "track_id": 8,
+              "kind": "spikes",
+              "confidence": 0.9961358904838562,
+              "box": {
+                "left": 168,
+                "top": 108,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 10,
+              "kind": "spring",
+              "confidence": 0.9973835945129395,
+              "box": {
+                "left": 120,
+                "top": 172,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 12,
+              "kind": "normal",
+              "confidence": 0.9978888630867004,
+              "box": {
+                "left": 216,
+                "top": 220,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 16,
+              "kind": "spikes",
+              "confidence": 0.911116361618042,
+              "box": {
+                "left": 88,
+                "top": 252,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 13,
+              "kind": "spikes",
+              "confidence": 0.9953993558883667,
+              "box": {
+                "left": 88,
+                "top": 300,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 15,
+              "kind": "spikes",
+              "confidence": 0.9785220623016357,
+              "box": {
+                "left": 312,
+                "top": 348,
+                "width": 95,
+                "height": 32
+              }
+            }
+          ]
+        },
+        {
+          "step": 36,
+          "player": {
+            "center_x": 190.0,
+            "center_y": 259.0,
+            "velocity_x": -144.0,
+            "velocity_y": 100.0,
+            "motion": "falling",
+            "confidence": 0.7164179104477612,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "LEFT",
+          "reason": "escape_special_contact",
+          "contact_id": 2,
+          "source_id": 13,
+          "source_kind": "spikes",
+          "direction": "LEFT",
+          "direction_source": "active_direction",
+          "destination_id": null,
+          "escape_steps": 1,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 8,
+              "kind": "spikes",
+              "confidence": 0.962853729724884,
+              "box": {
+                "left": 168,
+                "top": 76,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 10,
+              "kind": "spring",
+              "confidence": 0.9973965883255005,
+              "box": {
+                "left": 120,
+                "top": 140,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 12,
+              "kind": "normal",
+              "confidence": 0.998262882232666,
+              "box": {
+                "left": 216,
+                "top": 188,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 16,
+              "kind": "spikes",
+              "confidence": 0.9869134426116943,
+              "box": {
+                "left": 88,
+                "top": 220,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 13,
+              "kind": "spikes",
+              "confidence": 0.9908860325813293,
+              "box": {
+                "left": 88,
+                "top": 268,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 15,
+              "kind": "spikes",
+              "confidence": 0.993593692779541,
+              "box": {
+                "left": 312,
+                "top": 316,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 17,
+              "kind": "normal",
+              "confidence": 0.9982620477676392,
+              "box": {
+                "left": 56,
+                "top": 380,
+                "width": 95,
+                "height": 16
+              }
+            }
+          ]
+        },
+        {
+          "step": 37,
+          "player": {
+            "center_x": 177.0,
+            "center_y": 262.0,
+            "velocity_x": -104.0,
+            "velocity_y": 24.0,
+            "motion": "falling",
+            "confidence": 0.4253731343283582,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "LEFT",
+          "reason": "escape_special_contact",
+          "contact_id": 2,
+          "source_id": 13,
+          "source_kind": "spikes",
+          "direction": "LEFT",
+          "direction_source": "active_direction",
+          "destination_id": null,
+          "escape_steps": 2,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 10,
+              "kind": "spring",
+              "confidence": 0.9970213174819946,
+              "box": {
+                "left": 120,
+                "top": 132,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 12,
+              "kind": "normal",
+              "confidence": 0.9982152581214905,
+              "box": {
+                "left": 216,
+                "top": 180,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 16,
+              "kind": "spikes",
+              "confidence": 0.9919674396514893,
+              "box": {
+                "left": 88,
+                "top": 212,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 15,
+              "kind": "spikes",
+              "confidence": 0.994500458240509,
+              "box": {
+                "left": 312,
+                "top": 308,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 17,
+              "kind": "normal",
+              "confidence": 0.9981752634048462,
+              "box": {
+                "left": 56,
+                "top": 372,
+                "width": 95,
+                "height": 16
+              }
+            }
+          ]
+        },
+        {
+          "step": 38,
+          "player": {
+            "center_x": 151.0,
+            "center_y": 250.0,
+            "velocity_x": -208.0,
+            "velocity_y": -96.0,
+            "motion": "rising",
+            "confidence": 1.0,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "LEFT",
+          "reason": "escape_special_contact",
+          "contact_id": 2,
+          "source_id": 13,
+          "source_kind": "spikes",
+          "direction": "LEFT",
+          "direction_source": "active_direction",
+          "destination_id": null,
+          "escape_steps": 3,
+          "candidate_stability_steps": 1,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 10,
+              "kind": "spring",
+              "confidence": 0.9973946213722229,
+              "box": {
+                "left": 120,
+                "top": 120,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 12,
+              "kind": "normal",
+              "confidence": 0.9982462525367737,
+              "box": {
+                "left": 216,
+                "top": 168,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 16,
+              "kind": "spikes",
+              "confidence": 0.993589460849762,
+              "box": {
+                "left": 88,
+                "top": 200,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 15,
+              "kind": "spikes",
+              "confidence": 0.9926262497901917,
+              "box": {
+                "left": 312,
+                "top": 296,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 17,
+              "kind": "normal",
+              "confidence": 0.9981768131256104,
+              "box": {
+                "left": 56,
+                "top": 360,
+                "width": 95,
+                "height": 16
+              }
+            }
+          ]
+        },
+        {
+          "step": 39,
+          "player": {
+            "center_x": 136.0,
+            "center_y": 242.0,
+            "velocity_x": -120.0,
+            "velocity_y": -64.0,
+            "motion": "rising",
+            "confidence": 1.0,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "LEFT",
+          "reason": "escape_special_contact",
+          "contact_id": 2,
+          "source_id": 13,
+          "source_kind": "spikes",
+          "direction": "LEFT",
+          "direction_source": "active_direction",
+          "destination_id": null,
+          "escape_steps": 4,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 10,
+              "kind": "spring",
+              "confidence": 0.9973389506340027,
+              "box": {
+                "left": 120,
+                "top": 112,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 12,
+              "kind": "normal",
+              "confidence": 0.9982469081878662,
+              "box": {
+                "left": 216,
+                "top": 160,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 16,
+              "kind": "spikes",
+              "confidence": 0.9864997863769531,
+              "box": {
+                "left": 88,
+                "top": 192,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 15,
+              "kind": "spikes",
+              "confidence": 0.9922191500663757,
+              "box": {
+                "left": 312,
+                "top": 288,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 17,
+              "kind": "normal",
+              "confidence": 0.9981747269630432,
+              "box": {
+                "left": 56,
+                "top": 352,
+                "width": 95,
+                "height": 16
+              }
+            }
+          ]
+        },
+        {
+          "step": 40,
+          "player": {
+            "center_x": 128.0,
+            "center_y": 225.5,
+            "velocity_x": -64.0,
+            "velocity_y": -132.0,
+            "motion": "rising",
+            "confidence": 0.8059701492537313,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "LEFT",
+          "reason": "escape_special_contact",
+          "contact_id": 2,
+          "source_id": 13,
+          "source_kind": "spikes",
+          "direction": "LEFT",
+          "direction_source": "active_direction",
+          "destination_id": null,
+          "escape_steps": 5,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 10,
+              "kind": "spring",
+              "confidence": 0.997016191482544,
+              "box": {
+                "left": 120,
+                "top": 100,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 12,
+              "kind": "normal",
+              "confidence": 0.9982115030288696,
+              "box": {
+                "left": 216,
+                "top": 148,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 16,
+              "kind": "spikes",
+              "confidence": 0.98232102394104,
+              "box": {
+                "left": 88,
+                "top": 180,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 15,
+              "kind": "spikes",
+              "confidence": 0.9932782649993896,
+              "box": {
+                "left": 312,
+                "top": 276,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 17,
+              "kind": "normal",
+              "confidence": 0.9981122016906738,
+              "box": {
+                "left": 56,
+                "top": 340,
+                "width": 95,
+                "height": 16
+              }
+            }
+          ]
+        },
+        {
+          "step": 41,
+          "player": {
+            "center_x": 128.0,
+            "center_y": 223.5,
+            "velocity_x": 0.0,
+            "velocity_y": -16.0,
+            "motion": "rising",
+            "confidence": 0.7686567164179104,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "LEFT",
+          "reason": "escape_special_contact",
+          "contact_id": 2,
+          "source_id": 13,
+          "source_kind": "spikes",
+          "direction": "LEFT",
+          "direction_source": "active_direction",
+          "destination_id": null,
+          "escape_steps": 6,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 10,
+              "kind": "spring",
+              "confidence": 0.9971174001693726,
+              "box": {
+                "left": 120,
+                "top": 92,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 12,
+              "kind": "normal",
+              "confidence": 0.9982079267501831,
+              "box": {
+                "left": 216,
+                "top": 140,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 16,
+              "kind": "spikes",
+              "confidence": 0.9855887293815613,
+              "box": {
+                "left": 88,
+                "top": 172,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 15,
+              "kind": "spikes",
+              "confidence": 0.9945203065872192,
+              "box": {
+                "left": 312,
+                "top": 268,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 17,
+              "kind": "normal",
+              "confidence": 0.9981235265731812,
+              "box": {
+                "left": 56,
+                "top": 332,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 18,
+              "kind": "conveyor",
+              "confidence": 0.9851292371749878,
+              "box": {
+                "left": 264,
+                "top": 380,
+                "width": 96,
+                "height": 18
+              }
+            }
+          ]
+        },
+        {
+          "step": 42,
+          "player": {
+            "center_x": 128.0,
+            "center_y": 210.0,
+            "velocity_x": 0.0,
+            "velocity_y": -108.0,
+            "motion": "rising",
+            "confidence": 1.0,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "LEFT",
+          "reason": "escape_special_contact",
+          "contact_id": 2,
+          "source_id": 13,
+          "source_kind": "spikes",
+          "direction": "LEFT",
+          "direction_source": "active_direction",
+          "destination_id": null,
+          "escape_steps": 7,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 10,
+              "kind": "spring",
+              "confidence": 0.9973360896110535,
+              "box": {
+                "left": 120,
+                "top": 80,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 12,
+              "kind": "normal",
+              "confidence": 0.9982300996780396,
+              "box": {
+                "left": 216,
+                "top": 128,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 16,
+              "kind": "spikes",
+              "confidence": 0.9921499490737915,
+              "box": {
+                "left": 88,
+                "top": 160,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 15,
+              "kind": "spikes",
+              "confidence": 0.9958339333534241,
+              "box": {
+                "left": 312,
+                "top": 256,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 17,
+              "kind": "normal",
+              "confidence": 0.9981607794761658,
+              "box": {
+                "left": 56,
+                "top": 320,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 18,
+              "kind": "conveyor",
+              "confidence": 0.9851292371749878,
+              "box": {
+                "left": 264,
+                "top": 380,
+                "width": 96,
+                "height": 18
+              }
+            }
+          ]
+        },
+        {
+          "step": 43,
+          "player": {
+            "center_x": 143.0,
+            "center_y": 198.0,
+            "velocity_x": 120.0,
+            "velocity_y": -96.0,
+            "motion": "rising",
+            "confidence": 0.47761194029850745,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "LEFT",
+          "reason": "escape_special_contact",
+          "contact_id": 2,
+          "source_id": 13,
+          "source_kind": "spikes",
+          "direction": "LEFT",
+          "direction_source": "active_direction",
+          "destination_id": 17,
+          "escape_steps": 8,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 10,
+              "kind": "spring",
+              "confidence": 0.9973360896110535,
+              "box": {
+                "left": 120,
+                "top": 80,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 12,
+              "kind": "normal",
+              "confidence": 0.9981989860534668,
+              "box": {
+                "left": 216,
+                "top": 116,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 16,
+              "kind": "spikes",
+              "confidence": 0.9936834573745728,
+              "box": {
+                "left": 88,
+                "top": 148,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 15,
+              "kind": "spikes",
+              "confidence": 0.9890002012252808,
+              "box": {
+                "left": 312,
+                "top": 244,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 17,
+              "kind": "normal",
+              "confidence": 0.9981102347373962,
+              "box": {
+                "left": 56,
+                "top": 308,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 18,
+              "kind": "conveyor",
+              "confidence": 0.9851292371749878,
+              "box": {
+                "left": 264,
+                "top": 380,
+                "width": 96,
+                "height": 18
+              }
+            }
+          ]
+        },
+        {
+          "step": 44,
+          "player": {
+            "center_x": 159.0,
+            "center_y": 190.0,
+            "velocity_x": 128.0,
+            "velocity_y": -64.0,
+            "motion": "rising",
+            "confidence": 0.40298507462686567,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "LEFT",
+          "reason": "escape_special_contact",
+          "contact_id": 2,
+          "source_id": 13,
+          "source_kind": "spikes",
+          "direction": "LEFT",
+          "direction_source": "active_direction",
+          "destination_id": 17,
+          "escape_steps": 9,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 10,
+              "kind": "spring",
+              "confidence": 0.9973360896110535,
+              "box": {
+                "left": 120,
+                "top": 80,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 12,
+              "kind": "normal",
+              "confidence": 0.9982066750526428,
+              "box": {
+                "left": 216,
+                "top": 108,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 16,
+              "kind": "spikes",
+              "confidence": 0.9947713613510132,
+              "box": {
+                "left": 88,
+                "top": 140,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 15,
+              "kind": "spikes",
+              "confidence": 0.9811517596244812,
+              "box": {
+                "left": 312,
+                "top": 236,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 17,
+              "kind": "normal",
+              "confidence": 0.9981724619865417,
+              "box": {
+                "left": 56,
+                "top": 300,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 19,
+              "kind": "conveyor",
+              "confidence": 0.9789275527000427,
+              "box": {
+                "left": 264,
+                "top": 348,
+                "width": 96,
+                "height": 18
+              }
+            },
+            {
+              "track_id": 20,
+              "kind": "normal",
+              "confidence": 0.997867226600647,
+              "box": {
+                "left": 120,
+                "top": 396,
+                "width": 95,
+                "height": 16
+              }
+            }
+          ]
+        },
+        {
+          "step": 45,
+          "player": {
+            "center_x": 175.0,
+            "center_y": 177.5,
+            "velocity_x": 128.0,
+            "velocity_y": -100.0,
+            "motion": "rising",
+            "confidence": 0.4253731343283582,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "LEFT",
+          "reason": "escape_special_contact",
+          "contact_id": 2,
+          "source_id": 13,
+          "source_kind": "spikes",
+          "direction": "LEFT",
+          "direction_source": "active_direction",
+          "destination_id": 17,
+          "escape_steps": 10,
+          "candidate_stability_steps": 1,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 12,
+              "kind": "normal",
+              "confidence": 0.9982658624649048,
+              "box": {
+                "left": 216,
+                "top": 100,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 16,
+              "kind": "spikes",
+              "confidence": 0.9943141937255859,
+              "box": {
+                "left": 88,
+                "top": 132,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 15,
+              "kind": "spikes",
+              "confidence": 0.9781500101089478,
+              "box": {
+                "left": 312,
+                "top": 228,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 17,
+              "kind": "normal",
+              "confidence": 0.9981924295425415,
+              "box": {
+                "left": 56,
+                "top": 292,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 19,
+              "kind": "conveyor",
+              "confidence": 0.9789275527000427,
+              "box": {
+                "left": 264,
+                "top": 348,
+                "width": 96,
+                "height": 18
+              }
+            },
+            {
+              "track_id": 20,
+              "kind": "normal",
+              "confidence": 0.9981649518013,
+              "box": {
+                "left": 120,
+                "top": 388,
+                "width": 95,
+                "height": 16
+              }
+            }
+          ]
+        },
+        {
+          "step": 46,
+          "player": {
+            "center_x": 184.0,
+            "center_y": 171.5,
+            "velocity_x": 72.0,
+            "velocity_y": -48.0,
+            "motion": "rising",
+            "confidence": 0.6791044776119403,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "RELEASE_ALL",
+          "reason": "direction_change_brake",
+          "contact_id": 2,
+          "source_id": 13,
+          "source_kind": "spikes",
+          "direction": "RIGHT",
+          "direction_source": "visible_landing",
+          "destination_id": 19,
+          "escape_steps": 11,
+          "candidate_stability_steps": 0,
+          "replan_count": 1,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 12,
+              "kind": "normal",
+              "confidence": 0.9982677102088928,
+              "box": {
+                "left": 216,
+                "top": 88,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 16,
+              "kind": "spikes",
+              "confidence": 0.9955346584320068,
+              "box": {
+                "left": 88,
+                "top": 120,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 15,
+              "kind": "spikes",
+              "confidence": 0.9853747487068176,
+              "box": {
+                "left": 312,
+                "top": 216,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 17,
+              "kind": "normal",
+              "confidence": 0.9981794357299805,
+              "box": {
+                "left": 56,
+                "top": 280,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 19,
+              "kind": "conveyor",
+              "confidence": 0.9980126619338989,
+              "box": {
+                "left": 264,
+                "top": 328,
+                "width": 96,
+                "height": 18
+              }
+            },
+            {
+              "track_id": 20,
+              "kind": "normal",
+              "confidence": 0.998207151889801,
+              "box": {
+                "left": 120,
+                "top": 376,
+                "width": 95,
+                "height": 16
+              }
+            }
+          ]
+        },
+        {
+          "step": 47,
+          "player": {
+            "center_x": 169.0,
+            "center_y": 163.5,
+            "velocity_x": -120.0,
+            "velocity_y": -64.0,
+            "motion": "rising",
+            "confidence": 0.7089552238805971,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "RIGHT",
+          "reason": "escape_special_contact",
+          "contact_id": 2,
+          "source_id": 13,
+          "source_kind": "spikes",
+          "direction": "RIGHT",
+          "direction_source": "visible_landing",
+          "destination_id": 19,
+          "escape_steps": 12,
+          "candidate_stability_steps": 0,
+          "replan_count": 1,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 12,
+              "kind": "normal",
+              "confidence": 0.9982637763023376,
+              "box": {
+                "left": 216,
+                "top": 80,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 16,
+              "kind": "spikes",
+              "confidence": 0.9954819679260254,
+              "box": {
+                "left": 88,
+                "top": 112,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 15,
+              "kind": "spikes",
+              "confidence": 0.9902140498161316,
+              "box": {
+                "left": 312,
+                "top": 208,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 17,
+              "kind": "normal",
+              "confidence": 0.9981709718704224,
+              "box": {
+                "left": 56,
+                "top": 272,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 19,
+              "kind": "conveyor",
+              "confidence": 0.9980126619338989,
+              "box": {
+                "left": 264,
+                "top": 328,
+                "width": 96,
+                "height": 18
+              }
+            },
+            {
+              "track_id": 20,
+              "kind": "normal",
+              "confidence": 0.9982122182846069,
+              "box": {
+                "left": 120,
+                "top": 368,
+                "width": 95,
+                "height": 16
+              }
+            }
+          ]
+        },
+        {
+          "step": 48,
+          "player": {
+            "center_x": 160.0,
+            "center_y": 151.5,
+            "velocity_x": -72.0,
+            "velocity_y": -96.0,
+            "motion": "rising",
+            "confidence": 0.6791044776119403,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "RIGHT",
+          "reason": "escape_special_contact_forced_exit",
+          "contact_id": 2,
+          "source_id": 13,
+          "source_kind": "spikes",
+          "direction": "RIGHT",
+          "direction_source": "visible_landing",
+          "destination_id": 19,
+          "escape_steps": 13,
+          "candidate_stability_steps": 0,
+          "replan_count": 1,
+          "forced_exit": true,
+          "platforms": [
+            {
+              "track_id": 16,
+              "kind": "spikes",
+              "confidence": 0.995816171169281,
+              "box": {
+                "left": 88,
+                "top": 100,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 15,
+              "kind": "spikes",
+              "confidence": 0.9937811493873596,
+              "box": {
+                "left": 312,
+                "top": 196,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 17,
+              "kind": "normal",
+              "confidence": 0.9982801079750061,
+              "box": {
+                "left": 56,
+                "top": 260,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 19,
+              "kind": "conveyor",
+              "confidence": 0.9980126619338989,
+              "box": {
+                "left": 264,
+                "top": 328,
+                "width": 96,
+                "height": 18
+              }
+            },
+            {
+              "track_id": 20,
+              "kind": "normal",
+              "confidence": 0.9982881546020508,
+              "box": {
+                "left": 120,
+                "top": 356,
+                "width": 95,
+                "height": 16
+              }
+            }
+          ]
+        },
+        {
+          "step": 49,
+          "player": {
+            "center_x": 160.0,
+            "center_y": 143.5,
+            "velocity_x": 0.0,
+            "velocity_y": -64.0,
+            "motion": "rising",
+            "confidence": 0.6791044776119403,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "RIGHT",
+          "reason": "escape_special_contact_forced_exit",
+          "contact_id": 2,
+          "source_id": 13,
+          "source_kind": "spikes",
+          "direction": "RIGHT",
+          "direction_source": "visible_landing",
+          "destination_id": 19,
+          "escape_steps": 14,
+          "candidate_stability_steps": 0,
+          "replan_count": 1,
+          "forced_exit": true,
+          "platforms": [
+            {
+              "track_id": 16,
+              "kind": "spikes",
+              "confidence": 0.9955087900161743,
+              "box": {
+                "left": 88,
+                "top": 92,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 15,
+              "kind": "spikes",
+              "confidence": 0.9920090436935425,
+              "box": {
+                "left": 312,
+                "top": 188,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 17,
+              "kind": "normal",
+              "confidence": 0.9981958270072937,
+              "box": {
+                "left": 56,
+                "top": 252,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 21,
+              "kind": "conveyor",
+              "confidence": 0.9815341234207153,
+              "box": {
+                "left": 264,
+                "top": 300,
+                "width": 96,
+                "height": 18
+              }
+            },
+            {
+              "track_id": 20,
+              "kind": "normal",
+              "confidence": 0.998128354549408,
+              "box": {
+                "left": 120,
+                "top": 348,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 22,
+              "kind": "spring",
+              "confidence": 0.9972825050354004,
+              "box": {
+                "left": 168,
+                "top": 396,
+                "width": 96,
+                "height": 16
+              }
+            }
+          ]
+        },
+        {
+          "step": 50,
+          "player": {
+            "center_x": 153.0,
+            "center_y": 134.0,
+            "velocity_x": -56.0,
+            "velocity_y": -76.0,
+            "motion": "rising",
+            "confidence": 0.4253731343283582,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "RIGHT",
+          "reason": "escape_special_contact_forced_exit",
+          "contact_id": 2,
+          "source_id": 13,
+          "source_kind": "spikes",
+          "direction": "RIGHT",
+          "direction_source": "visible_landing",
+          "destination_id": 19,
+          "escape_steps": 15,
+          "candidate_stability_steps": 0,
+          "replan_count": 1,
+          "forced_exit": true,
+          "platforms": [
+            {
+              "track_id": 16,
+              "kind": "spikes",
+              "confidence": 0.9950522780418396,
+              "box": {
+                "left": 88,
+                "top": 84,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 15,
+              "kind": "spikes",
+              "confidence": 0.9921650290489197,
+              "box": {
+                "left": 312,
+                "top": 180,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 17,
+              "kind": "normal",
+              "confidence": 0.9982147812843323,
+              "box": {
+                "left": 56,
+                "top": 244,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 21,
+              "kind": "conveyor",
+              "confidence": 0.9815341234207153,
+              "box": {
+                "left": 264,
+                "top": 300,
+                "width": 96,
+                "height": 18
+              }
+            },
+            {
+              "track_id": 20,
+              "kind": "normal",
+              "confidence": 0.9982272386550903,
+              "box": {
+                "left": 120,
+                "top": 340,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 22,
+              "kind": "spring",
+              "confidence": 0.9972612857818604,
+              "box": {
+                "left": 168,
+                "top": 388,
+                "width": 96,
+                "height": 16
+              }
+            }
+          ]
+        },
+        {
+          "step": 51,
+          "player": {
+            "center_x": 144.0,
+            "center_y": 123.5,
+            "velocity_x": -72.0,
+            "velocity_y": -84.0,
+            "motion": "rising",
+            "confidence": 0.7611940298507462,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "RIGHT",
+          "reason": "escape_special_contact_forced_exit",
+          "contact_id": 2,
+          "source_id": 13,
+          "source_kind": "spikes",
+          "direction": "RIGHT",
+          "direction_source": "visible_landing",
+          "destination_id": 19,
+          "escape_steps": 16,
+          "candidate_stability_steps": 0,
+          "replan_count": 1,
+          "forced_exit": true,
+          "platforms": [
+            {
+              "track_id": 16,
+              "kind": "spikes",
+              "confidence": 0.9365317821502686,
+              "box": {
+                "left": 88,
+                "top": 72,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 15,
+              "kind": "spikes",
+              "confidence": 0.9919852018356323,
+              "box": {
+                "left": 312,
+                "top": 168,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 17,
+              "kind": "normal",
+              "confidence": 0.998272180557251,
+              "box": {
+                "left": 56,
+                "top": 232,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 21,
+              "kind": "conveyor",
+              "confidence": 0.9986360669136047,
+              "box": {
+                "left": 264,
+                "top": 280,
+                "width": 96,
+                "height": 18
+              }
+            },
+            {
+              "track_id": 20,
+              "kind": "normal",
+              "confidence": 0.9982302784919739,
+              "box": {
+                "left": 120,
+                "top": 328,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 22,
+              "kind": "spring",
+              "confidence": 0.9972813725471497,
+              "box": {
+                "left": 168,
+                "top": 376,
+                "width": 96,
+                "height": 16
+              }
+            }
+          ]
+        },
+        {
+          "step": 52,
+          "player": {
+            "center_x": 151.0,
+            "center_y": 115.0,
+            "velocity_x": 56.0,
+            "velocity_y": -68.0,
+            "motion": "rising",
+            "confidence": 0.6417910447761194,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "RELEASE_ALL",
+          "reason": "special_escape_safety_abort",
+          "contact_id": 2,
+          "source_id": 13,
+          "source_kind": "spikes",
+          "direction": "RIGHT",
+          "direction_source": "visible_landing",
+          "destination_id": 19,
+          "escape_steps": 16,
+          "candidate_stability_steps": 0,
+          "replan_count": 1,
+          "forced_exit": true,
+          "platforms": [
+            {
+              "track_id": 15,
+              "kind": "spikes",
+              "confidence": 0.9932915568351746,
+              "box": {
+                "left": 312,
+                "top": 160,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 17,
+              "kind": "normal",
+              "confidence": 0.9982479214668274,
+              "box": {
+                "left": 56,
+                "top": 224,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 21,
+              "kind": "conveyor",
+              "confidence": 0.9986360669136047,
+              "box": {
+                "left": 264,
+                "top": 280,
+                "width": 96,
+                "height": 18
+              }
+            },
+            {
+              "track_id": 20,
+              "kind": "normal",
+              "confidence": 0.9982063174247742,
+              "box": {
+                "left": 120,
+                "top": 320,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 22,
+              "kind": "spring",
+              "confidence": 0.9972636699676514,
+              "box": {
+                "left": 168,
+                "top": 368,
+                "width": 96,
+                "height": 16
+              }
+            }
+          ]
+        },
+        {
+          "step": 53,
+          "player": {
+            "center_x": 160.0,
+            "center_y": 103.0,
+            "velocity_x": 72.0,
+            "velocity_y": -96.0,
+            "motion": "rising",
+            "confidence": 0.6716417910447762,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "RELEASE_ALL",
+          "reason": "special_escape_safety_abort",
+          "contact_id": 2,
+          "source_id": 13,
+          "source_kind": "spikes",
+          "direction": "RIGHT",
+          "direction_source": "visible_landing",
+          "destination_id": 19,
+          "escape_steps": 16,
+          "candidate_stability_steps": 0,
+          "replan_count": 1,
+          "forced_exit": true,
+          "platforms": [
+            {
+              "track_id": 15,
+              "kind": "spikes",
+              "confidence": 0.9925739169120789,
+              "box": {
+                "left": 312,
+                "top": 148,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 17,
+              "kind": "normal",
+              "confidence": 0.9981338977813721,
+              "box": {
+                "left": 56,
+                "top": 212,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 21,
+              "kind": "conveyor",
+              "confidence": 0.9986360669136047,
+              "box": {
+                "left": 264,
+                "top": 280,
+                "width": 96,
+                "height": 18
+              }
+            },
+            {
+              "track_id": 20,
+              "kind": "normal",
+              "confidence": 0.9982053637504578,
+              "box": {
+                "left": 120,
+                "top": 308,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 22,
+              "kind": "spring",
+              "confidence": 0.9971019625663757,
+              "box": {
+                "left": 168,
+                "top": 356,
+                "width": 96,
+                "height": 16
+              }
+            }
+          ]
+        },
+        {
+          "step": 54,
+          "player": {
+            "center_x": 160.0,
+            "center_y": 91.5,
+            "velocity_x": 0.0,
+            "velocity_y": -92.0,
+            "motion": "rising",
+            "confidence": 0.6791044776119403,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "RELEASE_ALL",
+          "reason": "special_escape_safety_abort",
+          "contact_id": 2,
+          "source_id": 13,
+          "source_kind": "spikes",
+          "direction": "RIGHT",
+          "direction_source": "visible_landing",
+          "destination_id": 19,
+          "escape_steps": 16,
+          "candidate_stability_steps": 0,
+          "replan_count": 1,
+          "forced_exit": true,
+          "platforms": [
+            {
+              "track_id": 15,
+              "kind": "spikes",
+              "confidence": 0.993041455745697,
+              "box": {
+                "left": 312,
+                "top": 136,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 17,
+              "kind": "normal",
+              "confidence": 0.9981410503387451,
+              "box": {
+                "left": 56,
+                "top": 200,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 23,
+              "kind": "conveyor",
+              "confidence": 0.9975446462631226,
+              "box": {
+                "left": 264,
+                "top": 248,
+                "width": 96,
+                "height": 18
+              }
+            },
+            {
+              "track_id": 20,
+              "kind": "normal",
+              "confidence": 0.9981985092163086,
+              "box": {
+                "left": 120,
+                "top": 296,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 22,
+              "kind": "spring",
+              "confidence": 0.9973220229148865,
+              "box": {
+                "left": 168,
+                "top": 344,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 24,
+              "kind": "normal",
+              "confidence": 0.9978278279304504,
+              "box": {
+                "left": 264,
+                "top": 392,
+                "width": 95,
+                "height": 16
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "totals": {
+    "total_frames": 56,
+    "playing_frames": 55,
+    "raw_player_detected_steps": 55,
+    "raw_player_missing_steps": 0,
+    "tracked_bridge_steps": 0,
+    "effective_player_missing_steps": 0,
+    "outward_wall_push_count": 0,
+    "wall_reentry_cycle_count": 0,
+    "rapid_direction_reversal_count": 4,
+    "same_support_departure_cycle_count": 0,
+    "support_departure_target_switch_count": 0,
+    "support_departure_timeout_count": 0,
+    "support_edge_release_count": 4,
+    "support_edge_opportunity_count": 7,
+    "support_departure_active_step_count": 3
+  },
+  "maximums": {
+    "max_player_missing_streak": 0,
+    "max_rapid_direction_reversal_burst": 3,
+    "max_wall_direction_reversal_burst": 0,
+    "max_aligned_release_streak": 3,
+    "max_support_aligned_release_streak": 3,
+    "max_support_departure_steps": 3
+  },
+  "checks": {
+    "all_videos_parsed": true,
+    "effective_missing_streak_bounded": true,
+    "outward_wall_push_zero": true,
+    "wall_reentry_cycles_zero": true,
+    "wall_direction_oscillation_bounded": true,
+    "support_aligned_release_bounded": true,
+    "departure_latch_activated": true,
+    "same_support_departure_cycles_zero": true,
+    "support_departure_target_stable": true
+  },
+  "status": "PASS",
+  "real_game_gate": "PENDING_RETEST"
+}

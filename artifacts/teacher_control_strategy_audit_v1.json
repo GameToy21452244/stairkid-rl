@@ -1,0 +1,1904 @@
+{
+  "schema_version": "teacher-control-strategy-audit-v1",
+  "generated_at": "2026-08-02T19:14:57.043544+00:00",
+  "mode": "offline-read-only",
+  "sends_game_input": false,
+  "runs": [
+    "logs\\teacher_real_micro_20260803_010405_293428",
+    "logs\\teacher_real_micro_20260803_011114_410228",
+    "logs\\teacher_real_micro_20260803_012857_250916",
+    "logs\\teacher_real_micro_20260803_014454_612146",
+    "logs\\teacher_real_micro_20260803_025855_425666",
+    "logs\\teacher_real_micro_20260803_030549_704516"
+  ],
+  "primary_run": "logs\\teacher_real_micro_20260803_030549_704516",
+  "primary_gate_artifact": "artifacts\\p36_teacher_real_gate_v9_reclassification_20260803_030549_v2.json",
+  "transition_count": 1075,
+  "sources": [
+    {
+      "path": "logs\\teacher_real_micro_20260803_010405_293428\\episode_01.transitions.jsonl",
+      "sha256": "367ec76d1dd1950aa101795155fdb25ecdbe4029ab3dd3dd86cea4f5932ef95c"
+    },
+    {
+      "path": "logs\\teacher_real_micro_20260803_010405_293428\\episode_01.controller.jsonl",
+      "sha256": "b249fa78d20a6c054a6603556a6a12a6292fefdfe760cab75495b99146758e68"
+    },
+    {
+      "path": "logs\\teacher_real_micro_20260803_010405_293428\\episode_02.transitions.jsonl",
+      "sha256": "9537630743509e94c82aa94bbb0c6f6acbfbddf08b7640200742ce6ff1a1eaf3"
+    },
+    {
+      "path": "logs\\teacher_real_micro_20260803_010405_293428\\episode_02.controller.jsonl",
+      "sha256": "4220169bda07ef1981b0e7cb68d881b7c27480938e5ff78636b59506b0c57e63"
+    },
+    {
+      "path": "logs\\teacher_real_micro_20260803_010405_293428\\episode_03.transitions.jsonl",
+      "sha256": "befbbd12a6979dc8770ac3b0c0d4acbcc2ea00357f552169f85ab641cecfc6fa"
+    },
+    {
+      "path": "logs\\teacher_real_micro_20260803_010405_293428\\episode_03.controller.jsonl",
+      "sha256": "ee8b265cd4a9f7546b2bd77d6d0866c04d9053cf4544824444635d3bff36d0c0"
+    },
+    {
+      "path": "logs\\teacher_real_micro_20260803_011114_410228\\episode_01.transitions.jsonl",
+      "sha256": "44a9fc08201a6a8f7b7e31d2c8c6a10647c7539455bb0437a2a69812a4ae2632"
+    },
+    {
+      "path": "logs\\teacher_real_micro_20260803_011114_410228\\episode_01.controller.jsonl",
+      "sha256": "11ec8b28de90e5083d74e58215dc53e8660bd4777e6e6d38102ddfa8b0515340"
+    },
+    {
+      "path": "logs\\teacher_real_micro_20260803_011114_410228\\episode_02.transitions.jsonl",
+      "sha256": "11d0129baddc2ed568c7ccf70f6ca167d57982d2b19361b7ce714acb9e96e730"
+    },
+    {
+      "path": "logs\\teacher_real_micro_20260803_011114_410228\\episode_02.controller.jsonl",
+      "sha256": "1e58d6de8bf1cb0d60196b5104cc8cd46beaffdd97a62805d7a75fc94d560471"
+    },
+    {
+      "path": "logs\\teacher_real_micro_20260803_011114_410228\\episode_03.transitions.jsonl",
+      "sha256": "f9d4b49b15fecf1e2eb13aeb7d178c8e12eac041ee842338a051b6e35d919f46"
+    },
+    {
+      "path": "logs\\teacher_real_micro_20260803_011114_410228\\episode_03.controller.jsonl",
+      "sha256": "b7bf76a4050c916dd08b874cd43549abab845992f2ca5349d7239818266e2229"
+    },
+    {
+      "path": "logs\\teacher_real_micro_20260803_012857_250916\\episode_01.transitions.jsonl",
+      "sha256": "d0d793a40db18c8eded2c60409306fc248b3bc1a166ceaeedf4333b7b4fcfba3"
+    },
+    {
+      "path": "logs\\teacher_real_micro_20260803_012857_250916\\episode_01.controller.jsonl",
+      "sha256": "9ad89e6842c8e16e1d51459ca77e79839a666bbbb153e0ed10b775f394ea1ad4"
+    },
+    {
+      "path": "logs\\teacher_real_micro_20260803_012857_250916\\episode_02.transitions.jsonl",
+      "sha256": "3685d12413187f57d46c905f0082b80bea89efd1410c5c3056ac9de5f6a03ec7"
+    },
+    {
+      "path": "logs\\teacher_real_micro_20260803_012857_250916\\episode_02.controller.jsonl",
+      "sha256": "d2df2dd33ea485627fdbf3b7755b320a2cd0dd6a7705eb23fc559b395f64d820"
+    },
+    {
+      "path": "logs\\teacher_real_micro_20260803_012857_250916\\episode_03.transitions.jsonl",
+      "sha256": "8fbcf459d1e7f0e85a20b0f9b107d3e54f0e9f53d28edf0d160b9af7a5926f83"
+    },
+    {
+      "path": "logs\\teacher_real_micro_20260803_012857_250916\\episode_03.controller.jsonl",
+      "sha256": "4cf759a87123e467c5ffd37381d7ac60f12b974cd83c8ac078f65e3697a59ad8"
+    },
+    {
+      "path": "logs\\teacher_real_micro_20260803_014454_612146\\episode_01.transitions.jsonl",
+      "sha256": "3bae426d116b4f574f321b532cea83c25aa842b2781d0325aee2e44efb773d65"
+    },
+    {
+      "path": "logs\\teacher_real_micro_20260803_014454_612146\\episode_01.controller.jsonl",
+      "sha256": "75f4067b835bef7cc5a02df67f9b9b7a856a546b39bcebeaaadb8011602f8243"
+    },
+    {
+      "path": "logs\\teacher_real_micro_20260803_025855_425666\\episode_01.transitions.jsonl",
+      "sha256": "455e55d4bf9846222589789fe960efbeab90fb520477860d0128f7fc1da4da95"
+    },
+    {
+      "path": "logs\\teacher_real_micro_20260803_025855_425666\\episode_01.controller.jsonl",
+      "sha256": "fe9d3f3d845066794e83e0d82d60bb22398809adce3dfa58659e777c4a0e67aa"
+    },
+    {
+      "path": "logs\\teacher_real_micro_20260803_025855_425666\\episode_02.transitions.jsonl",
+      "sha256": "62a69e544e18d0048de721b5d562cf8d295448dcfd3e5f83d91e5488bfc6b97e"
+    },
+    {
+      "path": "logs\\teacher_real_micro_20260803_025855_425666\\episode_02.controller.jsonl",
+      "sha256": "47619faa5b18b4e01b75bb9d57c44ac3fe838899ef72b467da9292bbb1774d3a"
+    },
+    {
+      "path": "logs\\teacher_real_micro_20260803_030549_704516\\episode_01.transitions.jsonl",
+      "sha256": "4e90daad1979e75fe008881496564619b9d1456f9c9da812421820c4c8750ab3"
+    },
+    {
+      "path": "logs\\teacher_real_micro_20260803_030549_704516\\episode_01.controller.jsonl",
+      "sha256": "dc11927d2de8180f95fd4d67873ebcc80f12f4f77b2eba5f2d4fc6c6bd29ed52"
+    },
+    {
+      "path": "logs\\teacher_real_micro_20260803_030549_704516\\episode_02.transitions.jsonl",
+      "sha256": "21696bc75b256313fafaec77bcdf5794f06d7b22b96270a619828ff789ab7ed8"
+    },
+    {
+      "path": "logs\\teacher_real_micro_20260803_030549_704516\\episode_02.controller.jsonl",
+      "sha256": "b639a1acc693dcd861daec0bf865bdd9f1b54c14bf48923664a90e47af033a94"
+    },
+    {
+      "path": "logs\\teacher_real_micro_20260803_030549_704516\\episode_03.transitions.jsonl",
+      "sha256": "a7603e7aa2e74543e00b83d502aeb1c8b6a5473ab2d45a6cc0e03a5959af8816"
+    },
+    {
+      "path": "logs\\teacher_real_micro_20260803_030549_704516\\episode_03.controller.jsonl",
+      "sha256": "6f54bbf760df9a0ddbdde36de8e921b5cedf1229849365c741f7506050330df3"
+    },
+    {
+      "path": "logs\\calibration_v1_20260730_180831_356152.jsonl",
+      "sha256": "c5be2757f4ce099b47a965e39d787b74975695453ebd00b27289cef712982bae"
+    },
+    {
+      "path": "logs\\calibration_v1_landing-focused_20260730_183435_997438.jsonl",
+      "sha256": "8eb2f407797911abc06075d68f850826ddf4f0db1e97200eba2b27c76260e1bd"
+    },
+    {
+      "path": "logs\\calibration_v1_landing-focused_20260730_183617_137729.jsonl",
+      "sha256": "d2a0d594151c55a60dfbae287d34b093184cefb5eb5a0d0d33b411e2b0d3f029"
+    },
+    {
+      "path": "logs\\calibration_v1_landing-focused_20260730_184108_548412.jsonl",
+      "sha256": "ed9698d698f69d8fc551a21033f893fb6636a5c893fbf271d128fe43ac792e36"
+    },
+    {
+      "path": "logs\\calibration_v1_landing-focused_20260730_184506_089744.jsonl",
+      "sha256": "af6f4902105449e5d9d25da70d23c838354562322939ef6c1e96676352961a78"
+    },
+    {
+      "path": "logs\\calibration_v1_landing-focused_20260730_184526_092592.jsonl",
+      "sha256": "6cab675326bb96def4a1b6e7fefcc0bfff9c2ac248f03f1fa3bd3f84bf1be5f5"
+    },
+    {
+      "path": "logs\\calibration_v1_landing-focused_20260730_184549_224541.jsonl",
+      "sha256": "29988bf99f3c52a600a4261323cd6a569fe008e84d817b570616eee2b6b1a811"
+    },
+    {
+      "path": "logs\\calibration_v1_momentum-release_20260730_183401_127256.jsonl",
+      "sha256": "913b3dd33282694fa0528ba0093d78c3a8b03643a08006a9f9400c6926eceee4"
+    },
+    {
+      "path": "logs\\calibration_v1_momentum-release_20260730_183806_615026.jsonl",
+      "sha256": "94e18eff58d5803a751248239e42c2cc505f67ef5876632b29643feb31fabf1a"
+    },
+    {
+      "path": "logs\\calibration_v1_momentum-release_20260730_183947_812354.jsonl",
+      "sha256": "76e46b0202c01513e978b365e28edc51f14c422d59dd73bbc24f3899bad138ad"
+    },
+    {
+      "path": "logs\\calibration_v1_momentum-release_20260730_184014_029191.jsonl",
+      "sha256": "7b5d86e216bf5159f22e7d7c20939d09c5cdf5bef58b6a954ccbe63c702c1e05"
+    },
+    {
+      "path": "logs\\calibration_v1_momentum-release_20260730_184046_730590.jsonl",
+      "sha256": "fc70b1aade6a80e0cff7493a47d19b7567436e5d817f34d63867a15b39f71e92"
+    },
+    {
+      "path": "logs\\calibration_v1_passive_20260730_182958_613157.jsonl",
+      "sha256": "1b1a794a5eeca8640d5be3a269620691d5833eca98cfa6ade078b1e836563a3d"
+    },
+    {
+      "path": "logs\\calibration_v1_reverse-braking_20260803_025027_504563.jsonl",
+      "sha256": "efc8b0a0ade8f1cc93c21f585a50cc6936b1c4cb3c89c64cb14c924f8149a7c5"
+    },
+    {
+      "path": "logs\\calibration_v1_reverse-braking_20260803_025124_827516.jsonl",
+      "sha256": "1e23eecf0544f1e141c43360094585007d4591c4630061e6a3f0772c3565a495"
+    },
+    {
+      "path": "logs\\calibration_v1_reverse-braking_20260803_025202_671564.jsonl",
+      "sha256": "c4adef16045c7e81c859b32a2ba1471c6d78a54eb8cf91aae4ab1a415d2d959c"
+    },
+    {
+      "path": "logs\\calibration_v1_reverse-braking_20260803_025236_563731.jsonl",
+      "sha256": "d747d6e455672cd216c95e58a774425787f14ca2b2718dfac57530cd5098fed6"
+    },
+    {
+      "path": "logs\\calibration_v1_right-first_20260730_182032_355200.jsonl",
+      "sha256": "fa0aed6e66796be7d337e43af4f8a1a97c31751e76c8f7a39140b75bc2a59d3d"
+    }
+  ],
+  "action_dynamics": {
+    "strict_sample_count": 475,
+    "counts_by_action": {
+      "RELEASE": 202,
+      "LEFT": 117,
+      "RIGHT": 156
+    },
+    "counts_by_regime": {
+      "first_release_after_left": 40,
+      "first_release_after_right": 50,
+      "left_from_low_speed": 16,
+      "left_hold": 83,
+      "left_reverse_braking": 11,
+      "left_transition": 7,
+      "repeated_release": 112,
+      "right_from_low_speed": 31,
+      "right_hold": 101,
+      "right_reverse_braking": 15,
+      "right_transition": 9
+    },
+    "timing_ms": {
+      "observation_to_next": {
+        "median": 125.0,
+        "p95": 188.00000000192085,
+        "minimum": 93.0000000007567,
+        "maximum": 219.00000000096043
+      },
+      "effective_to_next": {
+        "median": 93.99999999914144,
+        "p95": 110.00000000058208,
+        "minimum": 77.99999999951979,
+        "maximum": 125.0
+      },
+      "processing_to_command": {
+        "median": 31.000000000858563,
+        "p95": 79.0000000015425,
+        "minimum": 0.0,
+        "maximum": 109.00000000037835
+      }
+    },
+    "release_nonzero": {
+      "samples": 138,
+      "absolute_displacement_px": {
+        "median": 6.000003218650818,
+        "p95": 18.59999911338093,
+        "minimum": 0.0,
+        "maximum": 24.500003695487976
+      },
+      "old_vx_times_0_25_x_mae_px": 23.35740266243617,
+      "short_vx_times_0_05_x_mae_px": 4.906275140202564
+    },
+    "held_out": {
+      "episodes": 15,
+      "overall": {
+        "samples": 475,
+        "model_x_mae": 4.442102264780409,
+        "carry_x_mae": 9.10961671873048,
+        "model_vx_mae": 32.25833181650716,
+        "carry_vx_mae": 66.57294415182581
+      },
+      "by_action": {
+        "RELEASE": {
+          "samples": 202,
+          "model_x_mae": 3.4099347764224377,
+          "carry_x_mae": 7.317464463114078,
+          "model_vx_mae": 23.62452303736626,
+          "carry_vx_mae": 53.967184150858905
+        },
+        "LEFT": {
+          "samples": 117,
+          "model_x_mae": 5.397037309066976,
+          "carry_x_mae": 10.40492322694848,
+          "model_vx_mae": 40.437569378793924,
+          "carry_vx_mae": 76.75731882978326
+        },
+        "RIGHT": {
+          "samples": 156,
+          "model_x_mae": 5.0624255498238835,
+          "carry_x_mae": 10.458744245480528,
+          "model_vx_mae": 37.30357911521813,
+          "carry_vx_mae": 75.25750622153282
+        }
+      },
+      "by_regime": {
+        "first_release_after_left": {
+          "samples": 40,
+          "model_x_mae": 4.433056867163701,
+          "carry_x_mae": 12.737272093843952,
+          "model_vx_mae": 33.216142299544714,
+          "carry_vx_mae": 98.75772222876549
+        },
+        "first_release_after_right": {
+          "samples": 50,
+          "model_x_mae": 4.296825453135486,
+          "carry_x_mae": 10.262516518140076,
+          "model_vx_mae": 30.20655732949261,
+          "carry_vx_mae": 78.73156694695354
+        },
+        "left_from_low_speed": {
+          "samples": 16,
+          "model_x_mae": 5.48706049061402,
+          "carry_x_mae": 13.160251046210666,
+          "model_vx_mae": 42.387870258422794,
+          "carry_vx_mae": 98.81528842379339
+        },
+        "left_hold": {
+          "samples": 83,
+          "model_x_mae": 5.000682071302006,
+          "carry_x_mae": 8.353210267832157,
+          "model_vx_mae": 37.93337793063124,
+          "carry_vx_mae": 61.59758002284062
+        },
+        "left_reverse_braking": {
+          "samples": 11,
+          "model_x_mae": 8.261133288394428,
+          "carry_x_mae": 21.063151675885905,
+          "model_vx_mae": 55.33868065857841,
+          "carry_vx_mae": 150.52121437408707
+        },
+        "left_transition": {
+          "samples": 7,
+          "model_x_mae": 5.390188460086632,
+          "carry_x_mae": 11.685840021255359,
+          "model_vx_mae": 42.25626252819533,
+          "carry_vx_mae": 90.17559832760266
+        },
+        "repeated_release": {
+          "samples": 112,
+          "model_x_mae": 2.648600691910805,
+          "carry_x_mae": 4.067063499002518,
+          "model_vx_mae": 17.260536563317547,
+          "carry_vx_mae": 26.91503537477859
+        },
+        "right_from_low_speed": {
+          "samples": 31,
+          "model_x_mae": 4.938448159820757,
+          "carry_x_mae": 12.744681641730716,
+          "model_vx_mae": 36.17784920828282,
+          "carry_vx_mae": 90.39216984303728
+        },
+        "right_hold": {
+          "samples": 101,
+          "model_x_mae": 4.677933449570279,
+          "carry_x_mae": 7.661377829100488,
+          "model_vx_mae": 35.237848287936174,
+          "carry_vx_mae": 57.74008340690986
+        },
+        "right_reverse_braking": {
+          "samples": 15,
+          "model_x_mae": 7.167623939822257,
+          "carry_x_mae": 23.145021882437845,
+          "model_vx_mae": 47.7515057633893,
+          "carry_vx_mae": 150.8653753126661
+        },
+        "right_transition": {
+          "samples": 9,
+          "model_x_mae": 6.295650590461134,
+          "carry_x_mae": 12.833831380621474,
+          "model_vx_mae": 46.949972553874176,
+          "carry_vx_mae": 93.69829462634192
+        }
+      },
+      "rollouts": {
+        "2": {
+          "windows": 294,
+          "model_x_mae": 7.408048811205402,
+          "carry_x_mae": 19.45232831750238
+        },
+        "3": {
+          "windows": 185,
+          "model_x_mae": 10.98161789285398,
+          "carry_x_mae": 30.22592501082176
+        },
+        "4": {
+          "windows": 120,
+          "model_x_mae": 15.486345525926605,
+          "carry_x_mae": 43.97804951982884
+        },
+        "5": {
+          "windows": 81,
+          "model_x_mae": 21.448947511663274,
+          "carry_x_mae": 56.94120126964193
+        }
+      }
+    },
+    "checks": {
+      "at_least_8_held_out_episodes": true,
+      "each_action_has_30_samples": true,
+      "reverse_braking_each_has_30_samples": false,
+      "overall_x_beats_carry_baseline": true,
+      "overall_vx_beats_carry_baseline": true,
+      "each_action_x_beats_carry_baseline": true,
+      "two_to_five_step_rollouts_beat_carry": true
+    },
+    "shadow_model_eligible": false,
+    "live_deployment_approved": false,
+    "historical_calibration_coverage": {
+      "source_files": 17,
+      "source_files_total": 18,
+      "excluded_files": [
+        "calibration_v1_reverse-braking_20260803_025236_563731.jsonl"
+      ],
+      "strict_continuous_rows": 534,
+      "counts": {
+        "left_reverse_braking": 24,
+        "right_reverse_braking": 21,
+        "first_release_after_left": 37,
+        "first_release_after_right": 27
+      },
+      "controller_context_available": false,
+      "merge_into_primary_gate": false,
+      "fixed_platform_qualification": "DO_NOT_USE_AS_TEACHER_GATE_OR_LANDING_POLICY_EVIDENCE",
+      "fixed_platform_included_new_totals": {
+        "runs": 3,
+        "strict_rows": 84,
+        "left_reverse_braking": 23,
+        "right_reverse_braking": 21
+      },
+      "conclusion": "Fixed-platform reversal rows are diagnostic-only; they do not repair natural landing-context coverage and lack controller sidecars."
+    }
+  },
+  "special_encounters": [
+    {
+      "source": "teacher_real_micro_20260803_010405_293428/episode_01",
+      "encounter_index": 1,
+      "kind": "spikes",
+      "start_step": 7,
+      "end_step": 7,
+      "span_steps": 1,
+      "contact_steps": 1,
+      "contact_ids": [
+        1
+      ],
+      "source_platform_ids": [
+        8
+      ],
+      "contact_id_fragmentation": 0,
+      "source_id_fragmentation": 0,
+      "bounce_count": 0,
+      "spike_damage_count": 0,
+      "health_gain_count": 0,
+      "normal_landing_count": 0,
+      "release_count": 0,
+      "direction_reversal_count": 0,
+      "start_floor": 1,
+      "max_outcome_floor": 1,
+      "floor_progress": 0,
+      "exit_observed": true,
+      "terminal_within_outcome": false,
+      "outcome_rows": 8
+    },
+    {
+      "source": "teacher_real_micro_20260803_010405_293428/episode_01",
+      "encounter_index": 2,
+      "kind": "spikes",
+      "start_step": 20,
+      "end_step": 33,
+      "span_steps": 14,
+      "contact_steps": 14,
+      "contact_ids": [
+        2
+      ],
+      "source_platform_ids": [
+        13
+      ],
+      "contact_id_fragmentation": 0,
+      "source_id_fragmentation": 0,
+      "bounce_count": 0,
+      "spike_damage_count": 0,
+      "health_gain_count": 0,
+      "normal_landing_count": 0,
+      "release_count": 1,
+      "direction_reversal_count": 1,
+      "start_floor": 1,
+      "max_outcome_floor": 2,
+      "floor_progress": 1,
+      "exit_observed": true,
+      "terminal_within_outcome": false,
+      "outcome_rows": 8
+    },
+    {
+      "source": "teacher_real_micro_20260803_011114_410228/episode_02",
+      "encounter_index": 1,
+      "kind": "spring",
+      "start_step": 52,
+      "end_step": 55,
+      "span_steps": 4,
+      "contact_steps": 4,
+      "contact_ids": [
+        1
+      ],
+      "source_platform_ids": [
+        17
+      ],
+      "contact_id_fragmentation": 0,
+      "source_id_fragmentation": 0,
+      "bounce_count": 0,
+      "spike_damage_count": 0,
+      "health_gain_count": 0,
+      "normal_landing_count": 0,
+      "release_count": 0,
+      "direction_reversal_count": 0,
+      "start_floor": 3,
+      "max_outcome_floor": 3,
+      "floor_progress": 0,
+      "exit_observed": true,
+      "terminal_within_outcome": false,
+      "outcome_rows": 8
+    },
+    {
+      "source": "teacher_real_micro_20260803_011114_410228/episode_02",
+      "encounter_index": 2,
+      "kind": "spikes",
+      "start_step": 73,
+      "end_step": 77,
+      "span_steps": 5,
+      "contact_steps": 5,
+      "contact_ids": [
+        2
+      ],
+      "source_platform_ids": [
+        20
+      ],
+      "contact_id_fragmentation": 0,
+      "source_id_fragmentation": 0,
+      "bounce_count": 0,
+      "spike_damage_count": 0,
+      "health_gain_count": 0,
+      "normal_landing_count": 0,
+      "release_count": 0,
+      "direction_reversal_count": 0,
+      "start_floor": 4,
+      "max_outcome_floor": 4,
+      "floor_progress": 0,
+      "exit_observed": false,
+      "terminal_within_outcome": false,
+      "outcome_rows": 0
+    },
+    {
+      "source": "teacher_real_micro_20260803_011114_410228/episode_03",
+      "encounter_index": 1,
+      "kind": "spikes",
+      "start_step": 27,
+      "end_step": 27,
+      "span_steps": 1,
+      "contact_steps": 1,
+      "contact_ids": [
+        1
+      ],
+      "source_platform_ids": [
+        10
+      ],
+      "contact_id_fragmentation": 0,
+      "source_id_fragmentation": 0,
+      "bounce_count": 0,
+      "spike_damage_count": 0,
+      "health_gain_count": 0,
+      "normal_landing_count": 1,
+      "release_count": 0,
+      "direction_reversal_count": 0,
+      "start_floor": 2,
+      "max_outcome_floor": 2,
+      "floor_progress": 0,
+      "exit_observed": true,
+      "terminal_within_outcome": false,
+      "outcome_rows": 8
+    },
+    {
+      "source": "teacher_real_micro_20260803_012857_250916/episode_01",
+      "encounter_index": 1,
+      "kind": "spikes",
+      "start_step": 14,
+      "end_step": 16,
+      "span_steps": 3,
+      "contact_steps": 3,
+      "contact_ids": [
+        1
+      ],
+      "source_platform_ids": [
+        8
+      ],
+      "contact_id_fragmentation": 0,
+      "source_id_fragmentation": 0,
+      "bounce_count": 0,
+      "spike_damage_count": 0,
+      "health_gain_count": 2,
+      "normal_landing_count": 0,
+      "release_count": 0,
+      "direction_reversal_count": 0,
+      "start_floor": 1,
+      "max_outcome_floor": 2,
+      "floor_progress": 1,
+      "exit_observed": true,
+      "terminal_within_outcome": false,
+      "outcome_rows": 8
+    },
+    {
+      "source": "teacher_real_micro_20260803_012857_250916/episode_02",
+      "encounter_index": 1,
+      "kind": "spikes",
+      "start_step": 37,
+      "end_step": 39,
+      "span_steps": 3,
+      "contact_steps": 3,
+      "contact_ids": [
+        1
+      ],
+      "source_platform_ids": [
+        14
+      ],
+      "contact_id_fragmentation": 0,
+      "source_id_fragmentation": 0,
+      "bounce_count": 0,
+      "spike_damage_count": 1,
+      "health_gain_count": 1,
+      "normal_landing_count": 1,
+      "release_count": 0,
+      "direction_reversal_count": 0,
+      "start_floor": 2,
+      "max_outcome_floor": 3,
+      "floor_progress": 1,
+      "exit_observed": true,
+      "terminal_within_outcome": false,
+      "outcome_rows": 8
+    },
+    {
+      "source": "teacher_real_micro_20260803_012857_250916/episode_02",
+      "encounter_index": 2,
+      "kind": "spring",
+      "start_step": 62,
+      "end_step": 64,
+      "span_steps": 3,
+      "contact_steps": 3,
+      "contact_ids": [
+        2
+      ],
+      "source_platform_ids": [
+        22
+      ],
+      "contact_id_fragmentation": 0,
+      "source_id_fragmentation": 0,
+      "bounce_count": 0,
+      "spike_damage_count": 0,
+      "health_gain_count": 2,
+      "normal_landing_count": 1,
+      "release_count": 0,
+      "direction_reversal_count": 0,
+      "start_floor": 3,
+      "max_outcome_floor": 4,
+      "floor_progress": 1,
+      "exit_observed": true,
+      "terminal_within_outcome": false,
+      "outcome_rows": 8
+    },
+    {
+      "source": "teacher_real_micro_20260803_012857_250916/episode_02",
+      "encounter_index": 3,
+      "kind": "spring",
+      "start_step": 101,
+      "end_step": 116,
+      "span_steps": 16,
+      "contact_steps": 11,
+      "contact_ids": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "source_platform_ids": [
+        38,
+        39,
+        41,
+        44
+      ],
+      "contact_id_fragmentation": 3,
+      "source_id_fragmentation": 3,
+      "bounce_count": 2,
+      "spike_damage_count": 0,
+      "health_gain_count": 0,
+      "normal_landing_count": 1,
+      "release_count": 7,
+      "direction_reversal_count": 3,
+      "start_floor": 5,
+      "max_outcome_floor": 5,
+      "floor_progress": 0,
+      "exit_observed": true,
+      "terminal_within_outcome": false,
+      "outcome_rows": 8
+    },
+    {
+      "source": "teacher_real_micro_20260803_012857_250916/episode_02",
+      "encounter_index": 4,
+      "kind": "spikes",
+      "start_step": 139,
+      "end_step": 139,
+      "span_steps": 1,
+      "contact_steps": 1,
+      "contact_ids": [
+        7
+      ],
+      "source_platform_ids": [
+        54
+      ],
+      "contact_id_fragmentation": 0,
+      "source_id_fragmentation": 0,
+      "bounce_count": 0,
+      "spike_damage_count": 0,
+      "health_gain_count": 0,
+      "normal_landing_count": 0,
+      "release_count": 0,
+      "direction_reversal_count": 0,
+      "start_floor": 5,
+      "max_outcome_floor": 5,
+      "floor_progress": 0,
+      "exit_observed": false,
+      "terminal_within_outcome": true,
+      "outcome_rows": 1
+    },
+    {
+      "source": "teacher_real_micro_20260803_014454_612146/episode_01",
+      "encounter_index": 1,
+      "kind": "spikes",
+      "start_step": 18,
+      "end_step": 18,
+      "span_steps": 1,
+      "contact_steps": 1,
+      "contact_ids": [
+        1
+      ],
+      "source_platform_ids": [
+        9
+      ],
+      "contact_id_fragmentation": 0,
+      "source_id_fragmentation": 0,
+      "bounce_count": 0,
+      "spike_damage_count": 0,
+      "health_gain_count": 0,
+      "normal_landing_count": 1,
+      "release_count": 0,
+      "direction_reversal_count": 0,
+      "start_floor": 1,
+      "max_outcome_floor": 2,
+      "floor_progress": 1,
+      "exit_observed": true,
+      "terminal_within_outcome": false,
+      "outcome_rows": 8
+    },
+    {
+      "source": "teacher_real_micro_20260803_025855_425666/episode_01",
+      "encounter_index": 1,
+      "kind": "spring",
+      "start_step": 9,
+      "end_step": 10,
+      "span_steps": 2,
+      "contact_steps": 2,
+      "contact_ids": [
+        1
+      ],
+      "source_platform_ids": [
+        8
+      ],
+      "contact_id_fragmentation": 0,
+      "source_id_fragmentation": 0,
+      "bounce_count": 1,
+      "spike_damage_count": 0,
+      "health_gain_count": 0,
+      "normal_landing_count": 1,
+      "release_count": 0,
+      "direction_reversal_count": 0,
+      "start_floor": 1,
+      "max_outcome_floor": 2,
+      "floor_progress": 1,
+      "exit_observed": true,
+      "terminal_within_outcome": false,
+      "outcome_rows": 8
+    },
+    {
+      "source": "teacher_real_micro_20260803_025855_425666/episode_01",
+      "encounter_index": 2,
+      "kind": "spikes",
+      "start_step": 55,
+      "end_step": 57,
+      "span_steps": 3,
+      "contact_steps": 3,
+      "contact_ids": [
+        2
+      ],
+      "source_platform_ids": [
+        26
+      ],
+      "contact_id_fragmentation": 0,
+      "source_id_fragmentation": 0,
+      "bounce_count": 0,
+      "spike_damage_count": 0,
+      "health_gain_count": 1,
+      "normal_landing_count": 0,
+      "release_count": 1,
+      "direction_reversal_count": 0,
+      "start_floor": 4,
+      "max_outcome_floor": 5,
+      "floor_progress": 1,
+      "exit_observed": true,
+      "terminal_within_outcome": false,
+      "outcome_rows": 8
+    },
+    {
+      "source": "teacher_real_micro_20260803_025855_425666/episode_01",
+      "encounter_index": 3,
+      "kind": "spikes",
+      "start_step": 75,
+      "end_step": 76,
+      "span_steps": 2,
+      "contact_steps": 2,
+      "contact_ids": [
+        3
+      ],
+      "source_platform_ids": [
+        35
+      ],
+      "contact_id_fragmentation": 0,
+      "source_id_fragmentation": 0,
+      "bounce_count": 0,
+      "spike_damage_count": 0,
+      "health_gain_count": 2,
+      "normal_landing_count": 1,
+      "release_count": 0,
+      "direction_reversal_count": 0,
+      "start_floor": 5,
+      "max_outcome_floor": 5,
+      "floor_progress": 0,
+      "exit_observed": true,
+      "terminal_within_outcome": false,
+      "outcome_rows": 8
+    },
+    {
+      "source": "teacher_real_micro_20260803_030549_704516/episode_02",
+      "encounter_index": 1,
+      "kind": "spikes",
+      "start_step": 111,
+      "end_step": 112,
+      "span_steps": 2,
+      "contact_steps": 2,
+      "contact_ids": [
+        1
+      ],
+      "source_platform_ids": [
+        44
+      ],
+      "contact_id_fragmentation": 0,
+      "source_id_fragmentation": 0,
+      "bounce_count": 0,
+      "spike_damage_count": 0,
+      "health_gain_count": 2,
+      "normal_landing_count": 2,
+      "release_count": 0,
+      "direction_reversal_count": 0,
+      "start_floor": 7,
+      "max_outcome_floor": 8,
+      "floor_progress": 1,
+      "exit_observed": true,
+      "terminal_within_outcome": false,
+      "outcome_rows": 8
+    },
+    {
+      "source": "teacher_real_micro_20260803_030549_704516/episode_03",
+      "encounter_index": 1,
+      "kind": "spring",
+      "start_step": 32,
+      "end_step": 33,
+      "span_steps": 2,
+      "contact_steps": 2,
+      "contact_ids": [
+        1
+      ],
+      "source_platform_ids": [
+        16
+      ],
+      "contact_id_fragmentation": 0,
+      "source_id_fragmentation": 0,
+      "bounce_count": 1,
+      "spike_damage_count": 0,
+      "health_gain_count": 0,
+      "normal_landing_count": 1,
+      "release_count": 0,
+      "direction_reversal_count": 0,
+      "start_floor": 3,
+      "max_outcome_floor": 3,
+      "floor_progress": 0,
+      "exit_observed": true,
+      "terminal_within_outcome": false,
+      "outcome_rows": 8
+    },
+    {
+      "source": "teacher_real_micro_20260803_030549_704516/episode_03",
+      "encounter_index": 2,
+      "kind": "spikes",
+      "start_step": 68,
+      "end_step": 76,
+      "span_steps": 9,
+      "contact_steps": 9,
+      "contact_ids": [
+        2
+      ],
+      "source_platform_ids": [
+        28,
+        29
+      ],
+      "contact_id_fragmentation": 0,
+      "source_id_fragmentation": 1,
+      "bounce_count": 1,
+      "spike_damage_count": 1,
+      "health_gain_count": 2,
+      "normal_landing_count": 0,
+      "release_count": 1,
+      "direction_reversal_count": 1,
+      "start_floor": 5,
+      "max_outcome_floor": 6,
+      "floor_progress": 1,
+      "exit_observed": false,
+      "terminal_within_outcome": false,
+      "outcome_rows": 8
+    },
+    {
+      "source": "teacher_real_micro_20260803_030549_704516/episode_03",
+      "encounter_index": 3,
+      "kind": "spring",
+      "start_step": 79,
+      "end_step": 82,
+      "span_steps": 4,
+      "contact_steps": 4,
+      "contact_ids": [
+        3
+      ],
+      "source_platform_ids": [
+        33,
+        37
+      ],
+      "contact_id_fragmentation": 0,
+      "source_id_fragmentation": 1,
+      "bounce_count": 1,
+      "spike_damage_count": 0,
+      "health_gain_count": 2,
+      "normal_landing_count": 0,
+      "release_count": 1,
+      "direction_reversal_count": 0,
+      "start_floor": 5,
+      "max_outcome_floor": 6,
+      "floor_progress": 1,
+      "exit_observed": false,
+      "terminal_within_outcome": false,
+      "outcome_rows": 8
+    },
+    {
+      "source": "teacher_real_micro_20260803_030549_704516/episode_03",
+      "encounter_index": 4,
+      "kind": "spikes",
+      "start_step": 83,
+      "end_step": 83,
+      "span_steps": 1,
+      "contact_steps": 1,
+      "contact_ids": [
+        4
+      ],
+      "source_platform_ids": [
+        34
+      ],
+      "contact_id_fragmentation": 0,
+      "source_id_fragmentation": 0,
+      "bounce_count": 0,
+      "spike_damage_count": 0,
+      "health_gain_count": 2,
+      "normal_landing_count": 0,
+      "release_count": 1,
+      "direction_reversal_count": 0,
+      "start_floor": 6,
+      "max_outcome_floor": 6,
+      "floor_progress": 0,
+      "exit_observed": true,
+      "terminal_within_outcome": false,
+      "outcome_rows": 8
+    },
+    {
+      "source": "teacher_real_micro_20260803_030549_704516/episode_03",
+      "encounter_index": 5,
+      "kind": "spring",
+      "start_step": 84,
+      "end_step": 94,
+      "span_steps": 11,
+      "contact_steps": 7,
+      "contact_ids": [
+        5,
+        6
+      ],
+      "source_platform_ids": [
+        36,
+        40,
+        42
+      ],
+      "contact_id_fragmentation": 1,
+      "source_id_fragmentation": 2,
+      "bounce_count": 1,
+      "spike_damage_count": 0,
+      "health_gain_count": 5,
+      "normal_landing_count": 0,
+      "release_count": 2,
+      "direction_reversal_count": 1,
+      "start_floor": 6,
+      "max_outcome_floor": 7,
+      "floor_progress": 1,
+      "exit_observed": true,
+      "terminal_within_outcome": false,
+      "outcome_rows": 8
+    }
+  ],
+  "primary_gate": {
+    "experiment": "teacher-real-game-micro-gate-v9",
+    "dry_run": false,
+    "episodes": [
+      {
+        "episode": 1,
+        "steps": 18,
+        "floors": 2,
+        "floor_start": 1,
+        "floor_max": 2,
+        "floor_counter_available": true,
+        "floor_counter_unstable_steps": 3,
+        "physical_response_samples": [
+          {
+            "direction": "RIGHT",
+            "latency_ms": 109.00000000037835,
+            "step": 3
+          },
+          {
+            "direction": "RIGHT",
+            "latency_ms": 110.00000000058208,
+            "step": 6
+          },
+          {
+            "direction": "LEFT",
+            "latency_ms": 125.0,
+            "step": 15
+          }
+        ],
+        "physical_response_timeouts": 0,
+        "wall_telemetry_available": true,
+        "outward_wall_push_count": 0,
+        "max_outward_wall_push_streak": 0,
+        "player_telemetry_available": true,
+        "player_missing_step_count": 1,
+        "max_player_missing_streak": 1,
+        "wall_reentry_cycle_count": 0,
+        "rapid_direction_reversal_count": 1,
+        "max_rapid_direction_reversal_burst": 1,
+        "max_wall_direction_reversal_burst": 0,
+        "max_aligned_release_streak": 4,
+        "max_support_aligned_release_streak": 3,
+        "support_departure_telemetry_available": true,
+        "same_support_departure_cycle_count": 0,
+        "support_departure_target_switch_count": 0,
+        "support_departure_timeout_count": 0,
+        "support_edge_release_count": 0,
+        "support_edge_opportunity_count": 2,
+        "support_departure_exit_samples": [
+          2,
+          1
+        ],
+        "max_support_departure_steps": 2,
+        "action_counts": {
+          "LEFT": 3,
+          "RELEASE_ALL": 10,
+          "RIGHT": 5
+        },
+        "terminal_reason": "bottom",
+        "forced_reason": "terminal_phase_before_action",
+        "observation_valid": true,
+        "target_lock_seen": true,
+        "transition_records": 18,
+        "controller_records": 18,
+        "video_complete": true,
+        "transition_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_030549_704516\\episode_01.transitions.jsonl",
+        "controller_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_030549_704516\\episode_01.controller.jsonl",
+        "video_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_030549_704516\\episode_01.mp4",
+        "dropout_forensic_manifest_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_030549_704516\\episode_01.dropout\\manifest.json",
+        "dropout_forensic_snapshot_count": 1,
+        "dropout_forensic_dropped_snapshot_count": 0,
+        "dropout_forensic_telemetry_available": true,
+        "observation_dropout_telemetry_available": true,
+        "invalid_observation_step_count": 0,
+        "recovered_observation_dropout_count": 0,
+        "max_recovered_observation_dropout_streak": 0,
+        "unrecovered_observation_dropout_count": 0,
+        "terminal_observation_dropout_count": 0,
+        "blind_directional_action_count": 0,
+        "top_pressure_dropout_continue_count": 0,
+        "max_top_pressure_dropout_continue_streak": 0,
+        "top_pressure_dropout_exhausted_count": 0,
+        "top_pressure_support_escape_count": 0,
+        "observation_dropout_context_counts": {},
+        "observation_dropout_samples": [],
+        "max_active_wall_direction_reversal_burst": 0,
+        "active_wall_direction_reversal_count": 0,
+        "excluded_wall_special_context_steps": 0,
+        "support_settle_release_count": 5,
+        "actionable_support_release_count": 0,
+        "max_actionable_support_aligned_release_streak": 0,
+        "support_departure_abort_cooldown_count": 0,
+        "max_support_departure_abort_cooldown_streak": 0,
+        "landing_intercept_telemetry_available": true,
+        "landing_release_projection_telemetry_available": true,
+        "special_escape_destination_telemetry_available": true,
+        "special_contact_lifecycle_telemetry_available": true,
+        "landing_intercept_decision_count": 16,
+        "landing_release_projection_decision_count": 14,
+        "destination_aware_special_escape_count": 0,
+        "momentum_guard_special_escape_count": 0,
+        "special_escape_replan_count": 0,
+        "special_contact_count": 0,
+        "pre_special_context_samples": [],
+        "max_pre_special_observation_dropout_streak": 0,
+        "max_pre_special_release_streak": 0,
+        "max_pre_special_dropout_release_streak": 0,
+        "spring_special_contact_count": 0,
+        "spike_special_contact_count": 0,
+        "special_source_reacquire_count": 0,
+        "same_special_source_restart_count": 0,
+        "max_special_contact_steps": 0,
+        "max_special_escape_replan_count": 0,
+        "max_special_direction_reversal_count": 0,
+        "max_special_direction_change_brake_count": 0,
+        "special_forced_exit_count": 0,
+        "special_escape_safety_abort_count": 0,
+        "support_edge_actionable_telemetry_available": true,
+        "generic_support_edge_release_count": 0,
+        "generic_support_edge_opportunity_count": 2
+      },
+      {
+        "episode": 2,
+        "steps": 144,
+        "floors": 9,
+        "floor_start": 1,
+        "floor_max": 9,
+        "floor_counter_available": true,
+        "floor_counter_unstable_steps": 23,
+        "physical_response_samples": [
+          {
+            "direction": "LEFT",
+            "latency_ms": 110.00000000058208,
+            "step": 0
+          },
+          {
+            "direction": "RIGHT",
+            "latency_ms": 109.00000000037835,
+            "step": 9
+          },
+          {
+            "direction": "RIGHT",
+            "latency_ms": 125.0,
+            "step": 15
+          },
+          {
+            "direction": "RIGHT",
+            "latency_ms": 109.00000000037835,
+            "step": 23
+          },
+          {
+            "direction": "RIGHT",
+            "latency_ms": 125.0,
+            "step": 28
+          },
+          {
+            "direction": "LEFT",
+            "latency_ms": 109.00000000037835,
+            "step": 31
+          },
+          {
+            "direction": "LEFT",
+            "latency_ms": 93.0000000007567,
+            "step": 35
+          },
+          {
+            "direction": "RIGHT",
+            "latency_ms": 125.0,
+            "step": 40
+          },
+          {
+            "direction": "LEFT",
+            "latency_ms": 125.0,
+            "step": 47
+          },
+          {
+            "direction": "LEFT",
+            "latency_ms": 125.0,
+            "step": 51
+          },
+          {
+            "direction": "RIGHT",
+            "latency_ms": 264.9999999994179,
+            "step": 57
+          },
+          {
+            "direction": "RIGHT",
+            "latency_ms": 125.0,
+            "step": 62
+          },
+          {
+            "direction": "RIGHT",
+            "latency_ms": 94.00000000096043,
+            "step": 72
+          },
+          {
+            "direction": "LEFT",
+            "latency_ms": 125.0,
+            "step": 77
+          },
+          {
+            "direction": "LEFT",
+            "latency_ms": 94.00000000096043,
+            "step": 82
+          },
+          {
+            "direction": "RIGHT",
+            "latency_ms": 108.99999999674037,
+            "step": 100
+          },
+          {
+            "direction": "LEFT",
+            "latency_ms": 125.0,
+            "step": 111
+          },
+          {
+            "direction": "RIGHT",
+            "latency_ms": 108.99999999674037,
+            "step": 118
+          },
+          {
+            "direction": "LEFT",
+            "latency_ms": 94.00000000096043,
+            "step": 124
+          },
+          {
+            "direction": "LEFT",
+            "latency_ms": 125.0,
+            "step": 131
+          },
+          {
+            "direction": "RIGHT",
+            "latency_ms": 108.99999999674037,
+            "step": 135
+          }
+        ],
+        "physical_response_timeouts": 0,
+        "wall_telemetry_available": true,
+        "outward_wall_push_count": 0,
+        "max_outward_wall_push_streak": 0,
+        "player_telemetry_available": true,
+        "player_missing_step_count": 1,
+        "max_player_missing_streak": 1,
+        "wall_reentry_cycle_count": 0,
+        "rapid_direction_reversal_count": 13,
+        "max_rapid_direction_reversal_burst": 4,
+        "max_wall_direction_reversal_burst": 1,
+        "max_aligned_release_streak": 9,
+        "max_support_aligned_release_streak": 4,
+        "support_departure_telemetry_available": true,
+        "same_support_departure_cycle_count": 0,
+        "support_departure_target_switch_count": 0,
+        "support_departure_timeout_count": 0,
+        "support_edge_release_count": 0,
+        "support_edge_opportunity_count": 25,
+        "support_departure_exit_samples": [
+          3,
+          4,
+          2,
+          1,
+          4,
+          3,
+          2,
+          2,
+          3,
+          3,
+          4,
+          3,
+          7,
+          1,
+          2,
+          3,
+          3,
+          3,
+          3
+        ],
+        "max_support_departure_steps": 7,
+        "action_counts": {
+          "LEFT": 37,
+          "RELEASE_ALL": 59,
+          "RIGHT": 48
+        },
+        "terminal_reason": "bottom",
+        "forced_reason": "terminal_phase_before_action",
+        "observation_valid": true,
+        "target_lock_seen": true,
+        "transition_records": 144,
+        "controller_records": 144,
+        "video_complete": true,
+        "transition_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_030549_704516\\episode_02.transitions.jsonl",
+        "controller_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_030549_704516\\episode_02.controller.jsonl",
+        "video_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_030549_704516\\episode_02.mp4",
+        "dropout_forensic_manifest_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_030549_704516\\episode_02.dropout\\manifest.json",
+        "dropout_forensic_snapshot_count": 1,
+        "dropout_forensic_dropped_snapshot_count": 0,
+        "dropout_forensic_telemetry_available": true,
+        "observation_dropout_telemetry_available": true,
+        "invalid_observation_step_count": 0,
+        "recovered_observation_dropout_count": 0,
+        "max_recovered_observation_dropout_streak": 0,
+        "unrecovered_observation_dropout_count": 0,
+        "terminal_observation_dropout_count": 0,
+        "blind_directional_action_count": 0,
+        "top_pressure_dropout_continue_count": 0,
+        "max_top_pressure_dropout_continue_streak": 0,
+        "top_pressure_dropout_exhausted_count": 0,
+        "top_pressure_support_escape_count": 0,
+        "observation_dropout_context_counts": {},
+        "observation_dropout_samples": [],
+        "max_active_wall_direction_reversal_burst": 0,
+        "active_wall_direction_reversal_count": 0,
+        "excluded_wall_special_context_steps": 0,
+        "support_settle_release_count": 14,
+        "actionable_support_release_count": 0,
+        "max_actionable_support_aligned_release_streak": 0,
+        "support_departure_abort_cooldown_count": 0,
+        "max_support_departure_abort_cooldown_streak": 0,
+        "landing_intercept_telemetry_available": true,
+        "landing_release_projection_telemetry_available": true,
+        "special_escape_destination_telemetry_available": true,
+        "special_contact_lifecycle_telemetry_available": true,
+        "landing_intercept_decision_count": 100,
+        "landing_release_projection_decision_count": 81,
+        "destination_aware_special_escape_count": 2,
+        "momentum_guard_special_escape_count": 0,
+        "special_escape_replan_count": 0,
+        "special_contact_count": 1,
+        "pre_special_context_samples": [
+          {
+            "step": 111,
+            "contact_id": 1,
+            "kind": "spikes",
+            "dropout_steps": 0,
+            "release_steps": 1,
+            "dropout_release_steps": 0
+          }
+        ],
+        "max_pre_special_observation_dropout_streak": 0,
+        "max_pre_special_release_streak": 1,
+        "max_pre_special_dropout_release_streak": 0,
+        "spring_special_contact_count": 0,
+        "spike_special_contact_count": 1,
+        "special_source_reacquire_count": 0,
+        "same_special_source_restart_count": 0,
+        "max_special_contact_steps": 2,
+        "max_special_escape_replan_count": 0,
+        "max_special_direction_reversal_count": 0,
+        "max_special_direction_change_brake_count": 0,
+        "special_forced_exit_count": 0,
+        "special_escape_safety_abort_count": 0,
+        "support_edge_actionable_telemetry_available": true,
+        "generic_support_edge_release_count": 11,
+        "generic_support_edge_opportunity_count": 37
+      },
+      {
+        "episode": 3,
+        "steps": 111,
+        "floors": 7,
+        "floor_start": 1,
+        "floor_max": 7,
+        "floor_counter_available": true,
+        "floor_counter_unstable_steps": 17,
+        "physical_response_samples": [
+          {
+            "direction": "RIGHT",
+            "latency_ms": 110.00000000058208,
+            "step": 3
+          },
+          {
+            "direction": "LEFT",
+            "latency_ms": 110.00000000058208,
+            "step": 8
+          },
+          {
+            "direction": "RIGHT",
+            "latency_ms": 109.00000000037835,
+            "step": 12
+          },
+          {
+            "direction": "LEFT",
+            "latency_ms": 109.00000000037835,
+            "step": 17
+          },
+          {
+            "direction": "RIGHT",
+            "latency_ms": 109.00000000037835,
+            "step": 24
+          },
+          {
+            "direction": "LEFT",
+            "latency_ms": 125.0,
+            "step": 28
+          },
+          {
+            "direction": "RIGHT",
+            "latency_ms": 110.00000000058208,
+            "step": 32
+          },
+          {
+            "direction": "LEFT",
+            "latency_ms": 109.00000000037835,
+            "step": 35
+          },
+          {
+            "direction": "LEFT",
+            "latency_ms": 110.00000000058208,
+            "step": 39
+          },
+          {
+            "direction": "RIGHT",
+            "latency_ms": 110.00000000058208,
+            "step": 43
+          },
+          {
+            "direction": "LEFT",
+            "latency_ms": 110.00000000058208,
+            "step": 50
+          },
+          {
+            "direction": "RIGHT",
+            "latency_ms": 109.00000000037835,
+            "step": 54
+          },
+          {
+            "direction": "LEFT",
+            "latency_ms": 110.00000000058208,
+            "step": 62
+          },
+          {
+            "direction": "RIGHT",
+            "latency_ms": 125.0,
+            "step": 65
+          },
+          {
+            "direction": "RIGHT",
+            "latency_ms": 93.99999999732245,
+            "step": 68
+          },
+          {
+            "direction": "LEFT",
+            "latency_ms": 125.0,
+            "step": 71
+          },
+          {
+            "direction": "RIGHT",
+            "latency_ms": 109.00000000037835,
+            "step": 78
+          },
+          {
+            "direction": "LEFT",
+            "latency_ms": 109.00000000037835,
+            "step": 80
+          },
+          {
+            "direction": "RIGHT",
+            "latency_ms": 108.99999999674037,
+            "step": 87
+          },
+          {
+            "direction": "LEFT",
+            "latency_ms": 109.00000000037835,
+            "step": 98
+          },
+          {
+            "direction": "RIGHT",
+            "latency_ms": 125.0,
+            "step": 104
+          },
+          {
+            "direction": "LEFT",
+            "latency_ms": 109.00000000037835,
+            "step": 108
+          }
+        ],
+        "physical_response_timeouts": 0,
+        "wall_telemetry_available": true,
+        "outward_wall_push_count": 0,
+        "max_outward_wall_push_streak": 0,
+        "player_telemetry_available": true,
+        "player_missing_step_count": 0,
+        "max_player_missing_streak": 0,
+        "wall_reentry_cycle_count": 0,
+        "rapid_direction_reversal_count": 17,
+        "max_rapid_direction_reversal_burst": 16,
+        "max_wall_direction_reversal_burst": 0,
+        "max_aligned_release_streak": 3,
+        "max_support_aligned_release_streak": 3,
+        "support_departure_telemetry_available": true,
+        "same_support_departure_cycle_count": 0,
+        "support_departure_target_switch_count": 0,
+        "support_departure_timeout_count": 0,
+        "support_edge_release_count": 0,
+        "support_edge_opportunity_count": 12,
+        "support_departure_exit_samples": [
+          2,
+          2,
+          4,
+          4,
+          2,
+          3,
+          3,
+          1,
+          1,
+          3,
+          1,
+          5
+        ],
+        "max_support_departure_steps": 5,
+        "action_counts": {
+          "LEFT": 36,
+          "RELEASE_ALL": 38,
+          "RIGHT": 37
+        },
+        "terminal_reason": "top",
+        "forced_reason": "terminal_phase_before_action",
+        "observation_valid": true,
+        "target_lock_seen": true,
+        "transition_records": 111,
+        "controller_records": 111,
+        "video_complete": true,
+        "transition_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_030549_704516\\episode_03.transitions.jsonl",
+        "controller_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_030549_704516\\episode_03.controller.jsonl",
+        "video_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_030549_704516\\episode_03.mp4",
+        "dropout_forensic_manifest_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_030549_704516\\episode_03.dropout\\manifest.json",
+        "dropout_forensic_snapshot_count": 0,
+        "dropout_forensic_dropped_snapshot_count": 0,
+        "dropout_forensic_telemetry_available": true,
+        "observation_dropout_telemetry_available": true,
+        "invalid_observation_step_count": 0,
+        "recovered_observation_dropout_count": 0,
+        "max_recovered_observation_dropout_streak": 0,
+        "unrecovered_observation_dropout_count": 0,
+        "terminal_observation_dropout_count": 0,
+        "blind_directional_action_count": 0,
+        "top_pressure_dropout_continue_count": 0,
+        "max_top_pressure_dropout_continue_streak": 0,
+        "top_pressure_dropout_exhausted_count": 0,
+        "top_pressure_support_escape_count": 0,
+        "observation_dropout_context_counts": {},
+        "observation_dropout_samples": [],
+        "max_active_wall_direction_reversal_burst": 0,
+        "active_wall_direction_reversal_count": 0,
+        "excluded_wall_special_context_steps": 0,
+        "support_settle_release_count": 9,
+        "actionable_support_release_count": 0,
+        "max_actionable_support_aligned_release_streak": 0,
+        "support_departure_abort_cooldown_count": 0,
+        "max_support_departure_abort_cooldown_streak": 0,
+        "landing_intercept_telemetry_available": true,
+        "landing_release_projection_telemetry_available": true,
+        "special_escape_destination_telemetry_available": true,
+        "special_contact_lifecycle_telemetry_available": true,
+        "landing_intercept_decision_count": 63,
+        "landing_release_projection_decision_count": 50,
+        "destination_aware_special_escape_count": 7,
+        "momentum_guard_special_escape_count": 0,
+        "special_escape_replan_count": 0,
+        "special_contact_count": 6,
+        "pre_special_context_samples": [
+          {
+            "step": 32,
+            "contact_id": 1,
+            "kind": "spring",
+            "dropout_steps": 0,
+            "release_steps": 2,
+            "dropout_release_steps": 0
+          },
+          {
+            "step": 68,
+            "contact_id": 2,
+            "kind": "spikes",
+            "dropout_steps": 0,
+            "release_steps": 2,
+            "dropout_release_steps": 0
+          },
+          {
+            "step": 79,
+            "contact_id": 3,
+            "kind": "spring",
+            "dropout_steps": 0,
+            "release_steps": 0,
+            "dropout_release_steps": 0
+          },
+          {
+            "step": 83,
+            "contact_id": 4,
+            "kind": "spikes",
+            "dropout_steps": 0,
+            "release_steps": 0,
+            "dropout_release_steps": 0
+          },
+          {
+            "step": 84,
+            "contact_id": 5,
+            "kind": "spring",
+            "dropout_steps": 0,
+            "release_steps": 1,
+            "dropout_release_steps": 0
+          },
+          {
+            "step": 89,
+            "contact_id": 6,
+            "kind": "spring",
+            "dropout_steps": 0,
+            "release_steps": 0,
+            "dropout_release_steps": 0
+          }
+        ],
+        "max_pre_special_observation_dropout_streak": 0,
+        "max_pre_special_release_streak": 2,
+        "max_pre_special_dropout_release_streak": 0,
+        "spring_special_contact_count": 4,
+        "spike_special_contact_count": 2,
+        "special_source_reacquire_count": 4,
+        "same_special_source_restart_count": 0,
+        "max_special_contact_steps": 9,
+        "max_special_escape_replan_count": 1,
+        "max_special_direction_reversal_count": 1,
+        "max_special_direction_change_brake_count": 1,
+        "special_forced_exit_count": 0,
+        "special_escape_safety_abort_count": 0,
+        "support_edge_actionable_telemetry_available": true,
+        "generic_support_edge_release_count": 5,
+        "generic_support_edge_opportunity_count": 18
+      }
+    ],
+    "safety_events": [],
+    "metrics": {
+      "episodes": 3,
+      "floors_semantics": "visual_hud_max_floor",
+      "mean_floors": 6.0,
+      "median_floors": 7.0,
+      "floor_q25": 4.5,
+      "floor_cvar25": 2.0,
+      "reach_floor_1": 3,
+      "reach_floor_3": 2,
+      "reach_floor_5": 2,
+      "reach_floor_10": 0,
+      "action_counts": {
+        "LEFT": 76,
+        "RELEASE_ALL": 107,
+        "RIGHT": 90
+      },
+      "max_action_share": 0.39194139194139194,
+      "terminal_reasons": {
+        "bottom": 2,
+        "top": 1
+      },
+      "safety_event_count": 0,
+      "outward_wall_push_count": 0,
+      "max_outward_wall_push_streak": 0,
+      "player_missing_step_count": 2,
+      "max_player_missing_streak": 1,
+      "invalid_observation_step_count": 0,
+      "recovered_observation_dropout_count": 0,
+      "max_recovered_observation_dropout_streak": 0,
+      "unrecovered_observation_dropout_count": 0,
+      "terminal_observation_dropout_count": 0,
+      "blind_directional_action_count": 0,
+      "top_pressure_dropout_continue_count": 0,
+      "max_top_pressure_dropout_continue_streak": 0,
+      "top_pressure_dropout_exhausted_count": 0,
+      "top_pressure_support_escape_count": 0,
+      "observation_dropout_context_counts": {},
+      "dropout_forensic_snapshot_count": 2,
+      "dropout_forensic_dropped_snapshot_count": 0,
+      "wall_reentry_cycle_count": 0,
+      "rapid_direction_reversal_count": 31,
+      "max_rapid_direction_reversal_burst": 16,
+      "max_wall_direction_reversal_burst": 1,
+      "max_active_wall_direction_reversal_burst": 0,
+      "active_wall_direction_reversal_count": 0,
+      "excluded_wall_special_context_steps": 0,
+      "max_aligned_release_streak": 9,
+      "max_support_aligned_release_streak": 4,
+      "support_settle_release_count": 28,
+      "actionable_support_release_count": 0,
+      "max_actionable_support_aligned_release_streak": 0,
+      "same_support_departure_cycle_count": 0,
+      "support_departure_target_switch_count": 0,
+      "support_departure_timeout_count": 0,
+      "support_departure_abort_cooldown_count": 0,
+      "max_support_departure_abort_cooldown_streak": 0,
+      "landing_intercept_decision_count": 179,
+      "landing_release_projection_decision_count": 145,
+      "destination_aware_special_escape_count": 9,
+      "momentum_guard_special_escape_count": 0,
+      "special_escape_replan_count": 0,
+      "special_contact_count": 7,
+      "max_pre_special_observation_dropout_streak": 0,
+      "max_pre_special_release_streak": 2,
+      "max_pre_special_dropout_release_streak": 0,
+      "pre_special_context_samples": [
+        {
+          "episode": 2,
+          "step": 111,
+          "contact_id": 1,
+          "kind": "spikes",
+          "dropout_steps": 0,
+          "release_steps": 1,
+          "dropout_release_steps": 0
+        },
+        {
+          "episode": 3,
+          "step": 32,
+          "contact_id": 1,
+          "kind": "spring",
+          "dropout_steps": 0,
+          "release_steps": 2,
+          "dropout_release_steps": 0
+        },
+        {
+          "episode": 3,
+          "step": 68,
+          "contact_id": 2,
+          "kind": "spikes",
+          "dropout_steps": 0,
+          "release_steps": 2,
+          "dropout_release_steps": 0
+        },
+        {
+          "episode": 3,
+          "step": 79,
+          "contact_id": 3,
+          "kind": "spring",
+          "dropout_steps": 0,
+          "release_steps": 0,
+          "dropout_release_steps": 0
+        },
+        {
+          "episode": 3,
+          "step": 83,
+          "contact_id": 4,
+          "kind": "spikes",
+          "dropout_steps": 0,
+          "release_steps": 0,
+          "dropout_release_steps": 0
+        },
+        {
+          "episode": 3,
+          "step": 84,
+          "contact_id": 5,
+          "kind": "spring",
+          "dropout_steps": 0,
+          "release_steps": 1,
+          "dropout_release_steps": 0
+        },
+        {
+          "episode": 3,
+          "step": 89,
+          "contact_id": 6,
+          "kind": "spring",
+          "dropout_steps": 0,
+          "release_steps": 0,
+          "dropout_release_steps": 0
+        }
+      ],
+      "spring_special_contact_count": 4,
+      "spike_special_contact_count": 3,
+      "special_source_reacquire_count": 4,
+      "same_special_source_restart_count": 0,
+      "max_special_contact_steps": 9,
+      "max_special_escape_replan_count": 1,
+      "max_special_direction_reversal_count": 1,
+      "max_special_direction_change_brake_count": 1,
+      "special_forced_exit_count": 0,
+      "special_escape_safety_abort_count": 0,
+      "support_edge_release_count": 0,
+      "support_edge_opportunity_count": 39,
+      "support_edge_release_ratio": 0.0,
+      "generic_support_edge_release_count": 16,
+      "generic_support_edge_opportunity_count": 57,
+      "generic_support_edge_release_ratio": 0.2807017543859649,
+      "support_departure_exit_sample_count": 33,
+      "support_departure_exit_steps_median": 3.0,
+      "max_support_departure_steps": 7,
+      "floor_1_bottom_death_count": 0,
+      "physical_response_sample_count": 46,
+      "physical_response_latency_median_ms": 110.00000000058208,
+      "physical_response_latency_p95_ms": 125.0
+    },
+    "gate": {
+      "status": "PASS",
+      "passed": true,
+      "checks": {
+        "actual_not_dry_run": true,
+        "three_complete_episodes": true,
+        "requested_episodes_complete": true,
+        "safety_events_zero": true,
+        "observation_valid": true,
+        "floor_counter_available": true,
+        "wall_telemetry_available": true,
+        "player_telemetry_available": true,
+        "observation_dropout_telemetry_available": true,
+        "dropout_forensics_available": true,
+        "support_departure_telemetry_available": true,
+        "support_edge_actionable_telemetry_available": true,
+        "landing_intercept_telemetry_available": true,
+        "landing_release_projection_telemetry_available": true,
+        "special_escape_destination_telemetry_available": true,
+        "special_contact_lifecycle_telemetry_available": true,
+        "special_contact_observed": true,
+        "pre_special_observation_dropout_bounded": true,
+        "pre_special_dropout_release_bounded": true,
+        "same_special_source_restarts_zero": true,
+        "special_escape_safety_aborts_zero": true,
+        "special_escape_replans_bounded": true,
+        "special_direction_change_brakes_bounded": true,
+        "special_contact_steps_bounded": true,
+        "recoverable_player_dropout_bounded": true,
+        "unrecovered_player_dropouts_zero": true,
+        "blind_directional_actions_zero": true,
+        "top_pressure_continuation_bounded": true,
+        "top_pressure_dropout_exhaustion_zero": true,
+        "outward_wall_push_zero": true,
+        "wall_reentry_cycles_zero": true,
+        "wall_safety_oscillation_bounded": true,
+        "actionable_support_release_zero": true,
+        "same_support_departure_cycles_zero": true,
+        "support_departure_target_stable": true,
+        "support_departure_timeouts_zero": true,
+        "support_departure_abort_cooldown_bounded": true,
+        "support_edge_release_bounded": true,
+        "support_departure_exit_observed": true,
+        "support_departure_steps_bounded": true,
+        "floor_1_bottom_deaths_zero": true,
+        "physical_response_latency_measured": true,
+        "target_lock_seen": true,
+        "controller_and_transition_records_complete": true,
+        "videos_complete": true,
+        "no_action_collapse": true,
+        "reach_floor_3_case": true,
+        "reach_floor_5_case": true,
+        "five_episode_bottom_death_bounded": true,
+        "ten_episode_special_kind_coverage": true,
+        "failure_taxonomy_comparable": true
+      }
+    },
+    "audit": {
+      "mode": "recorded-controller-sidecar-reclassification",
+      "source_gate": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_030549_704516\\teacher_real_game_micro_gate.json",
+      "source_experiment": "teacher-real-game-micro-gate-v8",
+      "sidecars": [
+        {
+          "episode": 1,
+          "path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_030549_704516\\episode_01.controller.jsonl",
+          "records": 18
+        },
+        {
+          "episode": 2,
+          "path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_030549_704516\\episode_02.controller.jsonl",
+          "records": 144
+        },
+        {
+          "episode": 3,
+          "path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_030549_704516\\episode_03.controller.jsonl",
+          "records": 111
+        }
+      ],
+      "controller_policy_changed": false,
+      "game_input_sent": false,
+      "semantic_change": "support-edge blocking ratio now counts only a different target platform or an active support-departure lifecycle; same-support settle and special braking remain generic diagnostics",
+      "evidence_limit": "此結果可判定來源 run 在目前 Gate 語意下是否通過，因控制器、輸入與原始 sidecar 均未改變；它不取代後續獨立 10 回合穩定性 Gate，也不授權 P4.0 Student 正式訓練。"
+    },
+    "limits": {
+      "episodes": 3,
+      "max_steps_per_episode": 300,
+      "max_seconds_per_episode": 60.0,
+      "max_total_steps": 900,
+      "max_total_seconds": 180.0
+    }
+  },
+  "implementation_decisions": {
+    "live_controller_changed": false,
+    "spring_fsm_added": false,
+    "spike_fsm_added": false,
+    "active_stuck_watchdog_added": false,
+    "p4_student_training_started": false
+  }
+}

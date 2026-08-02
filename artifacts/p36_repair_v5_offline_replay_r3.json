@@ -1,0 +1,1380 @@
+{
+  "experiment": "p36-repair-v5-offline-replay",
+  "input": {
+    "glob": "logs/teacher_real_micro_20260801_04*/episode_*.mp4",
+    "video_count": 18,
+    "evidence_limit": "MP4 是壓縮後 counterfactual replay；可拒絕明顯失敗，不能取代全新真機 Gate。"
+  },
+  "videos": [
+    {
+      "video": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260801_041410_562360\\episode_01.mp4",
+      "total_frames": 50,
+      "playing_frames": 49,
+      "raw_player_detected_steps": 48,
+      "raw_player_missing_steps": 1,
+      "tracked_bridge_steps": 1,
+      "effective_player_missing_steps": 0,
+      "max_player_missing_streak": 1,
+      "outward_wall_push_count": 0,
+      "wall_reentry_cycle_count": 0,
+      "rapid_direction_reversal_count": 8,
+      "max_rapid_direction_reversal_burst": 8,
+      "max_wall_direction_reversal_burst": 1,
+      "max_aligned_release_streak": 2,
+      "action_counts": {
+        "LEFT": 14,
+        "RELEASE_ALL": 16,
+        "RIGHT": 19
+      },
+      "reason_counts": {
+        "escape_launch_platform": 14,
+        "move_toward_safe_platform": 11,
+        "aligned_with_safe_platform": 7,
+        "escape_special_contact": 4,
+        "direction_change_brake": 3,
+        "aligned_with_recovery_platform": 3,
+        "wall_guard_inward": 2,
+        "no_reachable_landing": 2,
+        "move_toward_recovery_platform": 1,
+        "aligned_with_visible_recovery_platform": 1,
+        "approach_visible_recovery_platform": 1
+      },
+      "wall_trace": [
+        {
+          "step": 39,
+          "player_x": 104.0,
+          "velocity_x": -52.0,
+          "action": "RELEASE_ALL",
+          "reason": "aligned_with_recovery_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 40,
+          "player_x": 104.0,
+          "velocity_x": 0.0,
+          "action": "RELEASE_ALL",
+          "reason": "aligned_with_visible_recovery_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 41,
+          "player_x": 104.0,
+          "velocity_x": 0.0,
+          "action": "LEFT",
+          "reason": "escape_launch_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 42,
+          "player_x": 87.0,
+          "velocity_x": -136.0,
+          "action": "LEFT",
+          "reason": "escape_launch_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 43,
+          "player_x": 72.0,
+          "velocity_x": -120.0,
+          "action": "RELEASE_ALL",
+          "reason": "direction_change_brake",
+          "wall_side": "left",
+          "wall_evacuation_active": true,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 44,
+          "player_x": 64.0,
+          "velocity_x": -64.0,
+          "action": "RIGHT",
+          "reason": "wall_guard_inward",
+          "wall_side": "left",
+          "wall_evacuation_active": true,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 45,
+          "player_x": 82.0,
+          "velocity_x": 144.0,
+          "action": "RIGHT",
+          "reason": "wall_guard_inward",
+          "wall_side": "left",
+          "wall_evacuation_active": true,
+          "wall_evacuation_cooldown_steps": 0
+        }
+      ]
+    },
+    {
+      "video": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260801_041410_562360\\episode_02.mp4",
+      "total_frames": 11,
+      "playing_frames": 10,
+      "raw_player_detected_steps": 9,
+      "raw_player_missing_steps": 1,
+      "tracked_bridge_steps": 1,
+      "effective_player_missing_steps": 0,
+      "max_player_missing_streak": 1,
+      "outward_wall_push_count": 0,
+      "wall_reentry_cycle_count": 0,
+      "rapid_direction_reversal_count": 1,
+      "max_rapid_direction_reversal_burst": 1,
+      "max_wall_direction_reversal_burst": 0,
+      "max_aligned_release_streak": 1,
+      "action_counts": {
+        "LEFT": 5,
+        "RELEASE_ALL": 2,
+        "RIGHT": 3
+      },
+      "reason_counts": {
+        "escape_launch_platform": 3,
+        "move_toward_safe_platform": 2,
+        "reposition_for_unseen_landing": 2,
+        "aligned_with_safe_platform": 1,
+        "direction_change_brake": 1,
+        "approach_visible_safe_platform": 1
+      },
+      "wall_trace": []
+    },
+    {
+      "video": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260801_041410_562360\\episode_03.mp4",
+      "total_frames": 11,
+      "playing_frames": 10,
+      "raw_player_detected_steps": 9,
+      "raw_player_missing_steps": 1,
+      "tracked_bridge_steps": 1,
+      "effective_player_missing_steps": 0,
+      "max_player_missing_streak": 1,
+      "outward_wall_push_count": 0,
+      "wall_reentry_cycle_count": 0,
+      "rapid_direction_reversal_count": 1,
+      "max_rapid_direction_reversal_burst": 1,
+      "max_wall_direction_reversal_burst": 0,
+      "max_aligned_release_streak": 1,
+      "action_counts": {
+        "LEFT": 5,
+        "RELEASE_ALL": 2,
+        "RIGHT": 3
+      },
+      "reason_counts": {
+        "escape_launch_platform": 3,
+        "move_toward_safe_platform": 2,
+        "reposition_for_unseen_landing": 2,
+        "aligned_with_visible_safe_platform": 1,
+        "direction_change_brake": 1,
+        "approach_visible_safe_platform": 1
+      },
+      "wall_trace": []
+    },
+    {
+      "video": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260801_041455_863766\\episode_01.mp4",
+      "total_frames": 29,
+      "playing_frames": 28,
+      "raw_player_detected_steps": 27,
+      "raw_player_missing_steps": 1,
+      "tracked_bridge_steps": 1,
+      "effective_player_missing_steps": 0,
+      "max_player_missing_streak": 1,
+      "outward_wall_push_count": 0,
+      "wall_reentry_cycle_count": 0,
+      "rapid_direction_reversal_count": 3,
+      "max_rapid_direction_reversal_burst": 2,
+      "max_wall_direction_reversal_burst": 0,
+      "max_aligned_release_streak": 5,
+      "action_counts": {
+        "LEFT": 6,
+        "RELEASE_ALL": 13,
+        "RIGHT": 9
+      },
+      "reason_counts": {
+        "escape_launch_platform": 7,
+        "direction_change_brake": 4,
+        "aligned_with_safe_platform": 4,
+        "aligned_with_visible_safe_platform": 2,
+        "move_toward_safe_platform": 2,
+        "escape_special_contact": 2,
+        "approach_visible_recovery_platform": 2,
+        "no_reachable_landing": 2,
+        "move_toward_recovery_platform": 1,
+        "aligned_with_recovery_platform": 1,
+        "approach_visible_emergency_spikes": 1
+      },
+      "wall_trace": [
+        {
+          "step": 8,
+          "player_x": 95.0,
+          "velocity_x": -144.0,
+          "action": "RIGHT",
+          "reason": "approach_visible_recovery_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 9,
+          "player_x": 88.0,
+          "velocity_x": -56.0,
+          "action": "RIGHT",
+          "reason": "move_toward_recovery_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        }
+      ]
+    },
+    {
+      "video": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260801_041455_863766\\episode_02.mp4",
+      "total_frames": 47,
+      "playing_frames": 46,
+      "raw_player_detected_steps": 46,
+      "raw_player_missing_steps": 0,
+      "tracked_bridge_steps": 0,
+      "effective_player_missing_steps": 0,
+      "max_player_missing_streak": 0,
+      "outward_wall_push_count": 0,
+      "wall_reentry_cycle_count": 0,
+      "rapid_direction_reversal_count": 2,
+      "max_rapid_direction_reversal_burst": 2,
+      "max_wall_direction_reversal_burst": 0,
+      "max_aligned_release_streak": 3,
+      "action_counts": {
+        "LEFT": 10,
+        "RELEASE_ALL": 20,
+        "RIGHT": 16
+      },
+      "reason_counts": {
+        "escape_launch_platform": 19,
+        "aligned_with_safe_platform": 9,
+        "aligned_with_deeper_safe_platform": 7,
+        "direction_change_brake": 4,
+        "escape_special_contact": 4,
+        "move_toward_safe_platform": 3
+      },
+      "wall_trace": []
+    },
+    {
+      "video": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260801_041455_863766\\episode_03.mp4",
+      "total_frames": 60,
+      "playing_frames": 59,
+      "raw_player_detected_steps": 59,
+      "raw_player_missing_steps": 0,
+      "tracked_bridge_steps": 0,
+      "effective_player_missing_steps": 0,
+      "max_player_missing_streak": 0,
+      "outward_wall_push_count": 0,
+      "wall_reentry_cycle_count": 0,
+      "rapid_direction_reversal_count": 7,
+      "max_rapid_direction_reversal_burst": 4,
+      "max_wall_direction_reversal_burst": 0,
+      "max_aligned_release_streak": 4,
+      "action_counts": {
+        "LEFT": 17,
+        "RELEASE_ALL": 23,
+        "RIGHT": 19
+      },
+      "reason_counts": {
+        "escape_launch_platform": 11,
+        "escape_special_contact": 8,
+        "move_toward_recovery_platform": 8,
+        "aligned_with_recovery_platform": 7,
+        "aligned_with_safe_platform": 5,
+        "direction_change_brake": 5,
+        "aligned_with_deeper_safe_platform": 4,
+        "move_toward_safe_platform": 3,
+        "reposition_for_unseen_landing": 2,
+        "escape_launch_platform_dwell": 2,
+        "aligned_with_visible_safe_platform": 1,
+        "approach_visible_recovery_platform": 1,
+        "no_reachable_landing": 1,
+        "move_toward_deeper_safe_platform": 1
+      },
+      "wall_trace": []
+    },
+    {
+      "video": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260801_041455_863766\\episode_04.mp4",
+      "total_frames": 15,
+      "playing_frames": 14,
+      "raw_player_detected_steps": 12,
+      "raw_player_missing_steps": 2,
+      "tracked_bridge_steps": 2,
+      "effective_player_missing_steps": 0,
+      "max_player_missing_streak": 2,
+      "outward_wall_push_count": 0,
+      "wall_reentry_cycle_count": 0,
+      "rapid_direction_reversal_count": 1,
+      "max_rapid_direction_reversal_burst": 1,
+      "max_wall_direction_reversal_burst": 0,
+      "max_aligned_release_streak": 1,
+      "action_counts": {
+        "LEFT": 7,
+        "RELEASE_ALL": 4,
+        "RIGHT": 3
+      },
+      "reason_counts": {
+        "escape_launch_platform": 3,
+        "move_toward_safe_platform": 2,
+        "reposition_for_unseen_landing": 2,
+        "no_reachable_landing": 2,
+        "aligned_with_visible_safe_platform": 1,
+        "direction_change_brake": 1,
+        "approach_visible_safe_platform": 1,
+        "escape_special_contact": 1,
+        "approach_visible_emergency_spikes": 1
+      },
+      "wall_trace": [
+        {
+          "step": 8,
+          "player_x": 360.0,
+          "velocity_x": 64.0,
+          "action": "LEFT",
+          "reason": "escape_special_contact",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 9,
+          "player_x": 378.0,
+          "velocity_x": 144.0,
+          "action": "LEFT",
+          "reason": "approach_visible_emergency_spikes",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 10,
+          "player_x": 384.0,
+          "velocity_x": 48.0,
+          "action": "LEFT",
+          "reason": "reposition_for_unseen_landing",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 11,
+          "player_x": 375.0,
+          "velocity_x": -72.0,
+          "action": "LEFT",
+          "reason": "reposition_for_unseen_landing",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 12,
+          "player_x": 366.0,
+          "velocity_x": -72.0,
+          "action": "RELEASE_ALL",
+          "reason": "no_reachable_landing",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        }
+      ]
+    },
+    {
+      "video": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260801_041455_863766\\episode_05.mp4",
+      "total_frames": 11,
+      "playing_frames": 10,
+      "raw_player_detected_steps": 10,
+      "raw_player_missing_steps": 0,
+      "tracked_bridge_steps": 0,
+      "effective_player_missing_steps": 0,
+      "max_player_missing_streak": 0,
+      "outward_wall_push_count": 0,
+      "wall_reentry_cycle_count": 0,
+      "rapid_direction_reversal_count": 1,
+      "max_rapid_direction_reversal_burst": 1,
+      "max_wall_direction_reversal_burst": 0,
+      "max_aligned_release_streak": 1,
+      "action_counts": {
+        "LEFT": 4,
+        "RELEASE_ALL": 3,
+        "RIGHT": 3
+      },
+      "reason_counts": {
+        "escape_launch_platform": 3,
+        "approach_visible_safe_platform": 3,
+        "direction_change_brake": 2,
+        "aligned_with_visible_safe_platform": 1,
+        "reposition_for_unseen_landing": 1
+      },
+      "wall_trace": []
+    },
+    {
+      "video": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260801_041543_338994\\episode_01.mp4",
+      "total_frames": 16,
+      "playing_frames": 15,
+      "raw_player_detected_steps": 14,
+      "raw_player_missing_steps": 1,
+      "tracked_bridge_steps": 1,
+      "effective_player_missing_steps": 0,
+      "max_player_missing_streak": 1,
+      "outward_wall_push_count": 0,
+      "wall_reentry_cycle_count": 0,
+      "rapid_direction_reversal_count": 1,
+      "max_rapid_direction_reversal_burst": 1,
+      "max_wall_direction_reversal_burst": 0,
+      "max_aligned_release_streak": 1,
+      "action_counts": {
+        "LEFT": 6,
+        "RELEASE_ALL": 6,
+        "RIGHT": 3
+      },
+      "reason_counts": {
+        "escape_launch_platform": 3,
+        "escape_special_contact": 3,
+        "direction_change_brake": 2,
+        "move_toward_safe_platform": 2,
+        "reposition_for_unseen_landing": 2,
+        "no_reachable_landing": 2,
+        "aligned_with_safe_platform": 1
+      },
+      "wall_trace": []
+    },
+    {
+      "video": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260801_041543_338994\\episode_02.mp4",
+      "total_frames": 14,
+      "playing_frames": 13,
+      "raw_player_detected_steps": 12,
+      "raw_player_missing_steps": 1,
+      "tracked_bridge_steps": 1,
+      "effective_player_missing_steps": 0,
+      "max_player_missing_streak": 1,
+      "outward_wall_push_count": 0,
+      "wall_reentry_cycle_count": 0,
+      "rapid_direction_reversal_count": 1,
+      "max_rapid_direction_reversal_burst": 1,
+      "max_wall_direction_reversal_burst": 0,
+      "max_aligned_release_streak": 3,
+      "action_counts": {
+        "LEFT": 5,
+        "RELEASE_ALL": 4,
+        "RIGHT": 4
+      },
+      "reason_counts": {
+        "escape_launch_platform": 6,
+        "move_toward_safe_platform": 2,
+        "aligned_with_safe_platform": 2,
+        "reposition_for_unseen_landing": 2,
+        "aligned_with_visible_safe_platform": 1
+      },
+      "wall_trace": []
+    },
+    {
+      "video": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260801_041543_338994\\episode_03.mp4",
+      "total_frames": 106,
+      "playing_frames": 105,
+      "raw_player_detected_steps": 104,
+      "raw_player_missing_steps": 1,
+      "tracked_bridge_steps": 1,
+      "effective_player_missing_steps": 0,
+      "max_player_missing_streak": 1,
+      "outward_wall_push_count": 0,
+      "wall_reentry_cycle_count": 0,
+      "rapid_direction_reversal_count": 12,
+      "max_rapid_direction_reversal_burst": 8,
+      "max_wall_direction_reversal_burst": 0,
+      "max_aligned_release_streak": 4,
+      "action_counts": {
+        "LEFT": 35,
+        "RELEASE_ALL": 38,
+        "RIGHT": 32
+      },
+      "reason_counts": {
+        "escape_launch_platform": 39,
+        "aligned_with_safe_platform": 24,
+        "move_toward_safe_platform": 20,
+        "direction_change_brake": 11,
+        "approach_visible_safe_platform": 4,
+        "aligned_with_visible_safe_platform": 3,
+        "escape_special_contact": 2,
+        "reposition_for_unseen_landing": 2
+      },
+      "wall_trace": []
+    },
+    {
+      "video": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260801_041543_338994\\episode_04.mp4",
+      "total_frames": 28,
+      "playing_frames": 27,
+      "raw_player_detected_steps": 26,
+      "raw_player_missing_steps": 1,
+      "tracked_bridge_steps": 1,
+      "effective_player_missing_steps": 0,
+      "max_player_missing_streak": 1,
+      "outward_wall_push_count": 0,
+      "wall_reentry_cycle_count": 0,
+      "rapid_direction_reversal_count": 2,
+      "max_rapid_direction_reversal_burst": 2,
+      "max_wall_direction_reversal_burst": 0,
+      "max_aligned_release_streak": 3,
+      "action_counts": {
+        "LEFT": 7,
+        "RELEASE_ALL": 8,
+        "RIGHT": 12
+      },
+      "reason_counts": {
+        "escape_launch_platform": 8,
+        "move_toward_safe_platform": 6,
+        "aligned_with_safe_platform": 3,
+        "escape_special_contact": 3,
+        "aligned_with_visible_safe_platform": 2,
+        "no_reachable_landing": 2,
+        "approach_visible_safe_platform": 1,
+        "direction_change_brake": 1,
+        "reposition_for_unseen_landing": 1
+      },
+      "wall_trace": []
+    },
+    {
+      "video": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260801_041543_338994\\episode_05.mp4",
+      "total_frames": 45,
+      "playing_frames": 44,
+      "raw_player_detected_steps": 43,
+      "raw_player_missing_steps": 1,
+      "tracked_bridge_steps": 1,
+      "effective_player_missing_steps": 0,
+      "max_player_missing_streak": 1,
+      "outward_wall_push_count": 0,
+      "wall_reentry_cycle_count": 0,
+      "rapid_direction_reversal_count": 4,
+      "max_rapid_direction_reversal_burst": 3,
+      "max_wall_direction_reversal_burst": 1,
+      "max_aligned_release_streak": 3,
+      "action_counts": {
+        "LEFT": 23,
+        "RELEASE_ALL": 13,
+        "RIGHT": 8
+      },
+      "reason_counts": {
+        "escape_special_contact": 14,
+        "escape_launch_platform": 7,
+        "aligned_with_recovery_platform": 5,
+        "direction_change_brake": 3,
+        "move_toward_recovery_platform": 3,
+        "aligned_with_visible_safe_platform": 2,
+        "move_toward_safe_platform": 2,
+        "aligned_with_visible_recovery_platform": 2,
+        "approach_visible_recovery_platform": 2,
+        "reposition_for_unseen_landing": 2,
+        "aligned_with_safe_platform": 1,
+        "approach_visible_safe_platform": 1
+      },
+      "wall_trace": [
+        {
+          "step": 37,
+          "player_x": 359.0,
+          "velocity_x": 192.0,
+          "action": "RIGHT",
+          "reason": "escape_launch_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 38,
+          "player_x": 378.0,
+          "velocity_x": 152.0,
+          "action": "RELEASE_ALL",
+          "reason": "direction_change_brake",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 39,
+          "player_x": 384.0,
+          "velocity_x": 48.0,
+          "action": "LEFT",
+          "reason": "approach_visible_recovery_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 40,
+          "player_x": 368.0,
+          "velocity_x": -128.0,
+          "action": "LEFT",
+          "reason": "approach_visible_safe_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        }
+      ]
+    },
+    {
+      "video": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260801_041724_041635\\episode_01.mp4",
+      "total_frames": 31,
+      "playing_frames": 30,
+      "raw_player_detected_steps": 29,
+      "raw_player_missing_steps": 1,
+      "tracked_bridge_steps": 1,
+      "effective_player_missing_steps": 0,
+      "max_player_missing_streak": 1,
+      "outward_wall_push_count": 0,
+      "wall_reentry_cycle_count": 0,
+      "rapid_direction_reversal_count": 2,
+      "max_rapid_direction_reversal_burst": 1,
+      "max_wall_direction_reversal_burst": 0,
+      "max_aligned_release_streak": 3,
+      "action_counts": {
+        "LEFT": 14,
+        "RELEASE_ALL": 11,
+        "RIGHT": 5
+      },
+      "reason_counts": {
+        "escape_launch_platform": 15,
+        "aligned_with_safe_platform": 5,
+        "move_toward_safe_platform": 3,
+        "direction_change_brake": 3,
+        "aligned_with_visible_safe_platform": 3,
+        "reposition_for_unseen_landing": 1
+      },
+      "wall_trace": [
+        {
+          "step": 10,
+          "player_x": 86.5,
+          "velocity_x": -212.0,
+          "action": "RELEASE_ALL",
+          "reason": "direction_change_brake",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 11,
+          "player_x": 80.0,
+          "velocity_x": -52.0,
+          "action": "RELEASE_ALL",
+          "reason": "aligned_with_safe_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 12,
+          "player_x": 80.0,
+          "velocity_x": 0.0,
+          "action": "RIGHT",
+          "reason": "move_toward_safe_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 13,
+          "player_x": 97.0,
+          "velocity_x": 136.0,
+          "action": "RIGHT",
+          "reason": "escape_launch_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        }
+      ]
+    },
+    {
+      "video": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260801_041724_041635\\episode_02.mp4",
+      "total_frames": 35,
+      "playing_frames": 34,
+      "raw_player_detected_steps": 34,
+      "raw_player_missing_steps": 0,
+      "tracked_bridge_steps": 0,
+      "effective_player_missing_steps": 0,
+      "max_player_missing_streak": 0,
+      "outward_wall_push_count": 0,
+      "wall_reentry_cycle_count": 0,
+      "rapid_direction_reversal_count": 2,
+      "max_rapid_direction_reversal_burst": 2,
+      "max_wall_direction_reversal_burst": 0,
+      "max_aligned_release_streak": 3,
+      "action_counts": {
+        "LEFT": 2,
+        "RELEASE_ALL": 16,
+        "RIGHT": 16
+      },
+      "reason_counts": {
+        "escape_launch_platform": 17,
+        "aligned_with_safe_platform": 10,
+        "aligned_with_deeper_safe_platform": 4,
+        "direction_change_brake": 2,
+        "move_toward_deeper_safe_platform": 1
+      },
+      "wall_trace": []
+    },
+    {
+      "video": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260801_041724_041635\\episode_03.mp4",
+      "total_frames": 93,
+      "playing_frames": 92,
+      "raw_player_detected_steps": 92,
+      "raw_player_missing_steps": 0,
+      "tracked_bridge_steps": 0,
+      "effective_player_missing_steps": 0,
+      "max_player_missing_streak": 0,
+      "outward_wall_push_count": 0,
+      "wall_reentry_cycle_count": 0,
+      "rapid_direction_reversal_count": 6,
+      "max_rapid_direction_reversal_burst": 3,
+      "max_wall_direction_reversal_burst": 0,
+      "max_aligned_release_streak": 3,
+      "action_counts": {
+        "LEFT": 31,
+        "RELEASE_ALL": 29,
+        "RIGHT": 32
+      },
+      "reason_counts": {
+        "escape_launch_platform": 35,
+        "aligned_with_recovery_platform": 12,
+        "move_toward_recovery_platform": 11,
+        "escape_special_contact": 9,
+        "move_toward_safe_platform": 6,
+        "aligned_with_safe_platform": 5,
+        "aligned_with_deeper_safe_platform": 5,
+        "direction_change_brake": 4,
+        "aligned_with_visible_safe_platform": 3,
+        "approach_visible_safe_platform": 1,
+        "move_toward_deeper_safe_platform": 1
+      },
+      "wall_trace": [
+        {
+          "step": 10,
+          "player_x": 97.0,
+          "velocity_x": -128.0,
+          "action": "RELEASE_ALL",
+          "reason": "aligned_with_visible_safe_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 11,
+          "player_x": 73.0,
+          "velocity_x": -192.0,
+          "action": "RELEASE_ALL",
+          "reason": "aligned_with_visible_safe_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 12,
+          "player_x": 54.0,
+          "velocity_x": -152.0,
+          "action": "RIGHT",
+          "reason": "approach_visible_safe_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 13,
+          "player_x": 56.0,
+          "velocity_x": 16.0,
+          "action": "RIGHT",
+          "reason": "escape_launch_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 14,
+          "player_x": 73.0,
+          "velocity_x": 136.0,
+          "action": "RIGHT",
+          "reason": "escape_special_contact",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 15,
+          "player_x": 97.0,
+          "velocity_x": 192.0,
+          "action": "RIGHT",
+          "reason": "escape_special_contact",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 59,
+          "player_x": 95.0,
+          "velocity_x": -208.0,
+          "action": "RIGHT",
+          "reason": "move_toward_recovery_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 60,
+          "player_x": 88.0,
+          "velocity_x": -56.0,
+          "action": "RIGHT",
+          "reason": "move_toward_recovery_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 61,
+          "player_x": 104.0,
+          "velocity_x": 128.0,
+          "action": "RIGHT",
+          "reason": "move_toward_recovery_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        }
+      ]
+    },
+    {
+      "video": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260801_041724_041635\\episode_04.mp4",
+      "total_frames": 70,
+      "playing_frames": 69,
+      "raw_player_detected_steps": 69,
+      "raw_player_missing_steps": 0,
+      "tracked_bridge_steps": 0,
+      "effective_player_missing_steps": 0,
+      "max_player_missing_streak": 0,
+      "outward_wall_push_count": 0,
+      "wall_reentry_cycle_count": 0,
+      "rapid_direction_reversal_count": 5,
+      "max_rapid_direction_reversal_burst": 4,
+      "max_wall_direction_reversal_burst": 3,
+      "max_aligned_release_streak": 3,
+      "action_counts": {
+        "LEFT": 32,
+        "RELEASE_ALL": 21,
+        "RIGHT": 16
+      },
+      "reason_counts": {
+        "escape_launch_platform": 22,
+        "wall_guard_inward": 13,
+        "aligned_with_safe_platform": 10,
+        "direction_change_brake": 6,
+        "move_toward_safe_platform": 5,
+        "move_toward_deeper_safe_platform": 5,
+        "aligned_with_deeper_safe_platform": 3,
+        "escape_special_contact": 2,
+        "wall_guard_cooldown": 1,
+        "move_toward_recovery_platform": 1,
+        "aligned_with_recovery_platform": 1
+      },
+      "wall_trace": [
+        {
+          "step": 9,
+          "player_x": 89.0,
+          "velocity_x": -192.0,
+          "action": "LEFT",
+          "reason": "escape_launch_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 10,
+          "player_x": 65.0,
+          "velocity_x": -192.0,
+          "action": "RELEASE_ALL",
+          "reason": "direction_change_brake",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 11,
+          "player_x": 56.0,
+          "velocity_x": -72.0,
+          "action": "RELEASE_ALL",
+          "reason": "aligned_with_safe_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 12,
+          "player_x": 63.0,
+          "velocity_x": 56.0,
+          "action": "RELEASE_ALL",
+          "reason": "aligned_with_safe_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 13,
+          "player_x": 87.0,
+          "velocity_x": 192.0,
+          "action": "LEFT",
+          "reason": "escape_launch_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 14,
+          "player_x": 96.0,
+          "velocity_x": 72.0,
+          "action": "LEFT",
+          "reason": "escape_launch_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 15,
+          "player_x": 81.0,
+          "velocity_x": -120.0,
+          "action": "LEFT",
+          "reason": "escape_launch_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 16,
+          "player_x": 57.0,
+          "velocity_x": -192.0,
+          "action": "RELEASE_ALL",
+          "reason": "direction_change_brake",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 17,
+          "player_x": 56.0,
+          "velocity_x": -8.0,
+          "action": "RELEASE_ALL",
+          "reason": "aligned_with_safe_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 18,
+          "player_x": 71.0,
+          "velocity_x": 120.0,
+          "action": "RELEASE_ALL",
+          "reason": "aligned_with_safe_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 19,
+          "player_x": 87.0,
+          "velocity_x": 128.0,
+          "action": "LEFT",
+          "reason": "escape_launch_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 20,
+          "player_x": 96.0,
+          "velocity_x": 72.0,
+          "action": "LEFT",
+          "reason": "escape_launch_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 21,
+          "player_x": 81.0,
+          "velocity_x": -120.0,
+          "action": "LEFT",
+          "reason": "escape_launch_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 22,
+          "player_x": 65.0,
+          "velocity_x": -128.0,
+          "action": "RELEASE_ALL",
+          "reason": "direction_change_brake",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 23,
+          "player_x": 56.0,
+          "velocity_x": -72.0,
+          "action": "RIGHT",
+          "reason": "escape_launch_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 24,
+          "player_x": 63.0,
+          "velocity_x": 56.0,
+          "action": "RIGHT",
+          "reason": "escape_launch_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 25,
+          "player_x": 87.0,
+          "velocity_x": 192.0,
+          "action": "RIGHT",
+          "reason": "move_toward_deeper_safe_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 41,
+          "player_x": 359.0,
+          "velocity_x": 192.0,
+          "action": "RIGHT",
+          "reason": "escape_launch_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 42,
+          "player_x": 383.0,
+          "velocity_x": 192.0,
+          "action": "RELEASE_ALL",
+          "reason": "direction_change_brake",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 43,
+          "player_x": 399.0,
+          "velocity_x": 128.0,
+          "action": "LEFT",
+          "reason": "move_toward_safe_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 44,
+          "player_x": 408.0,
+          "velocity_x": 72.0,
+          "action": "LEFT",
+          "reason": "move_toward_safe_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 45,
+          "player_x": 401.0,
+          "velocity_x": -56.0,
+          "action": "LEFT",
+          "reason": "escape_launch_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 46,
+          "player_x": 377.0,
+          "velocity_x": -192.0,
+          "action": "LEFT",
+          "reason": "escape_launch_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 47,
+          "player_x": 368.0,
+          "velocity_x": -72.0,
+          "action": "RELEASE_ALL",
+          "reason": "direction_change_brake",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 48,
+          "player_x": 383.0,
+          "velocity_x": 120.0,
+          "action": "RIGHT",
+          "reason": "escape_launch_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 49,
+          "player_x": 407.0,
+          "velocity_x": 192.0,
+          "action": "RELEASE_ALL",
+          "reason": "direction_change_brake",
+          "wall_side": "right",
+          "wall_evacuation_active": true,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 50,
+          "player_x": 408.0,
+          "velocity_x": 8.0,
+          "action": "LEFT",
+          "reason": "wall_guard_inward",
+          "wall_side": "right",
+          "wall_evacuation_active": true,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 51,
+          "player_x": 393.0,
+          "velocity_x": -120.0,
+          "action": "LEFT",
+          "reason": "wall_guard_inward",
+          "wall_side": "right",
+          "wall_evacuation_active": true,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 52,
+          "player_x": 377.0,
+          "velocity_x": -128.0,
+          "action": "LEFT",
+          "reason": "wall_guard_inward",
+          "wall_side": "right",
+          "wall_evacuation_active": true,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 53,
+          "player_x": 368.0,
+          "velocity_x": -72.0,
+          "action": "LEFT",
+          "reason": "wall_guard_inward",
+          "wall_side": "right",
+          "wall_evacuation_active": true,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 54,
+          "player_x": 383.0,
+          "velocity_x": 120.0,
+          "action": "LEFT",
+          "reason": "wall_guard_inward",
+          "wall_side": "right",
+          "wall_evacuation_active": true,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 55,
+          "player_x": 399.0,
+          "velocity_x": 128.0,
+          "action": "LEFT",
+          "reason": "wall_guard_inward",
+          "wall_side": "right",
+          "wall_evacuation_active": true,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 56,
+          "player_x": 408.0,
+          "velocity_x": 72.0,
+          "action": "LEFT",
+          "reason": "wall_guard_inward",
+          "wall_side": "right",
+          "wall_evacuation_active": true,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 57,
+          "player_x": 391.0,
+          "velocity_x": -136.0,
+          "action": "LEFT",
+          "reason": "wall_guard_inward",
+          "wall_side": "right",
+          "wall_evacuation_active": true,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 58,
+          "player_x": 375.0,
+          "velocity_x": -128.0,
+          "action": "LEFT",
+          "reason": "wall_guard_inward",
+          "wall_side": "right",
+          "wall_evacuation_active": true,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 59,
+          "player_x": 360.0,
+          "velocity_x": -120.0,
+          "action": "LEFT",
+          "reason": "wall_guard_inward",
+          "wall_side": "right",
+          "wall_evacuation_active": true,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 60,
+          "player_x": 376.0,
+          "velocity_x": 128.0,
+          "action": "LEFT",
+          "reason": "wall_guard_inward",
+          "wall_side": "right",
+          "wall_evacuation_active": true,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 61,
+          "player_x": 384.0,
+          "velocity_x": 64.0,
+          "action": "LEFT",
+          "reason": "wall_guard_inward",
+          "wall_side": "right",
+          "wall_evacuation_active": true,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 62,
+          "player_x": 376.0,
+          "velocity_x": -64.0,
+          "action": "LEFT",
+          "reason": "wall_guard_inward",
+          "wall_side": "right",
+          "wall_evacuation_active": true,
+          "wall_evacuation_cooldown_steps": 0
+        }
+      ]
+    },
+    {
+      "video": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260801_041724_041635\\episode_05.mp4",
+      "total_frames": 75,
+      "playing_frames": 74,
+      "raw_player_detected_steps": 73,
+      "raw_player_missing_steps": 1,
+      "tracked_bridge_steps": 1,
+      "effective_player_missing_steps": 0,
+      "max_player_missing_streak": 1,
+      "outward_wall_push_count": 0,
+      "wall_reentry_cycle_count": 0,
+      "rapid_direction_reversal_count": 7,
+      "max_rapid_direction_reversal_burst": 4,
+      "max_wall_direction_reversal_burst": 0,
+      "max_aligned_release_streak": 4,
+      "action_counts": {
+        "LEFT": 23,
+        "RELEASE_ALL": 28,
+        "RIGHT": 23
+      },
+      "reason_counts": {
+        "escape_launch_platform": 25,
+        "move_toward_safe_platform": 12,
+        "aligned_with_safe_platform": 11,
+        "aligned_with_recovery_platform": 10,
+        "escape_special_contact": 5,
+        "direction_change_brake": 4,
+        "move_toward_recovery_platform": 2,
+        "no_reachable_landing": 2,
+        "aligned_with_visible_safe_platform": 1,
+        "approach_visible_safe_platform": 1,
+        "approach_visible_emergency_spikes": 1
+      },
+      "wall_trace": [
+        {
+          "step": 58,
+          "player_x": 382.0,
+          "velocity_x": 200.0,
+          "action": "LEFT",
+          "reason": "move_toward_safe_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 59,
+          "player_x": 388.0,
+          "velocity_x": 48.0,
+          "action": "LEFT",
+          "reason": "move_toward_safe_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 60,
+          "player_x": 388.0,
+          "velocity_x": 0.0,
+          "action": "RELEASE_ALL",
+          "reason": "aligned_with_safe_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 61,
+          "player_x": 388.0,
+          "velocity_x": 0.0,
+          "action": "LEFT",
+          "reason": "escape_launch_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 62,
+          "player_x": 373.0,
+          "velocity_x": -120.0,
+          "action": "LEFT",
+          "reason": "escape_launch_platform",
+          "wall_side": null,
+          "wall_evacuation_active": false,
+          "wall_evacuation_cooldown_steps": 0
+        }
+      ]
+    }
+  ],
+  "totals": {
+    "total_frames": 747,
+    "playing_frames": 729,
+    "raw_player_detected_steps": 716,
+    "raw_player_missing_steps": 13,
+    "tracked_bridge_steps": 13,
+    "effective_player_missing_steps": 0,
+    "outward_wall_push_count": 0,
+    "wall_reentry_cycle_count": 0,
+    "rapid_direction_reversal_count": 66
+  },
+  "maximums": {
+    "max_player_missing_streak": 2,
+    "max_rapid_direction_reversal_burst": 8,
+    "max_wall_direction_reversal_burst": 3,
+    "max_aligned_release_streak": 5
+  },
+  "checks": {
+    "all_videos_parsed": true,
+    "effective_missing_streak_bounded": true,
+    "outward_wall_push_zero": true,
+    "wall_reentry_cycles_zero": true,
+    "wall_direction_oscillation_bounded": false,
+    "aligned_release_bounded": true
+  },
+  "status": "FAIL",
+  "real_game_gate": "PENDING"
+}

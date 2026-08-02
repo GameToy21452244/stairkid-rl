@@ -2,11 +2,354 @@
 
 本專案以一般 Windows 視窗 API、螢幕擷取及鍵盤輸入控制既有的
 `NS Shaft.exe`。目前已完成遊戲介面層、角色／平台／血量事件辨識、Gymnasium
-環境，以及具有硬性安全上限的本機 PPO 訓練入口。PPO 仍在短時間實機驗證
-階段，尚未產生可用的遊玩模型。
+環境，以及具有硬性安全上限的本機 PPO 訓練入口。舊 PPO 與 Colab
+512／768-step checkpoint 已出現單一動作塌縮，不是可用模型，也不得續訓。
+
+目前最高優先策略為：Teacher 真實遊戲 Micro Gate → State-aliasing Audit →
+S0／S1／S2／S3 memory/sequence 消融 → rare-branch sequence dataset →
+conservative sequence DAgger → compact NEAT 公平對照。前一 Gate 未通過即停止，
+不以長 BC、PPO、DQN 或大型 NEAT 掩蓋表示／資料問題；權威進度見
+`docs/CURRENT_STATUS.md`。最新完整 10 回合 natural run 經同 run MP4 終局影格稽核後
+floors 為 `8,11,4,2,2,5,4,4,8,2`；Gate v11 以不可變 sidecars 重分類後全部 checks
+PASS。P4.0 已對10回合／753筆實機資料完成 State-aliasing Audit：跨episode 5-NN
+action conflict由observation-only的56.20%降至lagged causal memory的45.39%，相對
+改善19.23%，episode bootstrap下界亦為正，Gate PASS。下一步只解鎖bounded且公平的
+S0～S3短消融；正式Student、rare-branch dataset與BC、DAgger、PPO、DQN、NEAT長訓練
+仍禁止。當步controller sidecar含post-decision label leakage，不得當同一步模型輸入。
+
+最新 Spike Teacher Dataset v1 有 60 episodes／3,529 rows、validator 0 error；
+但單步 BC0 v1 的 final mean deepest 45.5 雖接近 baseline 49.7，Q25 只有
+7.75（baseline 30）、reach-floor-10 只有 60%（baseline 100%），bottom death
+14（baseline 1），因此正式 Gate FAIL。下一步不是增加 epochs，而是先驗證
+Teacher 真機轉移及以 causal memory／sequence 表示能否在閉迴路穩定超過單步 S0。
+
+特殊平台 curriculum 已完成第一個 mechanism gate：可選 health state 與普通
+平台回血。功能預設關閉，100 個固定 Oracle 落台及 100-seed feature equivalence
+通過；尚未加入模型訓練。
 
 專案不修改、注入、掛鉤、反編譯遊戲，也不讀取遊戲程序記憶體。預設
 `auto_launch: false`，任何工具都不會自行執行遊戲；請由使用者手動啟動。
+
+## 完整實驗路線圖：從舊 PPO 到最終實機自主遊玩
+
+本節是給人快速恢復專案上下文的主路線，優先於 README 後方依日期累積的歷史
+敘述。精確的最新數字仍以 `docs/CURRENT_STATUS.md` 與對應 artifact 為準；長期規格
+與停止規則以 `../CODEX_SEQUENCE_CONTROL_STRATEGY_UPDATE.md`、
+`docs/PROJECT_MASTER_PLAN.md`、`docs/EXPERIMENT_PROTOCOL.md` 為準。
+
+### 目前走到哪裡
+
+| 階段 | 狀態 | 結論 |
+|---|---|---|
+| 舊真機 PPO | FAIL／封存 | 出現全 `RELEASE_ALL` 或全 `RIGHT` 的 action collapse，不續訓 |
+| P0 Repository、schema、安全基礎 | PASS | 永久文件、validator、Gymnasium 骨架與安全控制鏈完成 |
+| P1 Simulator v0.1、校正、Colab 管線 | 工程 PASS | 證明管線可跑；短 PPO 塌縮，不是策略成功 |
+| P2 Simulator v0.2、Reachability、Teacher 分離 | PASS | easy curriculum、Oracle-full、Teacher-observable、8/10/12 Hz 比較完成 |
+| P3 Easy BC0／DAgger0 與特殊平台機制 | 部分 PASS | normal easy 已飽和；各機制可運作，但混合與 fidelity 尚未全通過 |
+| P3.5 Spike curriculum | 最終 STOP | BC 曾通過，但 DAgger／新版 BC lower-tail 失敗，不再加 epochs |
+| P3.6 Teacher Real-Game Gate | PASS | Gate v11 十回合通過；Teacher 仍有 lower-tail 風險 |
+| P4.0 State-aliasing Audit | **PASS** | causal memory 顯著減少動作衝突 |
+| P4.1 S0／S1／S2／S3 bounded ablation | **NEXT** | 下一個唯一允許的模型實驗 |
+| P4.2～P8 | BLOCKED | 必須逐 Gate 解鎖，不可直接跳階段 |
+
+### 共通規則：每一個 Gate 都怎麼做
+
+每個階段一律依下列順序，不因單次最高樓層很好看而跳步：
+
+1. 先凍結問題、資料來源、版本、seed、split、評估指標、成功門檻與停止條件。
+2. 先寫最小失敗重現或單元測試，再修改程式。
+3. 先跑本機 unit／integration／schema／artifact 檢查。
+4. 需要模型計算時才進 Colab；Colab 只跑 simulator，不控制原版遊戲。
+5. selection seeds 只用來選 checkpoint，final seeds 只評估一次且不得回饋選模。
+6. 先看 safety、health death、bottom death、Q25、CVaR25、reach，再看 median／mean；
+   maximum 只能列出，不能單獨決定 PASS。
+7. Gate FAIL 就停止下一階段，分析 observation、label timing、資料 coverage 或控制
+   邏輯；不能用追加 epochs、timesteps 或反覆重跑直到幸運通過來掩蓋問題。
+8. 每次保存 machine-readable artifact、報告、測試結果、失敗 taxonomy 與 provenance，
+   並更新 CURRENT_STATUS、DECISIONS、RISK_REGISTER 及 implementation report。
+
+### 歷史起點：為什麼放棄直接真機 PPO
+
+最初路線是從單張／短 stack 遊戲畫面直接選 LEFT、RELEASE、RIGHT，再讓 PPO 依
+reward 更新。它有三個核心問題：真機每秒樣本太少、reward 與死亡訊號稀疏，而且
+同一畫面在「起跳、煞車、離台、恢復」階段可能需要不同動作。實際 checkpoint
+出現 128/128 `RELEASE_ALL` 或全 `RIGHT`，所以既有 PPO 只保留為失敗證據，禁止
+續訓。這也是後續先建 simulator、Teacher 與 sequence state 的原因。
+
+### P0：Repository Audit、永久上下文與資料安全
+
+目的：在開始新訓練前，先知道現有程式、資料與 checkpoint 到底能不能用。
+
+執行步驟：
+
+1. 稽核 source、scripts、tests、notebook、logs、models、captures 與歷史報告。
+2. 建立 PROJECT_CONTEXT、CURRENT_STATUS、TRAINING_ROADMAP、DECISIONS、
+   RISK_REGISTER 與 PROJECT_MASTER_PLAN。
+3. 定義 268 維 observation、transition timestamps、episode boundaries、action、
+   reward components、terminated／truncated 與版本欄位。
+4. 實作 validator 與 legacy quarantine；無法證明時序或來源的舊 JSONL 不可當教師。
+5. 保存視窗唯一性、foreground、F8、三種硬上限與例外 `release_all()` 安全鏈。
+
+Gate：validator 能拒絕 NaN、無效 action、時間倒退、跨 episode、terminal 後續寫與
+schema drift；自動測試不得送真實鍵盤輸入。此階段已 PASS。
+
+### P1：Simulator v0.1、有限真機校正與 Colab 管線
+
+目的：建立不需要安裝原版遊戲、可高速 reset 與固定 seed 的 Gymnasium／Pymunk
+近似環境，先驗證資料流與基本可學性。
+
+執行步驟：
+
+1. 建立角色、重力、水平控制、普通平台、碰撞、落台、畫面捲動與終局骨架。
+2. 以有限、受監督的真機 calibration 量 x/y/vx/vy、動作反應與 landing；校正資料
+   只算 dynamics，不可冒充 expert demonstration。
+3. 跑 fixed seed、`check_env`、headless、render、100k-step smoke 與 vector env
+   throughput。
+4. 在 Colab 驗證私人 repository ZIP 上傳、依賴安裝、checkpoint/resume、TensorBoard
+   與 MP4 打包流程。
+5. 跑短 P0／P1 learnability probe，只判斷管線是否能學，不宣稱會玩原版遊戲。
+
+結果：工程與 Colab pipeline PASS；768-step PPO deterministic 全 `RIGHT`，所以策略
+Gate FAIL。結論是「模擬器可執行」，不是「PPO 已學會下樓」。
+
+### P2：Data Resource Audit 與 Simulator v0.2
+
+目的：讓環境可持續生成樓層、保證基本可達，並把「驗證環境可解」與「產生可部署
+標籤」分開。
+
+執行步驟：
+
+1. 逐檔、逐 episode、逐 row 將資源分類為 verified demo、replay、dynamics、
+   needs relabel 或 invalid。
+2. v0.2 加入持續平台生成／回收、easy/calibrated/hard profile、2～3 層 look-ahead
+   reachability 與 deterministic seed。
+3. Oracle-full 可讀 simulator privileged state，只用來證明環境可解。
+4. Teacher-observable 只能讀與 Student 相同的 observation，不得讀未來平台或完整物理
+   state；只有它的合格輸出可以成為 BC label。
+5. 在固定 60 Hz physics 下比較 policy 8／10／12 Hz，凍結控制頻率後才產生資料。
+6. 依序執行 Reachability、Oracle、Baseline gates；任一失敗都不可產生 Teacher
+   Dataset。
+
+結果：v0.2 easy gates 與 Teacher 分離已 PASS；原始遊戲與 simulator 的 reality gap
+仍存在，因此後續必須用小型真機 Gate 驗證 transfer。
+
+### P3：Easy Teacher Dataset、BC0、DAgger0 與特殊平台機制
+
+目的：先證明完整 supervised／closed-loop pipeline，再逐項加入遊戲機制。
+
+執行步驟：
+
+1. 用 episode／seed／platform-sequence 隔離的 split 產生 easy Teacher Dataset。
+2. BC0 以 hard-label cross entropy 做短訓練；offline accuracy 只作診斷，模型必須
+   回 simulator 做 closed-loop evaluation。
+3. naive DAgger0 失敗後，只做一次 correction cap、action ratio、cluster/category
+   分層的 balanced ablation；通過後停止，因 easy normal curriculum 已飽和。
+4. 特殊機制不一次混合，依序實作 health＋normal heal、spikes、conveyor、spring、
+   flipping；每項預設關閉。
+5. 每個機制先過 unit、fixed scene、renderer、Oracle 與 no-spawn equivalence；未有
+   真機 telemetry 的速度、彈力、週期只能標 provisional。
+
+結果：easy BC／balanced correction 與五個 mechanism engineering gates 已完成；這
+不代表五種平台已可一起訓練，也不代表 simulator fidelity 已完全對齊原版遊戲。
+
+### P3.5：Spike curriculum、checkpoint selection 與停止結論
+
+目的：用低比例單一特殊平台檢查 Student 是否能保留 normal 能力並處理 hazard。
+
+執行步驟：
+
+1. 使用前 3 層 normal、10% spike proposal、尖刺間至少 5 層 normal 的 generator。
+2. 重跑 Reachability／Oracle／Baseline，再以獨立 seeds 產生 spike dataset。
+3. 發現最低 validation loss 的 epoch 17 closed-loop 很差後，改成預先固定候選 epoch，
+   使用 selection seeds 選模，再對 untouched final seeds 評估一次。
+4. 三 initialization BC0 Gate 通過後，執行一輪 balanced Spike DAgger0。
+5. DAgger 雖提高 mean floors，卻降低 reach-floor-10、增加 bottom death 並出現 health
+   death，依協議 FAIL／STOP。
+6. 修復 Teacher health recovery 與 reach-floor-10 語意，untouched holdout 達 94%、
+   0 health death；重新產生 Dataset v1。
+7. Dataset v1 BC smoke 的 mean 尚可，但 reach-floor-10 60%、Q25 7.75、bottom 14，
+   顯示單步 BC lower-tail 仍失敗，因此停止加 epochs 與第二輪 DAgger。
+
+結論：主要問題不是資料量不足，而是單步 observation 無法穩定重建 Teacher 的
+launch／brake／recovery／target memory。這直接導向 P3.6 真機 Teacher 與 P4.0
+State-aliasing Audit。
+
+### P3.6：Teacher Real-Game Micro Gate
+
+目的：不訓練 Student，先證明規則 Teacher 在原版遊戲能安全、連續且可記錄地操作。
+
+實際修復鏈包含：special contact lifecycle、spring/spike escape、持續按鍵、wall
+guard、player vision continuity、projected landing、support-departure latch、bounded
+dropout recovery、release projection、重開 focus、terminal HUD frame 與 Gate 語意。
+
+最終 Gate v11 步驟：
+
+1. 使用者手動開啟原版遊戲；runner 明示 `--execute`、確認字串、倒數與硬上限。
+2. 完成單次自然 10 回合，不挑 episode、不失敗後反覆重跑。
+3. 每步保存 canonical transition、controller sidecar、timing、phase、target、support、
+   special lifecycle 與 MP4。
+4. 用同一 run 的 MP4 稽核 terminal HUD counter；只允許可信的 terminal-frame 向上
+   修正，不覆寫原始 artifact。
+5. Gate 要求 safety=0、floor-1 bottom=0、至少 7/10 reach-3、4/10 reach-5、
+   early-bottom 不超過 reach-3 miss budget、無 collapse、無 blind/outward/wall
+   re-entry，以及 observation/departure/special telemetry 完整。
+
+結果：floors `8,11,4,2,2,5,4,4,8,2`；reach-3 7/10、reach-5 4/10、
+mean/median/Q25/CVaR25=`5/4/2.5/2`、安全事件 0，Gate v11 PASS。因 early-bottom
+剛好壓線，這是進 P4.0 的資格，不是 Teacher 完美或正式部署許可。
+
+### P4.0：State-Aliasing Audit（已完成）
+
+問題：268 維 observation 相近時，Teacher 是否因隱藏控制階段而選不同動作？加入
+真正可部署的歷史 state 是否能明顯降低衝突？
+
+執行步驟：
+
+1. 凍結 Gate v11 的 10 回合／753 rows，不新增或挑選實機資料。
+2. 驗證 observation=268 維、有限值、transition/controller 筆數、step 與 action
+   完全對齊。
+3. 發現 sidecar 是 `policy.choose` 後才寫入：同一步 `previous_action` 已等於 label，
+   phase 也由本步 reason 產生，因此當步 memory 只能當 leakage ceiling。
+4. 正式 representation 使用 episode 內 `memory[t-1] -> decision[t]`；第 0 步 reset，
+   raw platform/track/contact IDs 全排除。
+5. 用 cross-episode 5-NN 比較 observation-only、causal action history、target、phase、
+   support、full memory 與 post-decision leakage ceiling。
+6. 預先固定 Gate：衝突相對下降至少 10%；paired episode bootstrap 95% CI 下界
+   不得為負；entropy 至少降 0.05 bits或accuracy至少增3 percentage points。
+
+結果：observation-only conflict 56.20%，causal full 45.39%，相對改善 19.23%；
+entropy 改善 0.1873 bits、accuracy 增 13.01 points、bootstrap CI
+`[0.0979,0.1411]`，P4.0 PASS。causal action history 單組 42.76%，甚至優於 121 維
+full memory，因此 P4.1 優先 compact S1。Post-decision ceiling 11.42% 是答案洩漏，
+永遠不能當 Student 輸入。完整報告見 `reports/STATE_ALIASING_AUDIT.md`。
+
+### P4.1：S0／S1／S2／S3 公平 bounded ablation（下一步）
+
+目的：確認「明確 causal state」或「sequence model」是否真的在 closed-loop 穩定優於
+原本的單步 MLP，而不是只提高 offline accuracy。
+
+預定模型：
+
+- S0：現有 268 維 observation stack＋MLP，作單步基準；
+- S1：268 維＋compact deployable causal action/control state＋MLP；
+- S2：完整 observation sequence＋GRU；
+- S3：compact deployable observation/state sequence＋GRU；
+- S4 只有在前四者資料與 Gate 穩定後，才可考慮 phase／target／brake auxiliary loss。
+
+必須依序執行：
+
+1. 先凍結 P4.1 dataset manifest、Teacher/controller version、episode split、所有 seeds、
+   sequence length、burn-in、padding/mask、初始化數、更新次數及 early-stop 規則。
+2. 做 causal schema preflight：任何輸入只能在 decision 當下取得；memory 用 `t-1`；
+   episode reset 不 carry；同一步 sidecar、未來 observation、privileged simulator state、
+   raw tracker ID 全部拒絕。
+3. S0～S3 使用相同 training episodes、selection/final seeds、optimizer budget 與環境
+   evaluation steps；不能讓某模型多看資料或多訓練。
+4. 先跑 dataset loader、chunk boundary、hidden-state reset、mask、determinism、保存／
+   載入與 action-collapse tests。
+5. 本機只跑超短 interface smoke；多 initialization bounded 訓練才放到 Colab GPU。
+6. Offline loss／accuracy、各 action confusion、phase/branch accuracy全部記錄，但不作
+   最終選模依據。
+7. 每個候選回 simulator 做相同 fixed-seed closed-loop evaluation，記錄 health death、
+   bottom、Q25、CVaR25、reach-3/5/10、median、mean、action share、oscillation、wall、
+   spring/spike dwell 與 failure taxonomy。
+8. selection seeds 選出單一 checkpoint 後，untouched final seeds 只跑一次；至少三個
+   initialization 的方向需一致。
+
+P4.1 Gate：至少一個 S1/S2/S3 在 safety 不退化的前提下，對 Q25、CVaR25、
+reach-floor-10、bottom 與 oscillation 穩定優於 S0，而且不是 action collapse。若只有
+offline accuracy 提升、只有 mean／maximum 提升，或多 seeds 不一致，立即 FAIL／STOP，
+回到 causal schema、sequence length、label timing或資料 coverage；不得直接進 P4.2。
+
+### P4.2：Rare-Branch Sequence Dataset
+
+只有 P4.1 PASS 才執行。資料單位改成完整 episode 或不跨 episode 的連續 chunk，重點
+覆蓋 late brake、wrong launch、missed-landing recovery、wall＋velocity、platform edge、
+low-health spike、conveyor、spring、flip 與 vision dropout recovery。
+
+步驟：凍結 branch 定義與最低 sequence coverage；在 simulator 加 bounded perturbation；
+由 Teacher 接管恢復；保存 causal phase/target/support/confidence/perturbation/events；按
+episode、seed、platform sequence 隔離 split；validator 必須 0 error。若 normal rows
+淹沒 rare branch、timeline 不完整或 split 洩漏，Gate FAIL，不進 DAgger。
+
+### P4.3：Conservative Sequence DAgger
+
+只有 P4.2 dataset Gate PASS 才執行一輪。起始 aggregate 固定為 80% 原 Teacher／安全
+資料＋最多 20% learner corrections；correction 必須是高 confidence sequence，按 phase
+與 branch 分層並保留 safety replay。
+
+接受條件：health death 不增加、bottom 不惡化、Q25/CVaR25 改善、reach-10 不下降、
+mean/median 不明顯退化且多 seeds 一致。FAIL 即停止，不自動開始第二輪。
+
+### P4.4：Compact NEAT 公平對照
+
+NEAT 不是替代所有前置工作，而是 bounded baseline。比較 feed-forward compact、
+recurrent compact 與 compact GRU；使用相同 seeds、horizon、environment steps、控制
+頻率與總計算預算。fitness 必須包含 safety 與 lower-tail，不能用單次最高樓層選 genome。
+若 Q25、CVaR、死亡率與重現性無優勢，不擴大 population 或 generations。
+
+### P5：Closed-Loop Candidate Selection
+
+從 explicit-state MLP、GRU sequence Student、sequence DAgger、compact NEAT 中選一個
+最穩定候選。建立統一 checkpoint metadata、observation/causal schema version、hidden
+state reset lifecycle、fallback Teacher 與部署 smoke。所有候選用同一 evaluation matrix，
+仍先看 safety 與 tail risk。
+
+### P6：Bounded RL Fine-Tuning
+
+只有 sequence／memory Student 已穩定超過 S0，且 simulator failure taxonomy 能重現
+真機問題時，才比較純 BC/DAgger、BC 初始化 PPO、recurrent replay RL 或 residual
+policy。凍結 reward version、更新步數、replay、early stop 與 seeds；只在 simulator／
+Colab 做 bounded 實驗，不在原版遊戲長時間探索。沒有多 seed closed-loop 增益就停止。
+
+### P7：特殊平台 Curriculum 與 Domain Randomization
+
+依 normal → spikes/recovery → conveyor → spring → flipping 分階段加入。每一項都重新
+通過 mechanism、reachability、Oracle、Teacher、dataset coverage、Student regression；
+最後才允許低比例混合。物理、比例、延遲、觀測噪音與短 dropout 的 randomization
+範圍必須有真機 telemetry 依據，不可任意擴大來製造表面泛化。
+
+### P8：漸進式真機 Student Gate 與最終展示
+
+真機不是訓練場，而是 transfer／最終驗證。依 3 → 5 → 10 → 20 個 bounded episodes
+漸進；每次都由使用者手動開遊戲並監看，保留 foreground/F8/release-all/step/seconds/
+episode 上限、transition、sidecar、MP4 與 HUD audit。
+
+升級條件：安全事件 0、無 action collapse／牆邊震盪／無原因長 RELEASE、lower-tail
+不退化、special branch 可解釋、影片與 sidecar 完整。任何一級 FAIL 就回 simulator
+做最小修復與固定重現，不在真機探索。20 回合穩定通過後，才進人工監看的較長展示，
+最終目標才是實際觀看代理在原版 NS-SHAFT 自主遊玩。
+
+### 本機、Colab、Simulator 與原版遊戲各自負責什麼
+
+- 本機：程式修改、pytest、schema/artifact audit、影片 replay、短 interface smoke、
+  使用者監督的 bounded 真機 Gate。
+- Colab：S0～S3 多 initialization 訓練、大量 simulator fixed-seed evaluation、
+  checkpoint 與結果 ZIP；不安裝也不控制原版 Windows 遊戲。
+- Simulator：高速、可 reset、可固定 seed 的近似遊戲，用來訓練與做因果消融；它不是
+  原版遊戲本身，因此所有成功最後都要過真機 transfer Gate。
+- 原版遊戲：只收有限校正、Teacher／Student transfer 與最終 bounded evaluation；
+  保留完整安全機制，不做長時間線上探索。
+
+### Repository 與本機實驗資料保留政策
+
+GitHub 保存 source、tests、notebook、永久文件、報告，以及足以重建結論的 JSON／CSV
+summary。大型 JSONL、checkpoint、logs、captures 與 MP4 預設由 `.gitignore` 隔離，
+不是因為不重要，而是它們有不同的保存與隱私／容量需求。
+
+2026-08-03 發布前完成一次引用與用途稽核，移除 237.82 MiB 可再生或已封存資料：
+
+- 三個舊 Colab ZIP；
+- 已判定 action collapse、禁止續訓的舊 PPO／probe 權重；
+- 舊 BC／DAgger `.pt` checkpoints；
+- 已被 clean easy dataset 或 Spike Dataset v1 取代的 correction／aggregate JSONL；
+- 五個無引用且已有 v2 的重複 Gate／影片 audit JSON；
+- 舊 PPO／pip 啟動 log 與 Python／pytest cache。
+
+刻意保留：`teacher_dataset_v0.jsonl`、`spike_teacher_dataset_v1.jsonl`、Gate v11
+十回合 transitions／sidecars／MP4、有限真機 calibration、vision templates、所有
+結論 summary 與失敗報告。被刪除的歷史模型不得續訓；若需重現資料管線，應由版本化
+script、seed 與 summary 重新生成，不可把舊 checkpoint 當成新實驗起點。
 
 ## 安裝
 
@@ -51,12 +394,21 @@ Copy-Item config.example.yaml config.yaml
   `NsShaftClass`，可避免把同名終端機或 OpenCV 預覽誤判成遊戲。
 - `game.auto_launch`：預設 `false`。只有明確改為 `true` 才會由工具啟動設定的 exe。
 - `controls.left_key`、`right_key`、`restart_key`：遊戲按鍵。
+- `controls.action_duration_ms`：每次決策在擷取下一觀測前的最短控制間隔，預設
+  80 ms；連續同方向不再於每個 decision tick 強制放鍵。
+- `controls.max_continuous_hold_ms`：方向鍵 lease watchdog，預設 500 ms；控制
+  迴圈若沒有及時更新 lease，背景 timer 會自動放開方向鍵。
 - `controls.restart_duration_ms`：重新開始鍵的按住時間，實機測試預設為 200 ms。
 - `controls.input_backend`：預設 `pyautogui`；只有遊戲不接受時才改為
   `pydirectinput`。
+- `baseline.special_contact_escape_max_steps`：彈簧／尖刺事件觸發後，最多持續
+  12 個 decision steps 的離台控制；離開來源邊界或確認落到非特殊平台會提早清除。
 - `capture`：擷取模式、校正值、輸出尺寸與 FPS。
 - `events.landing_contact_gap`：一般落地接觸距離，實機值為 6。
 - `events.spring_contact_gap`：彈簧接觸距離；依實際 JSONL 校正為 12。
+- `hud.floor_counter_*`：HUD 樓層數字 ROI。未校正時明確回報 unavailable；本機
+  634x431 reference 已由既有影片校正為 `(266,16,112,32)`。真機 reach 使用
+  HUD max，不再從 platform track ID 推算。
 - `safety.block_on_related_windows`：預設 `true`；同程序或由主遊戲擁有的其他
   可見視窗出現時，禁止所有自動輸入。
 - `environment.auto_restart_on_reset`：預設 `false`；只有受限重設實機確認後才
@@ -124,7 +476,16 @@ python scripts/test_input.py
 控制器會在呼叫輸入後端前先登記按住的鍵，因此後端送鍵途中發生例外也能立即
 嘗試釋放；`release_all()` 只釋放本程序實際追蹤的鍵，不會在沒有按鍵被按住時
 額外送出 LEFT／RIGHT key-up，避免 NS-SHAFT 死亡選單把多餘 key-up 當成焦點
-導覽。
+導覽。真機 adapter 對連續同方向 action 採 stateful hold，只有 RELEASE、換向、
+非遊玩 phase、安全事件、例外、reset 或 close 才放鍵；每一步都會更新 500 ms
+lease，若 capture／decision loop 卡住，watchdog 仍會自動放鍵。
+
+Teacher 只使用螢幕可觀測事件處理特殊平台：`spring_bounce` 或來源 kind 為
+`spring`／`spikes` 的 landing 會建立 persistent escape memory。來源 track ID
+變動時，只有同 kind、相近水平幾何及相符接觸關係才延續 semantic contact；方向
+先短期承諾，可見目的地穩定且顯著更好時最多重規劃一次。一般 escape 最多 12 步，
+之後只允許 4 步 forced exit，再未脫離即 safety abort；普通平台 landing、確認離台
+或 reset 會清除。離線 encounter audit 另跨短 ID gap 量測完整區段，但不影響控制。
 
 ### 5. 人工收集遊戲狀態畫面
 
@@ -438,6 +799,36 @@ online RL 訓練仍應在本機執行。
 死亡對話框、未知狀態、時間上限、失焦、F8 與 Ctrl+C 都會安全結束；F8、失焦、
 例外及正常結束仍會釋放所有方向鍵。這個工具用來檢查獎勵，不會訓練模型。
 
+### Teacher 控制策略離線證據 audit
+
+要重跑目前的 action-conditioned dynamics、Spring encounter 與 Spike outcome
+審查，可執行：
+
+```powershell
+.\.venv\Scripts\python.exe scripts\audit_teacher_control_strategy.py --overwrite
+```
+
+工具只讀最近四組已保存的 transitions/controller sidecars 與 Gate JSON；不建立
+輸入後端、不尋找遊戲視窗、不送按鍵。它以 episode-held-out 方式比較既有
+action-conditioned coefficient form 與 carry-velocity baseline，並將短間隔、同類型的
+special contacts 聚合為診斷 encounter。Encounter 不等同物理平台 identity，也不會
+驅動 live controller。結果寫入：
+
+- `artifacts/teacher_control_strategy_audit_v1.json`
+- `reports/ACTION_CONDITIONED_DYNAMICS_REPORT.md`
+- `reports/NORMAL_LANDING_GATE.md`
+- `reports/SPRING_ESCAPE_GATE.md`
+- `reports/SPIKE_ESCAPE_GATE.md`
+
+目前 reverse-braking strict coverage 僅 LEFT 7／RIGHT 8，低於每側 30 的門檻；
+因此報告會保持 `shadow_model_eligible=false`，也不代表可部署新模型。
+
+曾執行的固定平台 `reverse-braking` 校正只用於短期物理 response 診斷。三個完成
+run 雖產生 LEFT 23／RIGHT 21 strict rows，但因角色只在局部平台反覆左右、缺少
+自然 target／landing／controller sidecar context，不能加入 Teacher deployment Gate；
+後續固定平台收集已停止。完整判斷見
+`reports/REVERSE_BRAKING_CALIBRATION_REVIEW.md`。
+
 ### 受限的回合重設
 
 `environment.auto_restart_on_reset` 預設為 `false`，一般 Gymnasium 環境不會
@@ -448,18 +839,15 @@ online RL 訓練仍應在本機執行。
   避免最後一次 LEFT／RIGHT 改變選單焦點。
 - 連續 3 幀穩定為主遊戲 `DIALOG`，且右側單人「開始」按鈕具有校正後的焦點
   外框：最多短按一次設定中的 `restart_key`。
-- 焦點明確位於中央雙人模式：先再次釋放控制器實際追蹤的方向鍵（不送新的
+- 焦點明確位於雙人模式或 EXIT：先再次釋放控制器實際追蹤的方向鍵（不送新的
   key-down），再唯讀等待最多 `reset_focus_max_observation_frames`
-  （預設 450 幀，約 30 秒），因為實機確認這可能只是死亡對話框重繪期間的
-  暫態。只有
-  單人開始焦點連續穩定後才允許 Enter。等待逾時時，僅在
+  （預設 24 幀，在 8 Hz 約 3 秒）。只有單人開始焦點連續穩定後才允許 Enter。
+  等待逾時時，僅在
   `controls.menu_focus_correction_key` 已經實機校正的情況下，才最多短按該鍵
-  一次並再次驗證。實機後續觀察顯示自動 Tab 可能干擾暫態重繪，因此本機與
-  範例設定均維持 `null`，自動訓練只等待自然恢復。NS-SHAFT 可能依序重繪
-  Logo、紀錄清單與按鈕，因此人工 Tab
-  後只讀驗證使用獨立的
-  `reset_focus_correction_max_observation_frames`（預設 450 幀，約 30 秒）；
-  等待期間不補按第二次。未校正修正鍵時逾時仍會停止。
+  `reset_focus_correction_max_presses` 次（預設上限 3）並逐次驗證。每次 Tab 後
+  使用獨立的 `reset_focus_correction_max_observation_frames`（預設 12 幀，8 Hz
+  約 1.5 秒）；辨識到 START 立即停止巡覽。範例仍將修正鍵設為 `null`，其他
+  電腦不可沿用本機 Tab 路徑。未校正修正鍵時逾時仍會停止。
 - 焦點位置不明或按鈕 ROI 未校正：停止且不送方向鍵或 Enter。
 
 自動焦點修正鍵預設為 `null`，因此未校正時遇到雙人焦點只會停止。可先執行
@@ -495,7 +883,7 @@ Windows 拒絕切換時不會送出 Tab。
 本機 `config.yaml` 設為 `menu_focus_correction_key: "tab"` 與
 `reset_focus_correction_max_presses: 3`。每次 Tab 後都必須重新確認仍是
 `DIALOG`；辨識到單人開始立即停止巡覽，只有連續穩定後才允許 Enter。範例
-設定仍是 `null` 與最多 1 次，其他電腦不可直接沿用。
+設定仍是 `null`，但保留最多 3 次的硬上限；其他電腦不可直接沿用。
 - Enter 後必須重新辨識為 `PLAYING` 才算成功。
 - Enter 後仍是對話框、狀態不明、失焦、F8 或例外：立即停止，不補按第二次。
 - 不搜尋、不聚焦，也不對另一個螢幕上的未知姓名輸入視窗送鍵。
@@ -764,3 +1152,21 @@ partial-observability 結論見 `reports/PARTIAL_OBSERVABILITY_AUDIT.md`。
 P0／P1 artifacts 採 immutable／拒絕覆寫設計；目前兩個 gate 均已通過，
 依 `docs/DECISIONS.md` D-010 不再追加本機 timesteps。下一步是 Colab
 runtime、throughput、checkpoint／resume 與 MP4 pipeline validation。
+
+目前 Simulator v0.2 的 easy curriculum、Teacher Dataset、BC0 與單輪
+DAgger0 smoke 已完成；balanced correction ablation 在 frozen／fresh seeds
+均明顯優於 baseline。特殊平台採逐項 feature gate：health＋普通平台回血與
+尖刺、輸送帶、彈簧、翻板 mechanism 已通過，全部預設關閉且尚未加入一般生成分布。詳細通過條件與
+限制見 `docs/CURRENT_STATUS.md`、`reports/HEALTH_NORMAL_HEAL_GATE_REPORT.md`
+、`reports/SPIKE_GATE_REPORT.md` 及 `reports/CONVEYOR_GATE_REPORT.md`；
+彈簧與翻板結果見 `reports/SPRING_GATE_REPORT.md`、
+`reports/FLIPPING_GATE_REPORT.md`；下一步先設計低比例單一特殊平台 generator，
+尚未開始特殊平台訓練。
+
+首個低比例 generator 已選 spike curriculum v0，Reachability／Oracle／Baseline
+均通過，並以獨立 seeds 生成 3,541-row Teacher Dataset。結果見
+`reports/SPIKE_CURRICULUM_V0_REPORT.md`；目前仍未重訓模型，下一步是 bounded
+BC0 smoke，正式多-seed 重訓才需要 Colab。
+
+本機 5-epoch spike BC0 interface smoke 已通過；正式三初始化 seed 實驗將使用
+Colab。介面結果與限制見 `reports/SPIKE_BC0_INTERFACE_SMOKE_REPORT.md`。

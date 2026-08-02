@@ -20,6 +20,10 @@ def test_release_evaluation_reports_action_collapse_and_hard_step_limit():
     assert result.action_counts["RELEASE_ALL"] == result.total_steps
     assert result.max_action_share == 1.0
     assert result.collapsed
+    assert all(
+        episode.deepest_floor >= episode.floors
+        for episode in result.episode_results
+    )
 
 
 def test_random_evaluation_is_seed_reproducible():

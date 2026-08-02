@@ -1,0 +1,71 @@
+{
+  "experiment": "p36-floor-counter-video-audit",
+  "source_run": "logs\\teacher_real_micro_20260801_000521_887512",
+  "method": "calibrated HUD binary-change tracker with stable-frame debounce",
+  "privileged_state_used": false,
+  "episodes": [
+    {
+      "video": "logs\\teacher_real_micro_20260801_000521_887512\\episode_01.mp4",
+      "frames": 63,
+      "initial_floor": 1,
+      "max_floor": 3,
+      "changes": [
+        {
+          "frame": 21,
+          "value": 2
+        },
+        {
+          "frame": 44,
+          "value": 3
+        }
+      ],
+      "unavailable_frames": 0,
+      "unstable_frames": 7
+    },
+    {
+      "video": "logs\\teacher_real_micro_20260801_000521_887512\\episode_02.mp4",
+      "frames": 43,
+      "initial_floor": 1,
+      "max_floor": 2,
+      "changes": [
+        {
+          "frame": 22,
+          "value": 2
+        }
+      ],
+      "unavailable_frames": 0,
+      "unstable_frames": 4
+    },
+    {
+      "video": "logs\\teacher_real_micro_20260801_000521_887512\\episode_03.mp4",
+      "frames": 43,
+      "initial_floor": 1,
+      "max_floor": 2,
+      "changes": [
+        {
+          "frame": 22,
+          "value": 2
+        }
+      ],
+      "unavailable_frames": 0,
+      "unstable_frames": 4
+    }
+  ],
+  "observed_max_floors": [
+    3,
+    2,
+    2
+  ],
+  "expected_manual_max_floors": [
+    3,
+    2,
+    2
+  ],
+  "checks": {
+    "all_videos_read": true,
+    "counter_available_every_frame": true,
+    "initial_floor_one": true,
+    "expected_manual_max_match": true
+  },
+  "status": "PASS"
+}

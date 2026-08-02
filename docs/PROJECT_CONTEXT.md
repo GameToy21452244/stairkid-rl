@@ -2,10 +2,11 @@
 
 ## 恢復上下文
 
-本專案的最高優先長期規格是 repository 父目錄的
+本專案目前最高優先規格是 repository 父目錄的
+`../CODEX_SEQUENCE_CONTROL_STRATEGY_UPDATE.md`；前一版訓練規格為
+`../CODEX_UPDATE_TRAINING_STRATEGY_AND_CONTINUE.md`，原始架構規格是
 `../CODEX_NS_SHAFT_PROJECT_REFACTOR_PROMPT.md`。任何新工作階段或 context
-壓縮後，必須先完整重讀該文件，再依 `AGENTS.md` 的順序恢復上下文。本文件是摘要，
-不能取代長期規格。
+壓縮後，必須依 `AGENTS.md` 完整重讀兩者。本文件是摘要，不能取代規格。
 
 ## 專案目標
 
@@ -34,12 +35,33 @@
 - 新資料合約：`ns-shaft-transition-v1`，由
   `stair_agent.data.DatasetValidator` 驗證。
 
-## 長期主路線
+## 目前最高優先主路線
 
-1. 建立乾淨 transition 資料與時間校正。
-2. 以真實量測校正 simulator v0，先證明 baseline 可跑與環境可學。
-3. 在模擬器做 BC；通過固定評估後才做 DAgger。
-4. 再評估 baseline + residual 與 Double DQN／DQfD-lite。
-5. 僅把通過 gate 的候選策略帶回有限、可停止的實機驗證。
+1. 先用 3～5 個有硬上限的真實遊戲回合驗證 Teacher-observable、視覺、延遲、
+   target lock 與 controller memory；未實際通過前不得做 Student 新訓練。
+2. 量化 observation/action conflict 與 deployable memory 的 entropy reduction。
+3. 以相同資料、seed 與更新預算比較 S0 MLP、S1 explicit-state MLP、
+   S2 full-observation GRU、S3 compact-observation GRU。
+4. 建立帶 controller-state timeline 與可控擾動的 rare-branch sequences。
+5. 只有 sequence smoke 通過，才做至多一輪 80/20 conservative sequence DAgger，
+   並以 health/bottom death、Q25、CVaR25、reach rate 作 Gate。
+6. NEAT 只作 common-seed、fixed-budget 公平對照；bounded RL 更後置。
+
+舊版已完成的資料 audit、Simulator v0.2、Teacher 分離與特殊平台機制仍是有效
+基礎，不重新實作；只是訓練停點已被新的 sequence-control Gate 取代。
+
+## 已完成的基礎路線
+
+1. Data Resource Audit 先判斷既有資料可作 demo、replay、dynamics 或 relabel。
+2. Simulator v0.2 以持續生成、回收與 2～3 層 reachability 保證基本可解。
+3. 分離可看完整 state 的 Oracle-full 與只看學生觀測的 Teacher-observable。
+4. 固定 60 Hz 物理步進，比較 8／10／12 Hz policy control。
+5. gates 通過後才建立小型 teacher dataset、BC0 與一輪 DAgger0 smoke。
+6. 基本下樓合格後才依序加入回血、尖刺、輸送帶、彈簧、翻板。
+7. 再評估 residual、Double DQN／DQfD-lite 與 domain randomization。
+8. 僅把通過 gate 的候選策略帶回有限、可停止的實機驗證。
 
 PPO 僅保留為模擬器 learnability 與小型比較工具。
+
+目前已確認真實遊戲角色在左右邊界會停止；不採 Windows VM，最終驗證以使用者
+可直接觀看的真實遊戲受限回合為準。

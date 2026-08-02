@@ -54,6 +54,8 @@ def test_observation_is_json_serializable_dictionary() -> None:
 
     assert payload["phase"] == "playing"
     assert payload["player"]["motion"] == "falling"
+    assert payload["player"]["detection_source"] == "raw"
+    assert payload["player"]["missing_streak"] == 0
     assert payload["nearest_platform"]["track_id"] == 7
     assert payload["platform_scroll_velocity_y"] == -15.0
     assert payload["events"][0]["type"] == "spike_damage"

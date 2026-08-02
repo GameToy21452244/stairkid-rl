@@ -13,12 +13,24 @@ class SimulatorRewardCalculator:
             "step_penalty": -self.config.step_penalty,
             "landing_reward": 0.0,
             "floor_reward": 0.0,
+            "health_gain_reward": 0.0,
+            "damage_penalty": 0.0,
             "death_penalty": 0.0,
         }
         if "landed" in result.events:
             components["landing_reward"] = self.config.landing_reward
         if "floor_descended" in result.events:
             components["floor_reward"] = self.config.floor_reward
+        if result.health_delta > 0:
+            components["health_gain_reward"] = (
+                result.health_delta
+                * self.config.health_gain_reward_per_segment
+            )
+        elif result.health_delta < 0:
+            components["damage_penalty"] = (
+                result.health_delta
+                * self.config.spike_damage_penalty_per_segment
+            )
         if result.terminated:
             components["death_penalty"] = -self.config.death_penalty
         self.last_components = components

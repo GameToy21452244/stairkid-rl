@@ -19,6 +19,7 @@ class DialogActionError(RuntimeError):
 class DialogFocusLocation(Enum):
     START = "start"
     TWO_PLAYER = "two_player"
+    EXIT = "exit"
     UNKNOWN = "unknown"
 
 
@@ -30,6 +31,7 @@ class DialogFocusGuard:
     reference_height: int
     start_button_rect: tuple[int, int, int, int]
     two_player_button_rect: tuple[int, int, int, int]
+    exit_button_rect: tuple[int, int, int, int] | None = None
     focused_border_mean_max: float = 180.0
     minimum_contrast: float = 20.0
     focused_inner_gray_max: int = 80
@@ -116,46 +118,40 @@ class DialogFocusGuard:
             if frame.ndim == 3
             else frame
         )
-        start_mean = self._top_border_mean(
-            gray,
-            self.start_button_rect,
-        )
-        two_player_mean = self._top_border_mean(
-            gray,
-            self.two_player_button_rect,
-        )
-        start_inner = self._inner_border_dark_ratio(
-            gray,
-            self.start_button_rect,
-        )
-        two_player_inner = self._inner_border_dark_ratio(
-            gray,
-            self.two_player_button_rect,
-        )
-        start_has_inner_focus = (
-            start_inner >= self.focused_inner_dark_ratio_min
-        )
-        two_player_has_inner_focus = (
-            two_player_inner >= self.focused_inner_dark_ratio_min
-        )
-        if start_has_inner_focus != two_player_has_inner_focus:
-            return (
-                DialogFocusLocation.START
-                if start_has_inner_focus
-                else DialogFocusLocation.TWO_PLAYER
-            )
-        if start_has_inner_focus:
+        button_rects = {
+            DialogFocusLocation.START: self.start_button_rect,
+            DialogFocusLocation.TWO_PLAYER: self.two_player_button_rect,
+        }
+        if self.exit_button_rect is not None:
+            button_rects[DialogFocusLocation.EXIT] = self.exit_button_rect
+        border_means = {
+            location: self._top_border_mean(gray, rect)
+            for location, rect in button_rects.items()
+        }
+        inner_focus = [
+            location
+            for location, rect in button_rects.items()
+            if self._inner_border_dark_ratio(gray, rect)
+            >= self.focused_inner_dark_ratio_min
+        ]
+        if len(inner_focus) == 1:
+            return inner_focus[0]
+        if inner_focus:
             return DialogFocusLocation.UNKNOWN
-        if (
-            start_mean <= self.focused_border_mean_max
-            and two_player_mean - start_mean >= self.minimum_contrast
-        ):
-            return DialogFocusLocation.START
-        if (
-            two_player_mean <= self.focused_border_mean_max
-            and start_mean - two_player_mean >= self.minimum_contrast
-        ):
-            return DialogFocusLocation.TWO_PLAYER
+        for location, focused_mean in border_means.items():
+            other_means = [
+                mean
+                for other_location, mean in border_means.items()
+                if other_location is not location
+            ]
+            if (
+                focused_mean <= self.focused_border_mean_max
+                and all(
+                    other_mean - focused_mean >= self.minimum_contrast
+                    for other_mean in other_means
+                )
+            ):
+                return location
         return DialogFocusLocation.UNKNOWN
 
     def __call__(self, frame: np.ndarray) -> bool:
@@ -362,13 +358,22 @@ class DialogActionHandler:
                 )
             if self.focus_guard is not None:
                 location = self.focus_guard.focus_location(before.frame)
-                if location is DialogFocusLocation.TWO_PLAYER:
+                if location in {
+                    DialogFocusLocation.TWO_PLAYER,
+                    DialogFocusLocation.EXIT,
+                }:
                     # 死亡可能發生在方向鍵狀態切換期間。先釋放控制器
-                    # 實際追蹤的按鍵，再等待舊遊戲完成對話框焦點重繪；
-                    # 此處不送任何新 key-down，也不主動切換選項。
+                    # 實際追蹤的按鍵。雙人焦點先給舊遊戲一段有上限的
+                    # 自然重繪時間；已確認的離開焦點則直接進入有上限的
+                    # 選單修正，並且只有重新確認 START 才會送 Enter。
                     self.controller.release_all()
-                    corrected = self._observe_stable_start_focus()
-                    if corrected is None:
+                    corrected = None
+                    if location is DialogFocusLocation.TWO_PLAYER:
+                        corrected = self._observe_stable_start_focus()
+                    if (
+                        location is DialogFocusLocation.TWO_PLAYER
+                        and corrected is None
+                    ):
                         # 再次執行冪等的追蹤按鍵清理並短暫驗證；
                         # 不送 Tab、方向 key-down 或 Enter。
                         self.controller.release_all()
@@ -381,7 +386,7 @@ class DialogActionHandler:
                     else:
                         if not self.focus_correction_key:
                             raise DialogActionError(
-                                "雙人焦點未在等待期限內自然恢復，且未設定"
+                                "選單焦點未在等待期限內恢復，且未設定"
                                 "安全修正鍵；沒有送出 Enter。"
                             )
                         for _attempt in range(

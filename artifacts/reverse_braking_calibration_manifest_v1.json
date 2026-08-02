@@ -1,0 +1,56 @@
+{
+  "schema_version": "reverse-braking-calibration-review-v1",
+  "date": "2026-08-03",
+  "purpose": "diagnostic-only horizontal system identification",
+  "qualification": "DO_NOT_USE_AS_TEACHER_GATE_OR_LANDING_POLICY_EVIDENCE",
+  "reason": "The fixed-platform left/right oscillation isolates reversal response but does not represent natural target selection, airborne landing approach, or post-special recovery.",
+  "runs": [
+    {
+      "path": "logs/calibration_v1_reverse-braking_20260803_025027_504563.jsonl",
+      "status": "completed_terminal",
+      "validator_valid": true,
+      "rows": 38,
+      "strict_rows": 25,
+      "left_reverse_braking": 6,
+      "right_reverse_braking": 7,
+      "include_in_diagnostic_summary": true
+    },
+    {
+      "path": "logs/calibration_v1_reverse-braking_20260803_025124_827516.jsonl",
+      "status": "completed_phase_change",
+      "validator_valid": true,
+      "rows": 56,
+      "strict_rows": 36,
+      "left_reverse_braking": 12,
+      "right_reverse_braking": 8,
+      "include_in_diagnostic_summary": true
+    },
+    {
+      "path": "logs/calibration_v1_reverse-braking_20260803_025202_671564.jsonl",
+      "status": "completed_terminal",
+      "validator_valid": true,
+      "rows": 31,
+      "strict_rows": 23,
+      "left_reverse_braking": 5,
+      "right_reverse_braking": 6,
+      "include_in_diagnostic_summary": true
+    },
+    {
+      "path": "logs/calibration_v1_reverse-braking_20260803_025236_563731.jsonl",
+      "status": "interrupted_after_user_distribution_concern",
+      "validator_valid": false,
+      "rows": 57,
+      "strict_rows": 40,
+      "left_reverse_braking": 9,
+      "right_reverse_braking": 15,
+      "include_in_diagnostic_summary": false
+    }
+  ],
+  "included_new_diagnostic_totals": {
+    "runs": 3,
+    "strict_rows": 84,
+    "left_reverse_braking": 23,
+    "right_reverse_braking": 21
+  },
+  "next_evidence_source": "natural Teacher trajectories with full controller sidecar and landing context"
+}

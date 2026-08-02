@@ -106,6 +106,44 @@ def test_related_windows_use_same_process_id() -> None:
 
     assert manager.related_windows(game) == [name_dialog]
     assert manager.blocking_related_windows(game.hwnd) == [name_dialog]
+    assert manager.find_name_entry_dialog(game.hwnd) == name_dialog
+
+
+def test_name_entry_dialog_rejects_unrecognized_or_unowned_modal() -> None:
+    rect = Rect(0, 0, 640, 480)
+    game = WindowInfo(
+        123,
+        "NS-SHAFT",
+        rect,
+        rect,
+        class_name="NsShaftClass",
+        process_id=42,
+    )
+    unrelated_title = WindowInfo(
+        456,
+        "儲存檔案",
+        rect,
+        rect,
+        class_name="#32770",
+        process_id=42,
+        owner_hwnd=123,
+    )
+    manager = WindowManager(FakeBackend([game, unrelated_title]))
+
+    assert manager.find_name_entry_dialog(game.hwnd) is None
+
+    unowned_name = WindowInfo(
+        789,
+        "請輸入姓名",
+        rect,
+        rect,
+        class_name="#32770",
+        process_id=42,
+        owner_hwnd=0,
+    )
+    manager = WindowManager(FakeBackend([game, unowned_name]))
+
+    assert manager.find_name_entry_dialog(game.hwnd) is None
 
 
 def test_window_not_found() -> None:

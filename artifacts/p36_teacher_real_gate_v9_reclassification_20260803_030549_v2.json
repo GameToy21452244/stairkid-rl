@@ -1,0 +1,872 @@
+{
+  "experiment": "teacher-real-game-micro-gate-v9",
+  "dry_run": false,
+  "episodes": [
+    {
+      "episode": 1,
+      "steps": 18,
+      "floors": 2,
+      "floor_start": 1,
+      "floor_max": 2,
+      "floor_counter_available": true,
+      "floor_counter_unstable_steps": 3,
+      "physical_response_samples": [
+        {
+          "direction": "RIGHT",
+          "latency_ms": 109.00000000037835,
+          "step": 3
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 110.00000000058208,
+          "step": 6
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 125.0,
+          "step": 15
+        }
+      ],
+      "physical_response_timeouts": 0,
+      "wall_telemetry_available": true,
+      "outward_wall_push_count": 0,
+      "max_outward_wall_push_streak": 0,
+      "player_telemetry_available": true,
+      "player_missing_step_count": 1,
+      "max_player_missing_streak": 1,
+      "wall_reentry_cycle_count": 0,
+      "rapid_direction_reversal_count": 1,
+      "max_rapid_direction_reversal_burst": 1,
+      "max_wall_direction_reversal_burst": 0,
+      "max_aligned_release_streak": 4,
+      "max_support_aligned_release_streak": 3,
+      "support_departure_telemetry_available": true,
+      "same_support_departure_cycle_count": 0,
+      "support_departure_target_switch_count": 0,
+      "support_departure_timeout_count": 0,
+      "support_edge_release_count": 0,
+      "support_edge_opportunity_count": 2,
+      "support_departure_exit_samples": [
+        2,
+        1
+      ],
+      "max_support_departure_steps": 2,
+      "action_counts": {
+        "LEFT": 3,
+        "RELEASE_ALL": 10,
+        "RIGHT": 5
+      },
+      "terminal_reason": "bottom",
+      "forced_reason": "terminal_phase_before_action",
+      "observation_valid": true,
+      "target_lock_seen": true,
+      "transition_records": 18,
+      "controller_records": 18,
+      "video_complete": true,
+      "transition_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_030549_704516\\episode_01.transitions.jsonl",
+      "controller_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_030549_704516\\episode_01.controller.jsonl",
+      "video_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_030549_704516\\episode_01.mp4",
+      "dropout_forensic_manifest_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_030549_704516\\episode_01.dropout\\manifest.json",
+      "dropout_forensic_snapshot_count": 1,
+      "dropout_forensic_dropped_snapshot_count": 0,
+      "dropout_forensic_telemetry_available": true,
+      "observation_dropout_telemetry_available": true,
+      "invalid_observation_step_count": 0,
+      "recovered_observation_dropout_count": 0,
+      "max_recovered_observation_dropout_streak": 0,
+      "unrecovered_observation_dropout_count": 0,
+      "terminal_observation_dropout_count": 0,
+      "blind_directional_action_count": 0,
+      "top_pressure_dropout_continue_count": 0,
+      "max_top_pressure_dropout_continue_streak": 0,
+      "top_pressure_dropout_exhausted_count": 0,
+      "top_pressure_support_escape_count": 0,
+      "observation_dropout_context_counts": {},
+      "observation_dropout_samples": [],
+      "max_active_wall_direction_reversal_burst": 0,
+      "active_wall_direction_reversal_count": 0,
+      "excluded_wall_special_context_steps": 0,
+      "support_settle_release_count": 5,
+      "actionable_support_release_count": 0,
+      "max_actionable_support_aligned_release_streak": 0,
+      "support_departure_abort_cooldown_count": 0,
+      "max_support_departure_abort_cooldown_streak": 0,
+      "landing_intercept_telemetry_available": true,
+      "landing_release_projection_telemetry_available": true,
+      "special_escape_destination_telemetry_available": true,
+      "special_contact_lifecycle_telemetry_available": true,
+      "landing_intercept_decision_count": 16,
+      "landing_release_projection_decision_count": 14,
+      "destination_aware_special_escape_count": 0,
+      "momentum_guard_special_escape_count": 0,
+      "special_escape_replan_count": 0,
+      "special_contact_count": 0,
+      "pre_special_context_samples": [],
+      "max_pre_special_observation_dropout_streak": 0,
+      "max_pre_special_release_streak": 0,
+      "max_pre_special_dropout_release_streak": 0,
+      "spring_special_contact_count": 0,
+      "spike_special_contact_count": 0,
+      "special_source_reacquire_count": 0,
+      "same_special_source_restart_count": 0,
+      "max_special_contact_steps": 0,
+      "max_special_escape_replan_count": 0,
+      "max_special_direction_reversal_count": 0,
+      "max_special_direction_change_brake_count": 0,
+      "special_forced_exit_count": 0,
+      "special_escape_safety_abort_count": 0,
+      "support_edge_actionable_telemetry_available": true,
+      "generic_support_edge_release_count": 0,
+      "generic_support_edge_opportunity_count": 2
+    },
+    {
+      "episode": 2,
+      "steps": 144,
+      "floors": 9,
+      "floor_start": 1,
+      "floor_max": 9,
+      "floor_counter_available": true,
+      "floor_counter_unstable_steps": 23,
+      "physical_response_samples": [
+        {
+          "direction": "LEFT",
+          "latency_ms": 110.00000000058208,
+          "step": 0
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 109.00000000037835,
+          "step": 9
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 125.0,
+          "step": 15
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 109.00000000037835,
+          "step": 23
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 125.0,
+          "step": 28
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 109.00000000037835,
+          "step": 31
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 93.0000000007567,
+          "step": 35
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 125.0,
+          "step": 40
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 125.0,
+          "step": 47
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 125.0,
+          "step": 51
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 264.9999999994179,
+          "step": 57
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 125.0,
+          "step": 62
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000096043,
+          "step": 72
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 125.0,
+          "step": 77
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000096043,
+          "step": 82
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 108.99999999674037,
+          "step": 100
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 125.0,
+          "step": 111
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 108.99999999674037,
+          "step": 118
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000096043,
+          "step": 124
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 125.0,
+          "step": 131
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 108.99999999674037,
+          "step": 135
+        }
+      ],
+      "physical_response_timeouts": 0,
+      "wall_telemetry_available": true,
+      "outward_wall_push_count": 0,
+      "max_outward_wall_push_streak": 0,
+      "player_telemetry_available": true,
+      "player_missing_step_count": 1,
+      "max_player_missing_streak": 1,
+      "wall_reentry_cycle_count": 0,
+      "rapid_direction_reversal_count": 13,
+      "max_rapid_direction_reversal_burst": 4,
+      "max_wall_direction_reversal_burst": 1,
+      "max_aligned_release_streak": 9,
+      "max_support_aligned_release_streak": 4,
+      "support_departure_telemetry_available": true,
+      "same_support_departure_cycle_count": 0,
+      "support_departure_target_switch_count": 0,
+      "support_departure_timeout_count": 0,
+      "support_edge_release_count": 0,
+      "support_edge_opportunity_count": 25,
+      "support_departure_exit_samples": [
+        3,
+        4,
+        2,
+        1,
+        4,
+        3,
+        2,
+        2,
+        3,
+        3,
+        4,
+        3,
+        7,
+        1,
+        2,
+        3,
+        3,
+        3,
+        3
+      ],
+      "max_support_departure_steps": 7,
+      "action_counts": {
+        "LEFT": 37,
+        "RELEASE_ALL": 59,
+        "RIGHT": 48
+      },
+      "terminal_reason": "bottom",
+      "forced_reason": "terminal_phase_before_action",
+      "observation_valid": true,
+      "target_lock_seen": true,
+      "transition_records": 144,
+      "controller_records": 144,
+      "video_complete": true,
+      "transition_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_030549_704516\\episode_02.transitions.jsonl",
+      "controller_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_030549_704516\\episode_02.controller.jsonl",
+      "video_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_030549_704516\\episode_02.mp4",
+      "dropout_forensic_manifest_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_030549_704516\\episode_02.dropout\\manifest.json",
+      "dropout_forensic_snapshot_count": 1,
+      "dropout_forensic_dropped_snapshot_count": 0,
+      "dropout_forensic_telemetry_available": true,
+      "observation_dropout_telemetry_available": true,
+      "invalid_observation_step_count": 0,
+      "recovered_observation_dropout_count": 0,
+      "max_recovered_observation_dropout_streak": 0,
+      "unrecovered_observation_dropout_count": 0,
+      "terminal_observation_dropout_count": 0,
+      "blind_directional_action_count": 0,
+      "top_pressure_dropout_continue_count": 0,
+      "max_top_pressure_dropout_continue_streak": 0,
+      "top_pressure_dropout_exhausted_count": 0,
+      "top_pressure_support_escape_count": 0,
+      "observation_dropout_context_counts": {},
+      "observation_dropout_samples": [],
+      "max_active_wall_direction_reversal_burst": 0,
+      "active_wall_direction_reversal_count": 0,
+      "excluded_wall_special_context_steps": 0,
+      "support_settle_release_count": 14,
+      "actionable_support_release_count": 0,
+      "max_actionable_support_aligned_release_streak": 0,
+      "support_departure_abort_cooldown_count": 0,
+      "max_support_departure_abort_cooldown_streak": 0,
+      "landing_intercept_telemetry_available": true,
+      "landing_release_projection_telemetry_available": true,
+      "special_escape_destination_telemetry_available": true,
+      "special_contact_lifecycle_telemetry_available": true,
+      "landing_intercept_decision_count": 100,
+      "landing_release_projection_decision_count": 81,
+      "destination_aware_special_escape_count": 2,
+      "momentum_guard_special_escape_count": 0,
+      "special_escape_replan_count": 0,
+      "special_contact_count": 1,
+      "pre_special_context_samples": [
+        {
+          "step": 111,
+          "contact_id": 1,
+          "kind": "spikes",
+          "dropout_steps": 0,
+          "release_steps": 1,
+          "dropout_release_steps": 0
+        }
+      ],
+      "max_pre_special_observation_dropout_streak": 0,
+      "max_pre_special_release_streak": 1,
+      "max_pre_special_dropout_release_streak": 0,
+      "spring_special_contact_count": 0,
+      "spike_special_contact_count": 1,
+      "special_source_reacquire_count": 0,
+      "same_special_source_restart_count": 0,
+      "max_special_contact_steps": 2,
+      "max_special_escape_replan_count": 0,
+      "max_special_direction_reversal_count": 0,
+      "max_special_direction_change_brake_count": 0,
+      "special_forced_exit_count": 0,
+      "special_escape_safety_abort_count": 0,
+      "support_edge_actionable_telemetry_available": true,
+      "generic_support_edge_release_count": 11,
+      "generic_support_edge_opportunity_count": 37
+    },
+    {
+      "episode": 3,
+      "steps": 111,
+      "floors": 7,
+      "floor_start": 1,
+      "floor_max": 7,
+      "floor_counter_available": true,
+      "floor_counter_unstable_steps": 17,
+      "physical_response_samples": [
+        {
+          "direction": "RIGHT",
+          "latency_ms": 110.00000000058208,
+          "step": 3
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 110.00000000058208,
+          "step": 8
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 109.00000000037835,
+          "step": 12
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 109.00000000037835,
+          "step": 17
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 109.00000000037835,
+          "step": 24
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 125.0,
+          "step": 28
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 110.00000000058208,
+          "step": 32
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 109.00000000037835,
+          "step": 35
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 110.00000000058208,
+          "step": 39
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 110.00000000058208,
+          "step": 43
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 110.00000000058208,
+          "step": 50
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 109.00000000037835,
+          "step": 54
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 110.00000000058208,
+          "step": 62
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 125.0,
+          "step": 65
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 93.99999999732245,
+          "step": 68
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 125.0,
+          "step": 71
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 109.00000000037835,
+          "step": 78
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 109.00000000037835,
+          "step": 80
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 108.99999999674037,
+          "step": 87
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 109.00000000037835,
+          "step": 98
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 125.0,
+          "step": 104
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 109.00000000037835,
+          "step": 108
+        }
+      ],
+      "physical_response_timeouts": 0,
+      "wall_telemetry_available": true,
+      "outward_wall_push_count": 0,
+      "max_outward_wall_push_streak": 0,
+      "player_telemetry_available": true,
+      "player_missing_step_count": 0,
+      "max_player_missing_streak": 0,
+      "wall_reentry_cycle_count": 0,
+      "rapid_direction_reversal_count": 17,
+      "max_rapid_direction_reversal_burst": 16,
+      "max_wall_direction_reversal_burst": 0,
+      "max_aligned_release_streak": 3,
+      "max_support_aligned_release_streak": 3,
+      "support_departure_telemetry_available": true,
+      "same_support_departure_cycle_count": 0,
+      "support_departure_target_switch_count": 0,
+      "support_departure_timeout_count": 0,
+      "support_edge_release_count": 0,
+      "support_edge_opportunity_count": 12,
+      "support_departure_exit_samples": [
+        2,
+        2,
+        4,
+        4,
+        2,
+        3,
+        3,
+        1,
+        1,
+        3,
+        1,
+        5
+      ],
+      "max_support_departure_steps": 5,
+      "action_counts": {
+        "LEFT": 36,
+        "RELEASE_ALL": 38,
+        "RIGHT": 37
+      },
+      "terminal_reason": "top",
+      "forced_reason": "terminal_phase_before_action",
+      "observation_valid": true,
+      "target_lock_seen": true,
+      "transition_records": 111,
+      "controller_records": 111,
+      "video_complete": true,
+      "transition_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_030549_704516\\episode_03.transitions.jsonl",
+      "controller_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_030549_704516\\episode_03.controller.jsonl",
+      "video_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_030549_704516\\episode_03.mp4",
+      "dropout_forensic_manifest_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_030549_704516\\episode_03.dropout\\manifest.json",
+      "dropout_forensic_snapshot_count": 0,
+      "dropout_forensic_dropped_snapshot_count": 0,
+      "dropout_forensic_telemetry_available": true,
+      "observation_dropout_telemetry_available": true,
+      "invalid_observation_step_count": 0,
+      "recovered_observation_dropout_count": 0,
+      "max_recovered_observation_dropout_streak": 0,
+      "unrecovered_observation_dropout_count": 0,
+      "terminal_observation_dropout_count": 0,
+      "blind_directional_action_count": 0,
+      "top_pressure_dropout_continue_count": 0,
+      "max_top_pressure_dropout_continue_streak": 0,
+      "top_pressure_dropout_exhausted_count": 0,
+      "top_pressure_support_escape_count": 0,
+      "observation_dropout_context_counts": {},
+      "observation_dropout_samples": [],
+      "max_active_wall_direction_reversal_burst": 0,
+      "active_wall_direction_reversal_count": 0,
+      "excluded_wall_special_context_steps": 0,
+      "support_settle_release_count": 9,
+      "actionable_support_release_count": 0,
+      "max_actionable_support_aligned_release_streak": 0,
+      "support_departure_abort_cooldown_count": 0,
+      "max_support_departure_abort_cooldown_streak": 0,
+      "landing_intercept_telemetry_available": true,
+      "landing_release_projection_telemetry_available": true,
+      "special_escape_destination_telemetry_available": true,
+      "special_contact_lifecycle_telemetry_available": true,
+      "landing_intercept_decision_count": 63,
+      "landing_release_projection_decision_count": 50,
+      "destination_aware_special_escape_count": 7,
+      "momentum_guard_special_escape_count": 0,
+      "special_escape_replan_count": 0,
+      "special_contact_count": 6,
+      "pre_special_context_samples": [
+        {
+          "step": 32,
+          "contact_id": 1,
+          "kind": "spring",
+          "dropout_steps": 0,
+          "release_steps": 2,
+          "dropout_release_steps": 0
+        },
+        {
+          "step": 68,
+          "contact_id": 2,
+          "kind": "spikes",
+          "dropout_steps": 0,
+          "release_steps": 2,
+          "dropout_release_steps": 0
+        },
+        {
+          "step": 79,
+          "contact_id": 3,
+          "kind": "spring",
+          "dropout_steps": 0,
+          "release_steps": 0,
+          "dropout_release_steps": 0
+        },
+        {
+          "step": 83,
+          "contact_id": 4,
+          "kind": "spikes",
+          "dropout_steps": 0,
+          "release_steps": 0,
+          "dropout_release_steps": 0
+        },
+        {
+          "step": 84,
+          "contact_id": 5,
+          "kind": "spring",
+          "dropout_steps": 0,
+          "release_steps": 1,
+          "dropout_release_steps": 0
+        },
+        {
+          "step": 89,
+          "contact_id": 6,
+          "kind": "spring",
+          "dropout_steps": 0,
+          "release_steps": 0,
+          "dropout_release_steps": 0
+        }
+      ],
+      "max_pre_special_observation_dropout_streak": 0,
+      "max_pre_special_release_streak": 2,
+      "max_pre_special_dropout_release_streak": 0,
+      "spring_special_contact_count": 4,
+      "spike_special_contact_count": 2,
+      "special_source_reacquire_count": 4,
+      "same_special_source_restart_count": 0,
+      "max_special_contact_steps": 9,
+      "max_special_escape_replan_count": 1,
+      "max_special_direction_reversal_count": 1,
+      "max_special_direction_change_brake_count": 1,
+      "special_forced_exit_count": 0,
+      "special_escape_safety_abort_count": 0,
+      "support_edge_actionable_telemetry_available": true,
+      "generic_support_edge_release_count": 5,
+      "generic_support_edge_opportunity_count": 18
+    }
+  ],
+  "safety_events": [],
+  "metrics": {
+    "episodes": 3,
+    "floors_semantics": "visual_hud_max_floor",
+    "mean_floors": 6.0,
+    "median_floors": 7.0,
+    "floor_q25": 4.5,
+    "floor_cvar25": 2.0,
+    "reach_floor_1": 3,
+    "reach_floor_3": 2,
+    "reach_floor_5": 2,
+    "reach_floor_10": 0,
+    "action_counts": {
+      "LEFT": 76,
+      "RELEASE_ALL": 107,
+      "RIGHT": 90
+    },
+    "max_action_share": 0.39194139194139194,
+    "terminal_reasons": {
+      "bottom": 2,
+      "top": 1
+    },
+    "safety_event_count": 0,
+    "outward_wall_push_count": 0,
+    "max_outward_wall_push_streak": 0,
+    "player_missing_step_count": 2,
+    "max_player_missing_streak": 1,
+    "invalid_observation_step_count": 0,
+    "recovered_observation_dropout_count": 0,
+    "max_recovered_observation_dropout_streak": 0,
+    "unrecovered_observation_dropout_count": 0,
+    "terminal_observation_dropout_count": 0,
+    "blind_directional_action_count": 0,
+    "top_pressure_dropout_continue_count": 0,
+    "max_top_pressure_dropout_continue_streak": 0,
+    "top_pressure_dropout_exhausted_count": 0,
+    "top_pressure_support_escape_count": 0,
+    "observation_dropout_context_counts": {},
+    "dropout_forensic_snapshot_count": 2,
+    "dropout_forensic_dropped_snapshot_count": 0,
+    "wall_reentry_cycle_count": 0,
+    "rapid_direction_reversal_count": 31,
+    "max_rapid_direction_reversal_burst": 16,
+    "max_wall_direction_reversal_burst": 1,
+    "max_active_wall_direction_reversal_burst": 0,
+    "active_wall_direction_reversal_count": 0,
+    "excluded_wall_special_context_steps": 0,
+    "max_aligned_release_streak": 9,
+    "max_support_aligned_release_streak": 4,
+    "support_settle_release_count": 28,
+    "actionable_support_release_count": 0,
+    "max_actionable_support_aligned_release_streak": 0,
+    "same_support_departure_cycle_count": 0,
+    "support_departure_target_switch_count": 0,
+    "support_departure_timeout_count": 0,
+    "support_departure_abort_cooldown_count": 0,
+    "max_support_departure_abort_cooldown_streak": 0,
+    "landing_intercept_decision_count": 179,
+    "landing_release_projection_decision_count": 145,
+    "destination_aware_special_escape_count": 9,
+    "momentum_guard_special_escape_count": 0,
+    "special_escape_replan_count": 0,
+    "special_contact_count": 7,
+    "max_pre_special_observation_dropout_streak": 0,
+    "max_pre_special_release_streak": 2,
+    "max_pre_special_dropout_release_streak": 0,
+    "pre_special_context_samples": [
+      {
+        "episode": 2,
+        "step": 111,
+        "contact_id": 1,
+        "kind": "spikes",
+        "dropout_steps": 0,
+        "release_steps": 1,
+        "dropout_release_steps": 0
+      },
+      {
+        "episode": 3,
+        "step": 32,
+        "contact_id": 1,
+        "kind": "spring",
+        "dropout_steps": 0,
+        "release_steps": 2,
+        "dropout_release_steps": 0
+      },
+      {
+        "episode": 3,
+        "step": 68,
+        "contact_id": 2,
+        "kind": "spikes",
+        "dropout_steps": 0,
+        "release_steps": 2,
+        "dropout_release_steps": 0
+      },
+      {
+        "episode": 3,
+        "step": 79,
+        "contact_id": 3,
+        "kind": "spring",
+        "dropout_steps": 0,
+        "release_steps": 0,
+        "dropout_release_steps": 0
+      },
+      {
+        "episode": 3,
+        "step": 83,
+        "contact_id": 4,
+        "kind": "spikes",
+        "dropout_steps": 0,
+        "release_steps": 0,
+        "dropout_release_steps": 0
+      },
+      {
+        "episode": 3,
+        "step": 84,
+        "contact_id": 5,
+        "kind": "spring",
+        "dropout_steps": 0,
+        "release_steps": 1,
+        "dropout_release_steps": 0
+      },
+      {
+        "episode": 3,
+        "step": 89,
+        "contact_id": 6,
+        "kind": "spring",
+        "dropout_steps": 0,
+        "release_steps": 0,
+        "dropout_release_steps": 0
+      }
+    ],
+    "spring_special_contact_count": 4,
+    "spike_special_contact_count": 3,
+    "special_source_reacquire_count": 4,
+    "same_special_source_restart_count": 0,
+    "max_special_contact_steps": 9,
+    "max_special_escape_replan_count": 1,
+    "max_special_direction_reversal_count": 1,
+    "max_special_direction_change_brake_count": 1,
+    "special_forced_exit_count": 0,
+    "special_escape_safety_abort_count": 0,
+    "support_edge_release_count": 0,
+    "support_edge_opportunity_count": 39,
+    "support_edge_release_ratio": 0.0,
+    "generic_support_edge_release_count": 16,
+    "generic_support_edge_opportunity_count": 57,
+    "generic_support_edge_release_ratio": 0.2807017543859649,
+    "support_departure_exit_sample_count": 33,
+    "support_departure_exit_steps_median": 3.0,
+    "max_support_departure_steps": 7,
+    "floor_1_bottom_death_count": 0,
+    "physical_response_sample_count": 46,
+    "physical_response_latency_median_ms": 110.00000000058208,
+    "physical_response_latency_p95_ms": 125.0
+  },
+  "gate": {
+    "status": "PASS",
+    "passed": true,
+    "checks": {
+      "actual_not_dry_run": true,
+      "three_complete_episodes": true,
+      "requested_episodes_complete": true,
+      "safety_events_zero": true,
+      "observation_valid": true,
+      "floor_counter_available": true,
+      "wall_telemetry_available": true,
+      "player_telemetry_available": true,
+      "observation_dropout_telemetry_available": true,
+      "dropout_forensics_available": true,
+      "support_departure_telemetry_available": true,
+      "support_edge_actionable_telemetry_available": true,
+      "landing_intercept_telemetry_available": true,
+      "landing_release_projection_telemetry_available": true,
+      "special_escape_destination_telemetry_available": true,
+      "special_contact_lifecycle_telemetry_available": true,
+      "special_contact_observed": true,
+      "pre_special_observation_dropout_bounded": true,
+      "pre_special_dropout_release_bounded": true,
+      "same_special_source_restarts_zero": true,
+      "special_escape_safety_aborts_zero": true,
+      "special_escape_replans_bounded": true,
+      "special_direction_change_brakes_bounded": true,
+      "special_contact_steps_bounded": true,
+      "recoverable_player_dropout_bounded": true,
+      "unrecovered_player_dropouts_zero": true,
+      "blind_directional_actions_zero": true,
+      "top_pressure_continuation_bounded": true,
+      "top_pressure_dropout_exhaustion_zero": true,
+      "outward_wall_push_zero": true,
+      "wall_reentry_cycles_zero": true,
+      "wall_safety_oscillation_bounded": true,
+      "actionable_support_release_zero": true,
+      "same_support_departure_cycles_zero": true,
+      "support_departure_target_stable": true,
+      "support_departure_timeouts_zero": true,
+      "support_departure_abort_cooldown_bounded": true,
+      "support_edge_release_bounded": true,
+      "support_departure_exit_observed": true,
+      "support_departure_steps_bounded": true,
+      "floor_1_bottom_deaths_zero": true,
+      "physical_response_latency_measured": true,
+      "target_lock_seen": true,
+      "controller_and_transition_records_complete": true,
+      "videos_complete": true,
+      "no_action_collapse": true,
+      "reach_floor_3_case": true,
+      "reach_floor_5_case": true,
+      "five_episode_bottom_death_bounded": true,
+      "ten_episode_special_kind_coverage": true,
+      "failure_taxonomy_comparable": true
+    }
+  },
+  "audit": {
+    "mode": "recorded-controller-sidecar-reclassification",
+    "source_gate": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_030549_704516\\teacher_real_game_micro_gate.json",
+    "source_experiment": "teacher-real-game-micro-gate-v8",
+    "sidecars": [
+      {
+        "episode": 1,
+        "path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_030549_704516\\episode_01.controller.jsonl",
+        "records": 18
+      },
+      {
+        "episode": 2,
+        "path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_030549_704516\\episode_02.controller.jsonl",
+        "records": 144
+      },
+      {
+        "episode": 3,
+        "path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_030549_704516\\episode_03.controller.jsonl",
+        "records": 111
+      }
+    ],
+    "controller_policy_changed": false,
+    "game_input_sent": false,
+    "semantic_change": "support-edge blocking ratio now counts only a different target platform or an active support-departure lifecycle; same-support settle and special braking remain generic diagnostics",
+    "evidence_limit": "此結果可判定來源 run 在目前 Gate 語意下是否通過，因控制器、輸入與原始 sidecar 均未改變；它不取代後續獨立 10 回合穩定性 Gate，也不授權 P4.0 Student 正式訓練。"
+  },
+  "limits": {
+    "episodes": 3,
+    "max_steps_per_episode": 300,
+    "max_seconds_per_episode": 60.0,
+    "max_total_steps": 900,
+    "max_total_seconds": 180.0
+  }
+}

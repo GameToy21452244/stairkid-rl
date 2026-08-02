@@ -18,7 +18,7 @@ from .reward import SimulatorRewardCalculator
 
 
 class ShaftEnv(gym.Env[np.ndarray, int]):
-    """Gymnasium/Pymunk simulator v0 with no dependency on the real game."""
+    """Gymnasium/Pymunk simulator v0.2 with no dependency on the real game."""
 
     metadata = {
         "render_modes": ["human", "rgb_array"],
@@ -52,6 +52,7 @@ class ShaftEnv(gym.Env[np.ndarray, int]):
         self.simulator: ShaftSimulator | None = None
         self.last_observation: GameObservation | None = None
         self._step_count = 0
+        self._diagnostics: dict[str, object] = {}
 
     def _game_observation(
         self,
@@ -82,7 +83,8 @@ class ShaftEnv(gym.Env[np.ndarray, int]):
             top = float(self.config.height - platform.top)
             item = {
                 "track_id": platform.floor_index,
-                "kind": "normal",
+                "kind": platform.kind,
+                "active": simulator.platform_is_active(platform),
                 "confidence": 1.0,
                 "box": {
                     "left": platform.left,
@@ -102,6 +104,13 @@ class ShaftEnv(gym.Env[np.ndarray, int]):
                 nearest_gap = gap
                 nearest = {**item, "vertical_gap": gap}
 
+        health_delta = simulator.last_health_delta
+        if health_delta > 0:
+            health_event = "increased"
+        elif health_delta < 0:
+            health_event = "decreased"
+        else:
+            health_event = "unchanged"
         return GameObservation(
             timestamp=self._step_count * self.config.dt,
             phase=(
@@ -117,11 +126,25 @@ class ShaftEnv(gym.Env[np.ndarray, int]):
                 "motion": motion,
                 "confidence": 1.0,
             },
-            health={"segments": 12, "delta": 0, "event": "unchanged"},
+            health={
+                "segments": simulator.health_segments,
+                "delta": health_delta,
+                "event": health_event,
+            },
             nearest_platform=nearest,
             platforms=platforms,
             platform_scroll_velocity_y=-self.config.scroll_speed,
-            events=[{"type": event} for event in events],
+            events=[
+                {
+                    "type": event,
+                    "health_delta": (
+                        health_delta
+                        if event in {"health_gained", "damage"}
+                        else None
+                    ),
+                }
+                for event in events
+            ],
         )
 
     def _info(
@@ -140,15 +163,44 @@ class ShaftEnv(gym.Env[np.ndarray, int]):
             "raw_feature_count": self.encoder.feature_count,
             "stacked_feature_count": self.observation_space.shape[0],
             "observation_schema_version": OBSERVATION_SCHEMA_VERSION,
+            "environment_version": self.config.effective_environment_version,
+            "control_frequency_hz": self.config.fps,
+            "physics_frequency_hz": self.config.physics_hz,
+            "health_enabled": self.config.enable_health,
+            "health_segments": self.simulator.health_segments,
+            "health_delta": self.simulator.last_health_delta,
+            "spikes_enabled": self.config.enable_spikes,
+            "conveyor_enabled": self.config.enable_conveyor,
+            "conveyor_velocity_delta_x": (
+                self.simulator.last_conveyor_velocity_delta_x
+            ),
+            "spring_enabled": self.config.enable_spring,
+            "spring_velocity_delta_y": (
+                self.simulator.last_spring_velocity_delta_y
+            ),
+            "flipping_enabled": self.config.enable_flipping,
+            "failure_reason": self._failure_reason(terminal_reason),
             "platforms": [
                 {
                     "floor_index": platform.floor_index,
                     "center_x": platform.center_x,
                     "center_y": platform.center_y,
+                    "kind": platform.kind,
+                    "active": self.simulator.platform_is_active(platform),
                 }
                 for platform in self.simulator.platforms
             ],
         }
+
+    @staticmethod
+    def _failure_reason(terminal_reason: str | None) -> str | None:
+        return {
+            None: None,
+            "bottom": "bottom_death",
+            "top": "top_death",
+            "time_limit": "timeout",
+            "health_depleted": "health_depleted",
+        }.get(terminal_reason, "unknown")
 
     def reset(
         self,
@@ -160,6 +212,7 @@ class ShaftEnv(gym.Env[np.ndarray, int]):
         del options
         self._step_count = 0
         self.simulator = ShaftSimulator(self.config, self.np_random)
+        self._diagnostics = {}
         self.last_observation = self._game_observation()
         features = self.encoder.encode(self.last_observation)
         return self.temporal_stack.reset(features), self._info()
@@ -193,6 +246,25 @@ class ShaftEnv(gym.Env[np.ndarray, int]):
             self.encoder.encode(self.last_observation),
             mapped_action,
         )
+        body = self.simulator.player.body
+        self._diagnostics = {
+            "action": mapped_action.name,
+            "action_values": None,
+            "target": self.simulator.deepest_floor + 1,
+            "floor": self.simulator.deepest_floor,
+            "reward": round(reward, 4),
+            "reward_components": self.reward_calculator.last_components,
+            "x_y": (
+                round(float(body.position.x), 2),
+                round(float(body.position.y), 2),
+            ),
+            "vx_vy": (
+                round(float(body.velocity.x), 2),
+                round(float(body.velocity.y), 2),
+            ),
+            "control_hz": self.config.fps,
+            "terminal_reason": terminal_reason,
+        }
         if self.render_mode == "human":
             self.render()
         return (
@@ -213,9 +285,9 @@ class ShaftEnv(gym.Env[np.ndarray, int]):
         if self.render_mode is None:
             return None
         if self.render_mode == "human":
-            self.renderer.human(self.simulator)
+            self.renderer.human(self.simulator, self._diagnostics)
             return None
-        return self.renderer.rgb_array(self.simulator)
+        return self.renderer.rgb_array(self.simulator, self._diagnostics)
 
     def close(self) -> None:
         self.renderer.close()

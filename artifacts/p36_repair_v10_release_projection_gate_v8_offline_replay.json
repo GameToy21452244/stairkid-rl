@@ -1,0 +1,4879 @@
+{
+  "experiment": "p36-support-departure-offline-replay-v1",
+  "input": {
+    "glob": "logs/teacher_real_micro_20260803_012857_250916/episode_*.mp4",
+    "video_count": 3,
+    "evidence_limit": "MP4 是壓縮後 counterfactual replay；可拒絕明顯失敗，不能驗證新 action 是否真的造成 support-lost，亦不能取代全新真機 Gate。timeout／edge ratio 只列 telemetry，不作此離線 Gate 的 blocking check。"
+  },
+  "videos": [
+    {
+      "video": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_012857_250916\\episode_01.mp4",
+      "total_frames": 45,
+      "playing_frames": 44,
+      "raw_player_detected_steps": 43,
+      "raw_player_missing_steps": 1,
+      "tracked_bridge_steps": 1,
+      "effective_player_missing_steps": 0,
+      "max_player_missing_streak": 1,
+      "outward_wall_push_count": 0,
+      "wall_reentry_cycle_count": 0,
+      "rapid_direction_reversal_count": 4,
+      "max_rapid_direction_reversal_burst": 2,
+      "max_wall_direction_reversal_burst": 0,
+      "max_aligned_release_streak": 4,
+      "max_support_aligned_release_streak": 1,
+      "same_support_departure_cycle_count": 0,
+      "support_departure_target_switch_count": 0,
+      "support_departure_timeout_count": 0,
+      "support_edge_release_count": 0,
+      "support_edge_opportunity_count": 4,
+      "support_departure_exit_samples": [
+        3,
+        4,
+        3,
+        3
+      ],
+      "max_support_departure_steps": 4,
+      "support_departure_active_step_count": 13,
+      "action_counts": {
+        "LEFT": 13,
+        "RELEASE_ALL": 17,
+        "RIGHT": 14
+      },
+      "reason_counts": {
+        "depart_support_platform": 13,
+        "aligned_with_recovery_platform": 9,
+        "move_toward_recovery_platform": 9,
+        "aligned_with_safe_platform": 5,
+        "escape_launch_platform": 4,
+        "direction_change_brake": 2,
+        "aligned_with_visible_recovery_platform": 1,
+        "reposition_for_unseen_landing": 1
+      },
+      "wall_trace": [],
+      "departure_trace": [
+        {
+          "step": 0,
+          "support_platform_id": 6,
+          "support_edge_distance": 47.0,
+          "departure_active": true,
+          "source_id": 6,
+          "destination_id": 7,
+          "direction": "LEFT",
+          "departure_steps": 1,
+          "action": "LEFT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 1,
+          "support_platform_id": 6,
+          "support_edge_distance": 41.0,
+          "departure_active": true,
+          "source_id": 6,
+          "destination_id": 7,
+          "direction": "LEFT",
+          "departure_steps": 2,
+          "action": "LEFT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 2,
+          "support_platform_id": 6,
+          "support_edge_distance": 17.0,
+          "departure_active": true,
+          "source_id": 6,
+          "destination_id": 7,
+          "direction": "LEFT",
+          "departure_steps": 3,
+          "action": "LEFT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 7,
+          "support_platform_id": 6,
+          "support_edge_distance": 23.0,
+          "departure_active": true,
+          "source_id": 6,
+          "destination_id": 7,
+          "direction": "RIGHT",
+          "departure_steps": 1,
+          "action": "RIGHT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 8,
+          "support_platform_id": 6,
+          "support_edge_distance": 47.0,
+          "departure_active": true,
+          "source_id": 6,
+          "destination_id": 7,
+          "direction": "RIGHT",
+          "departure_steps": 2,
+          "action": "RIGHT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 9,
+          "support_platform_id": 6,
+          "support_edge_distance": 32.0,
+          "departure_active": true,
+          "source_id": 6,
+          "destination_id": 7,
+          "direction": "RIGHT",
+          "departure_steps": 3,
+          "action": "RIGHT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 10,
+          "support_platform_id": 6,
+          "support_edge_distance": 8.0,
+          "departure_active": true,
+          "source_id": 6,
+          "destination_id": 7,
+          "direction": "RIGHT",
+          "departure_steps": 4,
+          "action": "RIGHT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 24,
+          "support_platform_id": 10,
+          "support_edge_distance": 47.0,
+          "departure_active": true,
+          "source_id": 10,
+          "destination_id": 11,
+          "direction": "RIGHT",
+          "departure_steps": 1,
+          "action": "RIGHT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 25,
+          "support_platform_id": 10,
+          "support_edge_distance": 24.0,
+          "departure_active": true,
+          "source_id": 10,
+          "destination_id": 11,
+          "direction": "RIGHT",
+          "departure_steps": 2,
+          "action": "RIGHT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 26,
+          "support_platform_id": 10,
+          "support_edge_distance": 0.0,
+          "departure_active": true,
+          "source_id": 10,
+          "destination_id": 11,
+          "direction": "RIGHT",
+          "departure_steps": 3,
+          "action": "RIGHT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 32,
+          "support_platform_id": 11,
+          "support_edge_distance": 40.0,
+          "departure_active": false,
+          "source_id": null,
+          "destination_id": null,
+          "direction": null,
+          "departure_steps": 0,
+          "action": "RELEASE_ALL",
+          "reason": "aligned_with_visible_recovery_platform"
+        },
+        {
+          "step": 33,
+          "support_platform_id": 11,
+          "support_edge_distance": 40.0,
+          "departure_active": true,
+          "source_id": 11,
+          "destination_id": 14,
+          "direction": "LEFT",
+          "departure_steps": 1,
+          "action": "LEFT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 34,
+          "support_platform_id": 11,
+          "support_edge_distance": 33.0,
+          "departure_active": true,
+          "source_id": 11,
+          "destination_id": 14,
+          "direction": "LEFT",
+          "departure_steps": 2,
+          "action": "LEFT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 35,
+          "support_platform_id": 11,
+          "support_edge_distance": 9.0,
+          "departure_active": true,
+          "source_id": 11,
+          "destination_id": 14,
+          "direction": "LEFT",
+          "departure_steps": 3,
+          "action": "LEFT",
+          "reason": "depart_support_platform"
+        }
+      ],
+      "aligned_trace": [
+        {
+          "step": 3,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 7,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 4,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 7,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 12,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 9,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 13,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 9,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 14,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 9,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 15,
+          "reason": "aligned_with_recovery_platform",
+          "target_id": 9,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 17,
+          "reason": "aligned_with_recovery_platform",
+          "target_id": 10,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 19,
+          "reason": "aligned_with_recovery_platform",
+          "target_id": 10,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 21,
+          "reason": "aligned_with_recovery_platform",
+          "target_id": 10,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 22,
+          "reason": "aligned_with_recovery_platform",
+          "target_id": 10,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 27,
+          "reason": "aligned_with_recovery_platform",
+          "target_id": 11,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 28,
+          "reason": "aligned_with_recovery_platform",
+          "target_id": 11,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 30,
+          "reason": "aligned_with_recovery_platform",
+          "target_id": 11,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 31,
+          "reason": "aligned_with_recovery_platform",
+          "target_id": 11,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 32,
+          "reason": "aligned_with_visible_recovery_platform",
+          "target_id": 11,
+          "support_contact_active": true,
+          "support_platform_id": 11,
+          "support_edge_distance": 40.0,
+          "departure_active": false
+        }
+      ],
+      "special_trace": []
+    },
+    {
+      "video": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_012857_250916\\episode_02.mp4",
+      "total_frames": 142,
+      "playing_frames": 141,
+      "raw_player_detected_steps": 140,
+      "raw_player_missing_steps": 1,
+      "tracked_bridge_steps": 1,
+      "effective_player_missing_steps": 0,
+      "max_player_missing_streak": 1,
+      "outward_wall_push_count": 0,
+      "wall_reentry_cycle_count": 0,
+      "rapid_direction_reversal_count": 9,
+      "max_rapid_direction_reversal_burst": 3,
+      "max_wall_direction_reversal_burst": 0,
+      "max_aligned_release_streak": 6,
+      "max_support_aligned_release_streak": 3,
+      "same_support_departure_cycle_count": 0,
+      "support_departure_target_switch_count": 0,
+      "support_departure_timeout_count": 0,
+      "support_edge_release_count": 1,
+      "support_edge_opportunity_count": 17,
+      "support_departure_exit_samples": [
+        2,
+        2,
+        4,
+        8,
+        5,
+        1,
+        3,
+        2,
+        4,
+        2,
+        2,
+        1
+      ],
+      "max_support_departure_steps": 8,
+      "support_departure_active_step_count": 33,
+      "action_counts": {
+        "LEFT": 42,
+        "RELEASE_ALL": 59,
+        "RIGHT": 40
+      },
+      "reason_counts": {
+        "aligned_with_safe_platform": 34,
+        "depart_support_platform": 33,
+        "escape_special_contact": 25,
+        "move_toward_safe_platform": 13,
+        "aligned_with_recovery_platform": 13,
+        "aligned_with_visible_safe_platform": 6,
+        "direction_change_brake": 6,
+        "escape_launch_platform": 5,
+        "wall_guard_inward": 2,
+        "escape_special_contact_forced_exit": 2,
+        "escape_launch_platform_dwell": 1,
+        "move_toward_recovery_platform": 1
+      },
+      "wall_trace": [
+        {
+          "step": 27,
+          "player_x": 367.0,
+          "velocity_x": 192.0,
+          "action": "RELEASE_ALL",
+          "reason": "direction_change_brake",
+          "wall_side": "right",
+          "wall_evacuation_active": true,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 28,
+          "player_x": 376.0,
+          "velocity_x": 72.0,
+          "action": "LEFT",
+          "reason": "wall_guard_inward",
+          "wall_side": "right",
+          "wall_evacuation_active": true,
+          "wall_evacuation_cooldown_steps": 0
+        },
+        {
+          "step": 29,
+          "player_x": 361.0,
+          "velocity_x": -120.0,
+          "action": "LEFT",
+          "reason": "wall_guard_inward",
+          "wall_side": "right",
+          "wall_evacuation_active": true,
+          "wall_evacuation_cooldown_steps": 0
+        }
+      ],
+      "departure_trace": [
+        {
+          "step": 0,
+          "support_platform_id": 6,
+          "support_edge_distance": 47.0,
+          "departure_active": false,
+          "source_id": null,
+          "destination_id": null,
+          "direction": null,
+          "departure_steps": 0,
+          "action": "RELEASE_ALL",
+          "reason": "aligned_with_visible_safe_platform"
+        },
+        {
+          "step": 1,
+          "support_platform_id": 6,
+          "support_edge_distance": 47.0,
+          "departure_active": false,
+          "source_id": null,
+          "destination_id": null,
+          "direction": null,
+          "departure_steps": 0,
+          "action": "RELEASE_ALL",
+          "reason": "aligned_with_visible_safe_platform"
+        },
+        {
+          "step": 2,
+          "support_platform_id": 6,
+          "support_edge_distance": 47.0,
+          "departure_active": false,
+          "source_id": null,
+          "destination_id": null,
+          "direction": null,
+          "departure_steps": 0,
+          "action": "RELEASE_ALL",
+          "reason": "aligned_with_visible_safe_platform"
+        },
+        {
+          "step": 3,
+          "support_platform_id": 6,
+          "support_edge_distance": 47.0,
+          "departure_active": false,
+          "source_id": null,
+          "destination_id": null,
+          "direction": null,
+          "departure_steps": 0,
+          "action": "RIGHT",
+          "reason": "escape_launch_platform_dwell"
+        },
+        {
+          "step": 4,
+          "support_platform_id": 6,
+          "support_edge_distance": 32.0,
+          "departure_active": false,
+          "source_id": null,
+          "destination_id": null,
+          "direction": null,
+          "departure_steps": 0,
+          "action": "RELEASE_ALL",
+          "reason": "aligned_with_visible_safe_platform"
+        },
+        {
+          "step": 5,
+          "support_platform_id": 6,
+          "support_edge_distance": 23.0,
+          "departure_active": true,
+          "source_id": 6,
+          "destination_id": 8,
+          "direction": "RIGHT",
+          "departure_steps": 1,
+          "action": "RIGHT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 6,
+          "support_platform_id": 6,
+          "support_edge_distance": 16.0,
+          "departure_active": true,
+          "source_id": 6,
+          "destination_id": 8,
+          "direction": "RIGHT",
+          "departure_steps": 2,
+          "action": "RIGHT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 12,
+          "support_platform_id": 8,
+          "support_edge_distance": 25.0,
+          "departure_active": true,
+          "source_id": 8,
+          "destination_id": 9,
+          "direction": "LEFT",
+          "departure_steps": 1,
+          "action": "LEFT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 13,
+          "support_platform_id": 8,
+          "support_edge_distance": 9.0,
+          "departure_active": true,
+          "source_id": 8,
+          "destination_id": 9,
+          "direction": "LEFT",
+          "departure_steps": 2,
+          "action": "LEFT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 17,
+          "support_platform_id": 9,
+          "support_edge_distance": 32.0,
+          "departure_active": true,
+          "source_id": 9,
+          "destination_id": 10,
+          "direction": "RIGHT",
+          "departure_steps": 1,
+          "action": "RIGHT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 18,
+          "support_platform_id": 9,
+          "support_edge_distance": 39.0,
+          "departure_active": true,
+          "source_id": 9,
+          "destination_id": 10,
+          "direction": "RIGHT",
+          "departure_steps": 2,
+          "action": "RIGHT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 19,
+          "support_platform_id": 9,
+          "support_edge_distance": 32.0,
+          "departure_active": true,
+          "source_id": 9,
+          "destination_id": 10,
+          "direction": "RIGHT",
+          "departure_steps": 3,
+          "action": "RIGHT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 20,
+          "support_platform_id": 9,
+          "support_edge_distance": 8.0,
+          "departure_active": true,
+          "source_id": 9,
+          "destination_id": 10,
+          "direction": "RIGHT",
+          "departure_steps": 4,
+          "action": "RIGHT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 24,
+          "support_platform_id": 10,
+          "support_edge_distance": 0.0,
+          "departure_active": true,
+          "source_id": 10,
+          "destination_id": 11,
+          "direction": "RIGHT",
+          "departure_steps": 1,
+          "action": "RIGHT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 25,
+          "support_platform_id": 10,
+          "support_edge_distance": 15.0,
+          "departure_active": true,
+          "source_id": 10,
+          "destination_id": 11,
+          "direction": "RIGHT",
+          "departure_steps": 2,
+          "action": "RIGHT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 26,
+          "support_platform_id": 10,
+          "support_edge_distance": 31.0,
+          "departure_active": true,
+          "source_id": 10,
+          "destination_id": 11,
+          "direction": "RIGHT",
+          "departure_steps": 3,
+          "action": "RIGHT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 27,
+          "support_platform_id": 10,
+          "support_edge_distance": 40.0,
+          "departure_active": true,
+          "source_id": 10,
+          "destination_id": 11,
+          "direction": "LEFT",
+          "departure_steps": 4,
+          "action": "RELEASE_ALL",
+          "reason": "direction_change_brake"
+        },
+        {
+          "step": 28,
+          "support_platform_id": 10,
+          "support_edge_distance": 31.0,
+          "departure_active": true,
+          "source_id": 10,
+          "destination_id": 11,
+          "direction": "LEFT",
+          "departure_steps": 5,
+          "action": "LEFT",
+          "reason": "wall_guard_inward"
+        },
+        {
+          "step": 29,
+          "support_platform_id": 10,
+          "support_edge_distance": 46.0,
+          "departure_active": true,
+          "source_id": 10,
+          "destination_id": 11,
+          "direction": "LEFT",
+          "departure_steps": 6,
+          "action": "LEFT",
+          "reason": "wall_guard_inward"
+        },
+        {
+          "step": 30,
+          "support_platform_id": 10,
+          "support_edge_distance": 33.0,
+          "departure_active": true,
+          "source_id": 10,
+          "destination_id": 11,
+          "direction": "LEFT",
+          "departure_steps": 7,
+          "action": "LEFT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 31,
+          "support_platform_id": 10,
+          "support_edge_distance": 17.0,
+          "departure_active": true,
+          "source_id": 10,
+          "destination_id": 11,
+          "direction": "LEFT",
+          "departure_steps": 8,
+          "action": "LEFT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 37,
+          "support_platform_id": 14,
+          "support_edge_distance": 23.0,
+          "departure_active": false,
+          "source_id": null,
+          "destination_id": null,
+          "direction": null,
+          "departure_steps": 0,
+          "action": "RIGHT",
+          "reason": "escape_special_contact"
+        },
+        {
+          "step": 42,
+          "support_platform_id": 16,
+          "support_edge_distance": 8.0,
+          "departure_active": true,
+          "source_id": 16,
+          "destination_id": 19,
+          "direction": "LEFT",
+          "departure_steps": 1,
+          "action": "LEFT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 43,
+          "support_platform_id": 16,
+          "support_edge_distance": 30.0,
+          "departure_active": true,
+          "source_id": 16,
+          "destination_id": 19,
+          "direction": "LEFT",
+          "departure_steps": 2,
+          "action": "LEFT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 44,
+          "support_platform_id": 16,
+          "support_edge_distance": 46.0,
+          "departure_active": true,
+          "source_id": 16,
+          "destination_id": 19,
+          "direction": "LEFT",
+          "departure_steps": 3,
+          "action": "LEFT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 45,
+          "support_platform_id": 16,
+          "support_edge_distance": 25.0,
+          "departure_active": true,
+          "source_id": 16,
+          "destination_id": 19,
+          "direction": "LEFT",
+          "departure_steps": 4,
+          "action": "LEFT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 46,
+          "support_platform_id": 16,
+          "support_edge_distance": 9.0,
+          "departure_active": true,
+          "source_id": 16,
+          "destination_id": 19,
+          "direction": "LEFT",
+          "departure_steps": 5,
+          "action": "LEFT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 50,
+          "support_platform_id": 18,
+          "support_edge_distance": 24.0,
+          "departure_active": true,
+          "source_id": 18,
+          "destination_id": 19,
+          "direction": "LEFT",
+          "departure_steps": 1,
+          "action": "LEFT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 54,
+          "support_platform_id": 19,
+          "support_edge_distance": 40.0,
+          "departure_active": true,
+          "source_id": 19,
+          "destination_id": 21,
+          "direction": "RIGHT",
+          "departure_steps": 1,
+          "action": "RIGHT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 55,
+          "support_platform_id": 19,
+          "support_edge_distance": 16.0,
+          "departure_active": true,
+          "source_id": 19,
+          "destination_id": 21,
+          "direction": "RIGHT",
+          "departure_steps": 2,
+          "action": "RIGHT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 56,
+          "support_platform_id": 19,
+          "support_edge_distance": 0.0,
+          "departure_active": true,
+          "source_id": 19,
+          "destination_id": 21,
+          "direction": "RIGHT",
+          "departure_steps": 3,
+          "action": "RIGHT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 71,
+          "support_platform_id": 28,
+          "support_edge_distance": 23.0,
+          "departure_active": true,
+          "source_id": 28,
+          "destination_id": 30,
+          "direction": "RIGHT",
+          "departure_steps": 1,
+          "action": "RIGHT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 72,
+          "support_platform_id": 28,
+          "support_edge_distance": 8.0,
+          "departure_active": true,
+          "source_id": 28,
+          "destination_id": 30,
+          "direction": "RIGHT",
+          "departure_steps": 2,
+          "action": "RIGHT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 76,
+          "support_platform_id": 30,
+          "support_edge_distance": 39.0,
+          "departure_active": true,
+          "source_id": 30,
+          "destination_id": 32,
+          "direction": "LEFT",
+          "departure_steps": 1,
+          "action": "LEFT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 77,
+          "support_platform_id": 30,
+          "support_edge_distance": 46.0,
+          "departure_active": true,
+          "source_id": 30,
+          "destination_id": 32,
+          "direction": "LEFT",
+          "departure_steps": 2,
+          "action": "LEFT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 78,
+          "support_platform_id": 30,
+          "support_edge_distance": 25.0,
+          "departure_active": true,
+          "source_id": 30,
+          "destination_id": 32,
+          "direction": "LEFT",
+          "departure_steps": 3,
+          "action": "LEFT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 79,
+          "support_platform_id": 30,
+          "support_edge_distance": 1.0,
+          "departure_active": true,
+          "source_id": 30,
+          "destination_id": 32,
+          "direction": "LEFT",
+          "departure_steps": 4,
+          "action": "LEFT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 83,
+          "support_platform_id": 32,
+          "support_edge_distance": 24.0,
+          "departure_active": false,
+          "source_id": null,
+          "destination_id": null,
+          "direction": null,
+          "departure_steps": 0,
+          "action": "RELEASE_ALL",
+          "reason": "aligned_with_visible_safe_platform"
+        },
+        {
+          "step": 88,
+          "support_platform_id": 34,
+          "support_edge_distance": 23.0,
+          "departure_active": false,
+          "source_id": null,
+          "destination_id": null,
+          "direction": null,
+          "departure_steps": 0,
+          "action": "RELEASE_ALL",
+          "reason": "aligned_with_visible_safe_platform"
+        },
+        {
+          "step": 89,
+          "support_platform_id": 34,
+          "support_edge_distance": 23.0,
+          "departure_active": true,
+          "source_id": 34,
+          "destination_id": 37,
+          "direction": "RIGHT",
+          "departure_steps": 1,
+          "action": "RIGHT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 90,
+          "support_platform_id": 34,
+          "support_edge_distance": 16.0,
+          "departure_active": true,
+          "source_id": 34,
+          "destination_id": 37,
+          "direction": "RIGHT",
+          "departure_steps": 2,
+          "action": "RIGHT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 95,
+          "support_platform_id": 37,
+          "support_edge_distance": 8.0,
+          "departure_active": true,
+          "source_id": 37,
+          "destination_id": 38,
+          "direction": "LEFT",
+          "departure_steps": 1,
+          "action": "LEFT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 96,
+          "support_platform_id": 37,
+          "support_edge_distance": 1.0,
+          "departure_active": true,
+          "source_id": 37,
+          "destination_id": 38,
+          "direction": "LEFT",
+          "departure_steps": 2,
+          "action": "LEFT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 110,
+          "support_platform_id": 41,
+          "support_edge_distance": 8.0,
+          "departure_active": false,
+          "source_id": null,
+          "destination_id": null,
+          "direction": null,
+          "departure_steps": 0,
+          "action": "RELEASE_ALL",
+          "reason": "direction_change_brake"
+        },
+        {
+          "step": 111,
+          "support_platform_id": 41,
+          "support_edge_distance": 26.0,
+          "departure_active": false,
+          "source_id": null,
+          "destination_id": null,
+          "direction": null,
+          "departure_steps": 0,
+          "action": "RIGHT",
+          "reason": "escape_special_contact"
+        },
+        {
+          "step": 112,
+          "support_platform_id": 41,
+          "support_edge_distance": 40.0,
+          "departure_active": false,
+          "source_id": null,
+          "destination_id": null,
+          "direction": null,
+          "departure_steps": 0,
+          "action": "RIGHT",
+          "reason": "escape_special_contact"
+        },
+        {
+          "step": 117,
+          "support_platform_id": 47,
+          "support_edge_distance": 30.0,
+          "departure_active": false,
+          "source_id": null,
+          "destination_id": null,
+          "direction": null,
+          "departure_steps": 0,
+          "action": "LEFT",
+          "reason": "escape_special_contact"
+        },
+        {
+          "step": 122,
+          "support_platform_id": 48,
+          "support_edge_distance": 39.0,
+          "departure_active": false,
+          "source_id": null,
+          "destination_id": null,
+          "direction": null,
+          "departure_steps": 0,
+          "action": "LEFT",
+          "reason": "escape_special_contact"
+        },
+        {
+          "step": 123,
+          "support_platform_id": 48,
+          "support_edge_distance": 39.0,
+          "departure_active": false,
+          "source_id": null,
+          "destination_id": null,
+          "direction": null,
+          "departure_steps": 0,
+          "action": "LEFT",
+          "reason": "escape_special_contact"
+        },
+        {
+          "step": 124,
+          "support_platform_id": 48,
+          "support_edge_distance": 39.0,
+          "departure_active": false,
+          "source_id": null,
+          "destination_id": null,
+          "direction": null,
+          "departure_steps": 0,
+          "action": "LEFT",
+          "reason": "escape_special_contact"
+        },
+        {
+          "step": 125,
+          "support_platform_id": 48,
+          "support_edge_distance": 39.0,
+          "departure_active": false,
+          "source_id": null,
+          "destination_id": null,
+          "direction": null,
+          "departure_steps": 0,
+          "action": "LEFT",
+          "reason": "escape_special_contact"
+        },
+        {
+          "step": 126,
+          "support_platform_id": 48,
+          "support_edge_distance": 24.0,
+          "departure_active": false,
+          "source_id": null,
+          "destination_id": null,
+          "direction": null,
+          "departure_steps": 0,
+          "action": "LEFT",
+          "reason": "escape_special_contact_forced_exit"
+        },
+        {
+          "step": 127,
+          "support_platform_id": 48,
+          "support_edge_distance": 0.0,
+          "departure_active": false,
+          "source_id": null,
+          "destination_id": null,
+          "direction": null,
+          "departure_steps": 0,
+          "action": "LEFT",
+          "reason": "escape_special_contact_forced_exit"
+        },
+        {
+          "step": 134,
+          "support_platform_id": 50,
+          "support_edge_distance": 24.0,
+          "departure_active": true,
+          "source_id": 50,
+          "destination_id": 51,
+          "direction": "LEFT",
+          "departure_steps": 1,
+          "action": "LEFT",
+          "reason": "depart_support_platform"
+        }
+      ],
+      "aligned_trace": [
+        {
+          "step": 0,
+          "reason": "aligned_with_visible_safe_platform",
+          "target_id": 6,
+          "support_contact_active": true,
+          "support_platform_id": 6,
+          "support_edge_distance": 47.0,
+          "departure_active": false
+        },
+        {
+          "step": 1,
+          "reason": "aligned_with_visible_safe_platform",
+          "target_id": 6,
+          "support_contact_active": true,
+          "support_platform_id": 6,
+          "support_edge_distance": 47.0,
+          "departure_active": false
+        },
+        {
+          "step": 2,
+          "reason": "aligned_with_visible_safe_platform",
+          "target_id": 6,
+          "support_contact_active": true,
+          "support_platform_id": 6,
+          "support_edge_distance": 47.0,
+          "departure_active": false
+        },
+        {
+          "step": 4,
+          "reason": "aligned_with_visible_safe_platform",
+          "target_id": 6,
+          "support_contact_active": true,
+          "support_platform_id": 6,
+          "support_edge_distance": 32.0,
+          "departure_active": false
+        },
+        {
+          "step": 7,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 8,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 8,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 8,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 10,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 8,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 11,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 8,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 14,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 9,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 15,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 9,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 16,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 9,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 22,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 10,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 23,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 10,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 32,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 13,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 33,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 16,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 34,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 16,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 35,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 16,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 36,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 16,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 40,
+          "reason": "aligned_with_recovery_platform",
+          "target_id": 16,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 47,
+          "reason": "aligned_with_recovery_platform",
+          "target_id": 19,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 48,
+          "reason": "aligned_with_recovery_platform",
+          "target_id": 19,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 49,
+          "reason": "aligned_with_recovery_platform",
+          "target_id": 19,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 51,
+          "reason": "aligned_with_recovery_platform",
+          "target_id": 19,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 52,
+          "reason": "aligned_with_recovery_platform",
+          "target_id": 19,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 53,
+          "reason": "aligned_with_recovery_platform",
+          "target_id": 19,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 61,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 22,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 62,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 22,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 65,
+          "reason": "aligned_with_recovery_platform",
+          "target_id": 28,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 66,
+          "reason": "aligned_with_recovery_platform",
+          "target_id": 28,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 67,
+          "reason": "aligned_with_recovery_platform",
+          "target_id": 28,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 68,
+          "reason": "aligned_with_recovery_platform",
+          "target_id": 28,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 69,
+          "reason": "aligned_with_recovery_platform",
+          "target_id": 28,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 70,
+          "reason": "aligned_with_recovery_platform",
+          "target_id": 28,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 73,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 30,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 74,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 30,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 75,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 30,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 80,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 32,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 81,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 32,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 82,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 32,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 83,
+          "reason": "aligned_with_visible_safe_platform",
+          "target_id": 32,
+          "support_contact_active": true,
+          "support_platform_id": 32,
+          "support_edge_distance": 24.0,
+          "departure_active": false
+        },
+        {
+          "step": 87,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 34,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 88,
+          "reason": "aligned_with_visible_safe_platform",
+          "target_id": 34,
+          "support_contact_active": true,
+          "support_platform_id": 34,
+          "support_edge_distance": 23.0,
+          "departure_active": false
+        },
+        {
+          "step": 99,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 38,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 100,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 38,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 103,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 39,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 104,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 39,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 105,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 39,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 106,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 39,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 107,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 39,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 130,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 50,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 131,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 50,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 132,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 50,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 133,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 50,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        }
+      ],
+      "special_trace": [
+        {
+          "step": 37,
+          "player": {
+            "center_x": 272.0,
+            "center_y": 283.0,
+            "velocity_x": 48.0,
+            "velocity_y": 324.0,
+            "motion": "falling",
+            "confidence": 0.6791044776119403,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "RIGHT",
+          "reason": "escape_special_contact",
+          "contact_id": 1,
+          "source_id": 14,
+          "source_kind": "spikes",
+          "direction": "RIGHT",
+          "direction_source": "nearest_edge",
+          "destination_id": null,
+          "escape_steps": 1,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 9,
+              "kind": "normal",
+              "confidence": 0.9982621073722839,
+              "box": {
+                "left": 200,
+                "top": 116,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 10,
+              "kind": "normal",
+              "confidence": 0.9981018304824829,
+              "box": {
+                "left": 312,
+                "top": 164,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 17,
+              "kind": "conveyor",
+              "confidence": 0.9847085475921631,
+              "box": {
+                "left": 296,
+                "top": 220,
+                "width": 96,
+                "height": 18
+              }
+            },
+            {
+              "track_id": 12,
+              "kind": "normal",
+              "confidence": 0.9981442093849182,
+              "box": {
+                "left": 328,
+                "top": 260,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 14,
+              "kind": "spikes",
+              "confidence": 0.9836419224739075,
+              "box": {
+                "left": 200,
+                "top": 292,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 16,
+              "kind": "normal",
+              "confidence": 0.9982256293296814,
+              "box": {
+                "left": 232,
+                "top": 356,
+                "width": 95,
+                "height": 16
+              }
+            }
+          ]
+        },
+        {
+          "step": 38,
+          "player": {
+            "center_x": 281.0,
+            "center_y": 282.0,
+            "velocity_x": 72.0,
+            "velocity_y": -8.0,
+            "motion": "rising",
+            "confidence": 1.0,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "RIGHT",
+          "reason": "escape_special_contact",
+          "contact_id": 1,
+          "source_id": 14,
+          "source_kind": "spikes",
+          "direction": "RIGHT",
+          "direction_source": "nearest_edge",
+          "destination_id": null,
+          "escape_steps": 2,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 9,
+              "kind": "normal",
+              "confidence": 0.9982780814170837,
+              "box": {
+                "left": 200,
+                "top": 104,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 10,
+              "kind": "normal",
+              "confidence": 0.99812912940979,
+              "box": {
+                "left": 312,
+                "top": 152,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 17,
+              "kind": "conveyor",
+              "confidence": 0.9972503781318665,
+              "box": {
+                "left": 296,
+                "top": 200,
+                "width": 96,
+                "height": 18
+              }
+            },
+            {
+              "track_id": 12,
+              "kind": "normal",
+              "confidence": 0.9981419444084167,
+              "box": {
+                "left": 328,
+                "top": 248,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 16,
+              "kind": "normal",
+              "confidence": 0.9981933832168579,
+              "box": {
+                "left": 232,
+                "top": 344,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 18,
+              "kind": "flipping",
+              "confidence": 0.9987698197364807,
+              "box": {
+                "left": 184,
+                "top": 392,
+                "width": 96,
+                "height": 18
+              }
+            }
+          ]
+        },
+        {
+          "step": 39,
+          "player": {
+            "center_x": 303.0,
+            "center_y": 270.0,
+            "velocity_x": 176.0,
+            "velocity_y": -96.0,
+            "motion": "rising",
+            "confidence": 0.44776119402985076,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "RIGHT",
+          "reason": "escape_special_contact",
+          "contact_id": 1,
+          "source_id": 14,
+          "source_kind": "spikes",
+          "direction": "RIGHT",
+          "direction_source": "nearest_edge",
+          "destination_id": null,
+          "escape_steps": 3,
+          "candidate_stability_steps": 1,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 9,
+              "kind": "normal",
+              "confidence": 0.9982970952987671,
+              "box": {
+                "left": 200,
+                "top": 92,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 10,
+              "kind": "normal",
+              "confidence": 0.9982011914253235,
+              "box": {
+                "left": 312,
+                "top": 140,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 17,
+              "kind": "conveyor",
+              "confidence": 0.9849081039428711,
+              "box": {
+                "left": 296,
+                "top": 188,
+                "width": 96,
+                "height": 18
+              }
+            },
+            {
+              "track_id": 12,
+              "kind": "normal",
+              "confidence": 0.9981865882873535,
+              "box": {
+                "left": 328,
+                "top": 236,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 14,
+              "kind": "spikes",
+              "confidence": 0.9950902462005615,
+              "box": {
+                "left": 200,
+                "top": 268,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 16,
+              "kind": "normal",
+              "confidence": 0.9981737732887268,
+              "box": {
+                "left": 232,
+                "top": 332,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 18,
+              "kind": "flipping",
+              "confidence": 0.9987422823905945,
+              "box": {
+                "left": 184,
+                "top": 380,
+                "width": 96,
+                "height": 18
+              }
+            }
+          ]
+        },
+        {
+          "step": 63,
+          "player": {
+            "center_x": 241.0,
+            "center_y": 266.0,
+            "velocity_x": -120.0,
+            "velocity_y": 124.0,
+            "motion": "falling",
+            "confidence": 0.43283582089552236,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "RIGHT",
+          "reason": "escape_special_contact",
+          "contact_id": 2,
+          "source_id": 22,
+          "source_kind": "spring",
+          "direction": "RIGHT",
+          "direction_source": "visible_landing",
+          "destination_id": 25,
+          "escape_steps": 1,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 16,
+              "kind": "normal",
+              "confidence": 0.9981093406677246,
+              "box": {
+                "left": 232,
+                "top": 84,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 23,
+              "kind": "flipping",
+              "confidence": 0.9988541603088379,
+              "box": {
+                "left": 184,
+                "top": 132,
+                "width": 96,
+                "height": 18
+              }
+            },
+            {
+              "track_id": 19,
+              "kind": "normal",
+              "confidence": 0.9982073307037354,
+              "box": {
+                "left": 120,
+                "top": 180,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 21,
+              "kind": "flipping",
+              "confidence": 0.9988831877708435,
+              "box": {
+                "left": 280,
+                "top": 228,
+                "width": 96,
+                "height": 18
+              }
+            },
+            {
+              "track_id": 22,
+              "kind": "spring",
+              "confidence": 0.9973777532577515,
+              "box": {
+                "left": 232,
+                "top": 288,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 25,
+              "kind": "conveyor",
+              "confidence": 0.9984589219093323,
+              "box": {
+                "left": 216,
+                "top": 344,
+                "width": 96,
+                "height": 18
+              }
+            },
+            {
+              "track_id": 26,
+              "kind": "flipping",
+              "confidence": 0.9979311227798462,
+              "box": {
+                "left": 216,
+                "top": 372,
+                "width": 96,
+                "height": 18
+              }
+            }
+          ]
+        },
+        {
+          "step": 64,
+          "player": {
+            "center_x": 222.0,
+            "center_y": 231.0,
+            "velocity_x": -152.0,
+            "velocity_y": -280.0,
+            "motion": "rising",
+            "confidence": 0.6716417910447762,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "RIGHT",
+          "reason": "escape_special_contact",
+          "contact_id": 2,
+          "source_id": 22,
+          "source_kind": "spring",
+          "direction": "RIGHT",
+          "direction_source": "visible_landing",
+          "destination_id": 27,
+          "escape_steps": 2,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 16,
+              "kind": "normal",
+              "confidence": 0.9829738736152649,
+              "box": {
+                "left": 232,
+                "top": 76,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 23,
+              "kind": "flipping",
+              "confidence": 0.9988564252853394,
+              "box": {
+                "left": 184,
+                "top": 124,
+                "width": 96,
+                "height": 18
+              }
+            },
+            {
+              "track_id": 19,
+              "kind": "normal",
+              "confidence": 0.9982590079307556,
+              "box": {
+                "left": 120,
+                "top": 172,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 21,
+              "kind": "flipping",
+              "confidence": 0.9974032044410706,
+              "box": {
+                "left": 280,
+                "top": 220,
+                "width": 96,
+                "height": 18
+              }
+            },
+            {
+              "track_id": 22,
+              "kind": "spring",
+              "confidence": 0.9973777532577515,
+              "box": {
+                "left": 232,
+                "top": 288,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 27,
+              "kind": "conveyor",
+              "confidence": 0.9832382202148438,
+              "box": {
+                "left": 216,
+                "top": 316,
+                "width": 96,
+                "height": 18
+              }
+            },
+            {
+              "track_id": 26,
+              "kind": "flipping",
+              "confidence": 0.9901447296142578,
+              "box": {
+                "left": 216,
+                "top": 364,
+                "width": 96,
+                "height": 18
+              }
+            }
+          ]
+        },
+        {
+          "step": 101,
+          "player": {
+            "center_x": 216.0,
+            "center_y": 300.5,
+            "velocity_x": 0.0,
+            "velocity_y": 188.0,
+            "motion": "falling",
+            "confidence": 0.6492537313432836,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "RIGHT",
+          "reason": "escape_special_contact",
+          "contact_id": 3,
+          "source_id": 38,
+          "source_kind": "spring",
+          "direction": "RIGHT",
+          "direction_source": "nearest_edge",
+          "destination_id": null,
+          "escape_steps": 1,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 30,
+              "kind": "normal",
+              "confidence": 0.9982465505599976,
+              "box": {
+                "left": 152,
+                "top": 80,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 36,
+              "kind": "flipping",
+              "confidence": 0.9985000491142273,
+              "box": {
+                "left": 56,
+                "top": 128,
+                "width": 96,
+                "height": 18
+              }
+            },
+            {
+              "track_id": 33,
+              "kind": "normal",
+              "confidence": 0.9981696009635925,
+              "box": {
+                "left": 328,
+                "top": 176,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 34,
+              "kind": "normal",
+              "confidence": 0.9981321692466736,
+              "box": {
+                "left": 120,
+                "top": 224,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 37,
+              "kind": "normal",
+              "confidence": 0.9983170032501221,
+              "box": {
+                "left": 248,
+                "top": 272,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 38,
+              "kind": "spring",
+              "confidence": 0.9973858594894409,
+              "box": {
+                "left": 136,
+                "top": 320,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 39,
+              "kind": "spring",
+              "confidence": 0.997397243976593,
+              "box": {
+                "left": 200,
+                "top": 368,
+                "width": 96,
+                "height": 16
+              }
+            }
+          ]
+        },
+        {
+          "step": 102,
+          "player": {
+            "center_x": 223.0,
+            "center_y": 302.5,
+            "velocity_x": 56.0,
+            "velocity_y": 16.0,
+            "motion": "falling",
+            "confidence": 0.746268656716418,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "RIGHT",
+          "reason": "escape_special_contact",
+          "contact_id": 3,
+          "source_id": 38,
+          "source_kind": "spring",
+          "direction": "RIGHT",
+          "direction_source": "nearest_edge",
+          "destination_id": null,
+          "escape_steps": 2,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 36,
+              "kind": "flipping",
+              "confidence": 0.9963241815567017,
+              "box": {
+                "left": 56,
+                "top": 120,
+                "width": 96,
+                "height": 18
+              }
+            },
+            {
+              "track_id": 33,
+              "kind": "normal",
+              "confidence": 0.998174250125885,
+              "box": {
+                "left": 328,
+                "top": 168,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 34,
+              "kind": "normal",
+              "confidence": 0.9981240630149841,
+              "box": {
+                "left": 120,
+                "top": 216,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 37,
+              "kind": "normal",
+              "confidence": 0.9983049631118774,
+              "box": {
+                "left": 248,
+                "top": 264,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 38,
+              "kind": "spring",
+              "confidence": 0.9973858594894409,
+              "box": {
+                "left": 136,
+                "top": 320,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 39,
+              "kind": "spring",
+              "confidence": 0.9973436594009399,
+              "box": {
+                "left": 200,
+                "top": 360,
+                "width": 96,
+                "height": 16
+              }
+            }
+          ]
+        },
+        {
+          "step": 108,
+          "player": {
+            "center_x": 256.0,
+            "center_y": 266.5,
+            "velocity_x": 0.0,
+            "velocity_y": 124.0,
+            "motion": "falling",
+            "confidence": 0.8059701492537313,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "LEFT",
+          "reason": "escape_special_contact",
+          "contact_id": 4,
+          "source_id": 39,
+          "source_kind": "spring",
+          "direction": "LEFT",
+          "direction_source": "visible_landing",
+          "destination_id": 40,
+          "escape_steps": 1,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 36,
+              "kind": "flipping",
+              "confidence": 0.9868655800819397,
+              "box": {
+                "left": 56,
+                "top": 80,
+                "width": 96,
+                "height": 18
+              }
+            },
+            {
+              "track_id": 33,
+              "kind": "normal",
+              "confidence": 0.9983341693878174,
+              "box": {
+                "left": 328,
+                "top": 108,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 34,
+              "kind": "normal",
+              "confidence": 0.9983507990837097,
+              "box": {
+                "left": 120,
+                "top": 156,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 42,
+              "kind": "normal",
+              "confidence": 0.9982002377510071,
+              "box": {
+                "left": 248,
+                "top": 204,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 41,
+              "kind": "spring",
+              "confidence": 0.997411847114563,
+              "box": {
+                "left": 136,
+                "top": 252,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 39,
+              "kind": "spring",
+              "confidence": 0.9972802400588989,
+              "box": {
+                "left": 200,
+                "top": 300,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 40,
+              "kind": "normal",
+              "confidence": 0.9982974529266357,
+              "box": {
+                "left": 56,
+                "top": 348,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 43,
+              "kind": "normal",
+              "confidence": 0.9982159733772278,
+              "box": {
+                "left": 248,
+                "top": 396,
+                "width": 95,
+                "height": 16
+              }
+            }
+          ]
+        },
+        {
+          "step": 109,
+          "player": {
+            "center_x": 238.0,
+            "center_y": 246.5,
+            "velocity_x": -144.0,
+            "velocity_y": -160.0,
+            "motion": "rising",
+            "confidence": 0.7313432835820896,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "LEFT",
+          "reason": "escape_special_contact",
+          "contact_id": 4,
+          "source_id": 39,
+          "source_kind": "spring",
+          "direction": "LEFT",
+          "direction_source": "visible_landing",
+          "destination_id": 40,
+          "escape_steps": 2,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 33,
+              "kind": "normal",
+              "confidence": 0.9979760050773621,
+              "box": {
+                "left": 328,
+                "top": 92,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 34,
+              "kind": "normal",
+              "confidence": 0.9980759620666504,
+              "box": {
+                "left": 120,
+                "top": 140,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 42,
+              "kind": "normal",
+              "confidence": 0.9978443384170532,
+              "box": {
+                "left": 248,
+                "top": 188,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 41,
+              "kind": "spring",
+              "confidence": 0.9367130994796753,
+              "box": {
+                "left": 136,
+                "top": 236,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 39,
+              "kind": "spring",
+              "confidence": 0.9972802400588989,
+              "box": {
+                "left": 200,
+                "top": 300,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 40,
+              "kind": "normal",
+              "confidence": 0.9978447556495667,
+              "box": {
+                "left": 56,
+                "top": 332,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 43,
+              "kind": "normal",
+              "confidence": 0.9980226159095764,
+              "box": {
+                "left": 248,
+                "top": 380,
+                "width": 95,
+                "height": 16
+              }
+            }
+          ]
+        },
+        {
+          "step": 110,
+          "player": {
+            "center_x": 224.0,
+            "center_y": 230.5,
+            "velocity_x": -112.0,
+            "velocity_y": -128.0,
+            "motion": "rising",
+            "confidence": 0.5223880597014925,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "RELEASE_ALL",
+          "reason": "direction_change_brake",
+          "contact_id": 5,
+          "source_id": 41,
+          "source_kind": "spring",
+          "direction": "RIGHT",
+          "direction_source": "visible_landing",
+          "destination_id": 39,
+          "escape_steps": 1,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 33,
+              "kind": "normal",
+              "confidence": 0.9980450868606567,
+              "box": {
+                "left": 328,
+                "top": 84,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 34,
+              "kind": "normal",
+              "confidence": 0.9981432557106018,
+              "box": {
+                "left": 120,
+                "top": 132,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 42,
+              "kind": "normal",
+              "confidence": 0.9979941844940186,
+              "box": {
+                "left": 248,
+                "top": 180,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 41,
+              "kind": "spring",
+              "confidence": 0.9367130994796753,
+              "box": {
+                "left": 136,
+                "top": 236,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 39,
+              "kind": "spring",
+              "confidence": 0.9972802400588989,
+              "box": {
+                "left": 200,
+                "top": 300,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 40,
+              "kind": "normal",
+              "confidence": 0.9979296326637268,
+              "box": {
+                "left": 56,
+                "top": 324,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 43,
+              "kind": "normal",
+              "confidence": 0.9981803894042969,
+              "box": {
+                "left": 248,
+                "top": 372,
+                "width": 95,
+                "height": 16
+              }
+            }
+          ]
+        },
+        {
+          "step": 111,
+          "player": {
+            "center_x": 206.0,
+            "center_y": 210.5,
+            "velocity_x": -144.0,
+            "velocity_y": -160.0,
+            "motion": "rising",
+            "confidence": 0.7238805970149254,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "RIGHT",
+          "reason": "escape_special_contact",
+          "contact_id": 5,
+          "source_id": 41,
+          "source_kind": "spring",
+          "direction": "RIGHT",
+          "direction_source": "visible_landing",
+          "destination_id": 44,
+          "escape_steps": 2,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 33,
+              "kind": "normal",
+              "confidence": 0.9825966954231262,
+              "box": {
+                "left": 328,
+                "top": 76,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 34,
+              "kind": "normal",
+              "confidence": 0.9979768395423889,
+              "box": {
+                "left": 120,
+                "top": 124,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 42,
+              "kind": "normal",
+              "confidence": 0.9980846047401428,
+              "box": {
+                "left": 248,
+                "top": 172,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 41,
+              "kind": "spring",
+              "confidence": 0.9155168533325195,
+              "box": {
+                "left": 136,
+                "top": 220,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 44,
+              "kind": "spring",
+              "confidence": 0.9972112774848938,
+              "box": {
+                "left": 200,
+                "top": 268,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 40,
+              "kind": "normal",
+              "confidence": 0.998063862323761,
+              "box": {
+                "left": 56,
+                "top": 316,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 43,
+              "kind": "normal",
+              "confidence": 0.9981282949447632,
+              "box": {
+                "left": 248,
+                "top": 364,
+                "width": 95,
+                "height": 16
+              }
+            }
+          ]
+        },
+        {
+          "step": 112,
+          "player": {
+            "center_x": 192.0,
+            "center_y": 210.5,
+            "velocity_x": -112.0,
+            "velocity_y": 0.0,
+            "motion": "stable",
+            "confidence": 0.664179104477612,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "RIGHT",
+          "reason": "escape_special_contact",
+          "contact_id": 5,
+          "source_id": 41,
+          "source_kind": "spring",
+          "direction": "RIGHT",
+          "direction_source": "visible_landing",
+          "destination_id": 44,
+          "escape_steps": 3,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 34,
+              "kind": "normal",
+              "confidence": 0.9979949593544006,
+              "box": {
+                "left": 120,
+                "top": 112,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 42,
+              "kind": "normal",
+              "confidence": 0.9980996251106262,
+              "box": {
+                "left": 248,
+                "top": 160,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 41,
+              "kind": "spring",
+              "confidence": 0.9155168533325195,
+              "box": {
+                "left": 136,
+                "top": 220,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 44,
+              "kind": "spring",
+              "confidence": 0.9973520040512085,
+              "box": {
+                "left": 200,
+                "top": 256,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 40,
+              "kind": "normal",
+              "confidence": 0.9980804324150085,
+              "box": {
+                "left": 56,
+                "top": 304,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 43,
+              "kind": "normal",
+              "confidence": 0.9981276392936707,
+              "box": {
+                "left": 248,
+                "top": 352,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 45,
+              "kind": "normal",
+              "confidence": 0.9981873035430908,
+              "box": {
+                "left": 56,
+                "top": 400,
+                "width": 95,
+                "height": 16
+              }
+            }
+          ]
+        },
+        {
+          "step": 113,
+          "player": {
+            "center_x": 208.0,
+            "center_y": 222.5,
+            "velocity_x": 128.0,
+            "velocity_y": 96.0,
+            "motion": "falling",
+            "confidence": 0.5746268656716418,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "RELEASE_ALL",
+          "reason": "direction_change_brake",
+          "contact_id": 6,
+          "source_id": 44,
+          "source_kind": "spring",
+          "direction": "LEFT",
+          "direction_source": "nearest_edge",
+          "destination_id": null,
+          "escape_steps": 1,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 34,
+              "kind": "normal",
+              "confidence": 0.9981034994125366,
+              "box": {
+                "left": 120,
+                "top": 100,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 42,
+              "kind": "normal",
+              "confidence": 0.9980931878089905,
+              "box": {
+                "left": 248,
+                "top": 148,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 41,
+              "kind": "spring",
+              "confidence": 0.9155168533325195,
+              "box": {
+                "left": 136,
+                "top": 220,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 44,
+              "kind": "spring",
+              "confidence": 0.9971075057983398,
+              "box": {
+                "left": 200,
+                "top": 244,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 40,
+              "kind": "normal",
+              "confidence": 0.9980471134185791,
+              "box": {
+                "left": 56,
+                "top": 292,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 43,
+              "kind": "normal",
+              "confidence": 0.9981046915054321,
+              "box": {
+                "left": 248,
+                "top": 340,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 45,
+              "kind": "normal",
+              "confidence": 0.9980856776237488,
+              "box": {
+                "left": 56,
+                "top": 388,
+                "width": 95,
+                "height": 16
+              }
+            }
+          ]
+        },
+        {
+          "step": 114,
+          "player": {
+            "center_x": 216.0,
+            "center_y": 211.0,
+            "velocity_x": 64.0,
+            "velocity_y": -92.0,
+            "motion": "rising",
+            "confidence": 0.664179104477612,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "LEFT",
+          "reason": "escape_special_contact",
+          "contact_id": 7,
+          "source_id": 41,
+          "source_kind": "spring",
+          "direction": "LEFT",
+          "direction_source": "visible_landing",
+          "destination_id": 40,
+          "escape_steps": 1,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 34,
+              "kind": "normal",
+              "confidence": 0.9981096386909485,
+              "box": {
+                "left": 120,
+                "top": 88,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 42,
+              "kind": "normal",
+              "confidence": 0.9981335997581482,
+              "box": {
+                "left": 248,
+                "top": 136,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 44,
+              "kind": "spring",
+              "confidence": 0.9971075057983398,
+              "box": {
+                "left": 200,
+                "top": 244,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 40,
+              "kind": "normal",
+              "confidence": 0.9981070756912231,
+              "box": {
+                "left": 56,
+                "top": 280,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 43,
+              "kind": "normal",
+              "confidence": 0.9980679154396057,
+              "box": {
+                "left": 248,
+                "top": 328,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 45,
+              "kind": "normal",
+              "confidence": 0.9981971383094788,
+              "box": {
+                "left": 56,
+                "top": 376,
+                "width": 95,
+                "height": 16
+              }
+            }
+          ]
+        },
+        {
+          "step": 115,
+          "player": {
+            "center_x": 207.0,
+            "center_y": 184.5,
+            "velocity_x": -72.0,
+            "velocity_y": -212.0,
+            "motion": "rising",
+            "confidence": 0.5447761194029851,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "LEFT",
+          "reason": "escape_special_contact",
+          "contact_id": 7,
+          "source_id": 41,
+          "source_kind": "spring",
+          "direction": "LEFT",
+          "direction_source": "visible_landing",
+          "destination_id": 40,
+          "escape_steps": 2,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 34,
+              "kind": "normal",
+              "confidence": 0.9981204271316528,
+              "box": {
+                "left": 120,
+                "top": 80,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 42,
+              "kind": "normal",
+              "confidence": 0.9981314539909363,
+              "box": {
+                "left": 248,
+                "top": 128,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 44,
+              "kind": "spring",
+              "confidence": 0.9971075057983398,
+              "box": {
+                "left": 200,
+                "top": 244,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 40,
+              "kind": "normal",
+              "confidence": 0.9980981945991516,
+              "box": {
+                "left": 56,
+                "top": 272,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 43,
+              "kind": "normal",
+              "confidence": 0.9980791211128235,
+              "box": {
+                "left": 248,
+                "top": 320,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 45,
+              "kind": "normal",
+              "confidence": 0.9982044100761414,
+              "box": {
+                "left": 56,
+                "top": 368,
+                "width": 95,
+                "height": 16
+              }
+            }
+          ]
+        },
+        {
+          "step": 116,
+          "player": {
+            "center_x": 184.0,
+            "center_y": 160.5,
+            "velocity_x": -184.0,
+            "velocity_y": -192.0,
+            "motion": "rising",
+            "confidence": 0.5895522388059702,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "LEFT",
+          "reason": "escape_special_contact",
+          "contact_id": 7,
+          "source_id": 41,
+          "source_kind": "spring",
+          "direction": "LEFT",
+          "direction_source": "visible_landing",
+          "destination_id": 40,
+          "escape_steps": 3,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 42,
+              "kind": "normal",
+              "confidence": 0.9981671571731567,
+              "box": {
+                "left": 248,
+                "top": 116,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 46,
+              "kind": "spring",
+              "confidence": 0.9971165060997009,
+              "box": {
+                "left": 200,
+                "top": 212,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 40,
+              "kind": "normal",
+              "confidence": 0.9980972409248352,
+              "box": {
+                "left": 56,
+                "top": 260,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 43,
+              "kind": "normal",
+              "confidence": 0.9980856776237488,
+              "box": {
+                "left": 248,
+                "top": 308,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 45,
+              "kind": "normal",
+              "confidence": 0.9981908202171326,
+              "box": {
+                "left": 56,
+                "top": 356,
+                "width": 95,
+                "height": 16
+              }
+            }
+          ]
+        },
+        {
+          "step": 117,
+          "player": {
+            "center_x": 166.0,
+            "center_y": 149.0,
+            "velocity_x": -144.0,
+            "velocity_y": -92.0,
+            "motion": "rising",
+            "confidence": 0.7164179104477612,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "LEFT",
+          "reason": "escape_special_contact",
+          "contact_id": 7,
+          "source_id": 47,
+          "source_kind": "spring",
+          "direction": "LEFT",
+          "direction_source": "visible_landing",
+          "destination_id": 40,
+          "escape_steps": 4,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 42,
+              "kind": "normal",
+              "confidence": 0.9981095790863037,
+              "box": {
+                "left": 248,
+                "top": 108,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 47,
+              "kind": "spring",
+              "confidence": 0.9188835620880127,
+              "box": {
+                "left": 136,
+                "top": 156,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 46,
+              "kind": "spring",
+              "confidence": 0.9972295165061951,
+              "box": {
+                "left": 200,
+                "top": 204,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 40,
+              "kind": "normal",
+              "confidence": 0.9981253147125244,
+              "box": {
+                "left": 56,
+                "top": 252,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 43,
+              "kind": "normal",
+              "confidence": 0.9980168342590332,
+              "box": {
+                "left": 248,
+                "top": 300,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 45,
+              "kind": "normal",
+              "confidence": 0.998249888420105,
+              "box": {
+                "left": 56,
+                "top": 348,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 48,
+              "kind": "normal",
+              "confidence": 0.9978634715080261,
+              "box": {
+                "left": 152,
+                "top": 396,
+                "width": 95,
+                "height": 16
+              }
+            }
+          ]
+        },
+        {
+          "step": 118,
+          "player": {
+            "center_x": 152.0,
+            "center_y": 160.5,
+            "velocity_x": -112.0,
+            "velocity_y": 92.0,
+            "motion": "falling",
+            "confidence": 0.8059701492537313,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "LEFT",
+          "reason": "escape_special_contact",
+          "contact_id": 7,
+          "source_id": 47,
+          "source_kind": "spring",
+          "direction": "LEFT",
+          "direction_source": "visible_landing",
+          "destination_id": 40,
+          "escape_steps": 5,
+          "candidate_stability_steps": 1,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 42,
+              "kind": "normal",
+              "confidence": 0.9979632496833801,
+              "box": {
+                "left": 248,
+                "top": 92,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 47,
+              "kind": "spring",
+              "confidence": 0.9188835620880127,
+              "box": {
+                "left": 136,
+                "top": 156,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 46,
+              "kind": "spring",
+              "confidence": 0.997201144695282,
+              "box": {
+                "left": 200,
+                "top": 188,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 40,
+              "kind": "normal",
+              "confidence": 0.9980140924453735,
+              "box": {
+                "left": 56,
+                "top": 236,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 43,
+              "kind": "normal",
+              "confidence": 0.9979173541069031,
+              "box": {
+                "left": 248,
+                "top": 284,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 45,
+              "kind": "normal",
+              "confidence": 0.9981116652488708,
+              "box": {
+                "left": 56,
+                "top": 332,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 48,
+              "kind": "normal",
+              "confidence": 0.9978326559066772,
+              "box": {
+                "left": 152,
+                "top": 380,
+                "width": 95,
+                "height": 16
+              }
+            }
+          ]
+        },
+        {
+          "step": 119,
+          "player": {
+            "center_x": 160.0,
+            "center_y": 184.5,
+            "velocity_x": 64.0,
+            "velocity_y": 192.0,
+            "motion": "falling",
+            "confidence": 0.5522388059701493,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "LEFT",
+          "reason": "escape_special_contact",
+          "contact_id": 7,
+          "source_id": 47,
+          "source_kind": "spring",
+          "direction": "LEFT",
+          "direction_source": "visible_landing",
+          "destination_id": 40,
+          "escape_steps": 6,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 42,
+              "kind": "normal",
+              "confidence": 0.9981055855751038,
+              "box": {
+                "left": 248,
+                "top": 84,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 47,
+              "kind": "spring",
+              "confidence": 0.9972621202468872,
+              "box": {
+                "left": 136,
+                "top": 132,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 47,
+              "kind": "spring",
+              "confidence": 0.9188835620880127,
+              "box": {
+                "left": 136,
+                "top": 156,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 46,
+              "kind": "spring",
+              "confidence": 0.9972671270370483,
+              "box": {
+                "left": 200,
+                "top": 180,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 40,
+              "kind": "normal",
+              "confidence": 0.9981160163879395,
+              "box": {
+                "left": 56,
+                "top": 228,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 43,
+              "kind": "normal",
+              "confidence": 0.9979882836341858,
+              "box": {
+                "left": 248,
+                "top": 276,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 45,
+              "kind": "normal",
+              "confidence": 0.9981155395507812,
+              "box": {
+                "left": 56,
+                "top": 324,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 48,
+              "kind": "normal",
+              "confidence": 0.9979658722877502,
+              "box": {
+                "left": 152,
+                "top": 372,
+                "width": 95,
+                "height": 16
+              }
+            }
+          ]
+        },
+        {
+          "step": 120,
+          "player": {
+            "center_x": 185.0,
+            "center_y": 226.5,
+            "velocity_x": 200.0,
+            "velocity_y": 336.0,
+            "motion": "falling",
+            "confidence": 0.582089552238806,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "LEFT",
+          "reason": "escape_special_contact",
+          "contact_id": 7,
+          "source_id": 47,
+          "source_kind": "spring",
+          "direction": "LEFT",
+          "direction_source": "visible_landing",
+          "destination_id": 40,
+          "escape_steps": 7,
+          "candidate_stability_steps": 1,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 47,
+              "kind": "spring",
+              "confidence": 0.997394859790802,
+              "box": {
+                "left": 136,
+                "top": 120,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 46,
+              "kind": "spring",
+              "confidence": 0.9974095225334167,
+              "box": {
+                "left": 200,
+                "top": 168,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 40,
+              "kind": "normal",
+              "confidence": 0.9983328580856323,
+              "box": {
+                "left": 56,
+                "top": 216,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 43,
+              "kind": "normal",
+              "confidence": 0.9983116388320923,
+              "box": {
+                "left": 248,
+                "top": 264,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 45,
+              "kind": "normal",
+              "confidence": 0.9983124136924744,
+              "box": {
+                "left": 56,
+                "top": 312,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 48,
+              "kind": "normal",
+              "confidence": 0.9983433485031128,
+              "box": {
+                "left": 152,
+                "top": 360,
+                "width": 95,
+                "height": 16
+              }
+            }
+          ]
+        },
+        {
+          "step": 121,
+          "player": {
+            "center_x": 201.0,
+            "center_y": 264.5,
+            "velocity_x": 128.0,
+            "velocity_y": 304.0,
+            "motion": "falling",
+            "confidence": 0.5746268656716418,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "LEFT",
+          "reason": "escape_special_contact",
+          "contact_id": 7,
+          "source_id": 47,
+          "source_kind": "spring",
+          "direction": "LEFT",
+          "direction_source": "visible_landing",
+          "destination_id": 45,
+          "escape_steps": 8,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 47,
+              "kind": "spring",
+              "confidence": 0.9973657131195068,
+              "box": {
+                "left": 136,
+                "top": 112,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 46,
+              "kind": "spring",
+              "confidence": 0.9973839521408081,
+              "box": {
+                "left": 200,
+                "top": 160,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 40,
+              "kind": "normal",
+              "confidence": 0.9982810020446777,
+              "box": {
+                "left": 56,
+                "top": 208,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 43,
+              "kind": "normal",
+              "confidence": 0.9983093738555908,
+              "box": {
+                "left": 248,
+                "top": 256,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 45,
+              "kind": "normal",
+              "confidence": 0.9983230233192444,
+              "box": {
+                "left": 56,
+                "top": 304,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 48,
+              "kind": "normal",
+              "confidence": 0.998325526714325,
+              "box": {
+                "left": 152,
+                "top": 352,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 49,
+              "kind": "spikes",
+              "confidence": 0.992034912109375,
+              "box": {
+                "left": 296,
+                "top": 384,
+                "width": 95,
+                "height": 32
+              }
+            }
+          ]
+        },
+        {
+          "step": 122,
+          "player": {
+            "center_x": 208.0,
+            "center_y": 327.0,
+            "velocity_x": 56.0,
+            "velocity_y": 500.0,
+            "motion": "falling",
+            "confidence": 0.6567164179104478,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "LEFT",
+          "reason": "escape_special_contact",
+          "contact_id": 7,
+          "source_id": 47,
+          "source_kind": "spring",
+          "direction": "LEFT",
+          "direction_source": "visible_landing",
+          "destination_id": 45,
+          "escape_steps": 9,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 47,
+              "kind": "spring",
+              "confidence": 0.9971708655357361,
+              "box": {
+                "left": 136,
+                "top": 100,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 46,
+              "kind": "spring",
+              "confidence": 0.9972360134124756,
+              "box": {
+                "left": 200,
+                "top": 148,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 40,
+              "kind": "normal",
+              "confidence": 0.9983377456665039,
+              "box": {
+                "left": 56,
+                "top": 196,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 43,
+              "kind": "normal",
+              "confidence": 0.998243510723114,
+              "box": {
+                "left": 248,
+                "top": 244,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 45,
+              "kind": "normal",
+              "confidence": 0.9982030391693115,
+              "box": {
+                "left": 56,
+                "top": 292,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 48,
+              "kind": "normal",
+              "confidence": 0.9982588887214661,
+              "box": {
+                "left": 152,
+                "top": 340,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 49,
+              "kind": "spikes",
+              "confidence": 0.9919554591178894,
+              "box": {
+                "left": 296,
+                "top": 372,
+                "width": 95,
+                "height": 32
+              }
+            }
+          ]
+        },
+        {
+          "step": 123,
+          "player": {
+            "center_x": 208.0,
+            "center_y": 319.5,
+            "velocity_x": 0.0,
+            "velocity_y": -60.0,
+            "motion": "rising",
+            "confidence": 0.6791044776119403,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "LEFT",
+          "reason": "escape_special_contact",
+          "contact_id": 7,
+          "source_id": 47,
+          "source_kind": "spring",
+          "direction": "LEFT",
+          "direction_source": "visible_landing",
+          "destination_id": 45,
+          "escape_steps": 10,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 47,
+              "kind": "spring",
+              "confidence": 0.9973018765449524,
+              "box": {
+                "left": 136,
+                "top": 92,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 46,
+              "kind": "spring",
+              "confidence": 0.9973775744438171,
+              "box": {
+                "left": 200,
+                "top": 140,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 40,
+              "kind": "normal",
+              "confidence": 0.9981986284255981,
+              "box": {
+                "left": 56,
+                "top": 188,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 43,
+              "kind": "normal",
+              "confidence": 0.9982357025146484,
+              "box": {
+                "left": 248,
+                "top": 236,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 45,
+              "kind": "normal",
+              "confidence": 0.9982237815856934,
+              "box": {
+                "left": 56,
+                "top": 284,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 48,
+              "kind": "normal",
+              "confidence": 0.9981582164764404,
+              "box": {
+                "left": 152,
+                "top": 332,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 49,
+              "kind": "spikes",
+              "confidence": 0.9911020994186401,
+              "box": {
+                "left": 296,
+                "top": 364,
+                "width": 95,
+                "height": 32
+              }
+            }
+          ]
+        },
+        {
+          "step": 124,
+          "player": {
+            "center_x": 208.0,
+            "center_y": 307.5,
+            "velocity_x": 0.0,
+            "velocity_y": -96.0,
+            "motion": "rising",
+            "confidence": 0.6940298507462687,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "LEFT",
+          "reason": "escape_special_contact",
+          "contact_id": 7,
+          "source_id": 47,
+          "source_kind": "spring",
+          "direction": "LEFT",
+          "direction_source": "visible_landing",
+          "destination_id": 45,
+          "escape_steps": 11,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 47,
+              "kind": "spring",
+              "confidence": 0.9973629713058472,
+              "box": {
+                "left": 136,
+                "top": 80,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 46,
+              "kind": "spring",
+              "confidence": 0.9973791241645813,
+              "box": {
+                "left": 200,
+                "top": 128,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 40,
+              "kind": "normal",
+              "confidence": 0.9981880187988281,
+              "box": {
+                "left": 56,
+                "top": 176,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 43,
+              "kind": "normal",
+              "confidence": 0.9982343316078186,
+              "box": {
+                "left": 248,
+                "top": 224,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 45,
+              "kind": "normal",
+              "confidence": 0.9982340931892395,
+              "box": {
+                "left": 56,
+                "top": 272,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 48,
+              "kind": "normal",
+              "confidence": 0.9981862902641296,
+              "box": {
+                "left": 152,
+                "top": 320,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 49,
+              "kind": "spikes",
+              "confidence": 0.990815281867981,
+              "box": {
+                "left": 296,
+                "top": 352,
+                "width": 95,
+                "height": 32
+              }
+            }
+          ]
+        },
+        {
+          "step": 125,
+          "player": {
+            "center_x": 208.0,
+            "center_y": 299.5,
+            "velocity_x": 0.0,
+            "velocity_y": -64.0,
+            "motion": "rising",
+            "confidence": 0.7089552238805971,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "LEFT",
+          "reason": "escape_special_contact",
+          "contact_id": 7,
+          "source_id": 47,
+          "source_kind": "spring",
+          "direction": "LEFT",
+          "direction_source": "visible_landing",
+          "destination_id": 45,
+          "escape_steps": 12,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 47,
+              "kind": "spring",
+              "confidence": 0.9262096285820007,
+              "box": {
+                "left": 136,
+                "top": 72,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 46,
+              "kind": "spring",
+              "confidence": 0.9974227547645569,
+              "box": {
+                "left": 200,
+                "top": 120,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 40,
+              "kind": "normal",
+              "confidence": 0.9982019662857056,
+              "box": {
+                "left": 56,
+                "top": 168,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 43,
+              "kind": "normal",
+              "confidence": 0.9982193112373352,
+              "box": {
+                "left": 248,
+                "top": 216,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 45,
+              "kind": "normal",
+              "confidence": 0.9982104301452637,
+              "box": {
+                "left": 56,
+                "top": 264,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 48,
+              "kind": "normal",
+              "confidence": 0.9981728792190552,
+              "box": {
+                "left": 152,
+                "top": 312,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 49,
+              "kind": "spikes",
+              "confidence": 0.9921066164970398,
+              "box": {
+                "left": 296,
+                "top": 344,
+                "width": 95,
+                "height": 32
+              }
+            }
+          ]
+        },
+        {
+          "step": 126,
+          "player": {
+            "center_x": 223.0,
+            "center_y": 286.0,
+            "velocity_x": 120.0,
+            "velocity_y": -108.0,
+            "motion": "rising",
+            "confidence": 0.4701492537313433,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "LEFT",
+          "reason": "escape_special_contact_forced_exit",
+          "contact_id": 7,
+          "source_id": 47,
+          "source_kind": "spring",
+          "direction": "LEFT",
+          "direction_source": "visible_landing",
+          "destination_id": 45,
+          "escape_steps": 13,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": true,
+          "platforms": [
+            {
+              "track_id": 47,
+              "kind": "spring",
+              "confidence": 0.9262096285820007,
+              "box": {
+                "left": 136,
+                "top": 72,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 46,
+              "kind": "spring",
+              "confidence": 0.9971812963485718,
+              "box": {
+                "left": 200,
+                "top": 108,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 40,
+              "kind": "normal",
+              "confidence": 0.9980553984642029,
+              "box": {
+                "left": 56,
+                "top": 156,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 43,
+              "kind": "normal",
+              "confidence": 0.9980019927024841,
+              "box": {
+                "left": 248,
+                "top": 204,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 45,
+              "kind": "normal",
+              "confidence": 0.9981868267059326,
+              "box": {
+                "left": 56,
+                "top": 252,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 48,
+              "kind": "normal",
+              "confidence": 0.998020589351654,
+              "box": {
+                "left": 152,
+                "top": 300,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 49,
+              "kind": "spikes",
+              "confidence": 0.9946123957633972,
+              "box": {
+                "left": 296,
+                "top": 332,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 50,
+              "kind": "flipping",
+              "confidence": 0.9951846599578857,
+              "box": {
+                "left": 248,
+                "top": 396,
+                "width": 96,
+                "height": 18
+              }
+            }
+          ]
+        },
+        {
+          "step": 127,
+          "player": {
+            "center_x": 247.0,
+            "center_y": 270.5,
+            "velocity_x": 192.0,
+            "velocity_y": -124.0,
+            "motion": "rising",
+            "confidence": 0.7089552238805971,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "LEFT",
+          "reason": "escape_special_contact_forced_exit",
+          "contact_id": 7,
+          "source_id": 47,
+          "source_kind": "spring",
+          "direction": "LEFT",
+          "direction_source": "visible_landing",
+          "destination_id": 45,
+          "escape_steps": 14,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": true,
+          "platforms": [
+            {
+              "track_id": 47,
+              "kind": "spring",
+              "confidence": 0.9262096285820007,
+              "box": {
+                "left": 136,
+                "top": 72,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 46,
+              "kind": "spring",
+              "confidence": 0.997350811958313,
+              "box": {
+                "left": 200,
+                "top": 96,
+                "width": 96,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 40,
+              "kind": "normal",
+              "confidence": 0.998067319393158,
+              "box": {
+                "left": 56,
+                "top": 144,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 43,
+              "kind": "normal",
+              "confidence": 0.9980587959289551,
+              "box": {
+                "left": 248,
+                "top": 192,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 45,
+              "kind": "normal",
+              "confidence": 0.998229444026947,
+              "box": {
+                "left": 56,
+                "top": 240,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 48,
+              "kind": "normal",
+              "confidence": 0.9980674982070923,
+              "box": {
+                "left": 152,
+                "top": 288,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 49,
+              "kind": "spikes",
+              "confidence": 0.9961782693862915,
+              "box": {
+                "left": 296,
+                "top": 320,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 50,
+              "kind": "flipping",
+              "confidence": 0.9986838698387146,
+              "box": {
+                "left": 248,
+                "top": 384,
+                "width": 96,
+                "height": 18
+              }
+            }
+          ]
+        },
+        {
+          "step": 139,
+          "player": {
+            "center_x": 224.0,
+            "center_y": 360.5,
+            "velocity_x": 12.0,
+            "velocity_y": 240.0,
+            "motion": "falling",
+            "confidence": 0.6865671641791045,
+            "detection_source": "raw",
+            "missing_streak": 0
+          },
+          "action": "RIGHT",
+          "reason": "escape_special_contact",
+          "contact_id": 8,
+          "source_id": 54,
+          "source_kind": "spikes",
+          "direction": "RIGHT",
+          "direction_source": "nearest_edge",
+          "destination_id": null,
+          "escape_steps": 1,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 45,
+              "kind": "normal",
+              "confidence": 0.9980986714363098,
+              "box": {
+                "left": 56,
+                "top": 120,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 48,
+              "kind": "normal",
+              "confidence": 0.9979874491691589,
+              "box": {
+                "left": 152,
+                "top": 168,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 49,
+              "kind": "spikes",
+              "confidence": 0.9951654076576233,
+              "box": {
+                "left": 296,
+                "top": 200,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 53,
+              "kind": "flipping",
+              "confidence": 0.997771680355072,
+              "box": {
+                "left": 248,
+                "top": 256,
+                "width": 96,
+                "height": 34
+              }
+            },
+            {
+              "track_id": 51,
+              "kind": "normal",
+              "confidence": 0.9980423450469971,
+              "box": {
+                "left": 104,
+                "top": 312,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 52,
+              "kind": "normal",
+              "confidence": 0.9978107213973999,
+              "box": {
+                "left": 328,
+                "top": 360,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 54,
+              "kind": "spikes",
+              "confidence": 0.902927041053772,
+              "box": {
+                "left": 120,
+                "top": 392,
+                "width": 95,
+                "height": 32
+              }
+            }
+          ]
+        },
+        {
+          "step": 140,
+          "player": {
+            "center_x": 226.0,
+            "center_y": 390.5,
+            "velocity_x": 12.0,
+            "velocity_y": 240.0,
+            "motion": "falling",
+            "confidence": 0.4462686567164179,
+            "detection_source": "tracked",
+            "missing_streak": 1
+          },
+          "action": "RIGHT",
+          "reason": "escape_special_contact",
+          "contact_id": 8,
+          "source_id": 54,
+          "source_kind": "spikes",
+          "direction": "RIGHT",
+          "direction_source": "nearest_edge",
+          "destination_id": null,
+          "escape_steps": 2,
+          "candidate_stability_steps": 0,
+          "replan_count": 0,
+          "forced_exit": false,
+          "platforms": [
+            {
+              "track_id": 45,
+              "kind": "normal",
+              "confidence": 0.9981687664985657,
+              "box": {
+                "left": 56,
+                "top": 108,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 48,
+              "kind": "normal",
+              "confidence": 0.9978846311569214,
+              "box": {
+                "left": 152,
+                "top": 156,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 49,
+              "kind": "spikes",
+              "confidence": 0.9960398077964783,
+              "box": {
+                "left": 296,
+                "top": 188,
+                "width": 95,
+                "height": 32
+              }
+            },
+            {
+              "track_id": 53,
+              "kind": "flipping",
+              "confidence": 0.997771680355072,
+              "box": {
+                "left": 248,
+                "top": 256,
+                "width": 96,
+                "height": 34
+              }
+            },
+            {
+              "track_id": 51,
+              "kind": "normal",
+              "confidence": 0.9980230331420898,
+              "box": {
+                "left": 104,
+                "top": 300,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 52,
+              "kind": "normal",
+              "confidence": 0.9978411197662354,
+              "box": {
+                "left": 328,
+                "top": 348,
+                "width": 95,
+                "height": 16
+              }
+            },
+            {
+              "track_id": 54,
+              "kind": "spikes",
+              "confidence": 0.9911247491836548,
+              "box": {
+                "left": 120,
+                "top": 380,
+                "width": 95,
+                "height": 32
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "video": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_012857_250916\\episode_03.mp4",
+      "total_frames": 31,
+      "playing_frames": 30,
+      "raw_player_detected_steps": 29,
+      "raw_player_missing_steps": 1,
+      "tracked_bridge_steps": 1,
+      "effective_player_missing_steps": 0,
+      "max_player_missing_streak": 1,
+      "outward_wall_push_count": 0,
+      "wall_reentry_cycle_count": 0,
+      "rapid_direction_reversal_count": 1,
+      "max_rapid_direction_reversal_burst": 1,
+      "max_wall_direction_reversal_burst": 0,
+      "max_aligned_release_streak": 5,
+      "max_support_aligned_release_streak": 0,
+      "same_support_departure_cycle_count": 0,
+      "support_departure_target_switch_count": 0,
+      "support_departure_timeout_count": 0,
+      "support_edge_release_count": 0,
+      "support_edge_opportunity_count": 6,
+      "support_departure_exit_samples": [
+        4,
+        5,
+        7
+      ],
+      "max_support_departure_steps": 7,
+      "support_departure_active_step_count": 16,
+      "action_counts": {
+        "LEFT": 17,
+        "RELEASE_ALL": 9,
+        "RIGHT": 4
+      },
+      "reason_counts": {
+        "depart_support_platform": 16,
+        "move_toward_safe_platform": 5,
+        "aligned_with_safe_platform": 4,
+        "direction_change_brake": 2,
+        "no_reachable_landing": 2,
+        "aligned_with_visible_safe_platform": 1
+      },
+      "wall_trace": [],
+      "departure_trace": [
+        {
+          "step": 0,
+          "support_platform_id": 4,
+          "support_edge_distance": 47.0,
+          "departure_active": true,
+          "source_id": 4,
+          "destination_id": 5,
+          "direction": "RIGHT",
+          "departure_steps": 1,
+          "action": "RIGHT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 1,
+          "support_platform_id": 4,
+          "support_edge_distance": 32.0,
+          "departure_active": true,
+          "source_id": 4,
+          "destination_id": 5,
+          "direction": "RIGHT",
+          "departure_steps": 2,
+          "action": "RIGHT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 2,
+          "support_platform_id": 4,
+          "support_edge_distance": 16.0,
+          "departure_active": true,
+          "source_id": 4,
+          "destination_id": 5,
+          "direction": "RIGHT",
+          "departure_steps": 3,
+          "action": "RIGHT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 3,
+          "support_platform_id": 4,
+          "support_edge_distance": 0.0,
+          "departure_active": true,
+          "source_id": 4,
+          "destination_id": 5,
+          "direction": "RIGHT",
+          "departure_steps": 4,
+          "action": "RIGHT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 5,
+          "support_platform_id": 4,
+          "support_edge_distance": 6.0,
+          "departure_active": true,
+          "source_id": 4,
+          "destination_id": 5,
+          "direction": "LEFT",
+          "departure_steps": 1,
+          "action": "LEFT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 6,
+          "support_platform_id": 4,
+          "support_edge_distance": 22.0,
+          "departure_active": true,
+          "source_id": 4,
+          "destination_id": 5,
+          "direction": "LEFT",
+          "departure_steps": 2,
+          "action": "LEFT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 7,
+          "support_platform_id": 4,
+          "support_edge_distance": 38.0,
+          "departure_active": true,
+          "source_id": 4,
+          "destination_id": 5,
+          "direction": "LEFT",
+          "departure_steps": 3,
+          "action": "LEFT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 8,
+          "support_platform_id": 4,
+          "support_edge_distance": 33.0,
+          "departure_active": true,
+          "source_id": 4,
+          "destination_id": 5,
+          "direction": "LEFT",
+          "departure_steps": 4,
+          "action": "LEFT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 9,
+          "support_platform_id": 4,
+          "support_edge_distance": 17.0,
+          "departure_active": true,
+          "source_id": 4,
+          "destination_id": 5,
+          "direction": "LEFT",
+          "departure_steps": 5,
+          "action": "LEFT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 15,
+          "support_platform_id": 8,
+          "support_edge_distance": 15.0,
+          "departure_active": true,
+          "source_id": 8,
+          "destination_id": 10,
+          "direction": "LEFT",
+          "departure_steps": 1,
+          "action": "LEFT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 16,
+          "support_platform_id": 8,
+          "support_edge_distance": 22.0,
+          "departure_active": true,
+          "source_id": 8,
+          "destination_id": 10,
+          "direction": "LEFT",
+          "departure_steps": 2,
+          "action": "LEFT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 17,
+          "support_platform_id": 8,
+          "support_edge_distance": 46.0,
+          "departure_active": true,
+          "source_id": 8,
+          "destination_id": 10,
+          "direction": "LEFT",
+          "departure_steps": 3,
+          "action": "LEFT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 18,
+          "support_platform_id": 8,
+          "support_edge_distance": 40.0,
+          "departure_active": true,
+          "source_id": 8,
+          "destination_id": 10,
+          "direction": "LEFT",
+          "departure_steps": 4,
+          "action": "LEFT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 19,
+          "support_platform_id": 8,
+          "support_edge_distance": 47.0,
+          "departure_active": true,
+          "source_id": 8,
+          "destination_id": 10,
+          "direction": "LEFT",
+          "departure_steps": 5,
+          "action": "LEFT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 20,
+          "support_platform_id": 8,
+          "support_edge_distance": 24.0,
+          "departure_active": true,
+          "source_id": 8,
+          "destination_id": 10,
+          "direction": "LEFT",
+          "departure_steps": 6,
+          "action": "LEFT",
+          "reason": "depart_support_platform"
+        },
+        {
+          "step": 21,
+          "support_platform_id": 8,
+          "support_edge_distance": 8.0,
+          "departure_active": true,
+          "source_id": 8,
+          "destination_id": 10,
+          "direction": "LEFT",
+          "departure_steps": 7,
+          "action": "LEFT",
+          "reason": "depart_support_platform"
+        }
+      ],
+      "aligned_trace": [
+        {
+          "step": 10,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 8,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 11,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 8,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 12,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 8,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 13,
+          "reason": "aligned_with_safe_platform",
+          "target_id": 8,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        },
+        {
+          "step": 14,
+          "reason": "aligned_with_visible_safe_platform",
+          "target_id": 8,
+          "support_contact_active": false,
+          "support_platform_id": null,
+          "support_edge_distance": null,
+          "departure_active": false
+        }
+      ],
+      "special_trace": []
+    }
+  ],
+  "totals": {
+    "total_frames": 218,
+    "playing_frames": 215,
+    "raw_player_detected_steps": 212,
+    "raw_player_missing_steps": 3,
+    "tracked_bridge_steps": 3,
+    "effective_player_missing_steps": 0,
+    "outward_wall_push_count": 0,
+    "wall_reentry_cycle_count": 0,
+    "rapid_direction_reversal_count": 14,
+    "same_support_departure_cycle_count": 0,
+    "support_departure_target_switch_count": 0,
+    "support_departure_timeout_count": 0,
+    "support_edge_release_count": 1,
+    "support_edge_opportunity_count": 27,
+    "support_departure_active_step_count": 62
+  },
+  "maximums": {
+    "max_player_missing_streak": 1,
+    "max_rapid_direction_reversal_burst": 3,
+    "max_wall_direction_reversal_burst": 0,
+    "max_aligned_release_streak": 6,
+    "max_support_aligned_release_streak": 3,
+    "max_support_departure_steps": 8
+  },
+  "checks": {
+    "all_videos_parsed": true,
+    "effective_missing_streak_bounded": true,
+    "outward_wall_push_zero": true,
+    "wall_reentry_cycles_zero": true,
+    "wall_direction_oscillation_bounded": true,
+    "support_aligned_release_bounded": true,
+    "departure_latch_activated": true,
+    "same_support_departure_cycles_zero": true,
+    "support_departure_target_stable": true
+  },
+  "status": "PASS",
+  "real_game_gate": "PENDING_RETEST"
+}

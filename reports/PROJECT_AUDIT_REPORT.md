@@ -241,3 +241,18 @@ adapter-based Gym boundary、mock safety tests、有限實機確認流程。
 - 何種 legacy 片段仍能以人工方式重建 provenance。
 
 在這些未知量被量測前，simulator 只能稱為 v0 工程骨架，不能稱為遊戲複製品。
+
+## 2026-07-30 最新策略再稽核
+
+- 初始 branch `agent/simulator-learnability-colab` 與 origin 同步、工作樹乾淨；
+  初始回歸 219 passed。
+- Colab pipeline 實際已通過，但 768-step deterministic 全 RIGHT；舊狀態文件
+  稱「尚未執行」已修正。
+- v0.1 generator 固定 9 平台、相鄰 shift 可達 180 px，沒有持續回收或
+  reachability guarantee；這是舊 baseline 停在約 1.65～1.8 層的主要結構風險。
+- Data Resource Audit 實際掃描 37 JSONL／3,561 rows：649 dynamics-only、
+  476 needs-relabel、2,436 invalid；verified BC／replay 都是 0。
+- repository 無第二套 simulator／teacher trainer 可重用，因此 v0.2 在原有
+  `simulator/`／`envs/` 上增量升級，沒有改動真實 Windows control safety chain。
+- cleanup 引用掃描只確認兩個 root 文件已完全被永久 docs／V2 report 取代；
+  calibration reports 仍具 provenance，因此全部保留。

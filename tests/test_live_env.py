@@ -1,3 +1,6 @@
+import threading
+from types import SimpleNamespace
+
 import pytest
 
 from stair_agent.config import DetectionConfig
@@ -13,15 +16,19 @@ class FakeController:
     def __init__(self):
         self.applied = []
         self.release_count = 0
+        self.released = threading.Event()
         self.emergency_stopped = False
         self.hwnd = 123
         self.window_manager = FakeWindowManager()
 
     def apply(self, action):
         self.applied.append(action)
+        if action is Action.RELEASE_ALL:
+            self.release_all()
 
     def release_all(self):
         self.release_count += 1
+        self.released.set()
 
     def is_target_active(self):
         return self.window_manager.is_foreground(
@@ -30,11 +37,17 @@ class FakeController:
 
 
 class FakeWindowManager:
+    def __init__(self):
+        self.focused = []
+
     def is_foreground(self, hwnd):
         return hwnd == 123
 
     def blocking_related_windows(self, _hwnd):
         return []
+
+    def focus(self, hwnd):
+        self.focused.append(hwnd)
 
 
 class FakeResource:
@@ -50,9 +63,12 @@ class FakeResource:
     def stop(self):
         self.calls += 1
 
+    def start(self):
+        self.calls += 1
+
 
 def test_dialog_focus_guard_requires_calibrated_buttons() -> None:
-    with pytest.raises(RuntimeError, match="避免誤選雙人模式"):
+    with pytest.raises(RuntimeError, match="選單焦點"):
         build_dialog_focus_guard(DetectionConfig())
 
 
@@ -69,13 +85,18 @@ def test_dialog_focus_guard_builds_from_calibrated_config() -> None:
             menu_two_player_button_top=297,
             menu_two_player_button_width=81,
             menu_two_player_button_height=21,
+            menu_exit_button_left=172,
+            menu_exit_button_top=297,
+            menu_exit_button_width=70,
+            menu_exit_button_height=21,
         )
     )
 
     assert guard.start_button_rect == (381, 297, 81, 21)
+    assert guard.exit_button_rect == (172, 297, 70, 21)
 
 
-def test_live_adapter_sends_one_bounded_action() -> None:
+def test_live_adapter_keeps_same_direction_held_across_observations() -> None:
     controller = FakeController()
     observed = object()
     adapter = LiveGameAdapter(
@@ -86,14 +107,92 @@ def test_live_adapter_sends_one_bounded_action() -> None:
         sleeper=lambda seconds: None,
     )
 
-    result = adapter.step(Action.LEFT)
+    first = adapter.step(Action.LEFT)
+    second = adapter.step(Action.LEFT)
 
-    assert result is observed
-    assert controller.applied == [Action.LEFT]
-    assert controller.release_count == 1
+    assert first is observed
+    assert second is observed
+    assert controller.applied == [Action.LEFT, Action.LEFT]
+    assert controller.release_count == 0
     assert adapter.last_action_timing is not None
     assert adapter.last_action_timing.action_applied
-    assert adapter.last_action_timing.action_duration_ms == 80
+    assert adapter.last_action_timing.held_action
+    assert adapter.last_action_timing.action_duration_ms >= 0
+    adapter.close()
+
+
+def test_live_adapter_release_action_ends_held_direction() -> None:
+    controller = FakeController()
+    adapter = LiveGameAdapter(
+        controller=controller,
+        observe=lambda: object(),
+        reset_pipeline=lambda: None,
+        action_duration_ms=80,
+        sleeper=lambda _seconds: None,
+    )
+
+    adapter.step(Action.RIGHT)
+    adapter.step(Action.RELEASE_ALL)
+
+    assert controller.applied == [Action.RIGHT, Action.RELEASE_ALL]
+    assert controller.release_count == 1
+    assert adapter.last_action_timing is not None
+    assert not adapter.last_action_timing.held_action
+    assert adapter.last_action_timing.action_duration_ms == 0
+
+
+def test_live_adapter_releases_after_observation_leaves_playing_phase() -> None:
+    controller = FakeController()
+    adapter = LiveGameAdapter(
+        controller=controller,
+        observe=lambda: SimpleNamespace(phase=GamePhase.DIALOG.value),
+        reset_pipeline=lambda: None,
+        action_duration_ms=80,
+        sleeper=lambda _seconds: None,
+    )
+
+    adapter.step(Action.LEFT)
+
+    assert controller.release_count == 1
+    assert adapter.last_action_timing is not None
+    assert not adapter.last_action_timing.held_action
+
+
+def test_live_adapter_hold_watchdog_releases_stalled_direction() -> None:
+    controller = FakeController()
+    adapter = LiveGameAdapter(
+        controller=controller,
+        observe=lambda: object(),
+        reset_pipeline=lambda: None,
+        action_duration_ms=1,
+        max_continuous_hold_ms=20,
+        sleeper=lambda _seconds: None,
+    )
+
+    adapter.step(Action.LEFT)
+
+    assert controller.released.wait(timeout=0.5)
+    assert controller.release_count == 1
+    adapter.close()
+
+
+def test_live_adapter_latest_frame_is_defensive_copy() -> None:
+    import numpy as np
+
+    frame = np.zeros((2, 3, 3), dtype=np.uint8)
+    adapter = LiveGameAdapter(
+        controller=FakeController(),
+        observe=lambda: object(),
+        reset_pipeline=lambda: None,
+        action_duration_ms=80,
+        sleeper=lambda _seconds: None,
+        frame_provider=lambda: frame,
+    )
+
+    result = adapter.latest_frame()
+    assert result is not frame
+    result[0, 0, 0] = 255
+    assert frame[0, 0, 0] == 0
 
 
 def test_live_adapter_releases_if_capture_fails() -> None:
@@ -190,6 +289,29 @@ def test_live_adapter_exposes_safety_state() -> None:
     assert not adapter.emergency_stopped
     controller.emergency_stopped = True
     assert adapter.emergency_stopped
+
+
+def test_live_adapter_dismisses_only_controller_verified_name_entry() -> None:
+    controller = FakeController()
+    dialog = SimpleNamespace(hwnd=456)
+    controller.verified_name_entry_dialog = lambda: dialog
+    controller.dismiss_verified_name_entry_dialog = lambda: dialog
+    controller.resume_after_related_window = lambda: True
+    monitor = FakeResource()
+    adapter = LiveGameAdapter(
+        controller=controller,
+        observe=lambda: object(),
+        reset_pipeline=lambda: None,
+        action_duration_ms=80,
+        monitor=monitor,
+        sleeper=lambda seconds: None,
+    )
+
+    result = adapter.dismiss_verified_name_entry_dialog(focus_target=True)
+
+    assert result is dialog
+    assert controller.window_manager.focused == [123]
+    assert monitor.calls == 1
 
 
 def test_live_adapter_uses_optional_episode_resetter() -> None:

@@ -8,6 +8,7 @@ from stair_agent.baseline_policy import SafePlatformPolicy
 from stair_agent.config import BaselineConfig
 from stair_agent.envs.shaft_env import ShaftEnv, ShaftEnvConfig
 from stair_agent.input_controller import Action
+from stair_agent.simulator.generator import sequence_is_reachable
 
 
 def test_simulator_passes_gymnasium_check_env() -> None:
@@ -40,6 +41,58 @@ def test_fixed_seed_produces_identical_initial_state() -> None:
         second_observation, second_info = second.reset(seed=42)
         np.testing.assert_array_equal(first_observation, second_observation)
         assert first_info["platforms"] == second_info["platforms"]
+    finally:
+        first.close()
+        second.close()
+
+
+@pytest.mark.parametrize("fps", [8, 10, 12])
+def test_v02_uses_fixed_60hz_physics_with_supported_policy_rates(fps: int) -> None:
+    env = ShaftEnv(config=ShaftEnvConfig(fps=fps))
+    try:
+        _observation, info = env.reset(seed=420)
+        assert info["environment_version"] == "ns-shaft-sim-v0.2"
+        assert info["physics_frequency_hz"] == 60
+        assert info["control_frequency_hz"] == fps
+    finally:
+        env.close()
+
+
+def test_easy_platform_sequence_has_three_floor_safe_reachability() -> None:
+    env = ShaftEnv(config=ShaftEnvConfig(distribution="easy"))
+    try:
+        env.reset(seed=421)
+        assert sequence_is_reachable(env.config, env.simulator.platforms)
+    finally:
+        env.close()
+
+
+def test_platforms_recycle_continuously_and_reproducibly() -> None:
+    config = ShaftEnvConfig(
+        distribution="easy",
+        scroll_speed=480.0,
+        max_episode_steps=200,
+    )
+    first = ShaftEnv(config=config)
+    second = ShaftEnv(config=config)
+    try:
+        first.reset(seed=422)
+        second.reset(seed=422)
+        initial_max_floor = max(p.floor_index for p in first.simulator.platforms)
+        for _ in range(20):
+            first.step(0)
+            second.step(0)
+        assert max(p.floor_index for p in first.simulator.platforms) > initial_max_floor
+        first_state = [
+            (p.floor_index, p.center_x, p.center_y)
+            for p in sorted(first.simulator.platforms, key=lambda item: item.floor_index)
+        ]
+        second_state = [
+            (p.floor_index, p.center_x, p.center_y)
+            for p in sorted(second.simulator.platforms, key=lambda item: item.floor_index)
+        ]
+        assert first_state == second_state
+        assert len(first_state) == config.platform_count
     finally:
         first.close()
         second.close()
@@ -147,6 +200,9 @@ def test_rgb_array_render_is_headless_and_has_expected_shape() -> None:
         assert isinstance(frame, np.ndarray)
         assert frame.shape == (env.config.height, env.config.width, 3)
         assert frame.dtype == np.uint8
+        env.step(2)
+        frame_with_overlay = env.render()
+        assert not np.array_equal(frame, frame_with_overlay)
     finally:
         env.close()
 
@@ -174,6 +230,39 @@ def test_existing_baseline_can_drive_simulator_observations() -> None:
             if terminated or truncated:
                 env.reset()
                 policy.reset()
+    finally:
+        env.close()
+
+
+def test_floor_descended_event_is_unique_and_matches_deepest_floor() -> None:
+    env = ShaftEnv(
+        config=ShaftEnvConfig(
+            distribution="easy",
+            fps=10,
+            max_episode_steps=300,
+        )
+    )
+    policy = SafePlatformPolicy(BaselineConfig())
+    floor_events = 0
+    previous_deepest = 0
+    try:
+        env.reset(seed=81)
+        for _ in range(300):
+            decision = policy.choose(env.last_observation)
+            _obs, _reward, terminated, truncated, info = env.step(
+                int(decision.action)
+            )
+            descended = "floor_descended" in info["events"]
+            floor_events += int(descended)
+            if descended:
+                assert env.simulator.deepest_floor > previous_deepest
+            else:
+                assert env.simulator.deepest_floor == previous_deepest
+            assert floor_events <= env.simulator.deepest_floor
+            previous_deepest = env.simulator.deepest_floor
+            if terminated or truncated:
+                break
+        assert floor_events > 0
     finally:
         env.close()
 

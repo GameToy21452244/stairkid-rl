@@ -1,0 +1,2095 @@
+{
+  "seeds": [
+    100,
+    101,
+    102,
+    103,
+    104,
+    105,
+    106,
+    107,
+    108,
+    109,
+    110,
+    111,
+    112,
+    113,
+    114,
+    115,
+    116,
+    117,
+    118,
+    119
+  ],
+  "teacher_vs_bc_confusion": [
+    [
+      696,
+      123,
+      122
+    ],
+    [
+      591,
+      651,
+      188
+    ],
+    [
+      261,
+      54,
+      579
+    ]
+  ],
+  "total_steps": 3265,
+  "disagreement_count": 1339,
+  "disagreement_rate": 0.41010719754977026,
+  "bc_action_counts": {
+    "0": 1548,
+    "1": 828,
+    "2": 889
+  },
+  "disagreement_by_motion": {
+    "falling": 511,
+    "rising": 726,
+    "stable": 102
+  },
+  "disagreement_by_floor": {
+    "0": 21,
+    "1": 42,
+    "2": 42,
+    "3": 77,
+    "4": 40,
+    "5": 38,
+    "6": 39,
+    "7": 29,
+    "8": 40,
+    "9": 56,
+    "10": 44,
+    "11": 60,
+    "12": 45,
+    "13": 72,
+    "14": 72,
+    "15": 61,
+    "16": 49,
+    "17": 62,
+    "18": 54,
+    "19": 57,
+    "20": 48,
+    "21": 49,
+    "22": 40,
+    "23": 40,
+    "24": 37,
+    "25": 27,
+    "26": 12,
+    "27": 10,
+    "28": 21,
+    "29": 1,
+    "30": 8,
+    "31": 4,
+    "32": 2,
+    "33": 4,
+    "34": 2,
+    "35": 4,
+    "36": 4,
+    "37": 4,
+    "38": 9,
+    "40": 4,
+    "41": 4,
+    "42": 5
+  },
+  "mean_bc_confidence_by_teacher_to_bc_pair": {
+    "0->0": 0.690105432152063,
+    "0->1": 0.7220950230834929,
+    "0->2": 0.6588383382949673,
+    "1->0": 0.6571127896381513,
+    "1->1": 0.6578885664771412,
+    "1->2": 0.6512253844040505,
+    "2->0": 0.666697759281173,
+    "2->1": 0.6569427329081076,
+    "2->2": 0.6675095420736106
+  },
+  "near_terminal_disagreement_positions": {
+    "last_01_steps": 10,
+    "last_02_steps": 9,
+    "last_05_steps": 13,
+    "last_06_steps": 12,
+    "last_07_steps": 10,
+    "last_08_steps": 13,
+    "last_09_steps": 13,
+    "last_10_steps": 8,
+    "last_11_steps": 11,
+    "last_12_steps": 13,
+    "last_13_steps": 11,
+    "last_14_steps": 13,
+    "last_16_steps": 12,
+    "last_17_steps": 9,
+    "last_03_steps": 7,
+    "last_04_steps": 12,
+    "last_15_steps": 12,
+    "last_18_steps": 11,
+    "last_19_steps": 15,
+    "last_20_steps": 10
+  },
+  "episodes": [
+    {
+      "seed": 100,
+      "floors": 27,
+      "length": 170,
+      "terminal_reason": "top",
+      "disagreements": 68,
+      "last20_disagreements": 14
+    },
+    {
+      "seed": 101,
+      "floors": 19,
+      "length": 130,
+      "terminal_reason": "top",
+      "disagreements": 71,
+      "last20_disagreements": 17
+    },
+    {
+      "seed": 102,
+      "floors": 22,
+      "length": 146,
+      "terminal_reason": "top",
+      "disagreements": 53,
+      "last20_disagreements": 8
+    },
+    {
+      "seed": 103,
+      "floors": 40,
+      "length": 236,
+      "terminal_reason": "top",
+      "disagreements": 63,
+      "last20_disagreements": 7
+    },
+    {
+      "seed": 104,
+      "floors": 20,
+      "length": 136,
+      "terminal_reason": "top",
+      "disagreements": 66,
+      "last20_disagreements": 17
+    },
+    {
+      "seed": 105,
+      "floors": 22,
+      "length": 146,
+      "terminal_reason": "top",
+      "disagreements": 75,
+      "last20_disagreements": 19
+    },
+    {
+      "seed": 106,
+      "floors": 26,
+      "length": 166,
+      "terminal_reason": "top",
+      "disagreements": 71,
+      "last20_disagreements": 14
+    },
+    {
+      "seed": 107,
+      "floors": 26,
+      "length": 165,
+      "terminal_reason": "top",
+      "disagreements": 90,
+      "last20_disagreements": 11
+    },
+    {
+      "seed": 108,
+      "floors": 20,
+      "length": 136,
+      "terminal_reason": "top",
+      "disagreements": 64,
+      "last20_disagreements": 7
+    },
+    {
+      "seed": 109,
+      "floors": 25,
+      "length": 160,
+      "terminal_reason": "top",
+      "disagreements": 69,
+      "last20_disagreements": 12
+    },
+    {
+      "seed": 110,
+      "floors": 22,
+      "length": 146,
+      "terminal_reason": "top",
+      "disagreements": 68,
+      "last20_disagreements": 14
+    },
+    {
+      "seed": 111,
+      "floors": 24,
+      "length": 155,
+      "terminal_reason": "top",
+      "disagreements": 53,
+      "last20_disagreements": 5
+    },
+    {
+      "seed": 112,
+      "floors": 43,
+      "length": 250,
+      "terminal_reason": "top",
+      "disagreements": 85,
+      "last20_disagreements": 13
+    },
+    {
+      "seed": 113,
+      "floors": 30,
+      "length": 186,
+      "terminal_reason": "top",
+      "disagreements": 50,
+      "last20_disagreements": 8
+    },
+    {
+      "seed": 114,
+      "floors": 22,
+      "length": 146,
+      "terminal_reason": "top",
+      "disagreements": 53,
+      "last20_disagreements": 9
+    },
+    {
+      "seed": 115,
+      "floors": 19,
+      "length": 130,
+      "terminal_reason": "top",
+      "disagreements": 62,
+      "last20_disagreements": 5
+    },
+    {
+      "seed": 116,
+      "floors": 29,
+      "length": 180,
+      "terminal_reason": "top",
+      "disagreements": 64,
+      "last20_disagreements": 6
+    },
+    {
+      "seed": 117,
+      "floors": 31,
+      "length": 190,
+      "terminal_reason": "top",
+      "disagreements": 77,
+      "last20_disagreements": 11
+    },
+    {
+      "seed": 118,
+      "floors": 20,
+      "length": 136,
+      "terminal_reason": "top",
+      "disagreements": 72,
+      "last20_disagreements": 17
+    },
+    {
+      "seed": 119,
+      "floors": 24,
+      "length": 155,
+      "terminal_reason": "top",
+      "disagreements": 65,
+      "last20_disagreements": 10
+    }
+  ],
+  "examples": [
+    {
+      "seed": 100,
+      "step": 3,
+      "floor": 0,
+      "motion": "falling",
+      "player_x": 317.0,
+      "player_y": 321.65999999999997,
+      "player_vx": 0.0,
+      "player_vy": 57.600000000000016,
+      "teacher_action": 2,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.4638442397117615,
+        0.12604856491088867,
+        0.41010719537734985
+      ],
+      "target_platform_id": 2
+    },
+    {
+      "seed": 100,
+      "step": 4,
+      "floor": 1,
+      "motion": "rising",
+      "player_x": 317.0,
+      "player_y": 323.11666666666673,
+      "player_vx": 0.0,
+      "player_vy": -91.8,
+      "teacher_action": 0,
+      "bc_action": 1,
+      "bc_probabilities": [
+        0.10312838107347488,
+        0.6770678758621216,
+        0.21980373561382294
+      ],
+      "target_platform_id": 1
+    },
+    {
+      "seed": 100,
+      "step": 13,
+      "floor": 2,
+      "motion": "rising",
+      "player_x": 308.77419999999927,
+      "player_y": 288.4200000000001,
+      "player_vx": -201.55,
+      "player_vy": -56.599999999999966,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.6312334537506104,
+        0.2331944704055786,
+        0.13557204604148865
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 30,
+      "floor": 4,
+      "motion": "rising",
+      "player_x": 233.0355749999987,
+      "player_y": 238.126666666667,
+      "player_vx": -230.0,
+      "player_vy": -5.3999999999999515,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.7212738394737244,
+        0.16732366383075714,
+        0.11140252649784088
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 31,
+      "floor": 4,
+      "motion": "falling",
+      "player_x": 232.23057499999874,
+      "player_y": 238.38666666666703,
+      "player_vx": -8.05,
+      "player_vy": 13.80000000000005,
+      "teacher_action": 1,
+      "bc_action": 2,
+      "bc_probabilities": [
+        0.06704513728618622,
+        0.06376520544290543,
+        0.8691896796226501
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 32,
+      "floor": 4,
+      "motion": "falling",
+      "player_x": 241.9055749999988,
+      "player_y": 240.56666666666703,
+      "player_vx": 96.75000000000001,
+      "player_vy": 33.00000000000005,
+      "teacher_action": 1,
+      "bc_action": 2,
+      "bc_probabilities": [
+        0.07007650285959244,
+        0.06865227222442627,
+        0.8612712621688843
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 33,
+      "floor": 4,
+      "motion": "falling",
+      "player_x": 262.0605749999989,
+      "player_y": 244.66666666666703,
+      "player_vx": 201.55,
+      "player_vy": 52.20000000000007,
+      "teacher_action": 1,
+      "bc_action": 2,
+      "bc_probabilities": [
+        0.0990675613284111,
+        0.08314258605241776,
+        0.8177898526191711
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 34,
+      "floor": 4,
+      "motion": "falling",
+      "player_x": 285.0605749999988,
+      "player_y": 250.68666666666704,
+      "player_vx": 230.0,
+      "player_vy": 71.40000000000008,
+      "teacher_action": 1,
+      "bc_action": 2,
+      "bc_probabilities": [
+        0.06092681735754013,
+        0.055737417191267014,
+        0.8833357691764832
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 35,
+      "floor": 4,
+      "motion": "falling",
+      "player_x": 308.06057499999866,
+      "player_y": 258.62666666666706,
+      "player_vx": 230.0,
+      "player_vy": 90.6000000000001,
+      "teacher_action": 1,
+      "bc_action": 2,
+      "bc_probabilities": [
+        0.08968520909547806,
+        0.04833322390913963,
+        0.8619815707206726
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 36,
+      "floor": 6,
+      "motion": "rising",
+      "player_x": 331.06057499999855,
+      "player_y": 256.1100000000007,
+      "player_vx": 230.0,
+      "player_vy": -85.39999999999999,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.8128930926322937,
+        0.09111885726451874,
+        0.09598809480667114
+      ],
+      "target_platform_id": 6
+    },
+    {
+      "seed": 100,
+      "step": 52,
+      "floor": 9,
+      "motion": "rising",
+      "player_x": 393.3301499999979,
+      "player_y": 262.71666666666715,
+      "player_vx": -7.0542500000000015,
+      "player_vy": -14.99999999999995,
+      "teacher_action": 0,
+      "bc_action": 2,
+      "bc_probabilities": [
+        0.44350481033325195,
+        0.0944523811340332,
+        0.46204280853271484
+      ],
+      "target_platform_id": 10
+    },
+    {
+      "seed": 100,
+      "step": 57,
+      "floor": 10,
+      "motion": "rising",
+      "player_x": 372.00683512499774,
+      "player_y": 250.0200000000007,
+      "player_vx": -209.60000000000002,
+      "player_vy": -56.599999999999966,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.6966488361358643,
+        0.17977941036224365,
+        0.12357169389724731
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 58,
+      "floor": 10,
+      "motion": "rising",
+      "player_x": 371.2732351249976,
+      "player_y": 245.1600000000007,
+      "player_vx": -7.336000000000001,
+      "player_vy": -37.39999999999995,
+      "teacher_action": 1,
+      "bc_action": 2,
+      "bc_probabilities": [
+        0.05089987441897392,
+        0.054830290377140045,
+        0.8942698240280151
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 59,
+      "floor": 10,
+      "motion": "rising",
+      "player_x": 381.0196351249975,
+      "player_y": 242.22000000000074,
+      "player_vx": 97.46400000000001,
+      "player_vy": -18.19999999999995,
+      "teacher_action": 1,
+      "bc_action": 2,
+      "bc_probabilities": [
+        0.09181325882673264,
+        0.08267858624458313,
+        0.8255081176757812
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 60,
+      "floor": 10,
+      "motion": "stable",
+      "player_x": 401.2460351249974,
+      "player_y": 241.20000000000073,
+      "player_vx": 202.264,
+      "player_vy": 1.0000000000000488,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.5505088567733765,
+        0.11941228806972504,
+        0.3300788104534149
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 61,
+      "floor": 10,
+      "motion": "falling",
+      "player_x": 401.95395912499754,
+      "player_y": 242.10000000000073,
+      "player_vx": 7.079240000000001,
+      "player_vy": 20.20000000000005,
+      "teacher_action": 1,
+      "bc_action": 2,
+      "bc_probabilities": [
+        0.2199210673570633,
+        0.17084310948848724,
+        0.6092358231544495
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 62,
+      "floor": 10,
+      "motion": "falling",
+      "player_x": 413.1418831249974,
+      "player_y": 244.92000000000075,
+      "player_vx": 111.87924000000001,
+      "player_vy": 39.400000000000055,
+      "teacher_action": 1,
+      "bc_action": 2,
+      "bc_probabilities": [
+        0.20373806357383728,
+        0.07178313285112381,
+        0.7244787812232971
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 63,
+      "floor": 10,
+      "motion": "falling",
+      "player_x": 434.80980712499723,
+      "player_y": 249.66000000000076,
+      "player_vx": 216.67924000000002,
+      "player_vy": 58.60000000000007,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.6769174933433533,
+        0.0640198290348053,
+        0.2590627074241638
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 64,
+      "floor": 10,
+      "motion": "falling",
+      "player_x": 435.5681844649974,
+      "player_y": 256.32000000000073,
+      "player_vx": 7.583773400000002,
+      "player_vy": 77.80000000000008,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.7067428231239319,
+        0.09688553959131241,
+        0.19637171924114227
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 65,
+      "floor": 10,
+      "motion": "falling",
+      "player_x": 435.5681844649974,
+      "player_y": 264.9000000000008,
+      "player_vx": 0.0,
+      "player_vy": 97.0000000000001,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.5707662105560303,
+        0.09217575937509537,
+        0.33705809712409973
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 68,
+      "floor": 12,
+      "motion": "rising",
+      "player_x": 404.12818446499733,
+      "player_y": 244.23666666666765,
+      "player_vx": -209.60000000000002,
+      "player_vy": -40.59999999999995,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.7169025540351868,
+        0.1685941219329834,
+        0.11450329422950745
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 69,
+      "floor": 12,
+      "motion": "rising",
+      "player_x": 403.3945844649972,
+      "player_y": 240.97666666666765,
+      "player_vx": -7.336000000000001,
+      "player_vy": -21.39999999999995,
+      "teacher_action": 0,
+      "bc_action": 2,
+      "bc_probabilities": [
+        0.08707615733146667,
+        0.07478119432926178,
+        0.8381426930427551
+      ],
+      "target_platform_id": 13
+    },
+    {
+      "seed": 100,
+      "step": 71,
+      "floor": 12,
+      "motion": "falling",
+      "player_x": 433.367384464997,
+      "player_y": 240.21666666666766,
+      "player_vx": 202.264,
+      "player_vy": 17.00000000000005,
+      "teacher_action": 2,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.45501261949539185,
+        0.11503256857395172,
+        0.42995485663414
+      ],
+      "target_platform_id": 13
+    },
+    {
+      "seed": 100,
+      "step": 72,
+      "floor": 12,
+      "motion": "falling",
+      "player_x": 434.07530846499714,
+      "player_y": 242.7166666666677,
+      "player_vx": 7.079240000000001,
+      "player_vy": 36.20000000000005,
+      "teacher_action": 2,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.6362155079841614,
+        0.13049735128879547,
+        0.23328717052936554
+      ],
+      "target_platform_id": 14
+    },
+    {
+      "seed": 100,
+      "step": 73,
+      "floor": 13,
+      "motion": "rising",
+      "player_x": 434.07530846499714,
+      "player_y": 237.0866666666678,
+      "player_vx": 0.0,
+      "player_vy": -82.19999999999999,
+      "teacher_action": 0,
+      "bc_action": 1,
+      "bc_probabilities": [
+        0.14281265437602997,
+        0.7105972766876221,
+        0.14659002423286438
+      ],
+      "target_platform_id": 13
+    },
+    {
+      "seed": 100,
+      "step": 74,
+      "floor": 13,
+      "motion": "rising",
+      "player_x": 423.5953084649971,
+      "player_y": 229.66666666666782,
+      "player_vx": -104.80000000000001,
+      "player_vy": -62.99999999999997,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.45801815390586853,
+        0.35075652599334717,
+        0.1912253350019455
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 75,
+      "floor": 13,
+      "motion": "rising",
+      "player_x": 423.2285084649972,
+      "player_y": 224.16666666666782,
+      "player_vx": -3.6680000000000006,
+      "player_vy": -43.799999999999955,
+      "teacher_action": 1,
+      "bc_action": 2,
+      "bc_probabilities": [
+        0.19291779398918152,
+        0.13182643055915833,
+        0.6752557754516602
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 76,
+      "floor": 13,
+      "motion": "rising",
+      "player_x": 433.34170846499734,
+      "player_y": 220.5866666666678,
+      "player_vx": 101.132,
+      "player_vy": -24.599999999999948,
+      "teacher_action": 1,
+      "bc_action": 2,
+      "bc_probabilities": [
+        0.2775382399559021,
+        0.12278052419424057,
+        0.5996811985969543
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 77,
+      "floor": 13,
+      "motion": "rising",
+      "player_x": 453.9349084649975,
+      "player_y": 218.9266666666678,
+      "player_vx": 205.93200000000002,
+      "player_vy": -5.3999999999999515,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.6067094206809998,
+        0.1468971073627472,
+        0.24639351665973663
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 78,
+      "floor": 13,
+      "motion": "falling",
+      "player_x": 454.6556704649976,
+      "player_y": 219.18666666666783,
+      "player_vx": 7.207620000000001,
+      "player_vy": 13.80000000000005,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.8409942984580994,
+        0.06219753623008728,
+        0.09680809825658798
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 79,
+      "floor": 13,
+      "motion": "falling",
+      "player_x": 454.6556704649976,
+      "player_y": 221.36666666666784,
+      "player_vx": 0.0,
+      "player_vy": 33.00000000000005,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.5850706100463867,
+        0.08423011749982834,
+        0.33069929480552673
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 89,
+      "floor": 15,
+      "motion": "rising",
+      "player_x": 446.4298704649969,
+      "player_y": 184.18666666666823,
+      "player_vx": -201.55,
+      "player_vy": -50.19999999999996,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.7196184992790222,
+        0.16483944654464722,
+        0.11554203927516937
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 90,
+      "floor": 15,
+      "motion": "rising",
+      "player_x": 445.7244454649969,
+      "player_y": 179.96666666666823,
+      "player_vx": -7.0542500000000015,
+      "player_vy": -30.999999999999947,
+      "teacher_action": 1,
+      "bc_action": 2,
+      "bc_probabilities": [
+        0.11388961970806122,
+        0.08108015358448029,
+        0.8050302267074585
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 91,
+      "floor": 15,
+      "motion": "rising",
+      "player_x": 455.49902046499693,
+      "player_y": 177.66666666666825,
+      "player_vx": 97.74575000000002,
+      "player_vy": -11.799999999999951,
+      "teacher_action": 1,
+      "bc_action": 2,
+      "bc_probabilities": [
+        0.15844936668872833,
+        0.11085374653339386,
+        0.7306969165802002
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 92,
+      "floor": 15,
+      "motion": "falling",
+      "player_x": 475.753595464997,
+      "player_y": 177.28666666666825,
+      "player_vx": 202.54575000000003,
+      "player_vy": 7.400000000000049,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.7049852013587952,
+        0.07549262791872025,
+        0.219522163271904
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 93,
+      "floor": 15,
+      "motion": "falling",
+      "player_x": 476.4625055899971,
+      "player_y": 178.82666666666827,
+      "player_vx": 7.0891012500000015,
+      "player_vy": 26.600000000000048,
+      "teacher_action": 1,
+      "bc_action": 2,
+      "bc_probabilities": [
+        0.28606948256492615,
+        0.09637726843357086,
+        0.617553174495697
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 94,
+      "floor": 16,
+      "motion": "rising",
+      "player_x": 487.6514157149972,
+      "player_y": 179.11666666666844,
+      "player_vx": 111.88910125000001,
+      "player_vy": -91.8,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.8018147349357605,
+        0.08498590439558029,
+        0.1131993979215622
+      ],
+      "target_platform_id": 16
+    },
+    {
+      "seed": 100,
+      "step": 116,
+      "floor": 19,
+      "motion": "stable",
+      "player_x": 510.99168640312257,
+      "player_y": 134.03666666666896,
+      "player_vx": 97.46400000000001,
+      "player_vy": -2.1999999999999513,
+      "teacher_action": 0,
+      "bc_action": 2,
+      "bc_probabilities": [
+        0.043971698731184006,
+        0.07206936180591583,
+        0.8839589953422546
+      ],
+      "target_platform_id": 24
+    },
+    {
+      "seed": 100,
+      "step": 117,
+      "floor": 19,
+      "motion": "falling",
+      "player_x": 531.2180864031228,
+      "player_y": 134.61666666666895,
+      "player_vx": 202.264,
+      "player_vy": 17.00000000000005,
+      "teacher_action": 0,
+      "bc_action": 2,
+      "bc_probabilities": [
+        0.25594109296798706,
+        0.07892538607120514,
+        0.6651335954666138
+      ],
+      "target_platform_id": 24
+    },
+    {
+      "seed": 100,
+      "step": 121,
+      "floor": 20,
+      "motion": "rising",
+      "player_x": 525.1930864031239,
+      "player_y": 118.56666666666888,
+      "player_vx": -201.55,
+      "player_vy": -43.799999999999955,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.48022347688674927,
+        0.324063241481781,
+        0.1957133263349533
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 122,
+      "floor": 20,
+      "motion": "rising",
+      "player_x": 524.4876614031235,
+      "player_y": 114.9866666666689,
+      "player_vx": -7.0542500000000015,
+      "player_vy": -24.599999999999948,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.44726046919822693,
+        0.10902196168899536,
+        0.4437175989151001
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 123,
+      "floor": 20,
+      "motion": "rising",
+      "player_x": 524.4876614031235,
+      "player_y": 113.32666666666887,
+      "player_vx": 0.0,
+      "player_vy": -5.3999999999999515,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.6976869106292725,
+        0.10747579485177994,
+        0.194837287068367
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 124,
+      "floor": 20,
+      "motion": "falling",
+      "player_x": 524.4876614031235,
+      "player_y": 113.58666666666886,
+      "player_vx": 0.0,
+      "player_vy": 13.80000000000005,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.8349364399909973,
+        0.06519833952188492,
+        0.09986519068479538
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 125,
+      "floor": 20,
+      "motion": "falling",
+      "player_x": 524.4876614031235,
+      "player_y": 115.76666666666887,
+      "player_vx": 0.0,
+      "player_vy": 33.00000000000005,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.7690832614898682,
+        0.0756509080529213,
+        0.15526585280895233
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 131,
+      "floor": 21,
+      "motion": "falling",
+      "player_x": 522.2868614031233,
+      "player_y": 92.610000000002,
+      "player_vx": 202.264,
+      "player_vy": 10.60000000000005,
+      "teacher_action": 0,
+      "bc_action": 2,
+      "bc_probabilities": [
+        0.4015081524848938,
+        0.08945336937904358,
+        0.5090385675430298
+      ],
+      "target_platform_id": 26
+    },
+    {
+      "seed": 100,
+      "step": 135,
+      "floor": 22,
+      "motion": "rising",
+      "player_x": 516.2618614031244,
+      "player_y": 78.58666666666852,
+      "player_vx": -201.55,
+      "player_vy": -50.19999999999996,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.5186573266983032,
+        0.29783928394317627,
+        0.1835033893585205
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 136,
+      "floor": 22,
+      "motion": "rising",
+      "player_x": 515.556436403124,
+      "player_y": 74.3666666666685,
+      "player_vx": -7.0542500000000015,
+      "player_vy": -30.999999999999947,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.5124624967575073,
+        0.10852383077144623,
+        0.37901368737220764
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 137,
+      "floor": 22,
+      "motion": "rising",
+      "player_x": 515.556436403124,
+      "player_y": 72.06666666666848,
+      "player_vx": 0.0,
+      "player_vy": -11.799999999999951,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.691399872303009,
+        0.11274197697639465,
+        0.1958581805229187
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 138,
+      "floor": 22,
+      "motion": "falling",
+      "player_x": 515.556436403124,
+      "player_y": 71.68666666666849,
+      "player_vx": 0.0,
+      "player_vy": 7.400000000000049,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.8160585165023804,
+        0.08011560887098312,
+        0.10382593423128128
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 139,
+      "floor": 22,
+      "motion": "falling",
+      "player_x": 515.556436403124,
+      "player_y": 73.2266666666685,
+      "player_vx": 0.0,
+      "player_vy": 26.600000000000048,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.801445722579956,
+        0.07241377234458923,
+        0.1261405199766159
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 145,
+      "floor": 23,
+      "motion": "stable",
+      "player_x": 513.3556364031236,
+      "player_y": 50.81666666666831,
+      "player_vx": 202.264,
+      "player_vy": 4.200000000000049,
+      "teacher_action": 0,
+      "bc_action": 2,
+      "bc_probabilities": [
+        0.33166125416755676,
+        0.08858795464038849,
+        0.5797507762908936
+      ],
+      "target_platform_id": 28
+    },
+    {
+      "seed": 100,
+      "step": 147,
+      "floor": 24,
+      "motion": "rising",
+      "player_x": 537.1606364031242,
+      "player_y": 54.30000000000149,
+      "player_vx": 8.05,
+      "player_vy": -95.0,
+      "teacher_action": 2,
+      "bc_action": 1,
+      "bc_probabilities": [
+        0.35476741194725037,
+        0.45695096254348755,
+        0.18828165531158447
+      ],
+      "target_platform_id": 24
+    },
+    {
+      "seed": 100,
+      "step": 148,
+      "floor": 24,
+      "motion": "rising",
+      "player_x": 527.4856364031244,
+      "player_y": 45.6000000000015,
+      "player_vx": -96.75000000000001,
+      "player_vy": -75.79999999999998,
+      "teacher_action": 2,
+      "bc_action": 1,
+      "bc_probabilities": [
+        0.32819852232933044,
+        0.44396984577178955,
+        0.22783155739307404
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 149,
+      "floor": 24,
+      "motion": "rising",
+      "player_x": 507.3306364031246,
+      "player_y": 38.82000000000147,
+      "player_vx": -201.55,
+      "player_vy": -56.599999999999966,
+      "teacher_action": 2,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.5343343019485474,
+        0.24492812156677246,
+        0.22073759138584137
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 153,
+      "floor": 24,
+      "motion": "falling",
+      "player_x": 559.6543614031244,
+      "player_y": 30.900000000001512,
+      "player_vx": 230.0,
+      "player_vy": 20.20000000000005,
+      "teacher_action": 2,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.6128523945808411,
+        0.061892442405223846,
+        0.32525524497032166
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 154,
+      "floor": 24,
+      "motion": "falling",
+      "player_x": 560.4593614031247,
+      "player_y": 33.720000000001505,
+      "player_vx": 8.05,
+      "player_vy": 39.400000000000055,
+      "teacher_action": 2,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.5707445740699768,
+        0.22176086902618408,
+        0.2074945867061615
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 156,
+      "floor": 25,
+      "motion": "rising",
+      "player_x": 560.4593614031247,
+      "player_y": 19.01666666666796,
+      "player_vx": 0.0,
+      "player_vy": -59.79999999999997,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.40588387846946716,
+        0.24449121952056885,
+        0.34962499141693115
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 157,
+      "floor": 25,
+      "motion": "rising",
+      "player_x": 560.4593614031247,
+      "player_y": 13.836666666667952,
+      "player_vx": 0.0,
+      "player_vy": -40.59999999999995,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.5870062112808228,
+        0.16191959381103516,
+        0.2510741949081421
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 158,
+      "floor": 25,
+      "motion": "rising",
+      "player_x": 560.4593614031247,
+      "player_y": 10.576666666667961,
+      "player_vx": 0.0,
+      "player_vy": -21.39999999999995,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.7242493629455566,
+        0.11269726604223251,
+        0.16305340826511383
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 159,
+      "floor": 25,
+      "motion": "stable",
+      "player_x": 560.4593614031247,
+      "player_y": 9.236666666667986,
+      "player_vx": 0.0,
+      "player_vy": -2.1999999999999513,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.8043742179870605,
+        0.09115222841501236,
+        0.1044735312461853
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 160,
+      "floor": 25,
+      "motion": "falling",
+      "player_x": 560.4593614031247,
+      "player_y": 9.81666666666797,
+      "player_vx": 0.0,
+      "player_vy": 17.00000000000005,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.7943105697631836,
+        0.10773637890815735,
+        0.09795306622982025
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 161,
+      "floor": 25,
+      "motion": "falling",
+      "player_x": 560.4593614031247,
+      "player_y": 12.31666666666797,
+      "player_vx": 0.0,
+      "player_vy": 36.20000000000005,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.7530596256256104,
+        0.1307184100151062,
+        0.1162220686674118
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 162,
+      "floor": 26,
+      "motion": "rising",
+      "player_x": 560.4593614031247,
+      "player_y": 6.686666666667861,
+      "player_vx": 0.0,
+      "player_vy": -82.19999999999999,
+      "teacher_action": 1,
+      "bc_action": 2,
+      "bc_probabilities": [
+        0.11585487425327301,
+        0.08742140978574753,
+        0.7967237830162048
+      ],
+      "target_platform_id": 26
+    },
+    {
+      "seed": 100,
+      "step": 163,
+      "floor": 26,
+      "motion": "rising",
+      "player_x": 570.9393614031247,
+      "player_y": -0.7333333333320979,
+      "player_vx": 104.80000000000001,
+      "player_vy": -62.99999999999997,
+      "teacher_action": 1,
+      "bc_action": 2,
+      "bc_probabilities": [
+        0.22623483836650848,
+        0.14645405113697052,
+        0.6273110508918762
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 164,
+      "floor": 26,
+      "motion": "rising",
+      "player_x": 591.8993614031248,
+      "player_y": -6.233333333332098,
+      "player_vx": 209.60000000000002,
+      "player_vy": -43.799999999999955,
+      "teacher_action": 1,
+      "bc_action": 2,
+      "bc_probabilities": [
+        0.318602591753006,
+        0.11021915078163147,
+        0.5711783170700073
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 165,
+      "floor": 26,
+      "motion": "rising",
+      "player_x": 614.899361403125,
+      "player_y": -9.813333333332082,
+      "player_vx": 230.0,
+      "player_vy": -24.599999999999948,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.5452862977981567,
+        0.10302837938070297,
+        0.3516853451728821
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 168,
+      "floor": 26,
+      "motion": "falling",
+      "player_x": 585.8743614031258,
+      "player_y": -9.03333333333211,
+      "player_vx": -201.55,
+      "player_vy": 33.00000000000005,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.5110054016113281,
+        0.3950578570365906,
+        0.0939367264509201
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 100,
+      "step": 169,
+      "floor": 27,
+      "motion": "rising",
+      "player_x": 585.1689364031255,
+      "player_y": -12.689999999998975,
+      "player_vx": -7.0542500000000015,
+      "player_vy": -85.39999999999999,
+      "teacher_action": 0,
+      "bc_action": 2,
+      "bc_probabilities": [
+        0.09239044040441513,
+        0.06591394543647766,
+        0.8416956067085266
+      ],
+      "target_platform_id": 27
+    },
+    {
+      "seed": 101,
+      "step": 0,
+      "floor": 0,
+      "motion": "stable",
+      "player_x": 317.0,
+      "player_y": 313.5,
+      "player_vx": 0.0,
+      "player_vy": -0.0,
+      "teacher_action": 2,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.6959983706474304,
+        0.12714172899723053,
+        0.17685993015766144
+      ],
+      "target_platform_id": 1
+    },
+    {
+      "seed": 101,
+      "step": 1,
+      "floor": 0,
+      "motion": "falling",
+      "player_x": 317.0,
+      "player_y": 314.3,
+      "player_vx": 0.0,
+      "player_vy": 19.2,
+      "teacher_action": 2,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.8052411675453186,
+        0.06712983548641205,
+        0.12762892246246338
+      ],
+      "target_platform_id": 1
+    },
+    {
+      "seed": 101,
+      "step": 2,
+      "floor": 0,
+      "motion": "falling",
+      "player_x": 317.0,
+      "player_y": 317.02,
+      "player_vx": 0.0,
+      "player_vy": 38.4,
+      "teacher_action": 2,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.8064749240875244,
+        0.06555556505918503,
+        0.12796950340270996
+      ],
+      "target_platform_id": 1
+    },
+    {
+      "seed": 101,
+      "step": 5,
+      "floor": 1,
+      "motion": "rising",
+      "player_x": 306.52,
+      "player_y": 314.73666666666674,
+      "player_vx": -104.80000000000001,
+      "player_vy": -72.59999999999998,
+      "teacher_action": 0,
+      "bc_action": 1,
+      "bc_probabilities": [
+        0.2632646858692169,
+        0.5533453822135925,
+        0.18338994681835175
+      ],
+      "target_platform_id": 2
+    },
+    {
+      "seed": 101,
+      "step": 6,
+      "floor": 1,
+      "motion": "rising",
+      "player_x": 285.55999999999995,
+      "player_y": 308.27666666666676,
+      "player_vx": -209.60000000000002,
+      "player_vy": -53.39999999999996,
+      "teacher_action": 2,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.721821129322052,
+        0.1799534559249878,
+        0.09822547435760498
+      ],
+      "target_platform_id": 2
+    },
+    {
+      "seed": 101,
+      "step": 21,
+      "floor": 3,
+      "motion": "rising",
+      "player_x": 330.2813239999989,
+      "player_y": 263.43666666666684,
+      "player_vx": -201.55,
+      "player_vy": -40.59999999999995,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.620195209980011,
+        0.23422497510910034,
+        0.1455797255039215
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 101,
+      "step": 22,
+      "floor": 3,
+      "motion": "rising",
+      "player_x": 329.5758989999989,
+      "player_y": 260.17666666666685,
+      "player_vx": -7.0542500000000015,
+      "player_vy": -21.39999999999995,
+      "teacher_action": 1,
+      "bc_action": 2,
+      "bc_probabilities": [
+        0.2798362672328949,
+        0.08648122102022171,
+        0.6336824893951416
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 101,
+      "step": 23,
+      "floor": 3,
+      "motion": "stable",
+      "player_x": 339.35047399999894,
+      "player_y": 258.8366666666668,
+      "player_vx": 97.74575000000002,
+      "player_vy": -2.1999999999999513,
+      "teacher_action": 1,
+      "bc_action": 2,
+      "bc_probabilities": [
+        0.32283690571784973,
+        0.09833746403455734,
+        0.5788255929946899
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 101,
+      "step": 24,
+      "floor": 3,
+      "motion": "falling",
+      "player_x": 359.605048999999,
+      "player_y": 259.41666666666686,
+      "player_vx": 202.54575000000003,
+      "player_vy": 17.00000000000005,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.6396723985671997,
+        0.0806783139705658,
+        0.2796493470668793
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 101,
+      "step": 25,
+      "floor": 3,
+      "motion": "falling",
+      "player_x": 360.3139591249991,
+      "player_y": 261.91666666666686,
+      "player_vx": 7.0891012500000015,
+      "player_vy": 36.20000000000005,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.6310360431671143,
+        0.12709902226924896,
+        0.24186496436595917
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 101,
+      "step": 49,
+      "floor": 7,
+      "motion": "falling",
+      "player_x": 429.8571981249976,
+      "player_y": 217.22666666666763,
+      "player_vx": 202.54575000000003,
+      "player_vy": 26.600000000000048,
+      "teacher_action": 2,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.5590962171554565,
+        0.07782880961894989,
+        0.36307492852211
+      ],
+      "target_platform_id": 9
+    },
+    {
+      "seed": 101,
+      "step": 50,
+      "floor": 8,
+      "motion": "rising",
+      "player_x": 430.5661082499977,
+      "player_y": 217.51666666666728,
+      "player_vx": 7.0891012500000015,
+      "player_vy": -91.8,
+      "teacher_action": 0,
+      "bc_action": 1,
+      "bc_probabilities": [
+        0.23889614641666412,
+        0.6291505694389343,
+        0.13195328414440155
+      ],
+      "target_platform_id": 8
+    },
+    {
+      "seed": 101,
+      "step": 52,
+      "floor": 8,
+      "motion": "rising",
+      "player_x": 400.54392849999783,
+      "player_y": 202.67666666666727,
+      "player_vx": -202.51089875000002,
+      "player_vy": -53.39999999999996,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.6782833337783813,
+        0.19272004067897797,
+        0.1289965957403183
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 101,
+      "step": 53,
+      "floor": 8,
+      "motion": "rising",
+      "player_x": 399.8351403543728,
+      "player_y": 198.13666666666728,
+      "player_vx": -7.087881456250002,
+      "player_vy": -34.199999999999946,
+      "teacher_action": 1,
+      "bc_action": 2,
+      "bc_probabilities": [
+        0.062496740370988846,
+        0.056540537625551224,
+        0.8809627294540405
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 101,
+      "step": 54,
+      "floor": 8,
+      "motion": "rising",
+      "player_x": 409.6063522087478,
+      "player_y": 195.5166666666673,
+      "player_vx": 97.71211854375001,
+      "player_vy": -14.99999999999995,
+      "teacher_action": 1,
+      "bc_action": 2,
+      "bc_probabilities": [
+        0.06885822117328644,
+        0.08769945800304413,
+        0.8434423208236694
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 101,
+      "step": 55,
+      "floor": 8,
+      "motion": "stable",
+      "player_x": 429.8575640631228,
+      "player_y": 194.81666666666732,
+      "player_vx": 202.51211854375003,
+      "player_vy": 4.200000000000049,
+      "teacher_action": 1,
+      "bc_action": 2,
+      "bc_probabilities": [
+        0.27175673842430115,
+        0.10525605827569962,
+        0.6229872703552246
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 101,
+      "step": 56,
+      "floor": 8,
+      "motion": "falling",
+      "player_x": 452.8575640631227,
+      "player_y": 196.03666666666732,
+      "player_vx": 230.0,
+      "player_vy": 23.40000000000005,
+      "teacher_action": 1,
+      "bc_action": 2,
+      "bc_probabilities": [
+        0.4448438584804535,
+        0.07651897519826889,
+        0.4786372482776642
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 101,
+      "step": 57,
+      "floor": 9,
+      "motion": "rising",
+      "player_x": 475.8575640631226,
+      "player_y": 198.3000000000008,
+      "player_vx": 230.0,
+      "player_vy": -95.0,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.8362961411476135,
+        0.0892472043633461,
+        0.07445669919252396
+      ],
+      "target_platform_id": 9
+    },
+    {
+      "seed": 101,
+      "step": 58,
+      "floor": 9,
+      "motion": "rising",
+      "player_x": 476.66256406312255,
+      "player_y": 189.6000000000008,
+      "player_vx": 8.05,
+      "player_vy": -75.79999999999998,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.42466825246810913,
+        0.423422247171402,
+        0.15190942585468292
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 101,
+      "step": 59,
+      "floor": 9,
+      "motion": "rising",
+      "player_x": 476.66256406312255,
+      "player_y": 182.8200000000008,
+      "player_vx": 0.0,
+      "player_vy": -56.599999999999966,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.6826028823852539,
+        0.16723094880580902,
+        0.15016613900661469
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 101,
+      "step": 60,
+      "floor": 9,
+      "motion": "rising",
+      "player_x": 476.66256406312255,
+      "player_y": 177.9600000000008,
+      "player_vx": 0.0,
+      "player_vy": -37.39999999999995,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.7252524495124817,
+        0.14374755322933197,
+        0.13100001215934753
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 101,
+      "step": 61,
+      "floor": 9,
+      "motion": "rising",
+      "player_x": 476.66256406312255,
+      "player_y": 175.0200000000008,
+      "player_vx": 0.0,
+      "player_vy": -18.19999999999995,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.7327237129211426,
+        0.14390361309051514,
+        0.12337269634008408
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 101,
+      "step": 62,
+      "floor": 9,
+      "motion": "stable",
+      "player_x": 476.66256406312255,
+      "player_y": 174.00000000000085,
+      "player_vx": 0.0,
+      "player_vy": 1.0000000000000488,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.8371137380599976,
+        0.07933161407709122,
+        0.08355462551116943
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 101,
+      "step": 63,
+      "floor": 9,
+      "motion": "falling",
+      "player_x": 476.66256406312255,
+      "player_y": 174.9000000000009,
+      "player_vx": 0.0,
+      "player_vy": 20.20000000000005,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.8215069770812988,
+        0.06336987018585205,
+        0.11512316018342972
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 101,
+      "step": 64,
+      "floor": 9,
+      "motion": "falling",
+      "player_x": 476.66256406312255,
+      "player_y": 177.7200000000009,
+      "player_vx": 0.0,
+      "player_vy": 39.400000000000055,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.7265448570251465,
+        0.08526290953159332,
+        0.1881922334432602
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 101,
+      "step": 67,
+      "floor": 10,
+      "motion": "rising",
+      "player_x": 445.2225640631225,
+      "player_y": 157.8366666666676,
+      "player_vx": -209.60000000000002,
+      "player_vy": -40.59999999999995,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.4603738486766815,
+        0.3489522337913513,
+        0.19067396223545074
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 101,
+      "step": 68,
+      "floor": 10,
+      "motion": "rising",
+      "player_x": 444.48896406312235,
+      "player_y": 154.57666666666762,
+      "player_vx": -7.336000000000001,
+      "player_vy": -21.39999999999995,
+      "teacher_action": 1,
+      "bc_action": 2,
+      "bc_probabilities": [
+        0.2861953377723694,
+        0.09194070845842361,
+        0.6218639612197876
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 101,
+      "step": 69,
+      "floor": 10,
+      "motion": "stable",
+      "player_x": 454.23536406312223,
+      "player_y": 153.23666666666765,
+      "player_vx": 97.46400000000001,
+      "player_vy": -2.1999999999999513,
+      "teacher_action": 1,
+      "bc_action": 2,
+      "bc_probabilities": [
+        0.20225046575069427,
+        0.07215788215398788,
+        0.7255915999412537
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 101,
+      "step": 70,
+      "floor": 10,
+      "motion": "falling",
+      "player_x": 474.46176406312213,
+      "player_y": 153.81666666666763,
+      "player_vx": 202.264,
+      "player_vy": 17.00000000000005,
+      "teacher_action": 1,
+      "bc_action": 2,
+      "bc_probabilities": [
+        0.16120941936969757,
+        0.05578748881816864,
+        0.7830030918121338
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 101,
+      "step": 71,
+      "floor": 10,
+      "motion": "falling",
+      "player_x": 497.461764063122,
+      "player_y": 156.31666666666763,
+      "player_vx": 230.0,
+      "player_vy": 36.20000000000005,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.5072404742240906,
+        0.04956459626555443,
+        0.4431948959827423
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 101,
+      "step": 74,
+      "floor": 11,
+      "motion": "rising",
+      "player_x": 468.4367640631218,
+      "player_y": 137.7666666666679,
+      "player_vx": -201.55,
+      "player_vy": -43.799999999999955,
+      "teacher_action": 1,
+      "bc_action": 0,
+      "bc_probabilities": [
+        0.4683585464954376,
+        0.30486518144607544,
+        0.22677622735500336
+      ],
+      "target_platform_id": null
+    },
+    {
+      "seed": 101,
+      "step": 75,
+      "floor": 11,
+      "motion": "rising",
+      "player_x": 467.7313390631218,
+      "player_y": 134.18666666666792,
+      "player_vx": -7.0542500000000015,
+      "player_vy": -24.599999999999948,
+      "teacher_action": 1,
+      "bc_action": 2,
+      "bc_probabilities": [
+        0.26009657979011536,
+        0.0949334129691124,
+        0.6449699997901917
+      ],
+      "target_platform_id": null
+    }
+  ]
+}

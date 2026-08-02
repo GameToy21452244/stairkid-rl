@@ -1,0 +1,55 @@
+{
+  "experiment": "p36-teacher-real-retest3-development-audit",
+  "source_run": "logs/teacher_real_micro_20260801_034041_303682",
+  "gate_status": "FAIL",
+  "gate_eligible": true,
+  "observed": {
+    "episodes": 3,
+    "steps": [113, 114, 41],
+    "hud_floor_max": [5, 5, 2],
+    "mean_hud_floor": 4.0,
+    "median_hud_floor": 5.0,
+    "reach_floor_3": 2,
+    "reach_floor_5": 2,
+    "action_counts": {
+      "RELEASE_ALL": 105,
+      "LEFT": 81,
+      "RIGHT": 82
+    },
+    "physical_response_samples": 32,
+    "physical_response_latency_median_ms": 94.0,
+    "safety_events": 0,
+    "complete_transition_controller_video_sets": 3
+  },
+  "passed_checks": [
+    "three_complete_episodes",
+    "safety_events_zero",
+    "physical_response_latency_measured",
+    "target_lock_seen",
+    "controller_and_transition_records_complete",
+    "videos_complete",
+    "no_action_collapse",
+    "reach_floor_3_case",
+    "reach_floor_5_case",
+    "failure_taxonomy_comparable"
+  ],
+  "failed_checks": {
+    "observation_valid": "Episodes 1 and 3 contain missing-player decision observations.",
+    "floor_counter_available": "Episode 2 counted the terminal dialog frame as a required HUD frame."
+  },
+  "spring_failure": {
+    "episode": 3,
+    "nearest_kind": "spring",
+    "periodic_gap_pixels": [18, 50, 84, 19, 85, 19, 61, 39, 27],
+    "spring_bounce_events": 0,
+    "cause": "Landing correlation stayed associated with the previous spike, so event-only special escape never started."
+  },
+  "repair_v3": {
+    "close_visible_spring_geometry_starts_escape": true,
+    "close_gap_threshold_pixels": 30,
+    "offline_replay_first_spring_escape_frame": 14,
+    "offline_replay_action": "LEFT",
+    "terminal_dialog_requires_hud_telemetry": false
+  },
+  "next_gate": "A new bounded 3-episode real-game retest is required before P4.0."
+}

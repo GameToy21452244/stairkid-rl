@@ -1,0 +1,2363 @@
+{
+  "experiment": "teacher-real-game-micro-gate-v11",
+  "dry_run": false,
+  "episodes": [
+    {
+      "episode": 1,
+      "steps": 128,
+      "floors": 8,
+      "floor_start": 1,
+      "floor_max": 8,
+      "floor_counter_available": true,
+      "floor_counter_unstable_steps": 21,
+      "physical_response_samples": [
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000096043,
+          "step": 0
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000096043,
+          "step": 5
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 109.00000000037835,
+          "step": 9
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000096043,
+          "step": 15
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 125.0,
+          "step": 20
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 110.00000000058208,
+          "step": 24
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 109.00000000037835,
+          "step": 28
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 110.00000000058208,
+          "step": 33
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 109.00000000037835,
+          "step": 40
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 109.00000000037835,
+          "step": 48
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 109.00000000037835,
+          "step": 54
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000096043,
+          "step": 58
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 93.0000000007567,
+          "step": 60
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000096043,
+          "step": 66
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 110.00000000058208,
+          "step": 70
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000096043,
+          "step": 78
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 125.0,
+          "step": 84
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 125.0,
+          "step": 88
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 109.00000000037835,
+          "step": 91
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000096043,
+          "step": 97
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 109.00000000037835,
+          "step": 100
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000096043,
+          "step": 109
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 125.0,
+          "step": 115
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 125.0,
+          "step": 119
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 92.99999999711872,
+          "step": 124
+        }
+      ],
+      "physical_response_timeouts": 0,
+      "wall_telemetry_available": true,
+      "outward_wall_push_count": 0,
+      "max_outward_wall_push_streak": 0,
+      "player_telemetry_available": true,
+      "player_missing_step_count": 1,
+      "max_player_missing_streak": 1,
+      "wall_reentry_cycle_count": 0,
+      "rapid_direction_reversal_count": 11,
+      "max_rapid_direction_reversal_burst": 3,
+      "max_wall_direction_reversal_burst": 0,
+      "max_aligned_release_streak": 6,
+      "max_support_aligned_release_streak": 3,
+      "support_departure_telemetry_available": true,
+      "support_edge_actionable_telemetry_available": true,
+      "same_support_departure_cycle_count": 0,
+      "support_departure_target_switch_count": 0,
+      "support_departure_timeout_count": 0,
+      "support_edge_release_count": 1,
+      "support_edge_opportunity_count": 20,
+      "generic_support_edge_release_count": 5,
+      "generic_support_edge_opportunity_count": 24,
+      "support_departure_exit_samples": [
+        3,
+        2,
+        3,
+        3,
+        2,
+        2,
+        3,
+        3,
+        1,
+        1,
+        2,
+        3,
+        2,
+        3,
+        1,
+        2,
+        4,
+        3,
+        3,
+        1
+      ],
+      "max_support_departure_steps": 4,
+      "action_counts": {
+        "LEFT": 35,
+        "RELEASE_ALL": 61,
+        "RIGHT": 32
+      },
+      "terminal_reason": "bottom",
+      "forced_reason": null,
+      "name_entry_dialog_detected": false,
+      "name_entry_dialog_dismissed": false,
+      "name_entry_dialog": null,
+      "observation_valid": true,
+      "target_lock_seen": true,
+      "transition_records": 128,
+      "controller_records": 128,
+      "video_complete": true,
+      "transition_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_01.transitions.jsonl",
+      "controller_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_01.controller.jsonl",
+      "video_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_01.mp4",
+      "dropout_forensic_manifest_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_01.dropout\\manifest.json",
+      "dropout_forensic_snapshot_count": 2,
+      "dropout_forensic_dropped_snapshot_count": 0,
+      "dropout_forensic_telemetry_available": true,
+      "observation_dropout_telemetry_available": true,
+      "invalid_observation_step_count": 0,
+      "recovered_observation_dropout_count": 0,
+      "max_recovered_observation_dropout_streak": 0,
+      "unrecovered_observation_dropout_count": 0,
+      "terminal_observation_dropout_count": 0,
+      "blind_directional_action_count": 0,
+      "top_pressure_dropout_continue_count": 0,
+      "max_top_pressure_dropout_continue_streak": 0,
+      "top_pressure_dropout_exhausted_count": 0,
+      "top_pressure_support_escape_count": 0,
+      "observation_dropout_context_counts": {},
+      "observation_dropout_samples": [],
+      "max_active_wall_direction_reversal_burst": 0,
+      "active_wall_direction_reversal_count": 0,
+      "excluded_wall_special_context_steps": 0,
+      "support_settle_release_count": 8,
+      "actionable_support_release_count": 0,
+      "max_actionable_support_aligned_release_streak": 0,
+      "support_departure_abort_cooldown_count": 0,
+      "max_support_departure_abort_cooldown_streak": 0,
+      "landing_intercept_telemetry_available": true,
+      "landing_release_projection_telemetry_available": true,
+      "special_escape_destination_telemetry_available": true,
+      "special_contact_lifecycle_telemetry_available": true,
+      "landing_intercept_decision_count": 84,
+      "landing_release_projection_decision_count": 64,
+      "destination_aware_special_escape_count": 0,
+      "momentum_guard_special_escape_count": 0,
+      "special_escape_replan_count": 0,
+      "special_contact_count": 4,
+      "pre_special_context_samples": [
+        {
+          "step": 40,
+          "contact_id": 1,
+          "kind": "spring",
+          "dropout_steps": 0,
+          "release_steps": 2,
+          "dropout_release_steps": 0
+        },
+        {
+          "step": 59,
+          "contact_id": 2,
+          "kind": "spring",
+          "dropout_steps": 0,
+          "release_steps": 0,
+          "dropout_release_steps": 0
+        },
+        {
+          "step": 88,
+          "contact_id": 3,
+          "kind": "spikes",
+          "dropout_steps": 0,
+          "release_steps": 1,
+          "dropout_release_steps": 0
+        },
+        {
+          "step": 92,
+          "contact_id": 4,
+          "kind": "spring",
+          "dropout_steps": 0,
+          "release_steps": 0,
+          "dropout_release_steps": 0
+        }
+      ],
+      "max_pre_special_observation_dropout_streak": 0,
+      "max_pre_special_release_streak": 2,
+      "max_pre_special_dropout_release_streak": 0,
+      "spring_special_contact_count": 3,
+      "spike_special_contact_count": 1,
+      "special_source_reacquire_count": 0,
+      "same_special_source_restart_count": 0,
+      "max_special_contact_steps": 4,
+      "max_special_escape_replan_count": 1,
+      "max_special_direction_reversal_count": 1,
+      "max_special_direction_change_brake_count": 2,
+      "special_forced_exit_count": 0,
+      "special_escape_safety_abort_count": 0,
+      "floor_max_sidecar": 8,
+      "floor_video_corrected": false
+    },
+    {
+      "episode": 2,
+      "steps": 175,
+      "floors": 11,
+      "floor_start": 1,
+      "floor_max": 11,
+      "floor_counter_available": true,
+      "floor_counter_unstable_steps": 29,
+      "physical_response_samples": [
+        {
+          "direction": "RIGHT",
+          "latency_ms": 110.00000000058208,
+          "step": 0
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 109.00000000037835,
+          "step": 5
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 93.0000000007567,
+          "step": 9
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 110.00000000058208,
+          "step": 12
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000096043,
+          "step": 16
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 125.0,
+          "step": 21
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000096043,
+          "step": 32
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000096043,
+          "step": 38
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 125.0,
+          "step": 45
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000096043,
+          "step": 50
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 109.00000000037835,
+          "step": 57
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 109.00000000037835,
+          "step": 64
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 92.99999999711872,
+          "step": 71
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 109.00000000037835,
+          "step": 78
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 109.00000000037835,
+          "step": 87
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 109.00000000037835,
+          "step": 91
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 110.00000000058208,
+          "step": 99
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 109.00000000037835,
+          "step": 106
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 110.00000000058208,
+          "step": 110
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 110.00000000058208,
+          "step": 116
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 92.99999999711872,
+          "step": 120
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 110.00000000058208,
+          "step": 128
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 109.00000000037835,
+          "step": 135
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 109.00000000037835,
+          "step": 138
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 93.99999999732245,
+          "step": 144
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 109.00000000037835,
+          "step": 161
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 93.0000000007567,
+          "step": 173
+        }
+      ],
+      "physical_response_timeouts": 0,
+      "wall_telemetry_available": true,
+      "outward_wall_push_count": 0,
+      "max_outward_wall_push_streak": 0,
+      "player_telemetry_available": true,
+      "player_missing_step_count": 0,
+      "max_player_missing_streak": 0,
+      "wall_reentry_cycle_count": 0,
+      "rapid_direction_reversal_count": 15,
+      "max_rapid_direction_reversal_burst": 5,
+      "max_wall_direction_reversal_burst": 1,
+      "max_aligned_release_streak": 6,
+      "max_support_aligned_release_streak": 4,
+      "support_departure_telemetry_available": true,
+      "support_edge_actionable_telemetry_available": true,
+      "same_support_departure_cycle_count": 0,
+      "support_departure_target_switch_count": 0,
+      "support_departure_timeout_count": 0,
+      "support_edge_release_count": 0,
+      "support_edge_opportunity_count": 20,
+      "generic_support_edge_release_count": 5,
+      "generic_support_edge_opportunity_count": 26,
+      "support_departure_exit_samples": [
+        2,
+        3,
+        1,
+        2,
+        1,
+        1,
+        5,
+        4,
+        1,
+        1,
+        1,
+        4,
+        3,
+        1,
+        1,
+        3,
+        1,
+        3,
+        2,
+        2,
+        3,
+        3,
+        5,
+        3,
+        1,
+        4,
+        6
+      ],
+      "max_support_departure_steps": 6,
+      "action_counts": {
+        "LEFT": 49,
+        "RELEASE_ALL": 71,
+        "RIGHT": 55
+      },
+      "terminal_reason": "top",
+      "forced_reason": "terminal_phase_before_action",
+      "name_entry_dialog_detected": false,
+      "name_entry_dialog_dismissed": false,
+      "name_entry_dialog": null,
+      "observation_valid": true,
+      "target_lock_seen": true,
+      "transition_records": 175,
+      "controller_records": 175,
+      "video_complete": true,
+      "transition_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_02.transitions.jsonl",
+      "controller_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_02.controller.jsonl",
+      "video_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_02.mp4",
+      "dropout_forensic_manifest_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_02.dropout\\manifest.json",
+      "dropout_forensic_snapshot_count": 0,
+      "dropout_forensic_dropped_snapshot_count": 0,
+      "dropout_forensic_telemetry_available": true,
+      "observation_dropout_telemetry_available": true,
+      "invalid_observation_step_count": 0,
+      "recovered_observation_dropout_count": 0,
+      "max_recovered_observation_dropout_streak": 0,
+      "unrecovered_observation_dropout_count": 0,
+      "terminal_observation_dropout_count": 0,
+      "blind_directional_action_count": 0,
+      "top_pressure_dropout_continue_count": 0,
+      "max_top_pressure_dropout_continue_streak": 0,
+      "top_pressure_dropout_exhausted_count": 0,
+      "top_pressure_support_escape_count": 0,
+      "observation_dropout_context_counts": {},
+      "observation_dropout_samples": [],
+      "max_active_wall_direction_reversal_burst": 0,
+      "active_wall_direction_reversal_count": 0,
+      "excluded_wall_special_context_steps": 0,
+      "support_settle_release_count": 12,
+      "actionable_support_release_count": 0,
+      "max_actionable_support_aligned_release_streak": 0,
+      "support_departure_abort_cooldown_count": 0,
+      "max_support_departure_abort_cooldown_streak": 0,
+      "landing_intercept_telemetry_available": true,
+      "landing_release_projection_telemetry_available": true,
+      "special_escape_destination_telemetry_available": true,
+      "special_contact_lifecycle_telemetry_available": true,
+      "landing_intercept_decision_count": 115,
+      "landing_release_projection_decision_count": 87,
+      "destination_aware_special_escape_count": 10,
+      "momentum_guard_special_escape_count": 0,
+      "special_escape_replan_count": 0,
+      "special_contact_count": 3,
+      "pre_special_context_samples": [
+        {
+          "step": 93,
+          "contact_id": 1,
+          "kind": "spring",
+          "dropout_steps": 0,
+          "release_steps": 0,
+          "dropout_release_steps": 0
+        },
+        {
+          "step": 120,
+          "contact_id": 2,
+          "kind": "spring",
+          "dropout_steps": 0,
+          "release_steps": 1,
+          "dropout_release_steps": 0
+        },
+        {
+          "step": 133,
+          "contact_id": 3,
+          "kind": "spikes",
+          "dropout_steps": 0,
+          "release_steps": 1,
+          "dropout_release_steps": 0
+        }
+      ],
+      "max_pre_special_observation_dropout_streak": 0,
+      "max_pre_special_release_streak": 1,
+      "max_pre_special_dropout_release_streak": 0,
+      "spring_special_contact_count": 2,
+      "spike_special_contact_count": 1,
+      "special_source_reacquire_count": 1,
+      "same_special_source_restart_count": 0,
+      "max_special_contact_steps": 8,
+      "max_special_escape_replan_count": 1,
+      "max_special_direction_reversal_count": 1,
+      "max_special_direction_change_brake_count": 2,
+      "special_forced_exit_count": 0,
+      "special_escape_safety_abort_count": 0,
+      "floor_max_sidecar": 11,
+      "floor_video_corrected": false
+    },
+    {
+      "episode": 3,
+      "steps": 46,
+      "floors": 4,
+      "floor_start": 1,
+      "floor_max": 4,
+      "floor_counter_available": true,
+      "floor_counter_unstable_steps": 8,
+      "physical_response_samples": [
+        {
+          "direction": "LEFT",
+          "latency_ms": 125.0,
+          "step": 0
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 125.0,
+          "step": 4
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000096043,
+          "step": 13
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 125.0,
+          "step": 22
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 125.0,
+          "step": 41
+        }
+      ],
+      "physical_response_timeouts": 0,
+      "wall_telemetry_available": true,
+      "outward_wall_push_count": 0,
+      "max_outward_wall_push_streak": 0,
+      "player_telemetry_available": true,
+      "player_missing_step_count": 1,
+      "max_player_missing_streak": 1,
+      "wall_reentry_cycle_count": 0,
+      "rapid_direction_reversal_count": 5,
+      "max_rapid_direction_reversal_burst": 5,
+      "max_wall_direction_reversal_burst": 0,
+      "max_aligned_release_streak": 2,
+      "max_support_aligned_release_streak": 2,
+      "support_departure_telemetry_available": true,
+      "support_edge_actionable_telemetry_available": true,
+      "same_support_departure_cycle_count": 0,
+      "support_departure_target_switch_count": 0,
+      "support_departure_timeout_count": 0,
+      "support_edge_release_count": 0,
+      "support_edge_opportunity_count": 9,
+      "generic_support_edge_release_count": 3,
+      "generic_support_edge_opportunity_count": 12,
+      "support_departure_exit_samples": [
+        3,
+        3,
+        2,
+        2,
+        7,
+        1,
+        2,
+        1
+      ],
+      "max_support_departure_steps": 7,
+      "action_counts": {
+        "LEFT": 18,
+        "RELEASE_ALL": 10,
+        "RIGHT": 18
+      },
+      "terminal_reason": "bottom",
+      "forced_reason": "terminal_phase_before_action",
+      "name_entry_dialog_detected": false,
+      "name_entry_dialog_dismissed": false,
+      "name_entry_dialog": null,
+      "observation_valid": true,
+      "target_lock_seen": true,
+      "transition_records": 46,
+      "controller_records": 46,
+      "video_complete": true,
+      "transition_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_03.transitions.jsonl",
+      "controller_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_03.controller.jsonl",
+      "video_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_03.mp4",
+      "dropout_forensic_manifest_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_03.dropout\\manifest.json",
+      "dropout_forensic_snapshot_count": 1,
+      "dropout_forensic_dropped_snapshot_count": 0,
+      "dropout_forensic_telemetry_available": true,
+      "observation_dropout_telemetry_available": true,
+      "invalid_observation_step_count": 0,
+      "recovered_observation_dropout_count": 0,
+      "max_recovered_observation_dropout_streak": 0,
+      "unrecovered_observation_dropout_count": 0,
+      "terminal_observation_dropout_count": 0,
+      "blind_directional_action_count": 0,
+      "top_pressure_dropout_continue_count": 0,
+      "max_top_pressure_dropout_continue_streak": 0,
+      "top_pressure_dropout_exhausted_count": 0,
+      "top_pressure_support_escape_count": 0,
+      "observation_dropout_context_counts": {},
+      "observation_dropout_samples": [],
+      "max_active_wall_direction_reversal_burst": 0,
+      "active_wall_direction_reversal_count": 0,
+      "excluded_wall_special_context_steps": 0,
+      "support_settle_release_count": 5,
+      "actionable_support_release_count": 0,
+      "max_actionable_support_aligned_release_streak": 0,
+      "support_departure_abort_cooldown_count": 0,
+      "max_support_departure_abort_cooldown_streak": 0,
+      "landing_intercept_telemetry_available": true,
+      "landing_release_projection_telemetry_available": true,
+      "special_escape_destination_telemetry_available": true,
+      "special_contact_lifecycle_telemetry_available": true,
+      "landing_intercept_decision_count": 30,
+      "landing_release_projection_decision_count": 22,
+      "destination_aware_special_escape_count": 0,
+      "momentum_guard_special_escape_count": 0,
+      "special_escape_replan_count": 0,
+      "special_contact_count": 1,
+      "pre_special_context_samples": [
+        {
+          "step": 35,
+          "contact_id": 1,
+          "kind": "spikes",
+          "dropout_steps": 0,
+          "release_steps": 0,
+          "dropout_release_steps": 0
+        }
+      ],
+      "max_pre_special_observation_dropout_streak": 0,
+      "max_pre_special_release_streak": 0,
+      "max_pre_special_dropout_release_streak": 0,
+      "spring_special_contact_count": 0,
+      "spike_special_contact_count": 1,
+      "special_source_reacquire_count": 0,
+      "same_special_source_restart_count": 0,
+      "max_special_contact_steps": 2,
+      "max_special_escape_replan_count": 0,
+      "max_special_direction_reversal_count": 0,
+      "max_special_direction_change_brake_count": 0,
+      "special_forced_exit_count": 0,
+      "special_escape_safety_abort_count": 0,
+      "floor_max_sidecar": 3,
+      "floor_video_corrected": true
+    },
+    {
+      "episode": 4,
+      "steps": 32,
+      "floors": 2,
+      "floor_start": 1,
+      "floor_max": 2,
+      "floor_counter_available": true,
+      "floor_counter_unstable_steps": 5,
+      "physical_response_samples": [
+        {
+          "direction": "RIGHT",
+          "latency_ms": 109.00000000037835,
+          "step": 0
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 109.00000000037835,
+          "step": 6
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 109.00000000037835,
+          "step": 11
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000096043,
+          "step": 15
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000096043,
+          "step": 22
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000096043,
+          "step": 29
+        }
+      ],
+      "physical_response_timeouts": 0,
+      "wall_telemetry_available": true,
+      "outward_wall_push_count": 0,
+      "max_outward_wall_push_streak": 0,
+      "player_telemetry_available": true,
+      "player_missing_step_count": 0,
+      "max_player_missing_streak": 0,
+      "wall_reentry_cycle_count": 0,
+      "rapid_direction_reversal_count": 2,
+      "max_rapid_direction_reversal_burst": 2,
+      "max_wall_direction_reversal_burst": 0,
+      "max_aligned_release_streak": 4,
+      "max_support_aligned_release_streak": 2,
+      "support_departure_telemetry_available": true,
+      "support_edge_actionable_telemetry_available": true,
+      "same_support_departure_cycle_count": 0,
+      "support_departure_target_switch_count": 0,
+      "support_departure_timeout_count": 0,
+      "support_edge_release_count": 0,
+      "support_edge_opportunity_count": 5,
+      "generic_support_edge_release_count": 0,
+      "generic_support_edge_opportunity_count": 5,
+      "support_departure_exit_samples": [
+        2,
+        2,
+        2,
+        4,
+        2,
+        2
+      ],
+      "max_support_departure_steps": 4,
+      "action_counts": {
+        "LEFT": 10,
+        "RELEASE_ALL": 12,
+        "RIGHT": 10
+      },
+      "terminal_reason": "bottom",
+      "forced_reason": null,
+      "name_entry_dialog_detected": false,
+      "name_entry_dialog_dismissed": false,
+      "name_entry_dialog": null,
+      "observation_valid": true,
+      "target_lock_seen": true,
+      "transition_records": 32,
+      "controller_records": 32,
+      "video_complete": true,
+      "transition_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_04.transitions.jsonl",
+      "controller_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_04.controller.jsonl",
+      "video_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_04.mp4",
+      "dropout_forensic_manifest_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_04.dropout\\manifest.json",
+      "dropout_forensic_snapshot_count": 0,
+      "dropout_forensic_dropped_snapshot_count": 0,
+      "dropout_forensic_telemetry_available": true,
+      "observation_dropout_telemetry_available": true,
+      "invalid_observation_step_count": 0,
+      "recovered_observation_dropout_count": 0,
+      "max_recovered_observation_dropout_streak": 0,
+      "unrecovered_observation_dropout_count": 0,
+      "terminal_observation_dropout_count": 0,
+      "blind_directional_action_count": 0,
+      "top_pressure_dropout_continue_count": 0,
+      "max_top_pressure_dropout_continue_streak": 0,
+      "top_pressure_dropout_exhausted_count": 0,
+      "top_pressure_support_escape_count": 0,
+      "observation_dropout_context_counts": {},
+      "observation_dropout_samples": [],
+      "max_active_wall_direction_reversal_burst": 0,
+      "active_wall_direction_reversal_count": 0,
+      "excluded_wall_special_context_steps": 0,
+      "support_settle_release_count": 2,
+      "actionable_support_release_count": 0,
+      "max_actionable_support_aligned_release_streak": 0,
+      "support_departure_abort_cooldown_count": 0,
+      "max_support_departure_abort_cooldown_streak": 0,
+      "landing_intercept_telemetry_available": true,
+      "landing_release_projection_telemetry_available": true,
+      "special_escape_destination_telemetry_available": true,
+      "special_contact_lifecycle_telemetry_available": true,
+      "landing_intercept_decision_count": 23,
+      "landing_release_projection_decision_count": 17,
+      "destination_aware_special_escape_count": 0,
+      "momentum_guard_special_escape_count": 0,
+      "special_escape_replan_count": 0,
+      "special_contact_count": 0,
+      "pre_special_context_samples": [],
+      "max_pre_special_observation_dropout_streak": 0,
+      "max_pre_special_release_streak": 0,
+      "max_pre_special_dropout_release_streak": 0,
+      "spring_special_contact_count": 0,
+      "spike_special_contact_count": 0,
+      "special_source_reacquire_count": 0,
+      "same_special_source_restart_count": 0,
+      "max_special_contact_steps": 0,
+      "max_special_escape_replan_count": 0,
+      "max_special_direction_reversal_count": 0,
+      "max_special_direction_change_brake_count": 0,
+      "special_forced_exit_count": 0,
+      "special_escape_safety_abort_count": 0,
+      "floor_max_sidecar": 2,
+      "floor_video_corrected": false
+    },
+    {
+      "episode": 5,
+      "steps": 25,
+      "floors": 2,
+      "floor_start": 1,
+      "floor_max": 2,
+      "floor_counter_available": true,
+      "floor_counter_unstable_steps": 3,
+      "physical_response_samples": [
+        {
+          "direction": "RIGHT",
+          "latency_ms": 125.0,
+          "step": 0
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000096043,
+          "step": 9
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000096043,
+          "step": 18
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 109.00000000037835,
+          "step": 21
+        }
+      ],
+      "physical_response_timeouts": 0,
+      "wall_telemetry_available": true,
+      "outward_wall_push_count": 0,
+      "max_outward_wall_push_streak": 0,
+      "player_telemetry_available": true,
+      "player_missing_step_count": 1,
+      "max_player_missing_streak": 1,
+      "wall_reentry_cycle_count": 0,
+      "rapid_direction_reversal_count": 1,
+      "max_rapid_direction_reversal_burst": 1,
+      "max_wall_direction_reversal_burst": 0,
+      "max_aligned_release_streak": 6,
+      "max_support_aligned_release_streak": 4,
+      "support_departure_telemetry_available": true,
+      "support_edge_actionable_telemetry_available": true,
+      "same_support_departure_cycle_count": 0,
+      "support_departure_target_switch_count": 0,
+      "support_departure_timeout_count": 0,
+      "support_edge_release_count": 0,
+      "support_edge_opportunity_count": 2,
+      "generic_support_edge_release_count": 0,
+      "generic_support_edge_opportunity_count": 2,
+      "support_departure_exit_samples": [
+        3,
+        1
+      ],
+      "max_support_departure_steps": 3,
+      "action_counts": {
+        "LEFT": 7,
+        "RELEASE_ALL": 11,
+        "RIGHT": 7
+      },
+      "terminal_reason": "bottom",
+      "forced_reason": "terminal_phase_before_action",
+      "name_entry_dialog_detected": false,
+      "name_entry_dialog_dismissed": false,
+      "name_entry_dialog": null,
+      "observation_valid": true,
+      "target_lock_seen": true,
+      "transition_records": 25,
+      "controller_records": 25,
+      "video_complete": true,
+      "transition_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_05.transitions.jsonl",
+      "controller_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_05.controller.jsonl",
+      "video_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_05.mp4",
+      "dropout_forensic_manifest_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_05.dropout\\manifest.json",
+      "dropout_forensic_snapshot_count": 1,
+      "dropout_forensic_dropped_snapshot_count": 0,
+      "dropout_forensic_telemetry_available": true,
+      "observation_dropout_telemetry_available": true,
+      "invalid_observation_step_count": 0,
+      "recovered_observation_dropout_count": 0,
+      "max_recovered_observation_dropout_streak": 0,
+      "unrecovered_observation_dropout_count": 0,
+      "terminal_observation_dropout_count": 0,
+      "blind_directional_action_count": 0,
+      "top_pressure_dropout_continue_count": 0,
+      "max_top_pressure_dropout_continue_streak": 0,
+      "top_pressure_dropout_exhausted_count": 0,
+      "top_pressure_support_escape_count": 0,
+      "observation_dropout_context_counts": {},
+      "observation_dropout_samples": [],
+      "max_active_wall_direction_reversal_burst": 0,
+      "active_wall_direction_reversal_count": 0,
+      "excluded_wall_special_context_steps": 0,
+      "support_settle_release_count": 4,
+      "actionable_support_release_count": 0,
+      "max_actionable_support_aligned_release_streak": 0,
+      "support_departure_abort_cooldown_count": 0,
+      "max_support_departure_abort_cooldown_streak": 0,
+      "landing_intercept_telemetry_available": true,
+      "landing_release_projection_telemetry_available": true,
+      "special_escape_destination_telemetry_available": true,
+      "special_contact_lifecycle_telemetry_available": true,
+      "landing_intercept_decision_count": 18,
+      "landing_release_projection_decision_count": 16,
+      "destination_aware_special_escape_count": 0,
+      "momentum_guard_special_escape_count": 0,
+      "special_escape_replan_count": 0,
+      "special_contact_count": 1,
+      "pre_special_context_samples": [
+        {
+          "step": 18,
+          "contact_id": 1,
+          "kind": "spring",
+          "dropout_steps": 0,
+          "release_steps": 4,
+          "dropout_release_steps": 0
+        }
+      ],
+      "max_pre_special_observation_dropout_streak": 0,
+      "max_pre_special_release_streak": 4,
+      "max_pre_special_dropout_release_streak": 0,
+      "spring_special_contact_count": 1,
+      "spike_special_contact_count": 0,
+      "special_source_reacquire_count": 0,
+      "same_special_source_restart_count": 0,
+      "max_special_contact_steps": 2,
+      "max_special_escape_replan_count": 0,
+      "max_special_direction_reversal_count": 0,
+      "max_special_direction_change_brake_count": 0,
+      "special_forced_exit_count": 0,
+      "special_escape_safety_abort_count": 0,
+      "floor_max_sidecar": 2,
+      "floor_video_corrected": false
+    },
+    {
+      "episode": 6,
+      "steps": 78,
+      "floors": 5,
+      "floor_start": 1,
+      "floor_max": 5,
+      "floor_counter_available": true,
+      "floor_counter_unstable_steps": 11,
+      "physical_response_samples": [
+        {
+          "direction": "RIGHT",
+          "latency_ms": 109.00000000037835,
+          "step": 0
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 110.00000000058208,
+          "step": 3
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000096043,
+          "step": 9
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 109.00000000037835,
+          "step": 18
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 108.99999999674037,
+          "step": 22
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000096043,
+          "step": 33
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 110.00000000058208,
+          "step": 39
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 109.00000000037835,
+          "step": 43
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 108.99999999674037,
+          "step": 49
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 125.0,
+          "step": 54
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000096043,
+          "step": 63
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000096043,
+          "step": 68
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 110.00000000058208,
+          "step": 73
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000096043,
+          "step": 76
+        }
+      ],
+      "physical_response_timeouts": 0,
+      "wall_telemetry_available": true,
+      "outward_wall_push_count": 0,
+      "max_outward_wall_push_streak": 0,
+      "player_telemetry_available": true,
+      "player_missing_step_count": 2,
+      "max_player_missing_streak": 1,
+      "wall_reentry_cycle_count": 0,
+      "rapid_direction_reversal_count": 11,
+      "max_rapid_direction_reversal_burst": 8,
+      "max_wall_direction_reversal_burst": 1,
+      "max_aligned_release_streak": 6,
+      "max_support_aligned_release_streak": 2,
+      "support_departure_telemetry_available": true,
+      "support_edge_actionable_telemetry_available": true,
+      "same_support_departure_cycle_count": 0,
+      "support_departure_target_switch_count": 0,
+      "support_departure_timeout_count": 0,
+      "support_edge_release_count": 0,
+      "support_edge_opportunity_count": 17,
+      "generic_support_edge_release_count": 1,
+      "generic_support_edge_opportunity_count": 18,
+      "support_departure_exit_samples": [
+        2,
+        3,
+        3,
+        4,
+        4,
+        2,
+        2,
+        2,
+        3,
+        4,
+        4
+      ],
+      "max_support_departure_steps": 4,
+      "action_counts": {
+        "LEFT": 24,
+        "RELEASE_ALL": 29,
+        "RIGHT": 25
+      },
+      "terminal_reason": "bottom",
+      "forced_reason": "terminal_phase_before_action",
+      "name_entry_dialog_detected": false,
+      "name_entry_dialog_dismissed": false,
+      "name_entry_dialog": null,
+      "observation_valid": true,
+      "target_lock_seen": true,
+      "transition_records": 78,
+      "controller_records": 78,
+      "video_complete": true,
+      "transition_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_06.transitions.jsonl",
+      "controller_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_06.controller.jsonl",
+      "video_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_06.mp4",
+      "dropout_forensic_manifest_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_06.dropout\\manifest.json",
+      "dropout_forensic_snapshot_count": 3,
+      "dropout_forensic_dropped_snapshot_count": 0,
+      "dropout_forensic_telemetry_available": true,
+      "observation_dropout_telemetry_available": true,
+      "invalid_observation_step_count": 0,
+      "recovered_observation_dropout_count": 0,
+      "max_recovered_observation_dropout_streak": 0,
+      "unrecovered_observation_dropout_count": 0,
+      "terminal_observation_dropout_count": 0,
+      "blind_directional_action_count": 0,
+      "top_pressure_dropout_continue_count": 0,
+      "max_top_pressure_dropout_continue_streak": 0,
+      "top_pressure_dropout_exhausted_count": 0,
+      "top_pressure_support_escape_count": 0,
+      "observation_dropout_context_counts": {},
+      "observation_dropout_samples": [],
+      "max_active_wall_direction_reversal_burst": 0,
+      "active_wall_direction_reversal_count": 0,
+      "excluded_wall_special_context_steps": 0,
+      "support_settle_release_count": 3,
+      "actionable_support_release_count": 0,
+      "max_actionable_support_aligned_release_streak": 0,
+      "support_departure_abort_cooldown_count": 0,
+      "max_support_departure_abort_cooldown_streak": 0,
+      "landing_intercept_telemetry_available": true,
+      "landing_release_projection_telemetry_available": true,
+      "special_escape_destination_telemetry_available": true,
+      "special_contact_lifecycle_telemetry_available": true,
+      "landing_intercept_decision_count": 50,
+      "landing_release_projection_decision_count": 39,
+      "destination_aware_special_escape_count": 0,
+      "momentum_guard_special_escape_count": 0,
+      "special_escape_replan_count": 0,
+      "special_contact_count": 2,
+      "pre_special_context_samples": [
+        {
+          "step": 18,
+          "contact_id": 1,
+          "kind": "spring",
+          "dropout_steps": 0,
+          "release_steps": 6,
+          "dropout_release_steps": 0
+        },
+        {
+          "step": 73,
+          "contact_id": 2,
+          "kind": "spikes",
+          "dropout_steps": 0,
+          "release_steps": 3,
+          "dropout_release_steps": 0
+        }
+      ],
+      "max_pre_special_observation_dropout_streak": 0,
+      "max_pre_special_release_streak": 6,
+      "max_pre_special_dropout_release_streak": 0,
+      "spring_special_contact_count": 1,
+      "spike_special_contact_count": 1,
+      "special_source_reacquire_count": 0,
+      "same_special_source_restart_count": 0,
+      "max_special_contact_steps": 2,
+      "max_special_escape_replan_count": 0,
+      "max_special_direction_reversal_count": 0,
+      "max_special_direction_change_brake_count": 0,
+      "special_forced_exit_count": 0,
+      "special_escape_safety_abort_count": 0,
+      "floor_max_sidecar": 5,
+      "floor_video_corrected": false
+    },
+    {
+      "episode": 7,
+      "steps": 63,
+      "floors": 4,
+      "floor_start": 1,
+      "floor_max": 4,
+      "floor_counter_available": true,
+      "floor_counter_unstable_steps": 9,
+      "physical_response_samples": [
+        {
+          "direction": "LEFT",
+          "latency_ms": 93.0000000007567,
+          "step": 0
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 93.0000000007567,
+          "step": 6
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 92.99999999711872,
+          "step": 13
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 109.00000000037835,
+          "step": 19
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000096043,
+          "step": 23
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 109.00000000037835,
+          "step": 25
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 108.99999999674037,
+          "step": 29
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000096043,
+          "step": 36
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000096043,
+          "step": 40
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 109.00000000037835,
+          "step": 44
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000096043,
+          "step": 49
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 109.00000000037835,
+          "step": 52
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 110.00000000058208,
+          "step": 57
+        }
+      ],
+      "physical_response_timeouts": 0,
+      "wall_telemetry_available": true,
+      "outward_wall_push_count": 0,
+      "max_outward_wall_push_streak": 0,
+      "player_telemetry_available": true,
+      "player_missing_step_count": 0,
+      "max_player_missing_streak": 0,
+      "wall_reentry_cycle_count": 0,
+      "rapid_direction_reversal_count": 7,
+      "max_rapid_direction_reversal_burst": 4,
+      "max_wall_direction_reversal_burst": 0,
+      "max_aligned_release_streak": 5,
+      "max_support_aligned_release_streak": 2,
+      "support_departure_telemetry_available": true,
+      "support_edge_actionable_telemetry_available": true,
+      "same_support_departure_cycle_count": 0,
+      "support_departure_target_switch_count": 0,
+      "support_departure_timeout_count": 0,
+      "support_edge_release_count": 0,
+      "support_edge_opportunity_count": 13,
+      "generic_support_edge_release_count": 0,
+      "generic_support_edge_opportunity_count": 13,
+      "support_departure_exit_samples": [
+        3,
+        2,
+        2,
+        3,
+        1,
+        1,
+        2,
+        2,
+        4,
+        4,
+        2
+      ],
+      "max_support_departure_steps": 4,
+      "action_counts": {
+        "LEFT": 18,
+        "RELEASE_ALL": 25,
+        "RIGHT": 20
+      },
+      "terminal_reason": "bottom",
+      "forced_reason": null,
+      "name_entry_dialog_detected": false,
+      "name_entry_dialog_dismissed": false,
+      "name_entry_dialog": null,
+      "observation_valid": true,
+      "target_lock_seen": true,
+      "transition_records": 63,
+      "controller_records": 63,
+      "video_complete": true,
+      "transition_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_07.transitions.jsonl",
+      "controller_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_07.controller.jsonl",
+      "video_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_07.mp4",
+      "dropout_forensic_manifest_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_07.dropout\\manifest.json",
+      "dropout_forensic_snapshot_count": 0,
+      "dropout_forensic_dropped_snapshot_count": 0,
+      "dropout_forensic_telemetry_available": true,
+      "observation_dropout_telemetry_available": true,
+      "invalid_observation_step_count": 0,
+      "recovered_observation_dropout_count": 0,
+      "max_recovered_observation_dropout_streak": 0,
+      "unrecovered_observation_dropout_count": 0,
+      "terminal_observation_dropout_count": 0,
+      "blind_directional_action_count": 0,
+      "top_pressure_dropout_continue_count": 0,
+      "max_top_pressure_dropout_continue_streak": 0,
+      "top_pressure_dropout_exhausted_count": 0,
+      "top_pressure_support_escape_count": 0,
+      "observation_dropout_context_counts": {},
+      "observation_dropout_samples": [],
+      "max_active_wall_direction_reversal_burst": 0,
+      "active_wall_direction_reversal_count": 0,
+      "excluded_wall_special_context_steps": 0,
+      "support_settle_release_count": 4,
+      "actionable_support_release_count": 0,
+      "max_actionable_support_aligned_release_streak": 0,
+      "support_departure_abort_cooldown_count": 0,
+      "max_support_departure_abort_cooldown_streak": 0,
+      "landing_intercept_telemetry_available": true,
+      "landing_release_projection_telemetry_available": true,
+      "special_escape_destination_telemetry_available": true,
+      "special_contact_lifecycle_telemetry_available": true,
+      "landing_intercept_decision_count": 48,
+      "landing_release_projection_decision_count": 37,
+      "destination_aware_special_escape_count": 0,
+      "momentum_guard_special_escape_count": 0,
+      "special_escape_replan_count": 0,
+      "special_contact_count": 0,
+      "pre_special_context_samples": [],
+      "max_pre_special_observation_dropout_streak": 0,
+      "max_pre_special_release_streak": 0,
+      "max_pre_special_dropout_release_streak": 0,
+      "spring_special_contact_count": 0,
+      "spike_special_contact_count": 0,
+      "special_source_reacquire_count": 0,
+      "same_special_source_restart_count": 0,
+      "max_special_contact_steps": 0,
+      "max_special_escape_replan_count": 0,
+      "max_special_direction_reversal_count": 0,
+      "max_special_direction_change_brake_count": 0,
+      "special_forced_exit_count": 0,
+      "special_escape_safety_abort_count": 0,
+      "floor_max_sidecar": 4,
+      "floor_video_corrected": false
+    },
+    {
+      "episode": 8,
+      "steps": 54,
+      "floors": 4,
+      "floor_start": 1,
+      "floor_max": 4,
+      "floor_counter_available": true,
+      "floor_counter_unstable_steps": 9,
+      "physical_response_samples": [
+        {
+          "direction": "RIGHT",
+          "latency_ms": 125.0,
+          "step": 0
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 109.00000000037835,
+          "step": 8
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 125.0,
+          "step": 14
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 110.00000000058208,
+          "step": 19
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 110.00000000058208,
+          "step": 22
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 110.00000000058208,
+          "step": 27
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 110.00000000058208,
+          "step": 32
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 109.00000000037835,
+          "step": 37
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000096043,
+          "step": 43
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 93.0000000007567,
+          "step": 49
+        }
+      ],
+      "physical_response_timeouts": 0,
+      "wall_telemetry_available": true,
+      "outward_wall_push_count": 0,
+      "max_outward_wall_push_streak": 0,
+      "player_telemetry_available": true,
+      "player_missing_step_count": 1,
+      "max_player_missing_streak": 1,
+      "wall_reentry_cycle_count": 0,
+      "rapid_direction_reversal_count": 7,
+      "max_rapid_direction_reversal_burst": 5,
+      "max_wall_direction_reversal_burst": 0,
+      "max_aligned_release_streak": 5,
+      "max_support_aligned_release_streak": 3,
+      "support_departure_telemetry_available": true,
+      "support_edge_actionable_telemetry_available": true,
+      "same_support_departure_cycle_count": 0,
+      "support_departure_target_switch_count": 0,
+      "support_departure_timeout_count": 0,
+      "support_edge_release_count": 0,
+      "support_edge_opportunity_count": 6,
+      "generic_support_edge_release_count": 2,
+      "generic_support_edge_opportunity_count": 9,
+      "support_departure_exit_samples": [
+        3,
+        1,
+        1,
+        2,
+        4,
+        2,
+        4
+      ],
+      "max_support_departure_steps": 4,
+      "action_counts": {
+        "LEFT": 17,
+        "RELEASE_ALL": 20,
+        "RIGHT": 17
+      },
+      "terminal_reason": "bottom",
+      "forced_reason": "terminal_phase_before_action",
+      "name_entry_dialog_detected": false,
+      "name_entry_dialog_dismissed": false,
+      "name_entry_dialog": null,
+      "observation_valid": true,
+      "target_lock_seen": true,
+      "transition_records": 54,
+      "controller_records": 54,
+      "video_complete": true,
+      "transition_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_08.transitions.jsonl",
+      "controller_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_08.controller.jsonl",
+      "video_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_08.mp4",
+      "dropout_forensic_manifest_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_08.dropout\\manifest.json",
+      "dropout_forensic_snapshot_count": 1,
+      "dropout_forensic_dropped_snapshot_count": 0,
+      "dropout_forensic_telemetry_available": true,
+      "observation_dropout_telemetry_available": true,
+      "invalid_observation_step_count": 0,
+      "recovered_observation_dropout_count": 0,
+      "max_recovered_observation_dropout_streak": 0,
+      "unrecovered_observation_dropout_count": 0,
+      "terminal_observation_dropout_count": 0,
+      "blind_directional_action_count": 0,
+      "top_pressure_dropout_continue_count": 0,
+      "max_top_pressure_dropout_continue_streak": 0,
+      "top_pressure_dropout_exhausted_count": 0,
+      "top_pressure_support_escape_count": 0,
+      "observation_dropout_context_counts": {},
+      "observation_dropout_samples": [],
+      "max_active_wall_direction_reversal_burst": 0,
+      "active_wall_direction_reversal_count": 0,
+      "excluded_wall_special_context_steps": 0,
+      "support_settle_release_count": 8,
+      "actionable_support_release_count": 0,
+      "max_actionable_support_aligned_release_streak": 0,
+      "support_departure_abort_cooldown_count": 0,
+      "max_support_departure_abort_cooldown_streak": 0,
+      "landing_intercept_telemetry_available": true,
+      "landing_release_projection_telemetry_available": true,
+      "special_escape_destination_telemetry_available": true,
+      "special_contact_lifecycle_telemetry_available": true,
+      "landing_intercept_decision_count": 38,
+      "landing_release_projection_decision_count": 31,
+      "destination_aware_special_escape_count": 3,
+      "momentum_guard_special_escape_count": 1,
+      "special_escape_replan_count": 0,
+      "special_contact_count": 2,
+      "pre_special_context_samples": [
+        {
+          "step": 22,
+          "contact_id": 1,
+          "kind": "spikes",
+          "dropout_steps": 0,
+          "release_steps": 1,
+          "dropout_release_steps": 0
+        },
+        {
+          "step": 51,
+          "contact_id": 2,
+          "kind": "spikes",
+          "dropout_steps": 0,
+          "release_steps": 0,
+          "dropout_release_steps": 0
+        }
+      ],
+      "max_pre_special_observation_dropout_streak": 0,
+      "max_pre_special_release_streak": 1,
+      "max_pre_special_dropout_release_streak": 0,
+      "spring_special_contact_count": 0,
+      "spike_special_contact_count": 2,
+      "special_source_reacquire_count": 0,
+      "same_special_source_restart_count": 0,
+      "max_special_contact_steps": 3,
+      "max_special_escape_replan_count": 0,
+      "max_special_direction_reversal_count": 0,
+      "max_special_direction_change_brake_count": 0,
+      "special_forced_exit_count": 0,
+      "special_escape_safety_abort_count": 0,
+      "floor_max_sidecar": 4,
+      "floor_video_corrected": false
+    },
+    {
+      "episode": 9,
+      "steps": 130,
+      "floors": 8,
+      "floor_start": 1,
+      "floor_max": 8,
+      "floor_counter_available": true,
+      "floor_counter_unstable_steps": 20,
+      "physical_response_samples": [
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000096043,
+          "step": 0
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 109.00000000037835,
+          "step": 6
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 93.0000000007567,
+          "step": 9
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 125.0,
+          "step": 14
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 108.99999999674037,
+          "step": 18
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 110.00000000058208,
+          "step": 24
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 109.00000000037835,
+          "step": 31
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000096043,
+          "step": 38
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000096043,
+          "step": 43
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 109.00000000037835,
+          "step": 50
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 110.00000000058208,
+          "step": 54
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 125.0,
+          "step": 58
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000096043,
+          "step": 69
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 109.00000000037835,
+          "step": 76
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000096043,
+          "step": 81
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000096043,
+          "step": 86
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 109.00000000037835,
+          "step": 89
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000096043,
+          "step": 93
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 109.00000000037835,
+          "step": 102
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 125.0,
+          "step": 107
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 109.00000000037835,
+          "step": 109
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 125.0,
+          "step": 114
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 110.00000000058208,
+          "step": 117
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 109.00000000037835,
+          "step": 121
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000096043,
+          "step": 128
+        }
+      ],
+      "physical_response_timeouts": 0,
+      "wall_telemetry_available": true,
+      "outward_wall_push_count": 0,
+      "max_outward_wall_push_streak": 0,
+      "player_telemetry_available": true,
+      "player_missing_step_count": 0,
+      "max_player_missing_streak": 0,
+      "wall_reentry_cycle_count": 0,
+      "rapid_direction_reversal_count": 15,
+      "max_rapid_direction_reversal_burst": 6,
+      "max_wall_direction_reversal_burst": 0,
+      "max_aligned_release_streak": 4,
+      "max_support_aligned_release_streak": 1,
+      "support_departure_telemetry_available": true,
+      "support_edge_actionable_telemetry_available": true,
+      "same_support_departure_cycle_count": 0,
+      "support_departure_target_switch_count": 0,
+      "support_departure_timeout_count": 0,
+      "support_edge_release_count": 0,
+      "support_edge_opportunity_count": 22,
+      "generic_support_edge_release_count": 1,
+      "generic_support_edge_opportunity_count": 23,
+      "support_departure_exit_samples": [
+        2,
+        1,
+        3,
+        4,
+        4,
+        2,
+        4,
+        3,
+        6,
+        1,
+        2,
+        3,
+        3,
+        2,
+        2,
+        2,
+        3,
+        3,
+        2,
+        2
+      ],
+      "max_support_departure_steps": 6,
+      "action_counts": {
+        "LEFT": 40,
+        "RELEASE_ALL": 46,
+        "RIGHT": 44
+      },
+      "terminal_reason": "bottom",
+      "forced_reason": null,
+      "name_entry_dialog_detected": false,
+      "name_entry_dialog_dismissed": false,
+      "name_entry_dialog": null,
+      "observation_valid": true,
+      "target_lock_seen": true,
+      "transition_records": 130,
+      "controller_records": 130,
+      "video_complete": true,
+      "transition_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_09.transitions.jsonl",
+      "controller_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_09.controller.jsonl",
+      "video_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_09.mp4",
+      "dropout_forensic_manifest_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_09.dropout\\manifest.json",
+      "dropout_forensic_snapshot_count": 0,
+      "dropout_forensic_dropped_snapshot_count": 0,
+      "dropout_forensic_telemetry_available": true,
+      "observation_dropout_telemetry_available": true,
+      "invalid_observation_step_count": 0,
+      "recovered_observation_dropout_count": 0,
+      "max_recovered_observation_dropout_streak": 0,
+      "unrecovered_observation_dropout_count": 0,
+      "terminal_observation_dropout_count": 0,
+      "blind_directional_action_count": 0,
+      "top_pressure_dropout_continue_count": 0,
+      "max_top_pressure_dropout_continue_streak": 0,
+      "top_pressure_dropout_exhausted_count": 0,
+      "top_pressure_support_escape_count": 0,
+      "observation_dropout_context_counts": {},
+      "observation_dropout_samples": [],
+      "max_active_wall_direction_reversal_burst": 0,
+      "active_wall_direction_reversal_count": 0,
+      "excluded_wall_special_context_steps": 0,
+      "support_settle_release_count": 3,
+      "actionable_support_release_count": 0,
+      "max_actionable_support_aligned_release_streak": 0,
+      "support_departure_abort_cooldown_count": 0,
+      "max_support_departure_abort_cooldown_streak": 0,
+      "landing_intercept_telemetry_available": true,
+      "landing_release_projection_telemetry_available": true,
+      "special_escape_destination_telemetry_available": true,
+      "special_contact_lifecycle_telemetry_available": true,
+      "landing_intercept_decision_count": 78,
+      "landing_release_projection_decision_count": 58,
+      "destination_aware_special_escape_count": 14,
+      "momentum_guard_special_escape_count": 0,
+      "special_escape_replan_count": 0,
+      "special_contact_count": 3,
+      "pre_special_context_samples": [
+        {
+          "step": 8,
+          "contact_id": 1,
+          "kind": "spikes",
+          "dropout_steps": 0,
+          "release_steps": 0,
+          "dropout_release_steps": 0
+        },
+        {
+          "step": 24,
+          "contact_id": 2,
+          "kind": "spikes",
+          "dropout_steps": 0,
+          "release_steps": 1,
+          "dropout_release_steps": 0
+        },
+        {
+          "step": 117,
+          "contact_id": 3,
+          "kind": "spikes",
+          "dropout_steps": 0,
+          "release_steps": 1,
+          "dropout_release_steps": 0
+        }
+      ],
+      "max_pre_special_observation_dropout_streak": 0,
+      "max_pre_special_release_streak": 1,
+      "max_pre_special_dropout_release_streak": 0,
+      "spring_special_contact_count": 0,
+      "spike_special_contact_count": 3,
+      "special_source_reacquire_count": 2,
+      "same_special_source_restart_count": 0,
+      "max_special_contact_steps": 10,
+      "max_special_escape_replan_count": 1,
+      "max_special_direction_reversal_count": 1,
+      "max_special_direction_change_brake_count": 1,
+      "special_forced_exit_count": 0,
+      "special_escape_safety_abort_count": 0,
+      "floor_max_sidecar": 8,
+      "floor_video_corrected": false
+    },
+    {
+      "episode": 10,
+      "steps": 22,
+      "floors": 2,
+      "floor_start": 1,
+      "floor_max": 2,
+      "floor_counter_available": true,
+      "floor_counter_unstable_steps": 3,
+      "physical_response_samples": [
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000096043,
+          "step": 0
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 110.00000000058208,
+          "step": 7
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 110.00000000058208,
+          "step": 13
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000096043,
+          "step": 18
+        }
+      ],
+      "physical_response_timeouts": 0,
+      "wall_telemetry_available": true,
+      "outward_wall_push_count": 0,
+      "max_outward_wall_push_streak": 0,
+      "player_telemetry_available": true,
+      "player_missing_step_count": 0,
+      "max_player_missing_streak": 0,
+      "wall_reentry_cycle_count": 0,
+      "rapid_direction_reversal_count": 1,
+      "max_rapid_direction_reversal_burst": 1,
+      "max_wall_direction_reversal_burst": 0,
+      "max_aligned_release_streak": 4,
+      "max_support_aligned_release_streak": 2,
+      "support_departure_telemetry_available": true,
+      "support_edge_actionable_telemetry_available": true,
+      "same_support_departure_cycle_count": 0,
+      "support_departure_target_switch_count": 0,
+      "support_departure_timeout_count": 0,
+      "support_edge_release_count": 0,
+      "support_edge_opportunity_count": 3,
+      "generic_support_edge_release_count": 0,
+      "generic_support_edge_opportunity_count": 3,
+      "support_departure_exit_samples": [
+        3,
+        2,
+        4
+      ],
+      "max_support_departure_steps": 4,
+      "action_counts": {
+        "LEFT": 4,
+        "RELEASE_ALL": 11,
+        "RIGHT": 7
+      },
+      "terminal_reason": "bottom",
+      "forced_reason": null,
+      "name_entry_dialog_detected": false,
+      "name_entry_dialog_dismissed": false,
+      "name_entry_dialog": null,
+      "observation_valid": true,
+      "target_lock_seen": true,
+      "transition_records": 22,
+      "controller_records": 22,
+      "video_complete": true,
+      "transition_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_10.transitions.jsonl",
+      "controller_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_10.controller.jsonl",
+      "video_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_10.mp4",
+      "dropout_forensic_manifest_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_10.dropout\\manifest.json",
+      "dropout_forensic_snapshot_count": 0,
+      "dropout_forensic_dropped_snapshot_count": 0,
+      "dropout_forensic_telemetry_available": true,
+      "observation_dropout_telemetry_available": true,
+      "invalid_observation_step_count": 0,
+      "recovered_observation_dropout_count": 0,
+      "max_recovered_observation_dropout_streak": 0,
+      "unrecovered_observation_dropout_count": 0,
+      "terminal_observation_dropout_count": 0,
+      "blind_directional_action_count": 0,
+      "top_pressure_dropout_continue_count": 0,
+      "max_top_pressure_dropout_continue_streak": 0,
+      "top_pressure_dropout_exhausted_count": 0,
+      "top_pressure_support_escape_count": 0,
+      "observation_dropout_context_counts": {},
+      "observation_dropout_samples": [],
+      "max_active_wall_direction_reversal_burst": 0,
+      "active_wall_direction_reversal_count": 0,
+      "excluded_wall_special_context_steps": 0,
+      "support_settle_release_count": 2,
+      "actionable_support_release_count": 0,
+      "max_actionable_support_aligned_release_streak": 0,
+      "support_departure_abort_cooldown_count": 0,
+      "max_support_departure_abort_cooldown_streak": 0,
+      "landing_intercept_telemetry_available": true,
+      "landing_release_projection_telemetry_available": true,
+      "special_escape_destination_telemetry_available": true,
+      "special_contact_lifecycle_telemetry_available": true,
+      "landing_intercept_decision_count": 15,
+      "landing_release_projection_decision_count": 12,
+      "destination_aware_special_escape_count": 0,
+      "momentum_guard_special_escape_count": 0,
+      "special_escape_replan_count": 0,
+      "special_contact_count": 0,
+      "pre_special_context_samples": [],
+      "max_pre_special_observation_dropout_streak": 0,
+      "max_pre_special_release_streak": 0,
+      "max_pre_special_dropout_release_streak": 0,
+      "spring_special_contact_count": 0,
+      "spike_special_contact_count": 0,
+      "special_source_reacquire_count": 0,
+      "same_special_source_restart_count": 0,
+      "max_special_contact_steps": 0,
+      "max_special_escape_replan_count": 0,
+      "max_special_direction_reversal_count": 0,
+      "max_special_direction_change_brake_count": 0,
+      "special_forced_exit_count": 0,
+      "special_escape_safety_abort_count": 0,
+      "floor_max_sidecar": 2,
+      "floor_video_corrected": false
+    }
+  ],
+  "safety_events": [],
+  "metrics": {
+    "episodes": 10,
+    "floors_semantics": "visual_hud_max_floor",
+    "mean_floors": 5.0,
+    "median_floors": 4.0,
+    "floor_q25": 2.5,
+    "floor_cvar25": 2.0,
+    "reach_floor_1": 10,
+    "reach_floor_3": 7,
+    "reach_floor_5": 4,
+    "reach_floor_10": 1,
+    "action_counts": {
+      "LEFT": 222,
+      "RELEASE_ALL": 296,
+      "RIGHT": 235
+    },
+    "max_action_share": 0.3930942895086321,
+    "terminal_reasons": {
+      "bottom": 9,
+      "top": 1
+    },
+    "safety_event_count": 0,
+    "outward_wall_push_count": 0,
+    "max_outward_wall_push_streak": 0,
+    "player_missing_step_count": 6,
+    "max_player_missing_streak": 1,
+    "invalid_observation_step_count": 0,
+    "recovered_observation_dropout_count": 0,
+    "max_recovered_observation_dropout_streak": 0,
+    "unrecovered_observation_dropout_count": 0,
+    "terminal_observation_dropout_count": 0,
+    "blind_directional_action_count": 0,
+    "top_pressure_dropout_continue_count": 0,
+    "max_top_pressure_dropout_continue_streak": 0,
+    "top_pressure_dropout_exhausted_count": 0,
+    "top_pressure_support_escape_count": 0,
+    "observation_dropout_context_counts": {},
+    "dropout_forensic_snapshot_count": 8,
+    "dropout_forensic_dropped_snapshot_count": 0,
+    "wall_reentry_cycle_count": 0,
+    "rapid_direction_reversal_count": 75,
+    "max_rapid_direction_reversal_burst": 8,
+    "max_wall_direction_reversal_burst": 1,
+    "max_active_wall_direction_reversal_burst": 0,
+    "active_wall_direction_reversal_count": 0,
+    "excluded_wall_special_context_steps": 0,
+    "max_aligned_release_streak": 6,
+    "max_support_aligned_release_streak": 4,
+    "support_settle_release_count": 51,
+    "actionable_support_release_count": 0,
+    "max_actionable_support_aligned_release_streak": 0,
+    "same_support_departure_cycle_count": 0,
+    "support_departure_target_switch_count": 0,
+    "support_departure_timeout_count": 0,
+    "support_departure_abort_cooldown_count": 0,
+    "max_support_departure_abort_cooldown_streak": 0,
+    "landing_intercept_decision_count": 499,
+    "landing_release_projection_decision_count": 383,
+    "destination_aware_special_escape_count": 27,
+    "momentum_guard_special_escape_count": 1,
+    "special_escape_replan_count": 0,
+    "special_contact_count": 16,
+    "max_pre_special_observation_dropout_streak": 0,
+    "max_pre_special_release_streak": 6,
+    "max_pre_special_dropout_release_streak": 0,
+    "pre_special_context_samples": [
+      {
+        "episode": 1,
+        "step": 40,
+        "contact_id": 1,
+        "kind": "spring",
+        "dropout_steps": 0,
+        "release_steps": 2,
+        "dropout_release_steps": 0
+      },
+      {
+        "episode": 1,
+        "step": 59,
+        "contact_id": 2,
+        "kind": "spring",
+        "dropout_steps": 0,
+        "release_steps": 0,
+        "dropout_release_steps": 0
+      },
+      {
+        "episode": 1,
+        "step": 88,
+        "contact_id": 3,
+        "kind": "spikes",
+        "dropout_steps": 0,
+        "release_steps": 1,
+        "dropout_release_steps": 0
+      },
+      {
+        "episode": 1,
+        "step": 92,
+        "contact_id": 4,
+        "kind": "spring",
+        "dropout_steps": 0,
+        "release_steps": 0,
+        "dropout_release_steps": 0
+      },
+      {
+        "episode": 2,
+        "step": 93,
+        "contact_id": 1,
+        "kind": "spring",
+        "dropout_steps": 0,
+        "release_steps": 0,
+        "dropout_release_steps": 0
+      },
+      {
+        "episode": 2,
+        "step": 120,
+        "contact_id": 2,
+        "kind": "spring",
+        "dropout_steps": 0,
+        "release_steps": 1,
+        "dropout_release_steps": 0
+      },
+      {
+        "episode": 2,
+        "step": 133,
+        "contact_id": 3,
+        "kind": "spikes",
+        "dropout_steps": 0,
+        "release_steps": 1,
+        "dropout_release_steps": 0
+      },
+      {
+        "episode": 3,
+        "step": 35,
+        "contact_id": 1,
+        "kind": "spikes",
+        "dropout_steps": 0,
+        "release_steps": 0,
+        "dropout_release_steps": 0
+      },
+      {
+        "episode": 5,
+        "step": 18,
+        "contact_id": 1,
+        "kind": "spring",
+        "dropout_steps": 0,
+        "release_steps": 4,
+        "dropout_release_steps": 0
+      },
+      {
+        "episode": 6,
+        "step": 18,
+        "contact_id": 1,
+        "kind": "spring",
+        "dropout_steps": 0,
+        "release_steps": 6,
+        "dropout_release_steps": 0
+      },
+      {
+        "episode": 6,
+        "step": 73,
+        "contact_id": 2,
+        "kind": "spikes",
+        "dropout_steps": 0,
+        "release_steps": 3,
+        "dropout_release_steps": 0
+      },
+      {
+        "episode": 8,
+        "step": 22,
+        "contact_id": 1,
+        "kind": "spikes",
+        "dropout_steps": 0,
+        "release_steps": 1,
+        "dropout_release_steps": 0
+      },
+      {
+        "episode": 8,
+        "step": 51,
+        "contact_id": 2,
+        "kind": "spikes",
+        "dropout_steps": 0,
+        "release_steps": 0,
+        "dropout_release_steps": 0
+      },
+      {
+        "episode": 9,
+        "step": 8,
+        "contact_id": 1,
+        "kind": "spikes",
+        "dropout_steps": 0,
+        "release_steps": 0,
+        "dropout_release_steps": 0
+      },
+      {
+        "episode": 9,
+        "step": 24,
+        "contact_id": 2,
+        "kind": "spikes",
+        "dropout_steps": 0,
+        "release_steps": 1,
+        "dropout_release_steps": 0
+      },
+      {
+        "episode": 9,
+        "step": 117,
+        "contact_id": 3,
+        "kind": "spikes",
+        "dropout_steps": 0,
+        "release_steps": 1,
+        "dropout_release_steps": 0
+      }
+    ],
+    "spring_special_contact_count": 7,
+    "spike_special_contact_count": 9,
+    "special_source_reacquire_count": 3,
+    "same_special_source_restart_count": 0,
+    "max_special_contact_steps": 10,
+    "max_special_escape_replan_count": 1,
+    "max_special_direction_reversal_count": 1,
+    "max_special_direction_change_brake_count": 2,
+    "special_forced_exit_count": 0,
+    "special_escape_safety_abort_count": 0,
+    "support_edge_release_count": 1,
+    "support_edge_opportunity_count": 117,
+    "support_edge_release_ratio": 0.008547008547008548,
+    "generic_support_edge_release_count": 17,
+    "generic_support_edge_opportunity_count": 135,
+    "generic_support_edge_release_ratio": 0.1259259259259259,
+    "support_departure_exit_sample_count": 115,
+    "support_departure_exit_steps_median": 2.0,
+    "max_support_departure_steps": 7,
+    "name_entry_dialog_detected_count": 0,
+    "name_entry_dialog_dismissed_count": 0,
+    "bottom_death_count": 9,
+    "early_bottom_death_count": 3,
+    "early_bottom_death_budget": 3,
+    "special_brake_budget_violation_count": 0,
+    "floor_1_bottom_death_count": 0,
+    "physical_response_sample_count": 133,
+    "physical_response_latency_median_ms": 109.00000000037835,
+    "physical_response_latency_p95_ms": 125.0
+  },
+  "gate": {
+    "status": "PASS",
+    "passed": true,
+    "checks": {
+      "actual_not_dry_run": true,
+      "three_complete_episodes": true,
+      "requested_episodes_complete": true,
+      "safety_events_zero": true,
+      "name_entry_dialogs_safely_handled": true,
+      "observation_valid": true,
+      "floor_counter_available": true,
+      "wall_telemetry_available": true,
+      "player_telemetry_available": true,
+      "observation_dropout_telemetry_available": true,
+      "dropout_forensics_available": true,
+      "support_departure_telemetry_available": true,
+      "support_edge_actionable_telemetry_available": true,
+      "landing_intercept_telemetry_available": true,
+      "landing_release_projection_telemetry_available": true,
+      "special_escape_destination_telemetry_available": true,
+      "special_contact_lifecycle_telemetry_available": true,
+      "special_contact_observed": true,
+      "pre_special_observation_dropout_bounded": true,
+      "pre_special_dropout_release_bounded": true,
+      "same_special_source_restarts_zero": true,
+      "special_escape_safety_aborts_zero": true,
+      "special_escape_replans_bounded": true,
+      "special_direction_change_brakes_bounded": true,
+      "special_contact_steps_bounded": true,
+      "recoverable_player_dropout_bounded": true,
+      "unrecovered_player_dropouts_zero": true,
+      "blind_directional_actions_zero": true,
+      "top_pressure_continuation_bounded": true,
+      "top_pressure_dropout_exhaustion_zero": true,
+      "outward_wall_push_zero": true,
+      "wall_reentry_cycles_zero": true,
+      "wall_safety_oscillation_bounded": true,
+      "actionable_support_release_zero": true,
+      "same_support_departure_cycles_zero": true,
+      "support_departure_target_stable": true,
+      "support_departure_timeouts_zero": true,
+      "support_departure_abort_cooldown_bounded": true,
+      "support_edge_release_bounded": true,
+      "support_departure_exit_observed": true,
+      "support_departure_steps_bounded": true,
+      "floor_1_bottom_deaths_zero": true,
+      "physical_response_latency_measured": true,
+      "target_lock_seen": true,
+      "controller_and_transition_records_complete": true,
+      "videos_complete": true,
+      "no_action_collapse": true,
+      "reach_floor_3_case": true,
+      "reach_floor_5_case": true,
+      "early_bottom_deaths_bounded": true,
+      "ten_episode_special_kind_coverage": true,
+      "failure_taxonomy_comparable": true
+    }
+  },
+  "audit": {
+    "mode": "recorded-controller-sidecar-reclassification",
+    "source_gate": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\teacher_real_game_micro_gate.json",
+    "source_experiment": "teacher-real-game-micro-gate-v10",
+    "source_expected_episodes": 10,
+    "sidecars": [
+      {
+        "episode": 1,
+        "path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_01.controller.jsonl",
+        "records": 128
+      },
+      {
+        "episode": 2,
+        "path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_02.controller.jsonl",
+        "records": 175
+      },
+      {
+        "episode": 3,
+        "path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_03.controller.jsonl",
+        "records": 46
+      },
+      {
+        "episode": 4,
+        "path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_04.controller.jsonl",
+        "records": 32
+      },
+      {
+        "episode": 5,
+        "path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_05.controller.jsonl",
+        "records": 25
+      },
+      {
+        "episode": 6,
+        "path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_06.controller.jsonl",
+        "records": 78
+      },
+      {
+        "episode": 7,
+        "path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_07.controller.jsonl",
+        "records": 63
+      },
+      {
+        "episode": 8,
+        "path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_08.controller.jsonl",
+        "records": 54
+      },
+      {
+        "episode": 9,
+        "path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_09.controller.jsonl",
+        "records": 130
+      },
+      {
+        "episode": 10,
+        "path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_10.controller.jsonl",
+        "records": 22
+      }
+    ],
+    "controller_policy_changed": false,
+    "game_input_sent": false,
+    "semantic_change": "endless-run terminal labels no longer penalize all bottom deaths; only bottom failures before floor 3 consume the reach-floor-3 miss budget. Special-contact braking permits one entry brake and one brake for the single allowed reversal, with an absolute max of two. A trusted same-run video replay may only raise a sidecar floor maximum missed on the terminal frame",
+    "evidence_limit": "此結果可判定來源 run 在目前 Gate 語意下是否通過，因控制器、輸入與原始 sidecar 均未改變；它不取代後續獨立 10 回合穩定性 Gate，也不授權 P4.0 Student 正式訓練。",
+    "floor_video_audit": {
+      "path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\artifacts\\teacher_real_gate_v10_10episode_floor_video_audit_v2.json",
+      "source_run": "logs\\teacher_real_micro_20260803_034023_674665",
+      "observed_max_floors": [
+        8,
+        11,
+        4,
+        2,
+        2,
+        5,
+        4,
+        4,
+        8,
+        2
+      ],
+      "trusted_checks": {
+        "all_videos_read": true,
+        "counter_available_every_frame": true,
+        "initial_floor_one": true
+      },
+      "expected_manual_max_match_required": false,
+      "game_input_sent": false
+    }
+  },
+  "limits": {
+    "episodes": 10,
+    "max_steps_per_episode": 300,
+    "max_seconds_per_episode": 60.0,
+    "max_total_steps": 3000,
+    "max_total_seconds": 600.0
+  }
+}

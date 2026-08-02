@@ -1,0 +1,574 @@
+{
+  "protocol": {
+    "k": 5,
+    "neighbor_scope": "cross-episode only",
+    "distance": "z-score mean squared distance; observation and memory blocks weighted 0.5/0.5",
+    "causal_memory_timing": "post-decision sidecar at t-1 shifted to decision t",
+    "post_decision_timing": "same-step leakage ceiling only; excluded from Gate",
+    "thresholds": {
+      "minimum_rows": 500,
+      "relative_disagreement_reduction": 0.1,
+      "entropy_reduction_bits": 0.05,
+      "accuracy_gain": 0.03,
+      "bootstrap_ci95_low": 0.0
+    }
+  },
+  "dataset": {
+    "episodes": 10,
+    "rows": 753,
+    "observation_dimensions": 268,
+    "action_counts": {
+      "RELEASE_ALL": 296,
+      "LEFT": 222,
+      "RIGHT": 235
+    }
+  },
+  "exact_conflicts": {
+    "duplicate_groups": 0,
+    "duplicate_rows": 0,
+    "cross_episode_action_conflict_groups": 0,
+    "cross_episode_action_conflict_rows": 0
+  },
+  "rounded_3_decimal_conflicts": {
+    "duplicate_groups": 0,
+    "duplicate_rows": 0,
+    "cross_episode_action_conflict_groups": 0,
+    "cross_episode_action_conflict_rows": 0
+  },
+  "representations": {
+    "observation_only": {
+      "neighbor_disagreement": 0.5620185922974769,
+      "conditional_entropy_bits": 1.0402238451845558,
+      "knn_action_accuracy": 0.4807436918990704,
+      "mean_neighbor_distance": 1.0182956975187112,
+      "memory_dimensions": 0,
+      "active_distance_block_dimensions": 248,
+      "zero_variance_distance_block_dimensions": 20
+    },
+    "causal_action_history": {
+      "neighbor_disagreement": 0.42762284196547146,
+      "conditional_entropy_bits": 0.7805837123041306,
+      "knn_action_accuracy": 0.6533864541832669,
+      "mean_neighbor_distance": 0.6128558306680647,
+      "memory_dimensions": 14,
+      "active_distance_block_dimensions": 14,
+      "zero_variance_distance_block_dimensions": 0
+    },
+    "causal_target_context": {
+      "neighbor_disagreement": 0.5354581673306773,
+      "conditional_entropy_bits": 0.9887158925698096,
+      "knn_action_accuracy": 0.5245683930942895,
+      "mean_neighbor_distance": 0.6652716128418098,
+      "memory_dimensions": 26,
+      "active_distance_block_dimensions": 26,
+      "zero_variance_distance_block_dimensions": 0
+    },
+    "causal_phase_and_recovery": {
+      "neighbor_disagreement": 0.5280212483399734,
+      "conditional_entropy_bits": 1.0124843147660465,
+      "knn_action_accuracy": 0.5444887118193891,
+      "mean_neighbor_distance": 0.805109235942497,
+      "memory_dimensions": 49,
+      "active_distance_block_dimensions": 45,
+      "zero_variance_distance_block_dimensions": 4
+    },
+    "causal_support_context": {
+      "neighbor_disagreement": 0.4974767596281541,
+      "conditional_entropy_bits": 0.9456818577886249,
+      "knn_action_accuracy": 0.5697211155378487,
+      "mean_neighbor_distance": 0.6792254559628568,
+      "memory_dimensions": 29,
+      "active_distance_block_dimensions": 24,
+      "zero_variance_distance_block_dimensions": 5
+    },
+    "causal_full_memory": {
+      "neighbor_disagreement": 0.45391766268260286,
+      "conditional_entropy_bits": 0.8529358527815013,
+      "knn_action_accuracy": 0.6108897742363878,
+      "mean_neighbor_distance": 0.8156888986369262,
+      "memory_dimensions": 121,
+      "active_distance_block_dimensions": 111,
+      "zero_variance_distance_block_dimensions": 10
+    },
+    "post_decision_leakage_ceiling": {
+      "neighbor_disagreement": 0.11420982735723771,
+      "conditional_entropy_bits": 0.25997857158548565,
+      "knn_action_accuracy": 0.9282868525896414,
+      "mean_neighbor_distance": 0.8352154600078783,
+      "memory_dimensions": 121,
+      "active_distance_block_dimensions": 109,
+      "zero_variance_distance_block_dimensions": 12
+    }
+  },
+  "causal_memory_effect": {
+    "absolute_disagreement_reduction": 0.108100929614874,
+    "relative_disagreement_reduction": 0.1923440453686203,
+    "entropy_reduction_bits": 0.1872879924030545,
+    "accuracy_gain": 0.1301460823373174,
+    "bootstrap": {
+      "method": "paired episode-level bootstrap",
+      "samples": 2000,
+      "seed": 20260803,
+      "episode_mean_improvements": {
+        "episode_01": 0.1015625,
+        "episode_02": 0.07657142857142858,
+        "episode_03": 0.1,
+        "episode_04": 0.18125000000000002,
+        "episode_05": 0.08000000000000002,
+        "episode_06": 0.12307692307692307,
+        "episode_07": 0.16507936507936508,
+        "episode_08": 0.14444444444444446,
+        "episode_09": 0.09230769230769231,
+        "episode_10": 0.12727272727272726
+      },
+      "mean": 0.11915650807525806,
+      "ci95_low": 0.09793061407342657,
+      "ci95_high": 0.1410515561695249
+    }
+  },
+  "predictability": {
+    "phase_from_observation": {
+      "knn_accuracy": 0.42231075697211157,
+      "neighbor_agreement": 0.3567065073041169,
+      "conditional_entropy_bits": 1.2135808666474917
+    },
+    "phase_from_observation_plus_causal_memory": {
+      "knn_accuracy": 0.5285524568393094,
+      "neighbor_agreement": 0.45391766268260286,
+      "conditional_entropy_bits": 1.0410118720343489
+    },
+    "target_kind_from_observation": {
+      "knn_accuracy": 0.7091633466135459,
+      "neighbor_agreement": 0.6483399734395751,
+      "conditional_entropy_bits": 0.5440323008458305
+    },
+    "target_kind_from_observation_plus_causal_memory": {
+      "knn_accuracy": 0.7675962815405046,
+      "neighbor_agreement": 0.7272244355909694,
+      "conditional_entropy_bits": 0.4500016360894805
+    },
+    "target_direction_from_observation": {
+      "knn_accuracy": 0.45683930942895085,
+      "neighbor_agreement": 0.42602921646746345,
+      "conditional_entropy_bits": 1.0555793664403659
+    },
+    "target_direction_from_observation_plus_causal_memory": {
+      "knn_accuracy": 0.5856573705179283,
+      "neighbor_agreement": 0.5123505976095618,
+      "conditional_entropy_bits": 0.9178104357333206
+    }
+  },
+  "branches": {
+    "aligned": {
+      "rows": 206,
+      "coverage_sufficient_for_directional_read": true,
+      "observation_only": {
+        "row_disagreement": 0.5737864077669904,
+        "row_entropy": 1.0414473191351077,
+        "row_correct": 0.5194174757281553
+      },
+      "causal_full_memory": {
+        "row_disagreement": 0.46504854368932047,
+        "row_entropy": 0.8948466835029729,
+        "row_correct": 0.6747572815533981
+      }
+    },
+    "brake": {
+      "rows": 40,
+      "coverage_sufficient_for_directional_read": true,
+      "observation_only": {
+        "row_disagreement": 0.6300000000000001,
+        "row_entropy": 1.1626649071601982,
+        "row_correct": 0.5
+      },
+      "causal_full_memory": {
+        "row_disagreement": 0.5700000000000001,
+        "row_entropy": 0.965940017320466,
+        "row_correct": 0.5
+      }
+    },
+    "conveyor": {
+      "rows": 25,
+      "coverage_sufficient_for_directional_read": true,
+      "observation_only": {
+        "row_disagreement": 0.5760000000000001,
+        "row_entropy": 1.2375370947142847,
+        "row_correct": 0.52
+      },
+      "causal_full_memory": {
+        "row_disagreement": 0.45600000000000007,
+        "row_entropy": 0.8311123757195047,
+        "row_correct": 0.52
+      }
+    },
+    "flip": {
+      "rows": 97,
+      "coverage_sufficient_for_directional_read": true,
+      "observation_only": {
+        "row_disagreement": 0.5628865979381443,
+        "row_entropy": 0.9947078590829831,
+        "row_correct": 0.41237113402061853
+      },
+      "causal_full_memory": {
+        "row_disagreement": 0.47010309278350515,
+        "row_entropy": 0.8543029008471725,
+        "row_correct": 0.6082474226804123
+      }
+    },
+    "launch": {
+      "rows": 13,
+      "coverage_sufficient_for_directional_read": true,
+      "observation_only": {
+        "row_disagreement": 0.676923076923077,
+        "row_entropy": 1.1273320873220616,
+        "row_correct": 0.23076923076923078
+      },
+      "causal_full_memory": {
+        "row_disagreement": 0.6307692307692307,
+        "row_entropy": 1.2711009791366217,
+        "row_correct": 0.38461538461538464
+      }
+    },
+    "move": {
+      "rows": 84,
+      "coverage_sufficient_for_directional_read": true,
+      "observation_only": {
+        "row_disagreement": 0.6047619047619047,
+        "row_entropy": 1.0441131797529097,
+        "row_correct": 0.39285714285714285
+      },
+      "causal_full_memory": {
+        "row_disagreement": 0.40238095238095234,
+        "row_entropy": 0.7947366123527266,
+        "row_correct": 0.6547619047619048
+      }
+    },
+    "recovery": {
+      "rows": 67,
+      "coverage_sufficient_for_directional_read": true,
+      "observation_only": {
+        "row_disagreement": 0.5970149253731343,
+        "row_entropy": 1.1058041767767126,
+        "row_correct": 0.4626865671641791
+      },
+      "causal_full_memory": {
+        "row_disagreement": 0.5074626865671642,
+        "row_entropy": 0.9024542176921427,
+        "row_correct": 0.5671641791044776
+      }
+    },
+    "special_escape": {
+      "rows": 46,
+      "coverage_sufficient_for_directional_read": true,
+      "observation_only": {
+        "row_disagreement": 0.6521739130434783,
+        "row_entropy": 1.1031583949215231,
+        "row_correct": 0.2826086956521739
+      },
+      "causal_full_memory": {
+        "row_disagreement": 0.5000000000000001,
+        "row_entropy": 1.0158799865687105,
+        "row_correct": 0.5869565217391305
+      }
+    },
+    "spike": {
+      "rows": 38,
+      "coverage_sufficient_for_directional_read": true,
+      "observation_only": {
+        "row_disagreement": 0.6526315789473683,
+        "row_entropy": 1.1327043948055586,
+        "row_correct": 0.34210526315789475
+      },
+      "causal_full_memory": {
+        "row_disagreement": 0.48421052631578954,
+        "row_entropy": 1.0185797927235387,
+        "row_correct": 0.6578947368421053
+      }
+    },
+    "spring": {
+      "rows": 56,
+      "coverage_sufficient_for_directional_read": true,
+      "observation_only": {
+        "row_disagreement": 0.6178571428571429,
+        "row_entropy": 1.1385831627416592,
+        "row_correct": 0.42857142857142855
+      },
+      "causal_full_memory": {
+        "row_disagreement": 0.5071428571428571,
+        "row_entropy": 1.0012103290034087,
+        "row_correct": 0.5357142857142857
+      }
+    },
+    "support_departure": {
+      "rows": 281,
+      "coverage_sufficient_for_directional_read": true,
+      "observation_only": {
+        "row_disagreement": 0.504626334519573,
+        "row_entropy": 0.988639667747325,
+        "row_correct": 0.5231316725978647
+      },
+      "causal_full_memory": {
+        "row_disagreement": 0.4149466192170818,
+        "row_entropy": 0.7658408714607849,
+        "row_correct": 0.5907473309608541
+      }
+    },
+    "wall_guard": {
+      "rows": 12,
+      "coverage_sufficient_for_directional_read": true,
+      "observation_only": {
+        "row_disagreement": 0.5333333333333333,
+        "row_entropy": 1.0546097612655665,
+        "row_correct": 0.5
+      },
+      "causal_full_memory": {
+        "row_disagreement": 0.3833333333333333,
+        "row_entropy": 0.9118721126518993,
+        "row_correct": 0.75
+      }
+    }
+  },
+  "feature_audit": {
+    "observation_zero_variance_dimensions": 20,
+    "observation_active_dimensions": 248,
+    "duplicate_active_column_groups": [],
+    "raw_identifier_fields_excluded": [
+      "special_contact_episode_id",
+      "special_escape_destination_platform_id",
+      "special_source_platform_id",
+      "support_departure_abort_source_id",
+      "support_departure_destination_id",
+      "support_departure_source_id",
+      "support_platform_id",
+      "target_platform_id"
+    ],
+    "causal_memory_columns": [
+      "action_streak_steps",
+      "active_direction=LEFT",
+      "active_direction=RIGHT",
+      "active_direction=<NONE>",
+      "aligned_dwell_steps",
+      "aligned_release_streak",
+      "controller_phase=aligned",
+      "controller_phase=brake",
+      "controller_phase=launch",
+      "controller_phase=move",
+      "controller_phase=no_target",
+      "controller_phase=recovery",
+      "controller_phase=special_escape",
+      "controller_phase=support_departure",
+      "controller_phase=wall_guard",
+      "controller_phase=<NONE>",
+      "landing_prediction_seconds",
+      "landing_prediction_seconds__present",
+      "landing_projected_x",
+      "landing_projected_x__present",
+      "landing_release_horizontal_delta",
+      "landing_release_horizontal_delta__present",
+      "landing_release_projected_x",
+      "landing_release_projected_x__present",
+      "landing_release_projection_seconds",
+      "landing_release_projection_seconds__present",
+      "landing_safe_left",
+      "landing_safe_left__present",
+      "landing_safe_right",
+      "landing_safe_right__present",
+      "launch_active",
+      "launch_direction=LEFT",
+      "launch_direction=RIGHT",
+      "launch_direction=<NONE>",
+      "launch_escape_steps",
+      "launch_replan_cooldown_steps",
+      "pending_direction=LEFT",
+      "pending_direction=RIGHT",
+      "pending_direction=<NONE>",
+      "pending_frames",
+      "post_launch_coast_frames",
+      "previous_action=LEFT",
+      "previous_action=RELEASE_ALL",
+      "previous_action=RIGHT",
+      "previous_action=<NONE>",
+      "recovery_active",
+      "release_frames",
+      "same_special_source_restart_count",
+      "special_escape_active",
+      "special_escape_candidate_stability_steps",
+      "special_escape_direction=LEFT",
+      "special_escape_direction=RIGHT",
+      "special_escape_direction=<NONE>",
+      "special_escape_direction_reversal_count",
+      "special_escape_direction_source=active_direction",
+      "special_escape_direction_source=edge_momentum_commit",
+      "special_escape_direction_source=nearest_edge",
+      "special_escape_direction_source=visible_landing",
+      "special_escape_direction_source=<NONE>",
+      "special_escape_forced_exit_active",
+      "special_escape_forced_exit_steps",
+      "special_escape_replan_count",
+      "special_escape_replanned",
+      "special_escape_safety_abort_active",
+      "special_escape_safety_abort_count",
+      "special_escape_steps",
+      "special_source_left",
+      "special_source_left__present",
+      "special_source_platform_kind=spikes",
+      "special_source_platform_kind=spring",
+      "special_source_platform_kind=<NONE>",
+      "special_source_reacquire_count",
+      "special_source_reacquired",
+      "special_source_right",
+      "special_source_right__present",
+      "special_source_top",
+      "special_source_top__present",
+      "support_contact_active",
+      "support_departure_abort_cooldown_steps",
+      "support_departure_active",
+      "support_departure_destination_kind=conveyor",
+      "support_departure_destination_kind=flipping",
+      "support_departure_destination_kind=normal",
+      "support_departure_destination_kind=spring",
+      "support_departure_destination_kind=<NONE>",
+      "support_departure_direction=LEFT",
+      "support_departure_direction=RIGHT",
+      "support_departure_direction=<NONE>",
+      "support_departure_lost_frames",
+      "support_departure_source_kind=conveyor",
+      "support_departure_source_kind=flipping",
+      "support_departure_source_kind=normal",
+      "support_departure_source_kind=<NONE>",
+      "support_departure_steps",
+      "support_edge_distance",
+      "support_edge_distance__present",
+      "target_lock_age_steps",
+      "target_platform_kind=conveyor",
+      "target_platform_kind=flipping",
+      "target_platform_kind=normal",
+      "target_platform_kind=spikes",
+      "target_platform_kind=spring",
+      "target_platform_kind=<NONE>",
+      "top_pressure_active",
+      "top_pressure_direction=LEFT",
+      "top_pressure_direction=RIGHT",
+      "top_pressure_direction=<NONE>",
+      "top_pressure_dropout_exhausted",
+      "top_pressure_dropout_steps",
+      "top_pressure_memory_steps_remaining",
+      "top_pressure_support_settle_steps",
+      "wall_evacuation_active",
+      "wall_evacuation_cooldown_steps",
+      "wall_guard_active",
+      "wall_guard_original_action=LEFT",
+      "wall_guard_original_action=RELEASE_ALL",
+      "wall_guard_original_action=RIGHT",
+      "wall_guard_original_action=<NONE>",
+      "wall_guard_side=left",
+      "wall_guard_side=right",
+      "wall_guard_side=<NONE>"
+    ],
+    "post_decision_leakage_fields": [
+      "controller_phase",
+      "previous_action",
+      "action_streak_steps"
+    ],
+    "time_since_landing_available": false,
+    "time_since_landing_proxy": "lagged support_contact/aligned_dwell fields only",
+    "observation_action_history_frames": 4,
+    "median_control_loop_hz": 5.813953488417346,
+    "observation_action_history_seconds": 0.6879999999946449
+  },
+  "gate": {
+    "status": "PASS",
+    "passed": true,
+    "checks": {
+      "source_gate_passed": true,
+      "ten_episodes": true,
+      "minimum_500_rows": true,
+      "observation_dim_268": true,
+      "finite_observations": true,
+      "cross_episode_neighbors_only": true,
+      "raw_track_ids_excluded": true,
+      "post_decision_memory_excluded_from_gate": true,
+      "relative_disagreement_reduction_at_least_10pct": true,
+      "episode_bootstrap_ci_lower_nonnegative": true,
+      "entropy_or_accuracy_supporting_improvement": true
+    },
+    "next_stage": "P4.1_S0_S1_S2_S3_ABLATION"
+  },
+  "generated_at": "2026-08-03T04:17:55.750310+08:00",
+  "source": {
+    "gate_artifact": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\artifacts\\p36_teacher_real_gate_v11_reclassification_20260803_034023_v2.json",
+    "source_experiment": "teacher-real-game-micro-gate-v11",
+    "source_gate_status": "PASS",
+    "episodes": 10,
+    "rows": 753,
+    "sources": [
+      {
+        "episode": "episode_01",
+        "sidecar": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_01.controller.jsonl",
+        "transitions": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_01.transitions.jsonl",
+        "records": 128
+      },
+      {
+        "episode": "episode_02",
+        "sidecar": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_02.controller.jsonl",
+        "transitions": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_02.transitions.jsonl",
+        "records": 175
+      },
+      {
+        "episode": "episode_03",
+        "sidecar": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_03.controller.jsonl",
+        "transitions": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_03.transitions.jsonl",
+        "records": 46
+      },
+      {
+        "episode": "episode_04",
+        "sidecar": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_04.controller.jsonl",
+        "transitions": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_04.transitions.jsonl",
+        "records": 32
+      },
+      {
+        "episode": "episode_05",
+        "sidecar": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_05.controller.jsonl",
+        "transitions": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_05.transitions.jsonl",
+        "records": 25
+      },
+      {
+        "episode": "episode_06",
+        "sidecar": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_06.controller.jsonl",
+        "transitions": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_06.transitions.jsonl",
+        "records": 78
+      },
+      {
+        "episode": "episode_07",
+        "sidecar": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_07.controller.jsonl",
+        "transitions": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_07.transitions.jsonl",
+        "records": 63
+      },
+      {
+        "episode": "episode_08",
+        "sidecar": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_08.controller.jsonl",
+        "transitions": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_08.transitions.jsonl",
+        "records": 54
+      },
+      {
+        "episode": "episode_09",
+        "sidecar": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_09.controller.jsonl",
+        "transitions": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_09.transitions.jsonl",
+        "records": 130
+      },
+      {
+        "episode": "episode_10",
+        "sidecar": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_10.controller.jsonl",
+        "transitions": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260803_034023_674665\\episode_10.transitions.jsonl",
+        "records": 22
+      }
+    ]
+  },
+  "provenance": {
+    "gate_sha256": "8aa8ed62e1fc49a5da64718885a9cee8326a6b9e93cdc3e0827371b32da54134",
+    "game_input_sent": false,
+    "student_training_started": false,
+    "simulator_dataset_used_as_primary": false
+  },
+  "conflict_rows_written": 724
+}

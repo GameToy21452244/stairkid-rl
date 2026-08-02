@@ -30,6 +30,14 @@ def action_sequence(mode: str) -> list[Action]:
             actions += [Action.LEFT] * 2 + [Action.RELEASE_ALL] * 2
             actions += [Action.RIGHT] * 2 + [Action.RELEASE_ALL] * 2
         return actions
+    if mode == "reverse-braking":
+        actions = [Action.RELEASE_ALL] * 4
+        # At 8 Hz this is at most 19.5 seconds. Two frames establish visible
+        # momentum and the first opposite command supplies a reversal sample.
+        # The short symmetric cycle avoids net drift toward either wall.
+        for _ in range(38):
+            actions += [Action.RIGHT] * 2 + [Action.LEFT] * 2
+        return actions
     actions = [Action.RELEASE_ALL] * 4
     directions = (
         (Action.RIGHT, Action.LEFT)
@@ -44,6 +52,23 @@ def action_sequence(mode: str) -> list[Action]:
     return actions
 
 
+def bounded_reverse_action(
+    planned: Action,
+    *,
+    player_x: float | None,
+    safe_left: float = 72.0,
+    safe_right: float = 391.0,
+) -> Action:
+    """Fail closed on missing player and force inward action near walls."""
+    if player_x is None:
+        return Action.RELEASE_ALL
+    if player_x <= safe_left and planned == Action.LEFT:
+        return Action.RIGHT
+    if player_x >= safe_right and planned == Action.RIGHT:
+        return Action.LEFT
+    return planned
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(
         description="單回合、固定序列的 NS-SHAFT 物理校正。"
@@ -55,9 +80,15 @@ def main() -> None:
             "right-first",
             "passive",
             "momentum-release",
+            "reverse-braking",
             "landing-focused",
         ),
         default="left-first",
+    )
+    parser.add_argument(
+        "--focus-target",
+        action="store_true",
+        help="倒數後嘗試將唯一已驗證的遊戲視窗切到前景。",
     )
     args = parser.parse_args()
     config = load_config()
@@ -93,6 +124,9 @@ def main() -> None:
         for value in (3, 2, 1):
             print(f"{value}...")
             time.sleep(1)
+        if args.focus_target:
+            adapter.controller.window_manager.focus(target.hwnd)
+            time.sleep(0.2)
         if not adapter.is_foreground():
             raise RuntimeError("倒數後遊戲不是前景視窗，拒絕送鍵。")
         observation, info = env.reset()
@@ -115,6 +149,36 @@ def main() -> None:
                 break
             if args.mode == "landing-focused":
                 action = policy.choose(env.last_observation).action
+            elif args.mode == "reverse-braking":
+                raw_before = env.last_observation
+                player = raw_before.player if raw_before is not None else None
+                player_x = None if player is None else player.get("center_x")
+                nearest = (
+                    raw_before.nearest_platform
+                    if raw_before is not None
+                    else None
+                )
+                nearest_kind = (
+                    str(nearest.get("kind", "")).lower()
+                    if nearest is not None
+                    else ""
+                )
+                special_event = bool(
+                    raw_before is not None
+                    and any(
+                        event.get("type") in {"spring_bounce", "spike_damage"}
+                        or str(event.get("source_platform_kind", "")).lower()
+                        in {"spring", "spike", "spikes"}
+                        for event in raw_before.events
+                    )
+                )
+                if nearest_kind in {"spring", "spike", "spikes"} or special_event:
+                    action = Action.RELEASE_ALL
+                else:
+                    action = bounded_reverse_action(
+                        action,
+                        player_x=player_x,
+                    )
             next_features, reward, terminated, truncated, info = env.step(int(action))
             timing = adapter.last_action_timing
             if timing is None or not timing.action_applied:

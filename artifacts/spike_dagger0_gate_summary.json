@@ -1,0 +1,113 @@
+{
+  "experiment": "spike-dagger0-balanced-v0",
+  "eval_seeds": [
+    1500,
+    1501,
+    1502,
+    1503,
+    1504,
+    1505,
+    1506,
+    1507,
+    1508,
+    1509,
+    1510,
+    1511,
+    1512,
+    1513,
+    1514,
+    1515,
+    1516,
+    1517,
+    1518,
+    1519
+  ],
+  "seed_results": [
+    {
+      "initialization_seed": 0,
+      "selected_epoch": 5,
+      "final_gate_passed": true,
+      "old_bc_mean_floors": 27.75,
+      "dagger_mean_floors": 43.95,
+      "mean_floor_delta": 16.200000000000003,
+      "old_success_rate_floor_10": 1.0,
+      "dagger_success_rate_floor_10": 0.85,
+      "dagger_terminal_reasons": {
+        "bottom": 6,
+        "top": 5,
+        "time_limit": 9
+      },
+      "dagger_collapsed": false,
+      "paired_wins": 14,
+      "paired_ties": 0,
+      "paired_losses": 6,
+      "paired_median_delta": 27.0
+    },
+    {
+      "initialization_seed": 1,
+      "selected_epoch": 3,
+      "final_gate_passed": true,
+      "old_bc_mean_floors": 29.0,
+      "dagger_mean_floors": 32.2,
+      "mean_floor_delta": 3.200000000000003,
+      "old_success_rate_floor_10": 0.9,
+      "dagger_success_rate_floor_10": 0.55,
+      "dagger_terminal_reasons": {
+        "bottom": 15,
+        "time_limit": 3,
+        "top": 2
+      },
+      "dagger_collapsed": false,
+      "paired_wins": 9,
+      "paired_ties": 0,
+      "paired_losses": 11,
+      "paired_median_delta": -4.0
+    },
+    {
+      "initialization_seed": 2,
+      "selected_epoch": 11,
+      "final_gate_passed": false,
+      "old_bc_mean_floors": 28.95,
+      "dagger_mean_floors": 40.1,
+      "mean_floor_delta": 11.150000000000002,
+      "old_success_rate_floor_10": 0.7,
+      "dagger_success_rate_floor_10": 0.85,
+      "dagger_terminal_reasons": {
+        "health_depleted": 1,
+        "top": 9,
+        "bottom": 6,
+        "time_limit": 4
+      },
+      "dagger_collapsed": false,
+      "paired_wins": 15,
+      "paired_ties": 0,
+      "paired_losses": 5,
+      "paired_median_delta": 10.5
+    }
+  ],
+  "aggregate": {
+    "old_bc_mean_floors": 28.566666666666666,
+    "dagger_mean_floors": 38.75,
+    "mean_floor_delta": 10.183333333333334,
+    "old_success_rate_floor_10": 0.8666666666666666,
+    "dagger_success_rate_floor_10": 0.75,
+    "old_terminal_reasons": {
+      "top": 44,
+      "bottom": 15,
+      "time_limit": 1
+    },
+    "dagger_terminal_reasons": {
+      "bottom": 27,
+      "top": 16,
+      "time_limit": 16,
+      "health_depleted": 1
+    }
+  },
+  "gate": {
+    "passed": false,
+    "completed_initialization_seeds": 3,
+    "criteria": "3/3 final rollout gates pass, no collapse, no health deaths; final seeds are not reused after this decision",
+    "dagger_rounds_started": 1,
+    "additional_round_allowed": false
+  }
+}

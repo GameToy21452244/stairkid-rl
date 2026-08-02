@@ -1,0 +1,818 @@
+{
+  "experiment": "teacher-real-game-micro-gate-v2",
+  "dry_run": false,
+  "episodes": [
+    {
+      "episode": 1,
+      "steps": 111,
+      "floors": 5,
+      "floor_start": 1,
+      "floor_max": 5,
+      "floor_counter_available": true,
+      "floor_counter_unstable_steps": 13,
+      "physical_response_samples": [
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000005093,
+          "step": 3
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 109.00000000037835,
+          "step": 8
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 78.00000000042928,
+          "step": 17
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 92.9999999998472,
+          "step": 22
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000005093,
+          "step": 29
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000005093,
+          "step": 35
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000005093,
+          "step": 69
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000005093,
+          "step": 73
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000005093,
+          "step": 82
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000005093,
+          "step": 84
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000005093,
+          "step": 91
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 78.00000000042928,
+          "step": 99
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000005093,
+          "step": 104
+        }
+      ],
+      "physical_response_timeouts": 0,
+      "wall_telemetry_available": true,
+      "outward_wall_push_count": 0,
+      "max_outward_wall_push_streak": 0,
+      "player_telemetry_available": true,
+      "player_missing_step_count": 17,
+      "max_player_missing_streak": 17,
+      "wall_reentry_cycle_count": 0,
+      "rapid_direction_reversal_count": 4,
+      "max_rapid_direction_reversal_burst": 3,
+      "max_wall_direction_reversal_burst": 0,
+      "max_aligned_release_streak": 5,
+      "max_support_aligned_release_streak": 4,
+      "support_departure_telemetry_available": true,
+      "same_support_departure_cycle_count": 0,
+      "support_departure_target_switch_count": 0,
+      "support_departure_timeout_count": 0,
+      "support_edge_release_count": 1,
+      "support_edge_opportunity_count": 16,
+      "support_departure_exit_samples": [
+        4,
+        5,
+        2,
+        4,
+        1,
+        5,
+        3,
+        5,
+        2,
+        1
+      ],
+      "max_support_departure_steps": 5,
+      "action_counts": {
+        "LEFT": 26,
+        "RELEASE_ALL": 54,
+        "RIGHT": 31
+      },
+      "terminal_reason": "bottom",
+      "forced_reason": null,
+      "observation_valid": true,
+      "target_lock_seen": true,
+      "transition_records": 111,
+      "controller_records": 111,
+      "video_complete": true,
+      "transition_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260801_225518_153636\\episode_01.transitions.jsonl",
+      "controller_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260801_225518_153636\\episode_01.controller.jsonl",
+      "video_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260801_225518_153636\\episode_01.mp4",
+      "observation_dropout_telemetry_available": true,
+      "invalid_observation_step_count": 15,
+      "recovered_observation_dropout_count": 1,
+      "max_recovered_observation_dropout_streak": 15,
+      "unrecovered_observation_dropout_count": 0,
+      "terminal_observation_dropout_count": 0,
+      "blind_directional_action_count": 0,
+      "observation_dropout_context_counts": {
+        "scroll_progress": 1
+      },
+      "observation_dropout_samples": [
+        {
+          "steps": 15,
+          "context": "scroll_progress",
+          "entry_phase": "special_escape",
+          "floor_start": 3,
+          "floor_recovery": 4
+        }
+      ],
+      "max_active_wall_direction_reversal_burst": 0,
+      "active_wall_direction_reversal_count": 0,
+      "excluded_wall_special_context_steps": 0,
+      "support_settle_release_count": 7,
+      "actionable_support_release_count": 0,
+      "max_actionable_support_aligned_release_streak": 0
+    },
+    {
+      "episode": 2,
+      "steps": 55,
+      "floors": 3,
+      "floor_start": 1,
+      "floor_max": 3,
+      "floor_counter_available": true,
+      "floor_counter_unstable_steps": 7,
+      "physical_response_samples": [
+        {
+          "direction": "LEFT",
+          "latency_ms": 92.9999999998472,
+          "step": 0
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 202.9999999995198,
+          "step": 6
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000005093,
+          "step": 8
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000005093,
+          "step": 12
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000005093,
+          "step": 17
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000005093,
+          "step": 22
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000005093,
+          "step": 28
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 78.00000000042928,
+          "step": 38
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000005093,
+          "step": 42
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000005093,
+          "step": 47
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000005093,
+          "step": 51
+        }
+      ],
+      "physical_response_timeouts": 0,
+      "wall_telemetry_available": true,
+      "outward_wall_push_count": 0,
+      "max_outward_wall_push_streak": 0,
+      "player_telemetry_available": true,
+      "player_missing_step_count": 5,
+      "max_player_missing_streak": 3,
+      "wall_reentry_cycle_count": 0,
+      "rapid_direction_reversal_count": 6,
+      "max_rapid_direction_reversal_burst": 3,
+      "max_wall_direction_reversal_burst": 0,
+      "max_aligned_release_streak": 3,
+      "max_support_aligned_release_streak": 3,
+      "support_departure_telemetry_available": true,
+      "same_support_departure_cycle_count": 0,
+      "support_departure_target_switch_count": 0,
+      "support_departure_timeout_count": 0,
+      "support_edge_release_count": 5,
+      "support_edge_opportunity_count": 11,
+      "support_departure_exit_samples": [
+        3,
+        2,
+        2
+      ],
+      "max_support_departure_steps": 3,
+      "action_counts": {
+        "LEFT": 13,
+        "RELEASE_ALL": 27,
+        "RIGHT": 15
+      },
+      "terminal_reason": "bottom",
+      "forced_reason": null,
+      "observation_valid": true,
+      "target_lock_seen": true,
+      "transition_records": 55,
+      "controller_records": 55,
+      "video_complete": true,
+      "transition_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260801_225518_153636\\episode_02.transitions.jsonl",
+      "controller_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260801_225518_153636\\episode_02.controller.jsonl",
+      "video_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260801_225518_153636\\episode_02.mp4",
+      "observation_dropout_telemetry_available": true,
+      "invalid_observation_step_count": 1,
+      "recovered_observation_dropout_count": 1,
+      "max_recovered_observation_dropout_streak": 1,
+      "unrecovered_observation_dropout_count": 0,
+      "terminal_observation_dropout_count": 0,
+      "blind_directional_action_count": 0,
+      "observation_dropout_context_counts": {
+        "dynamic_transition": 1
+      },
+      "observation_dropout_samples": [
+        {
+          "steps": 1,
+          "context": "dynamic_transition",
+          "entry_phase": "launch",
+          "floor_start": 2,
+          "floor_recovery": 2
+        }
+      ],
+      "max_active_wall_direction_reversal_burst": 0,
+      "active_wall_direction_reversal_count": 0,
+      "excluded_wall_special_context_steps": 0,
+      "support_settle_release_count": 6,
+      "actionable_support_release_count": 0,
+      "max_actionable_support_aligned_release_streak": 0
+    },
+    {
+      "episode": 3,
+      "steps": 300,
+      "floors": 10,
+      "floor_start": 1,
+      "floor_max": 10,
+      "floor_counter_available": true,
+      "floor_counter_unstable_steps": 86,
+      "physical_response_samples": [
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000005093,
+          "step": 0
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 109.99999999967258,
+          "step": 4
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 92.9999999998472,
+          "step": 14
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000005093,
+          "step": 19
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 92.9999999998472,
+          "step": 26
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000005093,
+          "step": 31
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 109.99999999967258,
+          "step": 33
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000005093,
+          "step": 36
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000005093,
+          "step": 38
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000005093,
+          "step": 42
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000005093,
+          "step": 58
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000005093,
+          "step": 62
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 92.9999999998472,
+          "step": 67
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000005093,
+          "step": 70
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 92.9999999998472,
+          "step": 74
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000005093,
+          "step": 76
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 78.00000000042928,
+          "step": 78
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000005093,
+          "step": 84
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 92.9999999998472,
+          "step": 92
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000005093,
+          "step": 97
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 92.9999999998472,
+          "step": 99
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000005093,
+          "step": 104
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000005093,
+          "step": 109
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000005093,
+          "step": 117
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000005093,
+          "step": 120
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 92.9999999998472,
+          "step": 127
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000005093,
+          "step": 129
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000005093,
+          "step": 132
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000005093,
+          "step": 135
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000005093,
+          "step": 149
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 78.00000000042928,
+          "step": 161
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000005093,
+          "step": 165
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000005093,
+          "step": 172
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000005093,
+          "step": 176
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 78.00000000042928,
+          "step": 181
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000005093,
+          "step": 184
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 77.99999999951979,
+          "step": 189
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000005093,
+          "step": 193
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 78.00000000042928,
+          "step": 195
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 78.00000000042928,
+          "step": 199
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000005093,
+          "step": 214
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 77.99999999951979,
+          "step": 219
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000005093,
+          "step": 225
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000005093,
+          "step": 229
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 78.99999999972351,
+          "step": 232
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000005093,
+          "step": 237
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000005093,
+          "step": 244
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000005093,
+          "step": 250
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 92.9999999998472,
+          "step": 260
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000005093,
+          "step": 265
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000005093,
+          "step": 273
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 94.00000000005093,
+          "step": 279
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 78.00000000042928,
+          "step": 284
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000005093,
+          "step": 286
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 94.00000000005093,
+          "step": 289
+        },
+        {
+          "direction": "LEFT",
+          "latency_ms": 203.00000000042928,
+          "step": 293
+        },
+        {
+          "direction": "RIGHT",
+          "latency_ms": 77.99999999951979,
+          "step": 295
+        }
+      ],
+      "physical_response_timeouts": 0,
+      "wall_telemetry_available": true,
+      "outward_wall_push_count": 0,
+      "max_outward_wall_push_streak": 0,
+      "player_telemetry_available": true,
+      "player_missing_step_count": 22,
+      "max_player_missing_streak": 11,
+      "wall_reentry_cycle_count": 0,
+      "rapid_direction_reversal_count": 30,
+      "max_rapid_direction_reversal_burst": 6,
+      "max_wall_direction_reversal_burst": 3,
+      "max_aligned_release_streak": 4,
+      "max_support_aligned_release_streak": 0,
+      "support_departure_telemetry_available": true,
+      "same_support_departure_cycle_count": 0,
+      "support_departure_target_switch_count": 0,
+      "support_departure_timeout_count": 0,
+      "support_edge_release_count": 2,
+      "support_edge_opportunity_count": 48,
+      "support_departure_exit_samples": [
+        3,
+        5,
+        5,
+        3,
+        3,
+        1,
+        2,
+        2,
+        3,
+        5,
+        2,
+        3,
+        5,
+        3,
+        1,
+        4,
+        1,
+        4,
+        1,
+        2,
+        3,
+        3,
+        4,
+        1,
+        4,
+        1,
+        4,
+        5,
+        5,
+        4,
+        4,
+        3,
+        2
+      ],
+      "max_support_departure_steps": 5,
+      "action_counts": {
+        "LEFT": 90,
+        "RELEASE_ALL": 123,
+        "RIGHT": 87
+      },
+      "terminal_reason": "timeout",
+      "forced_reason": "step_limit",
+      "observation_valid": true,
+      "target_lock_seen": true,
+      "transition_records": 300,
+      "controller_records": 300,
+      "video_complete": true,
+      "transition_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260801_225518_153636\\episode_03.transitions.jsonl",
+      "controller_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260801_225518_153636\\episode_03.controller.jsonl",
+      "video_path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260801_225518_153636\\episode_03.mp4",
+      "observation_dropout_telemetry_available": true,
+      "invalid_observation_step_count": 13,
+      "recovered_observation_dropout_count": 2,
+      "max_recovered_observation_dropout_streak": 9,
+      "unrecovered_observation_dropout_count": 0,
+      "terminal_observation_dropout_count": 0,
+      "blind_directional_action_count": 0,
+      "observation_dropout_context_counts": {
+        "dynamic_transition": 1,
+        "ordinary_recovered": 1
+      },
+      "observation_dropout_samples": [
+        {
+          "steps": 4,
+          "context": "ordinary_recovered",
+          "entry_phase": "move",
+          "floor_start": 3,
+          "floor_recovery": 3
+        },
+        {
+          "steps": 9,
+          "context": "dynamic_transition",
+          "entry_phase": "launch",
+          "floor_start": 5,
+          "floor_recovery": 5
+        }
+      ],
+      "max_active_wall_direction_reversal_burst": 0,
+      "active_wall_direction_reversal_count": 0,
+      "excluded_wall_special_context_steps": 0,
+      "support_settle_release_count": 0,
+      "actionable_support_release_count": 0,
+      "max_actionable_support_aligned_release_streak": 0
+    }
+  ],
+  "safety_events": [],
+  "metrics": {
+    "episodes": 3,
+    "floors_semantics": "visual_hud_max_floor",
+    "mean_floors": 6.0,
+    "median_floors": 5.0,
+    "floor_q25": 4.0,
+    "floor_cvar25": 3.0,
+    "reach_floor_1": 3,
+    "reach_floor_3": 3,
+    "reach_floor_5": 2,
+    "reach_floor_10": 1,
+    "action_counts": {
+      "LEFT": 129,
+      "RELEASE_ALL": 204,
+      "RIGHT": 133
+    },
+    "max_action_share": 0.43776824034334766,
+    "terminal_reasons": {
+      "bottom": 2,
+      "timeout": 1
+    },
+    "safety_event_count": 0,
+    "outward_wall_push_count": 0,
+    "max_outward_wall_push_streak": 0,
+    "player_missing_step_count": 44,
+    "max_player_missing_streak": 17,
+    "invalid_observation_step_count": 29,
+    "recovered_observation_dropout_count": 4,
+    "max_recovered_observation_dropout_streak": 15,
+    "unrecovered_observation_dropout_count": 0,
+    "terminal_observation_dropout_count": 0,
+    "blind_directional_action_count": 0,
+    "observation_dropout_context_counts": {
+      "dynamic_transition": 2,
+      "ordinary_recovered": 1,
+      "scroll_progress": 1
+    },
+    "wall_reentry_cycle_count": 0,
+    "rapid_direction_reversal_count": 40,
+    "max_rapid_direction_reversal_burst": 6,
+    "max_wall_direction_reversal_burst": 3,
+    "max_active_wall_direction_reversal_burst": 0,
+    "active_wall_direction_reversal_count": 0,
+    "excluded_wall_special_context_steps": 0,
+    "max_aligned_release_streak": 5,
+    "max_support_aligned_release_streak": 4,
+    "support_settle_release_count": 13,
+    "actionable_support_release_count": 0,
+    "max_actionable_support_aligned_release_streak": 0,
+    "same_support_departure_cycle_count": 0,
+    "support_departure_target_switch_count": 0,
+    "support_departure_timeout_count": 0,
+    "support_edge_release_count": 8,
+    "support_edge_opportunity_count": 75,
+    "support_edge_release_ratio": 0.10666666666666667,
+    "support_departure_exit_sample_count": 46,
+    "support_departure_exit_steps_median": 3.0,
+    "max_support_departure_steps": 5,
+    "floor_1_bottom_death_count": 0,
+    "physical_response_sample_count": 81,
+    "physical_response_latency_median_ms": 94.00000000005093,
+    "physical_response_latency_p95_ms": 109.00000000037835
+  },
+  "gate": {
+    "status": "PASS",
+    "passed": true,
+    "checks": {
+      "actual_not_dry_run": true,
+      "three_complete_episodes": true,
+      "safety_events_zero": true,
+      "observation_valid": true,
+      "floor_counter_available": true,
+      "wall_telemetry_available": true,
+      "player_telemetry_available": true,
+      "observation_dropout_telemetry_available": true,
+      "support_departure_telemetry_available": true,
+      "recoverable_player_dropout_bounded": true,
+      "unrecovered_player_dropouts_zero": true,
+      "blind_directional_actions_zero": true,
+      "outward_wall_push_zero": true,
+      "wall_reentry_cycles_zero": true,
+      "wall_safety_oscillation_bounded": true,
+      "actionable_support_release_zero": true,
+      "same_support_departure_cycles_zero": true,
+      "support_departure_target_stable": true,
+      "support_departure_timeouts_zero": true,
+      "support_edge_release_bounded": true,
+      "support_departure_exit_observed": true,
+      "support_departure_steps_bounded": true,
+      "floor_1_bottom_deaths_zero": true,
+      "physical_response_latency_measured": true,
+      "target_lock_seen": true,
+      "controller_and_transition_records_complete": true,
+      "videos_complete": true,
+      "no_action_collapse": true,
+      "reach_floor_3_case": true,
+      "reach_floor_5_case": true,
+      "five_episode_bottom_death_bounded": true,
+      "failure_taxonomy_comparable": true
+    }
+  },
+  "audit": {
+    "mode": "recorded-controller-sidecar-reclassification",
+    "source_gate": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260801_225518_153636\\teacher_real_game_micro_gate.json",
+    "source_experiment": "teacher-real-game-micro-gate-v1",
+    "sidecars": [
+      {
+        "episode": 1,
+        "path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260801_225518_153636\\episode_01.controller.jsonl",
+        "records": 111
+      },
+      {
+        "episode": 2,
+        "path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260801_225518_153636\\episode_02.controller.jsonl",
+        "records": 55
+      },
+      {
+        "episode": 3,
+        "path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\ai-stair-agent\\logs\\teacher_real_micro_20260801_225518_153636\\episode_03.controller.jsonl",
+        "records": 300
+      }
+    ],
+    "controller_policy_changed": false,
+    "game_input_sent": false,
+    "evidence_limit": "此結果可修正舊 Gate 的語意誤判，但不是新版本 runner 的獨立實機確認；P3.6 仍需再跑一輪受監督 3 回合。"
+  },
+  "limits": {
+    "episodes": 3,
+    "max_steps_per_episode": 300,
+    "max_seconds_per_episode": 60.0,
+    "max_total_steps": 900,
+    "max_total_seconds": 180.0
+  }
+}

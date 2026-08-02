@@ -138,6 +138,16 @@ class PyWin32Backend:
 
 
 class WindowManager:
+    _NAME_ENTRY_TITLE_HINTS = (
+        "輸入名稱",
+        "輸入姓名",
+        "輸入名字",
+        "entername",
+        "inputname",
+        "playername",
+        "nameentry",
+    )
+
     def __init__(self, backend: WindowBackend | None = None) -> None:
         self.backend = backend or PyWin32Backend()
 
@@ -217,6 +227,9 @@ class WindowManager:
     def is_foreground(self, hwnd: int) -> bool:
         return self.backend.foreground_hwnd() == hwnd
 
+    def foreground_hwnd(self) -> int:
+        return self.backend.foreground_hwnd()
+
     def focus(self, hwnd: int) -> None:
         if not self.backend.bring_to_foreground(hwnd):
             raise WindowError("無法將遊戲切換至前景；已停止，不會送出按鍵。")
@@ -246,3 +259,38 @@ class WindowManager:
         """回傳可能是模態對話框的同程序／owner 可見視窗。"""
         target = self.refresh(hwnd)
         return self.related_windows(target)
+
+    @classmethod
+    def _is_name_entry_dialog(
+        cls,
+        target: WindowInfo,
+        candidate: WindowInfo,
+    ) -> bool:
+        title = cls._normalized_title(candidate.title)
+        title_match = any(
+            cls._normalized_title(hint) in title
+            for hint in cls._NAME_ENTRY_TITLE_HINTS
+        )
+        same_process = (
+            target.process_id > 0
+            and candidate.process_id == target.process_id
+        )
+        return bool(
+            candidate.class_name.casefold() == "#32770"
+            and candidate.owner_hwnd == target.hwnd
+            and same_process
+            and title_match
+        )
+
+    def find_name_entry_dialog(self, hwnd: int) -> WindowInfo | None:
+        """只接受唯一、同程序、由遊戲擁有且標題符合的姓名 modal。"""
+        target = self.refresh(hwnd)
+        related = self.related_windows(target)
+        if len(related) != 1:
+            return None
+        candidate = related[0]
+        return (
+            candidate
+            if self._is_name_entry_dialog(target, candidate)
+            else None
+        )

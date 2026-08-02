@@ -37,3 +37,30 @@ def test_momentum_release_stays_bounded_and_maximizes_identifiable_releases():
             Action.RELEASE_ALL,
             Action.RELEASE_ALL,
         ]
+
+
+def test_reverse_braking_sequence_is_balanced_and_bounded_to_20_seconds():
+    actions = load_script().action_sequence("reverse-braking")
+
+    assert len(actions) == 156
+    assert actions[:4] == [Action.RELEASE_ALL] * 4
+    assert actions.count(Action.LEFT) == 76
+    assert actions.count(Action.RIGHT) == 76
+    for index in range(4, len(actions), 4):
+        assert actions[index : index + 4] == [
+            Action.RIGHT,
+            Action.RIGHT,
+            Action.LEFT,
+            Action.LEFT,
+        ]
+
+
+def test_reverse_braking_boundary_guard_releases_missing_and_pushes_inward():
+    bounded = load_script().bounded_reverse_action
+
+    assert bounded(Action.LEFT, player_x=None) == Action.RELEASE_ALL
+    assert bounded(Action.LEFT, player_x=70.0) == Action.RIGHT
+    assert bounded(Action.RIGHT, player_x=393.0) == Action.LEFT
+    assert bounded(Action.RIGHT, player_x=70.0) == Action.RIGHT
+    assert bounded(Action.LEFT, player_x=393.0) == Action.LEFT
+    assert bounded(Action.LEFT, player_x=200.0) == Action.LEFT

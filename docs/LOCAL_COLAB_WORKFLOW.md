@@ -16,6 +16,7 @@ Colab 只負責 headless simulator：
 - 以手動上傳的 repository ZIP 安裝依賴、執行 pytest／check_env；
 - 1／4／8／16 個同步與非同步 env benchmark；
 - 後續短訓練、TensorBoard、checkpoint、video、Drive resume。
+- v0.2 gates 通過後的小型 Teacher Dataset、BC0 與條件式一輪 DAgger0 smoke。
 
 本專案 repository 為私人存取時，不要求在 Colab 儲存 GitHub token。
 `notebooks/ns_shaft_colab.ipynb` 預設提示上傳完整 repository ZIP，自動解壓縮
@@ -55,3 +56,18 @@ checkpoint save/load、256-step resume 與實際 MP4 產生。validation cell �
 停用，需在前置 gate 通過後手動設
 `RUN_COLAB_PIPELINE_VALIDATION=True`；總訓練上限 768 steps。它不包含
 BC／DAgger／DQfD 或長訓。
+
+2026-07-30 實際 Colab gate 已通過 pytest（219 tests）、check_env、
+1／4／8／16 env throughput、checkpoint save/load/resume 與 MP4。768-step
+deterministic 評估全 RIGHT，故 checkpoint 不得續訓。v0.2 teacher／BC0
+工具完成後需另加預設停用、硬預算的 cells；不得把 pipeline PASS 當策略 PASS。
+
+### Spike BC0 bounded experiment
+
+Notebook 最後的 `RUN_SPIKE_BC0=False` 預設不執行。前置 pytest／check_env
+通過後才改為 `True`。該 cell 會重跑 spike curriculum Gate、重建 git-ignored
+Teacher JSONL，接著執行 hard-label seeds 0／1／2；每 seed 最多 30 epochs、
+early stopping，eval seeds 固定為 1100～1119。
+
+Cell 最後會封裝三個 summary／model 與 `spike_bc0_colab_gate.json`。任一 seed
+失敗便停止，不會接著執行 DAgger。下載 cell 顯示的 ZIP 交回分析即可。

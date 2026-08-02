@@ -29,6 +29,155 @@ class PlayerDetection:
     confidence: float
 
 
+def _scaled_playfield(frame: np.ndarray, cfg: VisionConfig) -> BoundingBox:
+    values = (
+        cfg.playfield_left,
+        cfg.playfield_top,
+        cfg.playfield_width,
+        cfg.playfield_height,
+        cfg.reference_width,
+        cfg.reference_height,
+    )
+    if any(value is None for value in values):
+        raise RuntimeError("vision playfield ROI 尚未校正。")
+    assert cfg.reference_width and cfg.reference_height
+    scale_x = frame.shape[1] / cfg.reference_width
+    scale_y = frame.shape[0] / cfg.reference_height
+    left = round(int(cfg.playfield_left) * scale_x)
+    top = round(int(cfg.playfield_top) * scale_y)
+    width = round(int(cfg.playfield_width) * scale_x)
+    height = round(int(cfg.playfield_height) * scale_y)
+    if left < 0 or top < 0 or left + width > frame.shape[1] or top + height > frame.shape[0]:
+        raise RuntimeError("vision playfield ROI 超出目前畫面範圍。")
+    if width <= 0 or height <= 0:
+        raise RuntimeError("vision playfield ROI 尺寸無效。")
+    return BoundingBox(left, top, width, height)
+
+
+def _player_color_masks(
+    roi: np.ndarray,
+    cfg: VisionConfig,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    hsv = cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)
+    raw_mask = cv2.inRange(
+        hsv,
+        np.array([0, cfg.player_saturation_min, cfg.player_value_min]),
+        np.array([cfg.player_hue_max, 255, 255]),
+    )
+    close_size = int(cfg.player_close_kernel_size)
+    if close_size > 1:
+        raw_mask = cv2.morphologyEx(
+            raw_mask,
+            cv2.MORPH_CLOSE,
+            np.ones((close_size, close_size), dtype=np.uint8),
+        )
+    # The real game's normal-platform texture can share the player's warm HSV
+    # range.  When the sprite touches that texture, connected components merge
+    # the player with an approximately 95 px horizontal strip and the otherwise
+    # valid player is rejected for being too wide.  Anything wider than the
+    # configured maximum player width cannot belong to a valid player candidate,
+    # so remove only those long horizontal runs before component dilation.
+    horizontal_platform_mask = cv2.morphologyEx(
+        raw_mask,
+        cv2.MORPH_OPEN,
+        np.ones((1, int(cfg.player_max_width) + 1), dtype=np.uint8),
+    )
+    candidate_mask = cv2.subtract(raw_mask, horizontal_platform_mask)
+    kernel = np.ones(
+        (cfg.player_dilate_height, cfg.player_dilate_width),
+        dtype=np.uint8,
+    )
+    return raw_mask, candidate_mask, cv2.dilate(candidate_mask, kernel)
+
+
+def player_color_diagnostics(
+    frame: np.ndarray,
+    cfg: VisionConfig,
+) -> tuple[dict[str, object], np.ndarray]:
+    """Return lossless player-mask evidence using the live detector rules."""
+
+    playfield = _scaled_playfield(frame, cfg)
+    roi = frame[
+        playfield.top : playfield.top + playfield.height,
+        playfield.left : playfield.left + playfield.width,
+    ]
+    raw_mask, candidate_mask, merged = _player_color_masks(roi, cfg)
+    _count, _labels, stats, _centroids = cv2.connectedComponentsWithStats(merged)
+    shrink_x = cfg.player_dilate_width // 2
+    shrink_y = cfg.player_dilate_height // 2
+    components: list[dict[str, object]] = []
+    for raw_stat in stats[1:]:
+        left, top, width, height, area = (int(value) for value in raw_stat)
+        size_ok = (
+            cfg.player_min_width <= width <= cfg.player_max_width
+            and cfg.player_min_height <= height <= cfg.player_max_height
+        )
+        actual_left = left + shrink_x
+        actual_top = top + shrink_y
+        actual_width = max(1, width - 2 * shrink_x)
+        actual_height = max(1, height - 2 * shrink_y)
+        mask_crop = candidate_mask[
+            actual_top : actual_top + actual_height,
+            actual_left : actual_left + actual_width,
+        ]
+        colored_pixels = int(np.count_nonzero(mask_crop))
+        eligible = size_ok and colored_pixels >= cfg.player_min_colored_pixels
+        components.append(
+            {
+                "merged_box": [left, top, width, height],
+                "actual_box": [
+                    playfield.left + actual_left,
+                    playfield.top + actual_top,
+                    actual_width,
+                    actual_height,
+                ],
+                "merged_area": area,
+                "colored_pixels": colored_pixels,
+                "size_ok": size_ok,
+                "eligible": eligible,
+            }
+        )
+    components.sort(
+        key=lambda item: int(item["colored_pixels"]),
+        reverse=True,
+    )
+    eligible_components = [item for item in components if bool(item["eligible"])]
+    return (
+        {
+            "playfield": [
+                playfield.left,
+                playfield.top,
+                playfield.width,
+                playfield.height,
+            ],
+            "thresholds": {
+                "hue_max": cfg.player_hue_max,
+                "saturation_min": cfg.player_saturation_min,
+                "value_min": cfg.player_value_min,
+                "min_width": cfg.player_min_width,
+                "max_width": cfg.player_max_width,
+                "min_height": cfg.player_min_height,
+                "max_height": cfg.player_max_height,
+                "min_colored_pixels": cfg.player_min_colored_pixels,
+            },
+            "raw_colored_pixels": int(np.count_nonzero(raw_mask)),
+            "candidate_colored_pixels": int(
+                np.count_nonzero(candidate_mask)
+            ),
+            "horizontal_colored_pixels_removed": int(
+                np.count_nonzero(raw_mask) - np.count_nonzero(candidate_mask)
+            ),
+            "component_count": len(components),
+            "eligible_component_count": len(eligible_components),
+            "best_eligible_component": (
+                None if not eligible_components else eligible_components[0]
+            ),
+            "largest_components": components[:10],
+        },
+        candidate_mask,
+    )
+
+
 class PlatformKind(Enum):
     NORMAL = "normal"
     UNKNOWN = "unknown"
@@ -138,29 +287,7 @@ class ObjectDetector:
         )
 
     def _playfield(self, frame: np.ndarray) -> BoundingBox:
-        cfg = self.config
-        values = (
-            cfg.playfield_left,
-            cfg.playfield_top,
-            cfg.playfield_width,
-            cfg.playfield_height,
-            cfg.reference_width,
-            cfg.reference_height,
-        )
-        if any(value is None for value in values):
-            raise RuntimeError("vision playfield ROI 尚未校正。")
-        assert cfg.reference_width and cfg.reference_height
-        scale_x = frame.shape[1] / cfg.reference_width
-        scale_y = frame.shape[0] / cfg.reference_height
-        left = round(int(cfg.playfield_left) * scale_x)
-        top = round(int(cfg.playfield_top) * scale_y)
-        width = round(int(cfg.playfield_width) * scale_x)
-        height = round(int(cfg.playfield_height) * scale_y)
-        if left < 0 or top < 0 or left + width > frame.shape[1] or top + height > frame.shape[0]:
-            raise RuntimeError("vision playfield ROI 超出目前畫面範圍。")
-        if width <= 0 or height <= 0:
-            raise RuntimeError("vision playfield ROI 尺寸無效。")
-        return BoundingBox(left, top, width, height)
+        return _scaled_playfield(frame, self.config)
 
     def _detect_player(
         self,
@@ -168,17 +295,7 @@ class ObjectDetector:
         playfield: BoundingBox,
     ) -> PlayerDetection | None:
         cfg = self.config
-        hsv = cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)
-        raw_mask = cv2.inRange(
-            hsv,
-            np.array([0, cfg.player_saturation_min, cfg.player_value_min]),
-            np.array([cfg.player_hue_max, 255, 255]),
-        )
-        kernel = np.ones(
-            (cfg.player_dilate_height, cfg.player_dilate_width),
-            dtype=np.uint8,
-        )
-        merged = cv2.dilate(raw_mask, kernel)
+        _raw_mask, candidate_mask, merged = _player_color_masks(roi, cfg)
         _count, _labels, stats, _centroids = cv2.connectedComponentsWithStats(merged)
         shrink_x = cfg.player_dilate_width // 2
         shrink_y = cfg.player_dilate_height // 2
@@ -194,12 +311,12 @@ class ObjectDetector:
             actual_top = top + shrink_y
             actual_width = max(1, width - 2 * shrink_x)
             actual_height = max(1, height - 2 * shrink_y)
-            mask_crop = raw_mask[
+            mask_crop = candidate_mask[
                 actual_top : actual_top + actual_height,
                 actual_left : actual_left + actual_width,
             ]
             colored_pixels = int(np.count_nonzero(mask_crop))
-            if colored_pixels < 20:
+            if colored_pixels < cfg.player_min_colored_pixels:
                 continue
             box = BoundingBox(
                 playfield.left + actual_left,

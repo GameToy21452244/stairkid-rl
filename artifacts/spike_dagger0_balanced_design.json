@@ -1,0 +1,43 @@
+{
+  "protocol": "spike-dagger0-balanced-v0",
+  "design_frozen_before_training": true,
+  "base_train_records": 2367,
+  "correction_cap_ratio": 0.25,
+  "available_corrections": 8076,
+  "selected_corrections": 592,
+  "selected_to_base_ratio": 0.2501056189269117,
+  "target_action_quotas": {
+    "0": 265,
+    "1": 161,
+    "2": 166
+  },
+  "selected_action_counts": {
+    "0": 265,
+    "1": 161,
+    "2": 166
+  },
+  "selected_failure_categories": {
+    "wrong_target": 47,
+    "missed_platform_risk": 111,
+    "bottom_terminal_risk": 35,
+    "top_terminal_risk": 39,
+    "high_confidence_disagreement": 107,
+    "wall_collision": 43,
+    "spike_visible_disagreement": 143,
+    "brake_too_late": 67
+  },
+  "selected_source_models": {
+    "0": 186,
+    "1": 207,
+    "2": 199
+  },
+  "selected_episodes": 60,
+  "largest_episode_records": 18,
+  "largest_episode_share": 0.030405405405405407,
+  "selected_spike_visible": 181,
+  "selected_near_terminal": 75,
+  "state_clusters": 12,
+  "sampling": "round_robin(cluster,failure_category,source_model) within action",
+  "random_seed": 20260731,
+  "output_dataset": "artifacts\\spike_teacher_dataset_dagger0_balanced.jsonl"
+}

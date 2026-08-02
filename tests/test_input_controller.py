@@ -31,6 +31,7 @@ class FakeBackend:
 class FakeManager:
     def __init__(self):
         self.foreground = True
+        self.foreground_handle = 1
         self.related = []
         self.related_check_count = 0
 
@@ -40,6 +41,15 @@ class FakeManager:
     def blocking_related_windows(self, _hwnd):
         self.related_check_count += 1
         return self.related
+
+    def foreground_hwnd(self):
+        return self.foreground_handle
+
+    def find_name_entry_dialog(self, _hwnd):
+        if len(self.related) != 1:
+            return None
+        candidate = self.related[0]
+        return candidate if getattr(candidate, "is_name_entry", False) else None
 
 
 def make_controller():
@@ -60,6 +70,16 @@ def test_left_right_are_mutually_exclusive() -> None:
         ("down", "right"),
     ]
     assert controller.held_keys == {"right"}
+
+
+def test_repeated_same_direction_does_not_resend_key_down() -> None:
+    controller, backend = make_controller()
+
+    controller.apply(Action.LEFT)
+    controller.apply(Action.LEFT)
+
+    assert backend.events == [("down", "left")]
+    assert controller.held_keys == {"left"}
 
 
 def test_release_all_after_exception() -> None:
@@ -133,6 +153,39 @@ def test_related_game_window_blocks_input_and_releases() -> None:
 
     assert controller.held_keys == set()
     assert ("down", "left") not in backend.events
+
+
+def test_verified_name_entry_dialog_can_only_press_enter_then_resume() -> None:
+    controller, backend = make_controller()
+    dialog = SimpleNamespace(hwnd=456, is_name_entry=True)
+    controller.window_manager.related = [dialog]
+    controller.window_manager.foreground_handle = 456
+    controller.refresh_related_window_state()
+
+    detected = controller.dismiss_verified_name_entry_dialog()
+
+    assert detected is dialog
+    assert backend.events == [("press", "enter")]
+    assert controller.related_window_stopped
+
+    controller.window_manager.related = []
+    controller.window_manager.foreground_handle = 1
+    controller.window_manager.foreground = True
+
+    assert controller.resume_after_related_window()
+    assert not controller.related_window_stopped
+
+
+def test_unrecognized_related_dialog_never_receives_enter() -> None:
+    controller, backend = make_controller()
+    controller.window_manager.related = [
+        SimpleNamespace(hwnd=456, is_name_entry=False)
+    ]
+    controller.window_manager.foreground_handle = 456
+    controller.refresh_related_window_state()
+
+    assert controller.dismiss_verified_name_entry_dialog() is None
+    assert backend.events == []
 
 
 def test_target_active_requires_foreground_and_no_related_window() -> None:

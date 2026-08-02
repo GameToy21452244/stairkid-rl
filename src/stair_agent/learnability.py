@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections import Counter
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, replace
 from typing import Any, Callable, Iterable
 
 import numpy as np
@@ -25,6 +25,7 @@ class ProbeEpisode:
     length: int
     total_return: float
     floors: int
+    deepest_floor: int
     landings: int
     terminal_reason: str | None
 
@@ -41,6 +42,8 @@ class ProbeEvaluation:
     action_counts: dict[str, int]
     max_action_share: float
     collapsed: bool
+    longest_same_action_streak: int
+    direction_switches: int
     terminal_reasons: dict[str, int]
     episode_results: list[ProbeEpisode]
 
@@ -102,6 +105,8 @@ def evaluate_candidate(
     *,
     seeds: Iterable[int],
     max_episode_steps: int,
+    config: ShaftEnvConfig | None = None,
+    success_floor: int | None = None,
 ) -> ProbeEvaluation:
     seed_list = list(seeds)
     if not seed_list or max_episode_steps <= 0:
@@ -109,19 +114,25 @@ def evaluate_candidate(
     action_counts: Counter[str] = Counter()
     terminal_reasons: Counter[str] = Counter()
     episode_results: list[ProbeEpisode] = []
+    longest_same_action_streak = 0
+    direction_switches = 0
     for seed in seed_list:
         reset_selector = getattr(selector, "reset", None)
         if callable(reset_selector):
             reset_selector()
-        env = ShaftEnv(
-            config=ShaftEnvConfig(max_episode_steps=max_episode_steps)
+        env_config = replace(
+            config or ShaftEnvConfig(),
+            max_episode_steps=max_episode_steps,
         )
+        env = ShaftEnv(config=env_config)
         observation, _info = env.reset(seed=seed)
         rng = np.random.default_rng(seed + 90_000)
         total_return = 0.0
         floors = 0
         landings = 0
         terminal_reason = None
+        previous_action: int | None = None
+        current_streak = 0
         try:
             for length in range(1, max_episode_steps + 1):
                 action = int(selector(observation, env, rng))
@@ -130,6 +141,20 @@ def evaluate_candidate(
                         f"{candidate} 產生無效 simulator action：{action}"
                     )
                 action_counts[ACTION_NAMES[action]] += 1
+                if action == previous_action:
+                    current_streak += 1
+                else:
+                    current_streak = 1
+                    if (
+                        previous_action in {1, 2}
+                        and action in {1, 2}
+                        and previous_action != action
+                    ):
+                        direction_switches += 1
+                previous_action = action
+                longest_same_action_streak = max(
+                    longest_same_action_streak, current_streak
+                )
                 (
                     observation,
                     reward,
@@ -140,6 +165,12 @@ def evaluate_candidate(
                 total_return += float(reward)
                 floors += int("floor_descended" in info["events"])
                 landings += int("landed" in info["events"])
+                if (
+                    success_floor is not None
+                    and env.simulator.deepest_floor >= success_floor
+                ):
+                    terminal_reason = "target_reached"
+                    break
                 if terminated or truncated:
                     terminal_reason = info["terminal_reason"]
                     break
@@ -150,6 +181,7 @@ def evaluate_candidate(
                     length=length,
                     total_return=total_return,
                     floors=floors,
+                    deepest_floor=env.simulator.deepest_floor,
                     landings=landings,
                     terminal_reason=terminal_reason,
                 )
@@ -180,6 +212,8 @@ def evaluate_candidate(
         },
         max_action_share=max_share,
         collapsed=max_share >= 0.98,
+        longest_same_action_streak=longest_same_action_streak,
+        direction_switches=direction_switches,
         terminal_reasons=dict(terminal_reasons),
         episode_results=episode_results,
     )

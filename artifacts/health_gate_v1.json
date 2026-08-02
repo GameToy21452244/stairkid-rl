@@ -1,0 +1,30 @@
+{
+  "environment_version": "ns-shaft-sim-v0.2+health-v1",
+  "feature_default_enabled": false,
+  "normal_platform_heal_segments": 1,
+  "max_health_segments": 12,
+  "fixed_oracle_landing_gate": {
+    "seeds": 100,
+    "passed": true,
+    "failures": []
+  },
+  "feature_off_on_full_health_equivalence": {
+    "passed": true,
+    "seeds": 100,
+    "off_mean_floors": 34.68,
+    "on_mean_floors": 34.68,
+    "off_terminal_reasons": {
+      "top": 57,
+      "bottom": 39,
+      "time_limit": 4
+    },
+    "on_terminal_reasons": {
+      "top": 57,
+      "bottom": 39,
+      "time_limit": 4
+    }
+  },
+  "renderer_test": "pytest",
+  "calibration_interface_test": "pytest",
+  "passed": true
+}

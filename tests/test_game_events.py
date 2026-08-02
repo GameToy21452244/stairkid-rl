@@ -6,6 +6,7 @@ from stair_agent.game_events import (
     SpringBounceDetector,
 )
 from stair_agent.hud_detection import HealthEvent, HealthUpdate
+from stair_agent.hud_detection import FloorUpdate
 from stair_agent.object_detection import (
     BoundingBox,
     PlatformDetection,
@@ -87,7 +88,7 @@ def tracked_platform(kind, track_id):
     )
 
 
-def test_second_distinct_landing_emits_floor_descended() -> None:
+def test_track_id_change_alone_does_not_emit_floor_descended() -> None:
     detector = GameplayEventDetector(
         landing_contact_gap=4,
         spring_contact_gap=8,
@@ -112,10 +113,19 @@ def test_second_distinct_landing_emits_floor_descended() -> None:
     )
 
     assert [item.event for item in first_landing] == [GameEvent.LANDED]
-    assert [item.event for item in second_landing] == [
-        GameEvent.LANDED,
-        GameEvent.FLOOR_DESCENDED,
-    ]
+    assert [item.event for item in second_landing] == [GameEvent.LANDED]
+
+
+def test_confirmed_hud_increment_emits_floor_descended() -> None:
+    detector = GameplayEventDetector()
+
+    events = detector.update(
+        state(MotionState.FALLING, platform=None, gap=None),
+        HealthUpdate(12, 0, HealthEvent.UNCHANGED),
+        floor=FloorUpdate(2, 1, True, 1.0),
+    )
+
+    assert [item.event for item in events] == [GameEvent.FLOOR_DESCENDED]
 
 
 def test_positive_health_delta_emits_health_gained() -> None:

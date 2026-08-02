@@ -1,0 +1,54 @@
+{
+  "records": 3541,
+  "episodes": 60,
+  "action_counts": {
+    "0": 1553,
+    "1": 983,
+    "2": 1005
+  },
+  "split_records": {
+    "train": 2367,
+    "validation": 572,
+    "test": 602
+  },
+  "validator_errors": 0,
+  "environment_version": "ns-shaft-sim-v0.2+health-v1+spikes-v1+spike-curriculum-v0",
+  "control_frequency_hz": 10,
+  "physics_frequency_hz": 60,
+  "teacher_type": "teacher_observable",
+  "verified": true,
+  "seed_range": [
+    1000,
+    1059
+  ],
+  "gate_artifact": "artifacts\\spike_curriculum_v0_gate.json",
+  "curriculum": {
+    "spike_proposal_probability": 0.1,
+    "initial_safe_normal_platforms": 3,
+    "minimum_normal_platforms_between_spikes": 5
+  },
+  "event_counts": {
+    "landed": 446,
+    "floor_descended": 446,
+    "spike_contact": 16,
+    "damage": 16,
+    "health_gained": 37
+  },
+  "target_kind_counts": {
+    "normal": 2695,
+    "launch_platform": 760,
+    "none": 51,
+    "spikes": 35
+  },
+  "visible_kind_counts": {
+    "normal": 23622,
+    "spikes": 1286
+  },
+  "spike_visible_records_by_split": {
+    "train": 909,
+    "validation": 123,
+    "test": 232
+  },
+  "episodes_with_spike_visible": 41,
+  "minimum_observed_health": 7
+}

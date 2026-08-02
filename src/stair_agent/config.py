@@ -40,6 +40,7 @@ class ControlsConfig:
     restart_key: str = "enter"
     pause_key: str | None = None
     action_duration_ms: int = 80
+    max_continuous_hold_ms: int = 500
     restart_duration_ms: int = 200
     menu_focus_correction_key: str | None = None
     input_backend: str = "pyautogui"
@@ -79,6 +80,10 @@ class DetectionConfig:
     menu_two_player_button_top: int | None = None
     menu_two_player_button_width: int | None = None
     menu_two_player_button_height: int | None = None
+    menu_exit_button_left: int | None = None
+    menu_exit_button_top: int | None = None
+    menu_exit_button_width: int | None = None
+    menu_exit_button_height: int | None = None
     menu_focus_border_mean_max: float = 180.0
     menu_focus_minimum_contrast: float = 20.0
     menu_focus_inner_gray_max: int = 80
@@ -98,10 +103,12 @@ class VisionConfig:
     player_value_min: int = 170
     player_min_width: int = 15
     player_max_width: int = 50
-    player_min_height: int = 15
+    player_min_height: int = 14
     player_max_height: int = 50
     player_dilate_width: int = 7
     player_dilate_height: int = 9
+    player_close_kernel_size: int = 3
+    player_min_colored_pixels: int = 12
     normal_platform_template_path: str = "captures/templates/platform_normal.png"
     normal_platform_threshold: float = 0.90
     spikes_platform_template_path: str = "captures/templates/platform_spikes.png"
@@ -130,6 +137,15 @@ class HudConfig:
     life_green_min: int = 100
     life_blue_max: int = 100
     life_filled_ratio: float = 0.50
+    floor_counter_left: int | None = None
+    floor_counter_top: int | None = None
+    floor_counter_width: int | None = None
+    floor_counter_height: int | None = None
+    floor_counter_initial_value: int = 1
+    floor_binary_threshold: int = 120
+    floor_change_ratio_threshold: float = 0.025
+    floor_stability_ratio_threshold: float = 0.02
+    floor_change_required_consecutive: int = 2
 
 
 @dataclass
@@ -180,9 +196,9 @@ class EnvironmentConfig:
     auto_restart_on_reset: bool = False
     reset_required_consecutive_frames: int = 3
     reset_max_observation_frames: int = 30
-    reset_focus_max_observation_frames: int = 450
-    reset_focus_correction_max_observation_frames: int = 450
-    reset_focus_correction_max_presses: int = 1
+    reset_focus_max_observation_frames: int = 24
+    reset_focus_correction_max_observation_frames: int = 12
+    reset_focus_correction_max_presses: int = 3
     reset_post_action_delay_seconds: float = 0.4
     max_observation_platforms: int = 8
     observation_history_frames: int = 4
@@ -230,11 +246,40 @@ class BaselineConfig:
     reachability_per_vertical_pixel: float = 0.8
     launch_platform_vertical_gap_pixels: float = 30.0
     launch_escape_clearance_pixels: float = 16.0
+    launch_commit_max_steps: int = 3
+    launch_replan_cooldown_steps: int = 2
+    support_departure_max_steps: int = 8
+    support_departure_lost_frames: int = 1
+    support_departure_abort_cooldown_steps: int = 2
     post_launch_coast_frames: int = 2
+    landing_velocity_lookahead_seconds: float = 0.25
+    landing_prediction_max_seconds: float = 0.55
+    landing_release_projection_seconds: float = 0.05
+    landing_vertical_speed_floor_pixels_per_second: float = 80.0
+    special_escape_edge_guard_pixels: float = 12.0
+    special_escape_outward_velocity_threshold_pixels_per_second: float = 40.0
+    special_contact_direction_commit_steps: int = 3
+    special_contact_destination_stability_steps: int = 2
+    special_contact_replan_limit: int = 1
+    special_contact_forced_exit_steps: int = 4
+    special_contact_reacquire_center_tolerance_pixels: float = 32.0
     fallback_center_x_pixels: float = 231.5
     top_danger_player_y_threshold: float = 140.0
+    top_pressure_memory_steps: int = 4
+    top_pressure_dropout_continue_steps: int = 2
+    top_pressure_support_settle_steps: int = 2
     deep_landing_horizontal_cost: float = 0.75
     emergency_spike_min_health_segments: int = 6
+    recovery_full_health_segments: int = 12
+    special_contact_escape_max_steps: int = 12
+    aligned_platform_dwell_escape_steps: int = 4
+    aligned_platform_dwell_gap_tolerance_pixels: float = 3.0
+    playfield_left_pixels: float = 40.0
+    playfield_right_pixels: float = 423.0
+    wall_guard_margin_pixels: float = 32.0
+    wall_guard_velocity_lookahead_seconds: float = 0.20
+    wall_evacuation_exit_margin_pixels: float = 64.0
+    wall_evacuation_cooldown_steps: int = 4
     safe_platform_kinds: list[str] = field(
         default_factory=lambda: [
             "normal",
@@ -328,6 +373,13 @@ class AppConfig:
             raise ConfigError("controls.input_backend 必須是 pyautogui 或 pydirectinput。")
         if self.controls.action_duration_ms <= 0:
             raise ConfigError("controls.action_duration_ms 必須大於 0。")
+        if (
+            self.controls.max_continuous_hold_ms
+            < self.controls.action_duration_ms
+        ):
+            raise ConfigError(
+                "controls.max_continuous_hold_ms 不可小於 action_duration_ms。"
+            )
         if self.controls.restart_duration_ms <= 0:
             raise ConfigError("controls.restart_duration_ms 必須大於 0。")
         if (
@@ -385,6 +437,10 @@ class AppConfig:
                 raise ConfigError(f"vision.{name} 必須是非空字串清單。")
         if self.vision.player_dilate_width <= 0 or self.vision.player_dilate_height <= 0:
             raise ConfigError("vision.player_dilate_width/height 必須大於 0。")
+        if self.vision.player_close_kernel_size <= 0:
+            raise ConfigError("vision.player_close_kernel_size 必須大於 0。")
+        if self.vision.player_min_colored_pixels <= 0:
+            raise ConfigError("vision.player_min_colored_pixels 必須大於 0。")
         for name in (
             "life_segment_width",
             "life_segment_height",
@@ -398,6 +454,35 @@ class AppConfig:
         for name in ("life_red_min", "life_green_min", "life_blue_max"):
             if not 0 <= getattr(self.hud, name) <= 255:
                 raise ConfigError(f"hud.{name} 必須介於 0 與 255。")
+        floor_roi = (
+            self.hud.floor_counter_left,
+            self.hud.floor_counter_top,
+            self.hud.floor_counter_width,
+            self.hud.floor_counter_height,
+        )
+        if any(value is not None for value in floor_roi):
+            if any(value is None for value in floor_roi):
+                raise ConfigError("hud.floor_counter_* 必須全部設定或全部為 null。")
+            if any(int(value) < 0 for value in floor_roi[:2]):
+                raise ConfigError("hud.floor_counter_left/top 不可小於 0。")
+            if any(int(value) <= 0 for value in floor_roi[2:]):
+                raise ConfigError("hud.floor_counter_width/height 必須大於 0。")
+        if self.hud.floor_counter_initial_value < 0:
+            raise ConfigError("hud.floor_counter_initial_value 不可小於 0。")
+        if not 0 <= self.hud.floor_binary_threshold <= 255:
+            raise ConfigError("hud.floor_binary_threshold 必須介於 0 與 255。")
+        if not (
+            0.0 <= self.hud.floor_stability_ratio_threshold
+            < self.hud.floor_change_ratio_threshold
+            <= 1.0
+        ):
+            raise ConfigError(
+                "hud floor stability/change threshold 必須滿足 0 <= stability < change <= 1。"
+            )
+        if self.hud.floor_change_required_consecutive <= 0:
+            raise ConfigError(
+                "hud.floor_change_required_consecutive 必須大於 0。"
+            )
         for name in (
             "landing_contact_gap",
             "spring_contact_gap",
@@ -584,9 +669,41 @@ class AppConfig:
             "top_danger_player_y_threshold",
             "deep_landing_horizontal_cost",
             "fallback_center_x_pixels",
+            "landing_velocity_lookahead_seconds",
+            "landing_prediction_max_seconds",
+            "landing_release_projection_seconds",
+            "special_escape_edge_guard_pixels",
+            "special_escape_outward_velocity_threshold_pixels_per_second",
+            "special_contact_reacquire_center_tolerance_pixels",
+            "wall_evacuation_exit_margin_pixels",
+            "wall_guard_velocity_lookahead_seconds",
         ):
             if getattr(self.baseline, name) < 0:
                 raise ConfigError(f"baseline.{name} 不可小於 0。")
+        if (
+            self.baseline.landing_vertical_speed_floor_pixels_per_second
+            <= 0
+        ):
+            raise ConfigError(
+                "baseline.landing_vertical_speed_floor_pixels_per_second "
+                "必須大於 0。"
+            )
+        if (
+            self.baseline.landing_prediction_max_seconds
+            < self.baseline.landing_velocity_lookahead_seconds
+        ):
+            raise ConfigError(
+                "baseline.landing_prediction_max_seconds 不可小於 "
+                "landing_velocity_lookahead_seconds。"
+            )
+        if (
+            self.baseline.landing_release_projection_seconds
+            > self.baseline.landing_prediction_max_seconds
+        ):
+            raise ConfigError(
+                "baseline.landing_release_projection_seconds 不可大於 "
+                "landing_prediction_max_seconds。"
+            )
         if self.baseline.direction_switch_release_frames <= 0:
             raise ConfigError(
                 "baseline.direction_switch_release_frames 必須大於 0。"
@@ -594,6 +711,101 @@ class AppConfig:
         if self.baseline.emergency_spike_min_health_segments <= 0:
             raise ConfigError(
                 "baseline.emergency_spike_min_health_segments 必須大於 0。"
+            )
+        if self.baseline.recovery_full_health_segments <= 0:
+            raise ConfigError(
+                "baseline.recovery_full_health_segments 必須大於 0。"
+            )
+        if self.baseline.special_contact_escape_max_steps <= 0:
+            raise ConfigError(
+                "baseline.special_contact_escape_max_steps 必須大於 0。"
+            )
+        for name in (
+            "special_contact_direction_commit_steps",
+            "special_contact_destination_stability_steps",
+            "special_contact_forced_exit_steps",
+        ):
+            if getattr(self.baseline, name) <= 0:
+                raise ConfigError(f"baseline.{name} 必須大於 0。")
+        if self.baseline.special_contact_replan_limit < 0:
+            raise ConfigError(
+                "baseline.special_contact_replan_limit 不可小於 0。"
+            )
+        if self.baseline.launch_commit_max_steps <= 0:
+            raise ConfigError(
+                "baseline.launch_commit_max_steps 必須大於 0。"
+            )
+        if self.baseline.launch_replan_cooldown_steps < 0:
+            raise ConfigError(
+                "baseline.launch_replan_cooldown_steps 不可小於 0。"
+            )
+        if self.baseline.support_departure_max_steps <= 0:
+            raise ConfigError(
+                "baseline.support_departure_max_steps 必須大於 0。"
+            )
+        if self.baseline.support_departure_lost_frames <= 0:
+            raise ConfigError(
+                "baseline.support_departure_lost_frames 必須大於 0。"
+            )
+        if self.baseline.support_departure_abort_cooldown_steps <= 0:
+            raise ConfigError(
+                "baseline.support_departure_abort_cooldown_steps 必須大於 0。"
+            )
+        if self.baseline.wall_evacuation_cooldown_steps < 0:
+            raise ConfigError(
+                "baseline.wall_evacuation_cooldown_steps 不可小於 0。"
+            )
+        if self.baseline.aligned_platform_dwell_escape_steps <= 0:
+            raise ConfigError(
+                "baseline.aligned_platform_dwell_escape_steps 必須大於 0。"
+            )
+        for name in (
+            "top_pressure_memory_steps",
+            "top_pressure_dropout_continue_steps",
+            "top_pressure_support_settle_steps",
+        ):
+            if getattr(self.baseline, name) <= 0:
+                raise ConfigError(f"baseline.{name} 必須大於 0。")
+        if (
+            self.baseline.top_pressure_dropout_continue_steps
+            > self.baseline.top_pressure_memory_steps
+        ):
+            raise ConfigError(
+                "baseline.top_pressure_dropout_continue_steps 不可大於 "
+                "top_pressure_memory_steps。"
+            )
+        if self.baseline.aligned_platform_dwell_gap_tolerance_pixels < 0:
+            raise ConfigError(
+                "baseline.aligned_platform_dwell_gap_tolerance_pixels 不可小於 0。"
+            )
+        if self.baseline.playfield_left_pixels < 0:
+            raise ConfigError("baseline.playfield_left_pixels 不可小於 0。")
+        if (
+            self.baseline.playfield_right_pixels
+            <= self.baseline.playfield_left_pixels
+        ):
+            raise ConfigError(
+                "baseline.playfield_right_pixels 必須大於 playfield_left_pixels。"
+            )
+        if (
+            self.baseline.wall_guard_margin_pixels < 0
+            or self.baseline.wall_guard_margin_pixels * 2
+            >= self.baseline.playfield_right_pixels
+            - self.baseline.playfield_left_pixels
+        ):
+            raise ConfigError(
+                "baseline.wall_guard_margin_pixels 必須非負且小於 playfield 寬度一半。"
+            )
+        if (
+            self.baseline.wall_evacuation_exit_margin_pixels
+            <= self.baseline.wall_guard_margin_pixels
+            or self.baseline.wall_evacuation_exit_margin_pixels * 2
+            >= self.baseline.playfield_right_pixels
+            - self.baseline.playfield_left_pixels
+        ):
+            raise ConfigError(
+                "baseline.wall_evacuation_exit_margin_pixels 必須大於"
+                " wall_guard_margin_pixels 且小於 playfield 寬度一半。"
             )
         if self.baseline.post_launch_coast_frames < 0:
             raise ConfigError(

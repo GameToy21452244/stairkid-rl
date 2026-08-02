@@ -22,6 +22,8 @@ controls:
   restart_key: "enter"
   pause_key: null
   action_duration_ms: 80
+  # 同方向可跨 observation 持續按住；若控制迴圈卡住，500 ms 後 watchdog 自動放鍵。
+  max_continuous_hold_ms: 500
   restart_duration_ms: 200
   menu_focus_correction_key: null
   input_backend: "pyautogui"
@@ -55,6 +57,10 @@ detection:
   menu_two_player_button_top: null
   menu_two_player_button_width: null
   menu_two_player_button_height: null
+  menu_exit_button_left: null
+  menu_exit_button_top: null
+  menu_exit_button_width: null
+  menu_exit_button_height: null
   menu_focus_border_mean_max: 180.0
   menu_focus_minimum_contrast: 20.0
   menu_focus_inner_gray_max: 80
@@ -72,10 +78,12 @@ vision:
   player_value_min: 170
   player_min_width: 15
   player_max_width: 50
-  player_min_height: 15
+  player_min_height: 14
   player_max_height: 50
   player_dilate_width: 7
   player_dilate_height: 9
+  player_close_kernel_size: 3
+  player_min_colored_pixels: 12
   normal_platform_template_path: "captures/templates/platform_normal.png"
   normal_platform_threshold: 0.90
   spikes_platform_template_path: "captures/templates/platform_spikes.png"
@@ -102,6 +110,17 @@ hud:
   life_green_min: 100
   life_blue_max: 100
   life_filled_ratio: 0.50
+  # 需由實機 HUD 校正；全為 null 時 floor counter 明確標示 unavailable。
+  floor_counter_left: null
+  floor_counter_top: null
+  floor_counter_width: null
+  floor_counter_height: null
+  floor_counter_initial_value: 1
+  floor_binary_threshold: 120
+  # 2026-08-03 real-video calibration: HUD 5->6 differs by about 2.985%.
+  floor_change_ratio_threshold: 0.025
+  floor_stability_ratio_threshold: 0.02
+  floor_change_required_consecutive: 2
 
 events:
   landing_contact_gap: 6
@@ -145,9 +164,9 @@ environment:
   auto_restart_on_reset: false
   reset_required_consecutive_frames: 3
   reset_max_observation_frames: 30
-  reset_focus_max_observation_frames: 450
-  reset_focus_correction_max_observation_frames: 450
-  reset_focus_correction_max_presses: 1
+  reset_focus_max_observation_frames: 24
+  reset_focus_correction_max_observation_frames: 12
+  reset_focus_correction_max_presses: 3
   reset_post_action_delay_seconds: 0.4
   max_observation_platforms: 8
   observation_history_frames: 4
@@ -191,11 +210,40 @@ baseline:
   reachability_per_vertical_pixel: 0.8
   launch_platform_vertical_gap_pixels: 30.0
   launch_escape_clearance_pixels: 16.0
+  launch_commit_max_steps: 3
+  launch_replan_cooldown_steps: 2
+  support_departure_max_steps: 8
+  support_departure_lost_frames: 1
+  support_departure_abort_cooldown_steps: 2
   post_launch_coast_frames: 2
+  landing_velocity_lookahead_seconds: 0.25
+  landing_prediction_max_seconds: 0.55
+  landing_release_projection_seconds: 0.05
+  landing_vertical_speed_floor_pixels_per_second: 80.0
+  special_escape_edge_guard_pixels: 12.0
+  special_escape_outward_velocity_threshold_pixels_per_second: 40.0
+  special_contact_direction_commit_steps: 3
+  special_contact_destination_stability_steps: 2
+  special_contact_replan_limit: 1
+  special_contact_forced_exit_steps: 4
+  special_contact_reacquire_center_tolerance_pixels: 32.0
   fallback_center_x_pixels: 231.5
   top_danger_player_y_threshold: 140.0
+  top_pressure_memory_steps: 4
+  top_pressure_dropout_continue_steps: 2
+  top_pressure_support_settle_steps: 2
   deep_landing_horizontal_cost: 0.75
   emergency_spike_min_health_segments: 6
+  recovery_full_health_segments: 12
+  special_contact_escape_max_steps: 12
+  aligned_platform_dwell_escape_steps: 4
+  aligned_platform_dwell_gap_tolerance_pixels: 3.0
+  playfield_left_pixels: 40.0
+  playfield_right_pixels: 423.0
+  wall_guard_margin_pixels: 32.0
+  wall_guard_velocity_lookahead_seconds: 0.20
+  wall_evacuation_exit_margin_pixels: 64.0
+  wall_evacuation_cooldown_steps: 4
   safe_platform_kinds:
     - normal
     - spring

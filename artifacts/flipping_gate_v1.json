@@ -1,0 +1,40 @@
+{
+  "environment_version": "ns-shaft-sim-v0.2+flipping-v1",
+  "feature_default_enabled": false,
+  "provisional_active_seconds": 1.0,
+  "provisional_inactive_seconds": 1.0,
+  "fixed_gates": {
+    "seeds": 100,
+    "active_collision": {
+      "passed": true,
+      "failures": []
+    },
+    "inactive_passthrough": {
+      "passed": true,
+      "failures": []
+    },
+    "oracle_normal_preference": {
+      "passed": true,
+      "failures": []
+    }
+  },
+  "no_spawn_feature_equivalence": {
+    "passed": true,
+    "seeds": 100,
+    "feature_off_mean_floors": 34.68,
+    "feature_on_mean_floors": 34.68,
+    "feature_off_terminal_reasons": {
+      "top": 57,
+      "bottom": 39,
+      "time_limit": 4
+    },
+    "feature_on_terminal_reasons": {
+      "top": 57,
+      "bottom": 39,
+      "time_limit": 4
+    }
+  },
+  "renderer_test": "pytest",
+  "calibration_interface_test": "pytest",
+  "passed": true
+}

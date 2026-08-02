@@ -1,0 +1,2018 @@
+{
+  "experiment": "teacher-observable-health-recovery-v0",
+  "gate_seeds": [
+    1800,
+    1801,
+    1802,
+    1803,
+    1804,
+    1805,
+    1806,
+    1807,
+    1808,
+    1809,
+    1810,
+    1811,
+    1812,
+    1813,
+    1814,
+    1815,
+    1816,
+    1817,
+    1818,
+    1819,
+    1820,
+    1821,
+    1822,
+    1823,
+    1824,
+    1825,
+    1826,
+    1827,
+    1828,
+    1829,
+    1830,
+    1831,
+    1832,
+    1833,
+    1834,
+    1835,
+    1836,
+    1837,
+    1838,
+    1839,
+    1840,
+    1841,
+    1842,
+    1843,
+    1844,
+    1845,
+    1846,
+    1847,
+    1848,
+    1849,
+    1850,
+    1851,
+    1852,
+    1853,
+    1854,
+    1855,
+    1856,
+    1857,
+    1858,
+    1859,
+    1860,
+    1861,
+    1862,
+    1863,
+    1864,
+    1865,
+    1866,
+    1867,
+    1868,
+    1869,
+    1870,
+    1871,
+    1872,
+    1873,
+    1874,
+    1875,
+    1876,
+    1877,
+    1878,
+    1879,
+    1880,
+    1881,
+    1882,
+    1883,
+    1884,
+    1885,
+    1886,
+    1887,
+    1888,
+    1889,
+    1890,
+    1891,
+    1892,
+    1893,
+    1894,
+    1895,
+    1896,
+    1897,
+    1898,
+    1899
+  ],
+  "initial_health_segments": 7,
+  "recovery_full_health_segments": 12,
+  "reason_counts": {
+    "aligned_with_recovery_platform": 2977,
+    "escape_launch_platform": 13726,
+    "direction_change_brake": 1725,
+    "move_toward_recovery_platform": 1382,
+    "aligned_with_visible_recovery_platform": 10,
+    "move_toward_safe_platform": 1024,
+    "aligned_with_safe_platform": 2313,
+    "aligned_with_visible_safe_platform": 16,
+    "approach_visible_safe_platform": 21,
+    "aligned_with_visible_emergency_spikes": 3,
+    "aligned_with_deeper_safe_platform": 2361,
+    "move_toward_deeper_safe_platform": 1399,
+    "approach_visible_recovery_platform": 26,
+    "reposition_for_unseen_landing": 15,
+    "no_reachable_landing": 23,
+    "approach_visible_emergency_spikes": 10
+  },
+  "recovery_decisions": 4395,
+  "low_health_evaluation": {
+    "candidate": "teacher_observable_recovery",
+    "episodes": 100,
+    "total_steps": 27031,
+    "mean_length": 270.31,
+    "mean_return": 25.868399999999948,
+    "mean_floors": 31.83,
+    "mean_landings": 31.83,
+    "action_counts": {
+      "RELEASE_ALL": 9430,
+      "LEFT": 8814,
+      "RIGHT": 8787
+    },
+    "max_action_share": 0.34885871776848804,
+    "collapsed": false,
+    "longest_same_action_streak": 25,
+    "direction_switches": 0,
+    "terminal_reasons": {
+      "top": 86,
+      "bottom": 11,
+      "time_limit": 3
+    },
+    "episode_results": [
+      {
+        "seed": 1800,
+        "length": 325,
+        "total_return": 31.649999999999856,
+        "floors": 38,
+        "deepest_floor": 58,
+        "landings": 38,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1801,
+        "length": 209,
+        "total_return": 14.959999999999928,
+        "floors": 21,
+        "deepest_floor": 37,
+        "landings": 21,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1802,
+        "length": 345,
+        "total_return": 33.54999999999988,
+        "floors": 40,
+        "deepest_floor": 62,
+        "landings": 40,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1803,
+        "length": 231,
+        "total_return": 22.089999999999883,
+        "floors": 28,
+        "deepest_floor": 39,
+        "landings": 28,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1804,
+        "length": 180,
+        "total_return": 17.349999999999945,
+        "floors": 23,
+        "deepest_floor": 29,
+        "landings": 23,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1805,
+        "length": 220,
+        "total_return": 21.14999999999992,
+        "floors": 27,
+        "deepest_floor": 37,
+        "landings": 27,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1806,
+        "length": 255,
+        "total_return": 23.949999999999868,
+        "floors": 30,
+        "deepest_floor": 44,
+        "landings": 30,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1807,
+        "length": 360,
+        "total_return": 36.549999999999926,
+        "floors": 43,
+        "deepest_floor": 65,
+        "landings": 43,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1808,
+        "length": 295,
+        "total_return": 29.84999999999983,
+        "floors": 36,
+        "deepest_floor": 52,
+        "landings": 36,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1809,
+        "length": 186,
+        "total_return": 17.28999999999995,
+        "floors": 23,
+        "deepest_floor": 30,
+        "landings": 23,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1810,
+        "length": 600,
+        "total_return": 63.30000000000026,
+        "floors": 66,
+        "deepest_floor": 112,
+        "landings": 66,
+        "terminal_reason": "time_limit"
+      },
+      {
+        "seed": 1811,
+        "length": 410,
+        "total_return": 41.299999999999955,
+        "floors": 48,
+        "deepest_floor": 75,
+        "landings": 48,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1812,
+        "length": 185,
+        "total_return": 17.299999999999947,
+        "floors": 23,
+        "deepest_floor": 30,
+        "landings": 23,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1813,
+        "length": 230,
+        "total_return": 22.099999999999902,
+        "floors": 28,
+        "deepest_floor": 39,
+        "landings": 28,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1814,
+        "length": 250,
+        "total_return": 23.999999999999858,
+        "floors": 30,
+        "deepest_floor": 43,
+        "landings": 30,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1815,
+        "length": 310,
+        "total_return": 29.699999999999847,
+        "floors": 36,
+        "deepest_floor": 55,
+        "landings": 36,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1816,
+        "length": 67,
+        "total_return": 0.6300000000000079,
+        "floors": 6,
+        "deepest_floor": 9,
+        "landings": 6,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1817,
+        "length": 250,
+        "total_return": 25.04999999999987,
+        "floors": 31,
+        "deepest_floor": 43,
+        "landings": 31,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1818,
+        "length": 300,
+        "total_return": 29.799999999999827,
+        "floors": 36,
+        "deepest_floor": 53,
+        "landings": 36,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1819,
+        "length": 44,
+        "total_return": -2.2899999999999974,
+        "floors": 3,
+        "deepest_floor": 8,
+        "landings": 3,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1820,
+        "length": 51,
+        "total_return": -1.3099999999999943,
+        "floors": 4,
+        "deepest_floor": 7,
+        "landings": 4,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1821,
+        "length": 565,
+        "total_return": 55.500000000000256,
+        "floors": 63,
+        "deepest_floor": 106,
+        "landings": 63,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1822,
+        "length": 230,
+        "total_return": 22.09999999999988,
+        "floors": 28,
+        "deepest_floor": 39,
+        "landings": 28,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1823,
+        "length": 220,
+        "total_return": 21.1499999999999,
+        "floors": 27,
+        "deepest_floor": 37,
+        "landings": 27,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1824,
+        "length": 281,
+        "total_return": 26.83999999999982,
+        "floors": 33,
+        "deepest_floor": 49,
+        "landings": 33,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1825,
+        "length": 200,
+        "total_return": 19.249999999999908,
+        "floors": 25,
+        "deepest_floor": 33,
+        "landings": 25,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1826,
+        "length": 585,
+        "total_return": 58.45000000000029,
+        "floors": 66,
+        "deepest_floor": 110,
+        "landings": 66,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1827,
+        "length": 210,
+        "total_return": 20.199999999999903,
+        "floors": 26,
+        "deepest_floor": 35,
+        "landings": 26,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1828,
+        "length": 315,
+        "total_return": 30.699999999999847,
+        "floors": 37,
+        "deepest_floor": 56,
+        "landings": 37,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1829,
+        "length": 205,
+        "total_return": 19.199999999999918,
+        "floors": 25,
+        "deepest_floor": 34,
+        "landings": 25,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1830,
+        "length": 165,
+        "total_return": 15.399999999999968,
+        "floors": 21,
+        "deepest_floor": 26,
+        "landings": 21,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1831,
+        "length": 180,
+        "total_return": 17.349999999999945,
+        "floors": 23,
+        "deepest_floor": 29,
+        "landings": 23,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1832,
+        "length": 146,
+        "total_return": 13.48999999999999,
+        "floors": 19,
+        "deepest_floor": 22,
+        "landings": 19,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1833,
+        "length": 145,
+        "total_return": 9.300000000000022,
+        "floors": 15,
+        "deepest_floor": 22,
+        "landings": 15,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1834,
+        "length": 231,
+        "total_return": 22.089999999999883,
+        "floors": 28,
+        "deepest_floor": 39,
+        "landings": 28,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1835,
+        "length": 290,
+        "total_return": 27.799999999999805,
+        "floors": 34,
+        "deepest_floor": 51,
+        "landings": 34,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1836,
+        "length": 270,
+        "total_return": 25.899999999999835,
+        "floors": 32,
+        "deepest_floor": 47,
+        "landings": 32,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1837,
+        "length": 165,
+        "total_return": 15.399999999999968,
+        "floors": 21,
+        "deepest_floor": 26,
+        "landings": 21,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1838,
+        "length": 305,
+        "total_return": 29.74999999999983,
+        "floors": 36,
+        "deepest_floor": 54,
+        "landings": 36,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1839,
+        "length": 200,
+        "total_return": 19.249999999999922,
+        "floors": 25,
+        "deepest_floor": 33,
+        "landings": 25,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1840,
+        "length": 246,
+        "total_return": 22.989999999999867,
+        "floors": 29,
+        "deepest_floor": 42,
+        "landings": 29,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1841,
+        "length": 200,
+        "total_return": 19.249999999999915,
+        "floors": 25,
+        "deepest_floor": 33,
+        "landings": 25,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1842,
+        "length": 155,
+        "total_return": 14.449999999999973,
+        "floors": 20,
+        "deepest_floor": 24,
+        "landings": 20,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1843,
+        "length": 210,
+        "total_return": 20.199999999999896,
+        "floors": 26,
+        "deepest_floor": 35,
+        "landings": 26,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1844,
+        "length": 455,
+        "total_return": 45.050000000000026,
+        "floors": 52,
+        "deepest_floor": 84,
+        "landings": 52,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1845,
+        "length": 600,
+        "total_return": 60.400000000000254,
+        "floors": 68,
+        "deepest_floor": 113,
+        "landings": 68,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1846,
+        "length": 186,
+        "total_return": 17.289999999999957,
+        "floors": 23,
+        "deepest_floor": 30,
+        "landings": 23,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1847,
+        "length": 355,
+        "total_return": 35.549999999999876,
+        "floors": 42,
+        "deepest_floor": 64,
+        "landings": 42,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1848,
+        "length": 505,
+        "total_return": 50.85000000000013,
+        "floors": 58,
+        "deepest_floor": 94,
+        "landings": 58,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1849,
+        "length": 180,
+        "total_return": 17.349999999999945,
+        "floors": 23,
+        "deepest_floor": 29,
+        "landings": 23,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1850,
+        "length": 215,
+        "total_return": 20.149999999999913,
+        "floors": 26,
+        "deepest_floor": 36,
+        "landings": 26,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1851,
+        "length": 465,
+        "total_return": 46.000000000000064,
+        "floors": 53,
+        "deepest_floor": 86,
+        "landings": 53,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1852,
+        "length": 230,
+        "total_return": 22.09999999999988,
+        "floors": 28,
+        "deepest_floor": 39,
+        "landings": 28,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1853,
+        "length": 310,
+        "total_return": 29.699999999999847,
+        "floors": 36,
+        "deepest_floor": 55,
+        "landings": 36,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1854,
+        "length": 261,
+        "total_return": 24.93999999999985,
+        "floors": 31,
+        "deepest_floor": 45,
+        "landings": 31,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1855,
+        "length": 196,
+        "total_return": 18.23999999999993,
+        "floors": 24,
+        "deepest_floor": 32,
+        "landings": 24,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1856,
+        "length": 155,
+        "total_return": 14.449999999999983,
+        "floors": 20,
+        "deepest_floor": 24,
+        "landings": 20,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1857,
+        "length": 185,
+        "total_return": 17.29999999999994,
+        "floors": 23,
+        "deepest_floor": 30,
+        "landings": 23,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1858,
+        "length": 200,
+        "total_return": 19.249999999999908,
+        "floors": 25,
+        "deepest_floor": 33,
+        "landings": 25,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1859,
+        "length": 415,
+        "total_return": 41.24999999999996,
+        "floors": 48,
+        "deepest_floor": 76,
+        "landings": 48,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1860,
+        "length": 391,
+        "total_return": 38.33999999999994,
+        "floors": 45,
+        "deepest_floor": 71,
+        "landings": 45,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1861,
+        "length": 235,
+        "total_return": 23.099999999999888,
+        "floors": 29,
+        "deepest_floor": 40,
+        "landings": 29,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1862,
+        "length": 49,
+        "total_return": -1.2899999999999938,
+        "floors": 4,
+        "deepest_floor": 6,
+        "landings": 4,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1863,
+        "length": 226,
+        "total_return": 22.139999999999887,
+        "floors": 28,
+        "deepest_floor": 38,
+        "landings": 28,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1864,
+        "length": 255,
+        "total_return": 24.99999999999985,
+        "floors": 31,
+        "deepest_floor": 44,
+        "landings": 31,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1865,
+        "length": 430,
+        "total_return": 42.15000000000001,
+        "floors": 49,
+        "deepest_floor": 79,
+        "landings": 49,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1866,
+        "length": 376,
+        "total_return": 33.23999999999996,
+        "floors": 40,
+        "deepest_floor": 65,
+        "landings": 40,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1867,
+        "length": 265,
+        "total_return": 25.949999999999818,
+        "floors": 32,
+        "deepest_floor": 46,
+        "landings": 32,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1868,
+        "length": 170,
+        "total_return": 16.399999999999963,
+        "floors": 22,
+        "deepest_floor": 27,
+        "landings": 22,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1869,
+        "length": 155,
+        "total_return": 14.449999999999983,
+        "floors": 20,
+        "deepest_floor": 24,
+        "landings": 20,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1870,
+        "length": 300,
+        "total_return": 29.799999999999834,
+        "floors": 36,
+        "deepest_floor": 53,
+        "landings": 36,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1871,
+        "length": 395,
+        "total_return": 39.34999999999999,
+        "floors": 46,
+        "deepest_floor": 72,
+        "landings": 46,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1872,
+        "length": 235,
+        "total_return": 23.09999999999988,
+        "floors": 29,
+        "deepest_floor": 40,
+        "landings": 29,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1873,
+        "length": 600,
+        "total_return": 62.25000000000033,
+        "floors": 65,
+        "deepest_floor": 115,
+        "landings": 65,
+        "terminal_reason": "time_limit"
+      },
+      {
+        "seed": 1874,
+        "length": 210,
+        "total_return": 20.19999999999991,
+        "floors": 26,
+        "deepest_floor": 35,
+        "landings": 26,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1875,
+        "length": 186,
+        "total_return": 17.28999999999995,
+        "floors": 23,
+        "deepest_floor": 30,
+        "landings": 23,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1876,
+        "length": 515,
+        "total_return": 51.800000000000146,
+        "floors": 59,
+        "deepest_floor": 96,
+        "landings": 59,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1877,
+        "length": 170,
+        "total_return": 16.39999999999995,
+        "floors": 22,
+        "deepest_floor": 27,
+        "landings": 22,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1878,
+        "length": 150,
+        "total_return": 14.499999999999984,
+        "floors": 20,
+        "deepest_floor": 23,
+        "landings": 20,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1879,
+        "length": 170,
+        "total_return": 12.199999999999976,
+        "floors": 18,
+        "deepest_floor": 26,
+        "landings": 18,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1880,
+        "length": 525,
+        "total_return": 52.75000000000019,
+        "floors": 60,
+        "deepest_floor": 98,
+        "landings": 60,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1881,
+        "length": 180,
+        "total_return": 17.34999999999996,
+        "floors": 23,
+        "deepest_floor": 29,
+        "landings": 23,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1882,
+        "length": 600,
+        "total_return": 63.30000000000025,
+        "floors": 66,
+        "deepest_floor": 117,
+        "landings": 66,
+        "terminal_reason": "time_limit"
+      },
+      {
+        "seed": 1883,
+        "length": 375,
+        "total_return": 37.44999999999994,
+        "floors": 44,
+        "deepest_floor": 68,
+        "landings": 44,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1884,
+        "length": 210,
+        "total_return": 20.199999999999896,
+        "floors": 26,
+        "deepest_floor": 35,
+        "landings": 26,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1885,
+        "length": 155,
+        "total_return": 10.250000000000021,
+        "floors": 16,
+        "deepest_floor": 26,
+        "landings": 16,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1886,
+        "length": 385,
+        "total_return": 38.39999999999993,
+        "floors": 45,
+        "deepest_floor": 70,
+        "landings": 45,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1887,
+        "length": 270,
+        "total_return": 25.899999999999835,
+        "floors": 32,
+        "deepest_floor": 47,
+        "landings": 32,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1888,
+        "length": 38,
+        "total_return": -2.229999999999996,
+        "floors": 3,
+        "deepest_floor": 3,
+        "landings": 3,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1889,
+        "length": 365,
+        "total_return": 36.49999999999993,
+        "floors": 43,
+        "deepest_floor": 66,
+        "landings": 43,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1890,
+        "length": 350,
+        "total_return": 34.549999999999905,
+        "floors": 41,
+        "deepest_floor": 63,
+        "landings": 41,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1891,
+        "length": 235,
+        "total_return": 23.09999999999988,
+        "floors": 29,
+        "deepest_floor": 40,
+        "landings": 29,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1892,
+        "length": 295,
+        "total_return": 28.799999999999827,
+        "floors": 35,
+        "deepest_floor": 52,
+        "landings": 35,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1893,
+        "length": 270,
+        "total_return": 25.899999999999828,
+        "floors": 32,
+        "deepest_floor": 47,
+        "landings": 32,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1894,
+        "length": 265,
+        "total_return": 24.89999999999985,
+        "floors": 31,
+        "deepest_floor": 46,
+        "landings": 31,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1895,
+        "length": 435,
+        "total_return": 43.15000000000003,
+        "floors": 50,
+        "deepest_floor": 80,
+        "landings": 50,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1896,
+        "length": 50,
+        "total_return": -1.2999999999999936,
+        "floors": 4,
+        "deepest_floor": 7,
+        "landings": 4,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1897,
+        "length": 155,
+        "total_return": 14.449999999999983,
+        "floors": 20,
+        "deepest_floor": 24,
+        "landings": 20,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1898,
+        "length": 210,
+        "total_return": 20.199999999999903,
+        "floors": 26,
+        "deepest_floor": 35,
+        "landings": 26,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1899,
+        "length": 245,
+        "total_return": 22.999999999999872,
+        "floors": 29,
+        "deepest_floor": 42,
+        "landings": 29,
+        "terminal_reason": "top"
+      }
+    ],
+    "median_floors": 29.0,
+    "std_floors": 14.396565562661117,
+    "floor_quantile_25": 23.0,
+    "mean_deepest_floor": 47.31,
+    "median_deepest_floor": 40.0,
+    "deepest_floor_quantile_25": 30.0,
+    "floors_bootstrap_ci95": [
+      28.96,
+      34.56075
+    ],
+    "success_rate_floor_1": 1.0,
+    "success_rate_floor_3": 1.0,
+    "success_rate_floor_5": 0.95,
+    "success_rate_floor_10": 0.94,
+    "reach_rate_floor_1": 1.0,
+    "reach_rate_floor_3": 1.0,
+    "reach_rate_floor_5": 0.99,
+    "reach_rate_floor_10": 0.94
+  },
+  "full_health_reference": {
+    "candidate": "teacher_observable_full_health_reference",
+    "episodes": 100,
+    "total_steps": 27193,
+    "mean_length": 271.93,
+    "mean_return": 26.020199999999942,
+    "mean_floors": 31.99,
+    "mean_landings": 31.99,
+    "action_counts": {
+      "RELEASE_ALL": 9439,
+      "LEFT": 8890,
+      "RIGHT": 8864
+    },
+    "max_action_share": 0.34711138896039423,
+    "collapsed": false,
+    "longest_same_action_streak": 25,
+    "direction_switches": 0,
+    "terminal_reasons": {
+      "top": 86,
+      "bottom": 11,
+      "time_limit": 3
+    },
+    "episode_results": [
+      {
+        "seed": 1800,
+        "length": 325,
+        "total_return": 31.649999999999856,
+        "floors": 38,
+        "deepest_floor": 58,
+        "landings": 38,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1801,
+        "length": 209,
+        "total_return": 14.959999999999928,
+        "floors": 21,
+        "deepest_floor": 37,
+        "landings": 21,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1802,
+        "length": 345,
+        "total_return": 33.54999999999988,
+        "floors": 40,
+        "deepest_floor": 62,
+        "landings": 40,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1803,
+        "length": 231,
+        "total_return": 22.089999999999883,
+        "floors": 28,
+        "deepest_floor": 39,
+        "landings": 28,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1804,
+        "length": 180,
+        "total_return": 17.349999999999945,
+        "floors": 23,
+        "deepest_floor": 29,
+        "landings": 23,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1805,
+        "length": 220,
+        "total_return": 21.14999999999992,
+        "floors": 27,
+        "deepest_floor": 37,
+        "landings": 27,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1806,
+        "length": 255,
+        "total_return": 23.949999999999868,
+        "floors": 30,
+        "deepest_floor": 44,
+        "landings": 30,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1807,
+        "length": 360,
+        "total_return": 36.549999999999926,
+        "floors": 43,
+        "deepest_floor": 65,
+        "landings": 43,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1808,
+        "length": 295,
+        "total_return": 29.84999999999983,
+        "floors": 36,
+        "deepest_floor": 52,
+        "landings": 36,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1809,
+        "length": 186,
+        "total_return": 17.28999999999995,
+        "floors": 23,
+        "deepest_floor": 30,
+        "landings": 23,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1810,
+        "length": 600,
+        "total_return": 63.30000000000026,
+        "floors": 66,
+        "deepest_floor": 112,
+        "landings": 66,
+        "terminal_reason": "time_limit"
+      },
+      {
+        "seed": 1811,
+        "length": 410,
+        "total_return": 41.299999999999955,
+        "floors": 48,
+        "deepest_floor": 75,
+        "landings": 48,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1812,
+        "length": 185,
+        "total_return": 17.299999999999947,
+        "floors": 23,
+        "deepest_floor": 30,
+        "landings": 23,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1813,
+        "length": 230,
+        "total_return": 22.099999999999902,
+        "floors": 28,
+        "deepest_floor": 39,
+        "landings": 28,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1814,
+        "length": 250,
+        "total_return": 23.999999999999858,
+        "floors": 30,
+        "deepest_floor": 43,
+        "landings": 30,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1815,
+        "length": 310,
+        "total_return": 29.699999999999847,
+        "floors": 36,
+        "deepest_floor": 55,
+        "landings": 36,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1816,
+        "length": 67,
+        "total_return": 0.6300000000000079,
+        "floors": 6,
+        "deepest_floor": 9,
+        "landings": 6,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1817,
+        "length": 250,
+        "total_return": 25.04999999999987,
+        "floors": 31,
+        "deepest_floor": 43,
+        "landings": 31,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1818,
+        "length": 300,
+        "total_return": 29.799999999999827,
+        "floors": 36,
+        "deepest_floor": 53,
+        "landings": 36,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1819,
+        "length": 44,
+        "total_return": -2.2899999999999974,
+        "floors": 3,
+        "deepest_floor": 8,
+        "landings": 3,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1820,
+        "length": 51,
+        "total_return": -1.3099999999999943,
+        "floors": 4,
+        "deepest_floor": 7,
+        "landings": 4,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1821,
+        "length": 565,
+        "total_return": 55.500000000000256,
+        "floors": 63,
+        "deepest_floor": 106,
+        "landings": 63,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1822,
+        "length": 230,
+        "total_return": 22.09999999999988,
+        "floors": 28,
+        "deepest_floor": 39,
+        "landings": 28,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1823,
+        "length": 220,
+        "total_return": 21.1499999999999,
+        "floors": 27,
+        "deepest_floor": 37,
+        "landings": 27,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1824,
+        "length": 281,
+        "total_return": 26.83999999999982,
+        "floors": 33,
+        "deepest_floor": 49,
+        "landings": 33,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1825,
+        "length": 200,
+        "total_return": 19.249999999999908,
+        "floors": 25,
+        "deepest_floor": 33,
+        "landings": 25,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1826,
+        "length": 585,
+        "total_return": 58.45000000000029,
+        "floors": 66,
+        "deepest_floor": 110,
+        "landings": 66,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1827,
+        "length": 210,
+        "total_return": 20.199999999999903,
+        "floors": 26,
+        "deepest_floor": 35,
+        "landings": 26,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1828,
+        "length": 315,
+        "total_return": 30.699999999999847,
+        "floors": 37,
+        "deepest_floor": 56,
+        "landings": 37,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1829,
+        "length": 205,
+        "total_return": 19.199999999999918,
+        "floors": 25,
+        "deepest_floor": 34,
+        "landings": 25,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1830,
+        "length": 196,
+        "total_return": 18.239999999999924,
+        "floors": 24,
+        "deepest_floor": 32,
+        "landings": 24,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1831,
+        "length": 180,
+        "total_return": 17.349999999999945,
+        "floors": 23,
+        "deepest_floor": 29,
+        "landings": 23,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1832,
+        "length": 146,
+        "total_return": 13.48999999999999,
+        "floors": 19,
+        "deepest_floor": 22,
+        "landings": 19,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1833,
+        "length": 145,
+        "total_return": 9.300000000000022,
+        "floors": 15,
+        "deepest_floor": 22,
+        "landings": 15,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1834,
+        "length": 231,
+        "total_return": 22.089999999999883,
+        "floors": 28,
+        "deepest_floor": 39,
+        "landings": 28,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1835,
+        "length": 290,
+        "total_return": 27.799999999999805,
+        "floors": 34,
+        "deepest_floor": 51,
+        "landings": 34,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1836,
+        "length": 270,
+        "total_return": 25.899999999999835,
+        "floors": 32,
+        "deepest_floor": 47,
+        "landings": 32,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1837,
+        "length": 165,
+        "total_return": 15.399999999999968,
+        "floors": 21,
+        "deepest_floor": 26,
+        "landings": 21,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1838,
+        "length": 305,
+        "total_return": 29.74999999999983,
+        "floors": 36,
+        "deepest_floor": 54,
+        "landings": 36,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1839,
+        "length": 200,
+        "total_return": 19.249999999999922,
+        "floors": 25,
+        "deepest_floor": 33,
+        "landings": 25,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1840,
+        "length": 246,
+        "total_return": 22.989999999999867,
+        "floors": 29,
+        "deepest_floor": 42,
+        "landings": 29,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1841,
+        "length": 200,
+        "total_return": 19.249999999999915,
+        "floors": 25,
+        "deepest_floor": 33,
+        "landings": 25,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1842,
+        "length": 155,
+        "total_return": 14.449999999999973,
+        "floors": 20,
+        "deepest_floor": 24,
+        "landings": 20,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1843,
+        "length": 210,
+        "total_return": 20.199999999999896,
+        "floors": 26,
+        "deepest_floor": 35,
+        "landings": 26,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1844,
+        "length": 455,
+        "total_return": 45.050000000000026,
+        "floors": 52,
+        "deepest_floor": 84,
+        "landings": 52,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1845,
+        "length": 600,
+        "total_return": 60.400000000000254,
+        "floors": 68,
+        "deepest_floor": 113,
+        "landings": 68,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1846,
+        "length": 186,
+        "total_return": 17.289999999999957,
+        "floors": 23,
+        "deepest_floor": 30,
+        "landings": 23,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1847,
+        "length": 355,
+        "total_return": 35.549999999999876,
+        "floors": 42,
+        "deepest_floor": 64,
+        "landings": 42,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1848,
+        "length": 505,
+        "total_return": 50.85000000000013,
+        "floors": 58,
+        "deepest_floor": 94,
+        "landings": 58,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1849,
+        "length": 180,
+        "total_return": 17.349999999999945,
+        "floors": 23,
+        "deepest_floor": 29,
+        "landings": 23,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1850,
+        "length": 215,
+        "total_return": 20.149999999999913,
+        "floors": 26,
+        "deepest_floor": 36,
+        "landings": 26,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1851,
+        "length": 465,
+        "total_return": 46.000000000000064,
+        "floors": 53,
+        "deepest_floor": 86,
+        "landings": 53,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1852,
+        "length": 230,
+        "total_return": 22.09999999999988,
+        "floors": 28,
+        "deepest_floor": 39,
+        "landings": 28,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1853,
+        "length": 310,
+        "total_return": 29.699999999999847,
+        "floors": 36,
+        "deepest_floor": 55,
+        "landings": 36,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1854,
+        "length": 261,
+        "total_return": 24.93999999999985,
+        "floors": 31,
+        "deepest_floor": 45,
+        "landings": 31,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1855,
+        "length": 196,
+        "total_return": 18.23999999999993,
+        "floors": 24,
+        "deepest_floor": 32,
+        "landings": 24,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1856,
+        "length": 155,
+        "total_return": 14.449999999999983,
+        "floors": 20,
+        "deepest_floor": 24,
+        "landings": 20,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1857,
+        "length": 185,
+        "total_return": 17.29999999999994,
+        "floors": 23,
+        "deepest_floor": 30,
+        "landings": 23,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1858,
+        "length": 200,
+        "total_return": 19.249999999999908,
+        "floors": 25,
+        "deepest_floor": 33,
+        "landings": 25,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1859,
+        "length": 415,
+        "total_return": 41.24999999999996,
+        "floors": 48,
+        "deepest_floor": 76,
+        "landings": 48,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1860,
+        "length": 391,
+        "total_return": 38.33999999999994,
+        "floors": 45,
+        "deepest_floor": 71,
+        "landings": 45,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1861,
+        "length": 235,
+        "total_return": 23.099999999999888,
+        "floors": 29,
+        "deepest_floor": 40,
+        "landings": 29,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1862,
+        "length": 49,
+        "total_return": -1.2899999999999938,
+        "floors": 4,
+        "deepest_floor": 6,
+        "landings": 4,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1863,
+        "length": 226,
+        "total_return": 22.139999999999887,
+        "floors": 28,
+        "deepest_floor": 38,
+        "landings": 28,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1864,
+        "length": 255,
+        "total_return": 24.99999999999985,
+        "floors": 31,
+        "deepest_floor": 44,
+        "landings": 31,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1865,
+        "length": 430,
+        "total_return": 42.15000000000001,
+        "floors": 49,
+        "deepest_floor": 79,
+        "landings": 49,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1866,
+        "length": 376,
+        "total_return": 33.23999999999996,
+        "floors": 40,
+        "deepest_floor": 65,
+        "landings": 40,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1867,
+        "length": 265,
+        "total_return": 25.949999999999818,
+        "floors": 32,
+        "deepest_floor": 46,
+        "landings": 32,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1868,
+        "length": 170,
+        "total_return": 16.399999999999963,
+        "floors": 22,
+        "deepest_floor": 27,
+        "landings": 22,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1869,
+        "length": 155,
+        "total_return": 14.449999999999983,
+        "floors": 20,
+        "deepest_floor": 24,
+        "landings": 20,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1870,
+        "length": 360,
+        "total_return": 35.499999999999915,
+        "floors": 42,
+        "deepest_floor": 65,
+        "landings": 42,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1871,
+        "length": 395,
+        "total_return": 39.34999999999999,
+        "floors": 46,
+        "deepest_floor": 72,
+        "landings": 46,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1872,
+        "length": 235,
+        "total_return": 23.09999999999988,
+        "floors": 29,
+        "deepest_floor": 40,
+        "landings": 29,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1873,
+        "length": 600,
+        "total_return": 62.25000000000033,
+        "floors": 65,
+        "deepest_floor": 115,
+        "landings": 65,
+        "terminal_reason": "time_limit"
+      },
+      {
+        "seed": 1874,
+        "length": 281,
+        "total_return": 26.839999999999804,
+        "floors": 33,
+        "deepest_floor": 49,
+        "landings": 33,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1875,
+        "length": 186,
+        "total_return": 17.28999999999995,
+        "floors": 23,
+        "deepest_floor": 30,
+        "landings": 23,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1876,
+        "length": 515,
+        "total_return": 51.800000000000146,
+        "floors": 59,
+        "deepest_floor": 96,
+        "landings": 59,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1877,
+        "length": 170,
+        "total_return": 16.39999999999995,
+        "floors": 22,
+        "deepest_floor": 27,
+        "landings": 22,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1878,
+        "length": 150,
+        "total_return": 14.499999999999984,
+        "floors": 20,
+        "deepest_floor": 23,
+        "landings": 20,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1879,
+        "length": 170,
+        "total_return": 12.199999999999976,
+        "floors": 18,
+        "deepest_floor": 26,
+        "landings": 18,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1880,
+        "length": 525,
+        "total_return": 52.75000000000019,
+        "floors": 60,
+        "deepest_floor": 98,
+        "landings": 60,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1881,
+        "length": 180,
+        "total_return": 17.34999999999996,
+        "floors": 23,
+        "deepest_floor": 29,
+        "landings": 23,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1882,
+        "length": 600,
+        "total_return": 63.30000000000025,
+        "floors": 66,
+        "deepest_floor": 117,
+        "landings": 66,
+        "terminal_reason": "time_limit"
+      },
+      {
+        "seed": 1883,
+        "length": 375,
+        "total_return": 37.44999999999994,
+        "floors": 44,
+        "deepest_floor": 68,
+        "landings": 44,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1884,
+        "length": 210,
+        "total_return": 20.199999999999896,
+        "floors": 26,
+        "deepest_floor": 35,
+        "landings": 26,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1885,
+        "length": 155,
+        "total_return": 10.250000000000021,
+        "floors": 16,
+        "deepest_floor": 26,
+        "landings": 16,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1886,
+        "length": 385,
+        "total_return": 38.39999999999993,
+        "floors": 45,
+        "deepest_floor": 70,
+        "landings": 45,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1887,
+        "length": 270,
+        "total_return": 25.899999999999835,
+        "floors": 32,
+        "deepest_floor": 47,
+        "landings": 32,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1888,
+        "length": 38,
+        "total_return": -2.229999999999996,
+        "floors": 3,
+        "deepest_floor": 3,
+        "landings": 3,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1889,
+        "length": 365,
+        "total_return": 36.49999999999993,
+        "floors": 43,
+        "deepest_floor": 66,
+        "landings": 43,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1890,
+        "length": 350,
+        "total_return": 34.549999999999905,
+        "floors": 41,
+        "deepest_floor": 63,
+        "landings": 41,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1891,
+        "length": 235,
+        "total_return": 23.09999999999988,
+        "floors": 29,
+        "deepest_floor": 40,
+        "landings": 29,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1892,
+        "length": 295,
+        "total_return": 28.799999999999827,
+        "floors": 35,
+        "deepest_floor": 52,
+        "landings": 35,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1893,
+        "length": 270,
+        "total_return": 25.899999999999828,
+        "floors": 32,
+        "deepest_floor": 47,
+        "landings": 32,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1894,
+        "length": 265,
+        "total_return": 24.89999999999985,
+        "floors": 31,
+        "deepest_floor": 46,
+        "landings": 31,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1895,
+        "length": 435,
+        "total_return": 43.15000000000003,
+        "floors": 50,
+        "deepest_floor": 80,
+        "landings": 50,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1896,
+        "length": 50,
+        "total_return": -1.2999999999999936,
+        "floors": 4,
+        "deepest_floor": 7,
+        "landings": 4,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1897,
+        "length": 155,
+        "total_return": 14.449999999999983,
+        "floors": 20,
+        "deepest_floor": 24,
+        "landings": 20,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1898,
+        "length": 210,
+        "total_return": 20.199999999999903,
+        "floors": 26,
+        "deepest_floor": 35,
+        "landings": 26,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1899,
+        "length": 245,
+        "total_return": 22.999999999999872,
+        "floors": 29,
+        "deepest_floor": 42,
+        "landings": 29,
+        "terminal_reason": "top"
+      }
+    ],
+    "median_floors": 29.0,
+    "std_floors": 14.394787250946086,
+    "floor_quantile_25": 23.0,
+    "mean_deepest_floor": 47.63,
+    "median_deepest_floor": 40.0,
+    "deepest_floor_quantile_25": 30.0,
+    "floors_bootstrap_ci95": [
+      29.15,
+      34.78
+    ],
+    "success_rate_floor_1": 1.0,
+    "success_rate_floor_3": 1.0,
+    "success_rate_floor_5": 0.95,
+    "success_rate_floor_10": 0.94,
+    "reach_rate_floor_1": 1.0,
+    "reach_rate_floor_3": 1.0,
+    "reach_rate_floor_5": 0.99,
+    "reach_rate_floor_10": 0.94
+  },
+  "gate": {
+    "passed": true,
+    "recovery_safety_non_regression_passed": true,
+    "absolute_reliability_passed": true,
+    "criteria": "recovery decisions >0, no health death/collapse, within 2pp of full-health reach-floor-10 and >=80% reference Q25; absolute reach-floor-10 >=90%, floor Q25 >=10"
+  }
+}

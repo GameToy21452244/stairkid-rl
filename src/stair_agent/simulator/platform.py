@@ -12,6 +12,7 @@ class SimulatorPlatform:
     shape: pymunk.Poly
     width: float
     height: float
+    kind: str = "normal"
 
     @classmethod
     def create(
@@ -22,6 +23,7 @@ class SimulatorPlatform:
         center_y: float,
         width: float,
         height: float,
+        kind: str = "normal",
     ) -> "SimulatorPlatform":
         body = pymunk.Body(body_type=pymunk.Body.KINEMATIC)
         body.position = (center_x, center_y)
@@ -29,7 +31,7 @@ class SimulatorPlatform:
         # v0 uses an explicit one-way crossing test. Sensor shapes keep Pymunk
         # state inspectable without creating a two-way floor collision.
         shape.sensor = True
-        return cls(floor_index, body, shape, width, height)
+        return cls(floor_index, body, shape, width, height, kind)
 
     @property
     def center_x(self) -> float:

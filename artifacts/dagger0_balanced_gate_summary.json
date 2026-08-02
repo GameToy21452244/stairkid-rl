@@ -1,0 +1,33 @@
+{
+  "experiment": "DAgger0-balanced-single-ablation",
+  "design_frozen_before_training": true,
+  "base_train_records": 2362,
+  "available_corrections": 1634,
+  "selected_corrections": 590,
+  "correction_cap_ratio": 0.25,
+  "selected_action_counts": {"0": 261, "1": 164, "2": 165},
+  "state_clusters": 12,
+  "frozen_eval": {
+    "seeds": "100-119",
+    "mean_floors": 63.15,
+    "median_floors": 65.0,
+    "std_floors": 6.23117163942705,
+    "min_floors": 37,
+    "max_floors": 66,
+    "success_floor_10": 1.0,
+    "terminal_reasons": {"time_limit": 18, "top": 2},
+    "action_counts": {"RELEASE_ALL": 4291, "LEFT": 3880, "RIGHT": 3455},
+    "collapsed": false
+  },
+  "fresh_audit_eval": {
+    "seeds": "400-419",
+    "mean_floors": 62.9,
+    "floors": [65, 42, 44, 65, 65, 66, 66, 65, 66, 64, 65, 64, 65, 64, 65, 64, 65, 66, 66, 66],
+    "terminal_reasons": {"time_limit": 17, "bottom": 2, "top": 1},
+    "baseline_mean_floors": 31.25
+  },
+  "source_bc0_mean_floors": 29.8,
+  "naive_dagger0_mean_floors": 23.2,
+  "passed": true,
+  "easy_curriculum_saturated": true
+}

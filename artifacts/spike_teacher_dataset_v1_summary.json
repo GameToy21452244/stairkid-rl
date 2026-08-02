@@ -1,0 +1,104 @@
+{
+  "records": 3529,
+  "episodes": 60,
+  "action_counts": {
+    "0": 1328,
+    "1": 1092,
+    "2": 1109
+  },
+  "split_records": {
+    "train": 2327,
+    "validation": 605,
+    "test": 597
+  },
+  "validator_errors": 0,
+  "environment_version": "ns-shaft-sim-v0.2+health-v1+spikes-v1+spike-curriculum-v0",
+  "control_frequency_hz": 10,
+  "physics_frequency_hz": 60,
+  "teacher_type": "teacher_observable",
+  "verified": true,
+  "all_teacher_verified": true,
+  "teacher_policy_version": "teacher-observable-safe-platform-v2",
+  "dataset_id": "spike_teacher_dataset_v1",
+  "seed_range": [
+    2000,
+    2059
+  ],
+  "gate_artifact": "artifacts\\spike_curriculum_v0_gate.json",
+  "teacher_gate_artifact": "artifacts\\teacher_recovery_holdout_1800.json",
+  "curriculum": {
+    "spike_proposal_probability": 0.1,
+    "initial_safe_normal_platforms": 3,
+    "minimum_normal_platforms_between_spikes": 5
+  },
+  "event_counts": {
+    "landed": 446,
+    "floor_descended": 446,
+    "spike_contact": 16,
+    "damage": 16,
+    "health_gained": 48
+  },
+  "target_kind_counts": {
+    "normal": 2162,
+    "launch_platform": 1302,
+    "spikes": 33,
+    "none": 32
+  },
+  "teacher_reason_counts": {
+    "aligned_with_safe_platform": 960,
+    "escape_launch_platform": 1692,
+    "direction_change_brake": 199,
+    "move_toward_safe_platform": 427,
+    "move_toward_recovery_platform": 55,
+    "aligned_with_recovery_platform": 123,
+    "aligned_with_visible_safe_platform": 14,
+    "approach_visible_safe_platform": 21,
+    "aligned_with_deeper_safe_platform": 3,
+    "reposition_for_unseen_landing": 8,
+    "no_reachable_landing": 23,
+    "approach_visible_emergency_spikes": 1,
+    "aligned_with_visible_emergency_spikes": 2,
+    "aligned_with_visible_recovery_platform": 1
+  },
+  "terminal_reasons": {
+    "target_reached": 56,
+    "bottom": 4
+  },
+  "visible_kind_counts": {
+    "normal": 23373,
+    "spikes": 1439
+  },
+  "spike_visible_records_by_split": {
+    "train": 863,
+    "validation": 309,
+    "test": 241
+  },
+  "episodes_with_spike_visible": 36,
+  "minimum_observed_health": 6,
+  "dataset_gate": {
+    "passed": true,
+    "checks": {
+      "validator_clean": true,
+      "episode_count": true,
+      "all_splits_present": true,
+      "action_diversity": true,
+      "spike_visible_all_splits": true,
+      "spike_visible_episode_coverage": true,
+      "spike_target_coverage": true,
+      "spike_damage_coverage": true,
+      "recovery_decision_coverage": true,
+      "no_health_death": true,
+      "all_teacher_verified": true,
+      "policy_provenance": true
+    },
+    "criteria": {
+      "expected_episodes": 60,
+      "minimum_records_per_action": 60,
+      "minimum_spike_visible_episodes": 30,
+      "minimum_spike_targets": 5,
+      "minimum_damage_events": 5,
+      "minimum_recovery_decisions": 1,
+      "maximum_health_deaths": 0
+    }
+  }
+}

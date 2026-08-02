@@ -1,0 +1,20 @@
+{
+  "records": 3560,
+  "episodes": 60,
+  "action_counts": {
+    "0": 1573,
+    "1": 983,
+    "2": 1004
+  },
+  "split_records": {
+    "train": 2362,
+    "validation": 609,
+    "test": 589
+  },
+  "validator_errors": 0,
+  "environment_version": "ns-shaft-sim-v0.2",
+  "control_frequency_hz": 10,
+  "physics_frequency_hz": 60,
+  "teacher_type": "teacher_observable",
+  "verified": true
+}

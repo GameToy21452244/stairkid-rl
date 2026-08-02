@@ -1,0 +1,73 @@
+{
+  "experiment": "p36-wall-safety-repair-offline-audit",
+  "source_runs": [
+    "logs/teacher_real_micro_20260801_035120_340142",
+    "logs/teacher_real_micro_20260801_035223_571410"
+  ],
+  "pre_repair_evidence": {
+    "left_spring_case": {
+      "episode": 1,
+      "source_run": "teacher_real_micro_20260801_035223_571410",
+      "special_action": "LEFT",
+      "outward_guard_zone_sequences": [
+        {"start_step": 15, "end_step": 21, "length": 7},
+        {"start_step": 23, "end_step": 27, "length": 5}
+      ],
+      "player_x_pixels": "approximately 54-56"
+    },
+    "right_spike_case": {
+      "episode": 4,
+      "source_run": "teacher_real_micro_20260801_035223_571410",
+      "special_action": "RIGHT",
+      "start_step": 22,
+      "end_step": 33,
+      "special_action_count": 12,
+      "player_x_start_pixels": 326.5,
+      "player_x_max_pixels": 410.0
+    }
+  },
+  "repair": {
+    "shared_policy_exit_guard": true,
+    "playfield_left_pixels": 40.0,
+    "playfield_right_pixels": 423.0,
+    "wall_guard_margin_pixels": 32.0,
+    "left_outward_action": "LEFT",
+    "left_inward_override": "RIGHT",
+    "right_outward_action": "RIGHT",
+    "right_inward_override": "LEFT",
+    "direction_switch_brake_preserved": true,
+    "covered_paths": [
+      "special_contact_escape",
+      "launch_escape",
+      "aligned_dwell_escape",
+      "recovery",
+      "top_danger",
+      "normal_target_move"
+    ]
+  },
+  "new_gate": {
+    "wall_telemetry_required": true,
+    "required_outward_wall_push_count": 0,
+    "required_max_outward_wall_push_streak": 0,
+    "sidecar_fields": [
+      "wall_guard_active",
+      "wall_guard_side",
+      "wall_guard_original_action",
+      "outward_wall_push",
+      "outward_wall_push_side",
+      "outward_wall_push_streak"
+    ]
+  },
+  "offline_replay": {
+    "videos": 8,
+    "frames": 497,
+    "outward_wall_actions": 0
+  },
+  "tests": {
+    "targeted_passed": 84,
+    "full_passed": 338,
+    "full_seconds": 70.08
+  },
+  "status": "READY_FOR_BOUNDED_3_EPISODE_REAL_RETEST",
+  "p4_status": "STOP_UNTIL_NEW_REAL_GATE_PASS"
+}

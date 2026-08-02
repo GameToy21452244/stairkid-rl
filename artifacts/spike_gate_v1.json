@@ -1,0 +1,43 @@
+{
+  "environment_version": "ns-shaft-sim-v0.2+health-v1+spikes-v1",
+  "feature_default_enabled": false,
+  "spike_damage_segments": 5,
+  "fixed_gates": {
+    "seeds": 100,
+    "damage": {
+      "passed": true,
+      "failures": []
+    },
+    "lethal": {
+      "passed": true,
+      "failures": []
+    },
+    "normal_heal_interaction": {
+      "passed": true,
+      "failures": []
+    },
+    "oracle_avoidance": {
+      "passed": true,
+      "failures": []
+    }
+  },
+  "no_spawn_feature_equivalence": {
+    "passed": true,
+    "seeds": 100,
+    "health_only_mean_floors": 34.68,
+    "spikes_enabled_mean_floors": 34.68,
+    "health_only_terminal_reasons": {
+      "top": 57,
+      "bottom": 39,
+      "time_limit": 4
+    },
+    "spikes_enabled_terminal_reasons": {
+      "top": 57,
+      "bottom": 39,
+      "time_limit": 4
+    }
+  },
+  "renderer_test": "pytest",
+  "calibration_interface_test": "pytest",
+  "passed": true
+}

@@ -1,0 +1,115 @@
+{
+  "experiment": "p36-floor-counter-video-audit",
+  "source_run": "logs\\teacher_real_micro_20260803_030549_704516",
+  "method": "calibrated HUD binary-change tracker with stable-frame debounce",
+  "privileged_state_used": false,
+  "episodes": [
+    {
+      "video": "logs\\teacher_real_micro_20260803_030549_704516\\episode_01.mp4",
+      "frames": 20,
+      "initial_floor": 1,
+      "max_floor": 2,
+      "changes": [
+        {
+          "frame": 16,
+          "value": 2
+        }
+      ],
+      "unavailable_frames": 0,
+      "unstable_frames": 3
+    },
+    {
+      "video": "logs\\teacher_real_micro_20260803_030549_704516\\episode_02.mp4",
+      "frames": 146,
+      "initial_floor": 1,
+      "max_floor": 9,
+      "changes": [
+        {
+          "frame": 16,
+          "value": 2
+        },
+        {
+          "frame": 33,
+          "value": 3
+        },
+        {
+          "frame": 49,
+          "value": 4
+        },
+        {
+          "frame": 66,
+          "value": 5
+        },
+        {
+          "frame": 83,
+          "value": 6
+        },
+        {
+          "frame": 100,
+          "value": 7
+        },
+        {
+          "frame": 117,
+          "value": 8
+        },
+        {
+          "frame": 133,
+          "value": 9
+        }
+      ],
+      "unavailable_frames": 0,
+      "unstable_frames": 23
+    },
+    {
+      "video": "logs\\teacher_real_micro_20260803_030549_704516\\episode_03.mp4",
+      "frames": 113,
+      "initial_floor": 1,
+      "max_floor": 7,
+      "changes": [
+        {
+          "frame": 14,
+          "value": 2
+        },
+        {
+          "frame": 31,
+          "value": 3
+        },
+        {
+          "frame": 48,
+          "value": 4
+        },
+        {
+          "frame": 65,
+          "value": 5
+        },
+        {
+          "frame": 82,
+          "value": 6
+        },
+        {
+          "frame": 100,
+          "value": 7
+        }
+      ],
+      "unavailable_frames": 0,
+      "unstable_frames": 17
+    }
+  ],
+  "observed_max_floors": [
+    2,
+    9,
+    7
+  ],
+  "expected_manual_max_floors": [
+    2,
+    9,
+    7
+  ],
+  "checks": {
+    "all_videos_read": true,
+    "counter_available_every_frame": true,
+    "initial_floor_one": true,
+    "expected_manual_max_match": true
+  },
+  "status": "PASS"
+}

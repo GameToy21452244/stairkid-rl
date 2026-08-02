@@ -1,0 +1,29 @@
+{
+  "experiment": "p36-special-contact-escape-mock-gate",
+  "date": "2026-08-01",
+  "status": "MOCK_PASS_REAL_PENDING",
+  "deployable_inputs_only": true,
+  "special_platform_kinds": ["spring", "spikes"],
+  "escape_max_steps": 12,
+  "fixed_scenarios": {
+    "spring_event_persists": "PASS",
+    "spike_landing_overrides_aligned_recovery": "PASS",
+    "source_edge_clear_ends_escape": "PASS",
+    "normal_landing_ends_escape": "PASS",
+    "hard_step_limit": "PASS",
+    "kind_change_reuses_last_visible_bounds": "PASS"
+  },
+  "targeted_tests": {
+    "passed": 67,
+    "failed": 0
+  },
+  "full_tests": {
+    "passed": 317,
+    "failed": 0,
+    "seconds": 64.95
+  },
+  "real_game_input_sent": false,
+  "p36_overall_status": "FAIL_STOP",
+  "downstream_gates_allowed": false,
+  "next_work": "repair floor telemetry and observation quality before a new bounded real-game micro run"
+}

@@ -1,0 +1,30 @@
+{
+  "design_frozen_before_training": true,
+  "base_train_records": 2362,
+  "correction_cap_ratio": 0.25,
+  "selected_corrections": 590,
+  "selected_to_base_ratio": 0.2497883149872989,
+  "target_action_quotas": {
+    "0": 261,
+    "1": 164,
+    "2": 165
+  },
+  "selected_action_counts": {
+    "0": 261,
+    "1": 164,
+    "2": 165
+  },
+  "selected_failure_categories": {
+    "missed_platform_risk": 248,
+    "wrong_target": 123,
+    "brake_too_late": 157,
+    "wall_collision": 62
+  },
+  "selected_episodes": 20,
+  "largest_episode_records": 45,
+  "largest_episode_share": 0.07627118644067797,
+  "state_clusters": 12,
+  "sampling": "round_robin(cluster,failure_category) within action",
+  "random_seed": 20260731,
+  "output_dataset": "artifacts\\teacher_dataset_dagger0_balanced.jsonl"
+}

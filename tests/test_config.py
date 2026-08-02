@@ -10,10 +10,14 @@ def test_defaults() -> None:
     assert config.capture.target_fps == 15
     assert config.controls.input_backend == "pyautogui"
     assert config.controls.menu_focus_correction_key is None
+    assert config.controls.max_continuous_hold_ms == 500
     assert config.safety.emergency_stop_key == "f8"
     assert config.safety.block_on_related_windows
     assert config.events.landing_contact_gap == 6
     assert config.events.spring_contact_gap == 12
+    assert config.hud.floor_counter_left is None
+    assert config.hud.floor_counter_initial_value == 1
+    assert config.hud.floor_change_required_consecutive == 2
     assert config.environment.max_episode_steps == 3000
     assert config.environment.floor_reward == 1.0
     assert config.environment.step_penalty == 0.01
@@ -46,11 +50,12 @@ def test_defaults() -> None:
     ]
     assert not config.environment.auto_restart_on_reset
     assert config.environment.reset_required_consecutive_frames == 3
-    assert config.environment.reset_focus_max_observation_frames == 450
+    assert config.environment.reset_focus_max_observation_frames == 24
     assert (
         config.environment.reset_focus_correction_max_observation_frames
-        == 450
+        == 12
     )
+    assert config.environment.reset_focus_correction_max_presses == 3
     assert config.environment.max_observation_platforms == 8
     assert config.environment.observation_history_frames == 4
     assert config.environment.include_action_history
@@ -64,6 +69,7 @@ def test_defaults() -> None:
     assert config.training.seed == 2
     assert config.baseline.max_episode_steps == 300
     assert config.baseline.direction_switch_release_frames == 1
+    assert config.baseline.recovery_full_health_segments == 12
 
 
 def test_parse_yaml(tmp_path: Path) -> None:
@@ -162,11 +168,150 @@ def test_invalid_environment_config() -> None:
             {"controls": {"menu_focus_correction_key": ""}}
         )
 
+    with pytest.raises(ConfigError, match=r"floor_counter_\*"):
+        AppConfig.from_dict({"hud": {"floor_counter_left": 10}})
+
+    with pytest.raises(ConfigError, match="stability/change"):
+        AppConfig.from_dict(
+            {
+                "hud": {
+                    "floor_stability_ratio_threshold": 0.05,
+                    "floor_change_ratio_threshold": 0.04,
+                }
+            }
+        )
+
+    with pytest.raises(ConfigError, match="max_continuous_hold_ms"):
+        AppConfig.from_dict(
+            {
+                "controls": {
+                    "action_duration_ms": 80,
+                    "max_continuous_hold_ms": 40,
+                }
+            }
+        )
+
 
 def test_invalid_baseline_config() -> None:
     with pytest.raises(ConfigError, match="horizontal_deadzone_pixels"):
         AppConfig.from_dict(
             {"baseline": {"horizontal_deadzone_pixels": -1}}
+        )
+
+    with pytest.raises(ConfigError, match="special_contact_escape_max_steps"):
+        AppConfig.from_dict(
+            {"baseline": {"special_contact_escape_max_steps": 0}}
+        )
+
+    with pytest.raises(ConfigError, match="aligned_platform_dwell_escape_steps"):
+        AppConfig.from_dict(
+            {"baseline": {"aligned_platform_dwell_escape_steps": 0}}
+        )
+
+    with pytest.raises(ConfigError, match="top_pressure_memory_steps"):
+        AppConfig.from_dict(
+            {"baseline": {"top_pressure_memory_steps": 0}}
+        )
+
+    with pytest.raises(ConfigError, match="top_pressure_dropout_continue_steps"):
+        AppConfig.from_dict(
+            {
+                "baseline": {
+                    "top_pressure_memory_steps": 2,
+                    "top_pressure_dropout_continue_steps": 3,
+                }
+            }
+        )
+
+    with pytest.raises(ConfigError, match="support_departure_abort_cooldown_steps"):
+        AppConfig.from_dict(
+            {"baseline": {"support_departure_abort_cooldown_steps": 0}}
+        )
+
+    with pytest.raises(ConfigError, match="landing_prediction_max_seconds"):
+        AppConfig.from_dict(
+            {
+                "baseline": {
+                    "landing_velocity_lookahead_seconds": 0.4,
+                    "landing_prediction_max_seconds": 0.3,
+                }
+            }
+        )
+
+    with pytest.raises(
+        ConfigError,
+        match="landing_release_projection_seconds",
+    ):
+        AppConfig.from_dict(
+            {
+                "baseline": {
+                    "landing_prediction_max_seconds": 0.4,
+                    "landing_release_projection_seconds": 0.5,
+                }
+            }
+        )
+
+    with pytest.raises(
+        ConfigError,
+        match="landing_vertical_speed_floor_pixels_per_second",
+    ):
+        AppConfig.from_dict(
+            {
+                "baseline": {
+                    "landing_vertical_speed_floor_pixels_per_second": 0,
+                }
+            }
+        )
+
+    with pytest.raises(ConfigError, match="playfield_right_pixels"):
+        AppConfig.from_dict(
+            {
+                "baseline": {
+                    "playfield_left_pixels": 100,
+                    "playfield_right_pixels": 100,
+                }
+            }
+        )
+
+    with pytest.raises(ConfigError, match="wall_guard_margin_pixels"):
+        AppConfig.from_dict(
+            {"baseline": {"wall_guard_margin_pixels": 999}}
+        )
+
+    with pytest.raises(ConfigError, match="wall_evacuation_exit_margin_pixels"):
+        AppConfig.from_dict(
+            {
+                "baseline": {
+                    "wall_guard_margin_pixels": 32,
+                    "wall_evacuation_exit_margin_pixels": 20,
+                }
+            }
+        )
+
+    with pytest.raises(ConfigError, match="launch_commit_max_steps"):
+        AppConfig.from_dict(
+            {"baseline": {"launch_commit_max_steps": 0}}
+        )
+
+    with pytest.raises(ConfigError, match="support_departure_max_steps"):
+        AppConfig.from_dict(
+            {"baseline": {"support_departure_max_steps": 0}}
+        )
+    with pytest.raises(ConfigError, match="support_departure_lost_frames"):
+        AppConfig.from_dict(
+            {"baseline": {"support_departure_lost_frames": 0}}
+        )
+
+
+def test_invalid_player_continuity_config() -> None:
+    with pytest.raises(ConfigError, match="player_close_kernel_size"):
+        AppConfig.from_dict(
+            {"vision": {"player_close_kernel_size": 0}}
+        )
+
+    with pytest.raises(ConfigError, match="player_min_colored_pixels"):
+        AppConfig.from_dict(
+            {"vision": {"player_min_colored_pixels": 0}}
         )
 
 

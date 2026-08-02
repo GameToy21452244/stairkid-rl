@@ -27,6 +27,7 @@ logs/*
 models/
 runs/
 checkpoints/
+artifacts/*.jsonl
 *.pt
 *.pth
 *.onnx

@@ -5,6 +5,7 @@ from enum import Enum
 from statistics import median
 
 from .object_detection import (
+    BoundingBox,
     GameObjects,
     PlatformDetection,
     PlatformKind,
@@ -27,15 +28,29 @@ class PlayerTrackingState:
     motion: MotionState
     nearest_platform_below: PlatformDetection | None
     platform_vertical_gap: int | None
+    detection_source: str = "raw"
+    missing_streak: int = 0
 
 
 class PlayerTracker:
     """從連續偵測計算角色速度與下方最近的水平重疊平台。"""
 
-    def __init__(self, motion_threshold: float = 5.0) -> None:
+    def __init__(
+        self,
+        motion_threshold: float = 5.0,
+        *,
+        max_missing_frames: int = 2,
+        confidence_decay: float = 0.65,
+    ) -> None:
         self.motion_threshold = max(0.0, motion_threshold)
+        self.max_missing_frames = max(0, int(max_missing_frames))
+        self.confidence_decay = min(1.0, max(0.0, float(confidence_decay)))
         self._previous_player: PlayerDetection | None = None
         self._previous_timestamp: float | None = None
+        self._velocity_x = 0.0
+        self._velocity_y = 0.0
+        self._motion = MotionState.UNKNOWN
+        self._missing_streak = 0
 
     @staticmethod
     def _nearest_platform(
@@ -62,24 +77,76 @@ class PlayerTracker:
     def reset(self) -> None:
         self._previous_player = None
         self._previous_timestamp = None
+        self._velocity_x = 0.0
+        self._velocity_y = 0.0
+        self._motion = MotionState.UNKNOWN
+        self._missing_streak = 0
 
     def update(
         self,
         objects: GameObjects,
         timestamp: float,
     ) -> PlayerTrackingState:
-        nearest, gap = self._nearest_platform(objects)
         if objects.player is None:
-            self.reset()
+            self._missing_streak += 1
+            if (
+                self._previous_player is not None
+                and self._previous_timestamp is not None
+                and self._missing_streak <= self.max_missing_frames
+                and timestamp >= self._previous_timestamp
+            ):
+                elapsed = timestamp - self._previous_timestamp
+                previous = self._previous_player
+                box = previous.box
+                left = round(box.left + self._velocity_x * elapsed)
+                top = round(box.top + self._velocity_y * elapsed)
+                playfield = objects.playfield
+                left = min(
+                    max(left, playfield.left),
+                    playfield.left + playfield.width - box.width,
+                )
+                top = min(
+                    max(top, playfield.top),
+                    playfield.top + playfield.height - box.height,
+                )
+                tracked = PlayerDetection(
+                    BoundingBox(left, top, box.width, box.height),
+                    previous.confidence
+                    * self.confidence_decay ** self._missing_streak,
+                )
+                tracked_objects = GameObjects(
+                    tracked,
+                    objects.platforms,
+                    objects.playfield,
+                )
+                nearest, gap = self._nearest_platform(tracked_objects)
+                return PlayerTrackingState(
+                    tracked,
+                    self._velocity_x,
+                    self._velocity_y,
+                    self._motion,
+                    nearest,
+                    gap,
+                    "tracked",
+                    self._missing_streak,
+                )
+            self._previous_player = None
+            self._previous_timestamp = None
+            self._velocity_x = 0.0
+            self._velocity_y = 0.0
+            self._motion = MotionState.UNKNOWN
             return PlayerTrackingState(
                 None,
                 0.0,
                 0.0,
                 MotionState.UNKNOWN,
-                nearest,
-                gap,
+                None,
+                None,
+                "missing",
+                self._missing_streak,
             )
 
+        nearest, gap = self._nearest_platform(objects)
         velocity_x = 0.0
         velocity_y = 0.0
         motion = MotionState.UNKNOWN
@@ -101,6 +168,10 @@ class PlayerTracker:
                 motion = MotionState.STABLE
         self._previous_player = objects.player
         self._previous_timestamp = timestamp
+        self._velocity_x = velocity_x
+        self._velocity_y = velocity_y
+        self._motion = motion
+        self._missing_streak = 0
         return PlayerTrackingState(
             objects.player,
             velocity_x,
@@ -108,6 +179,8 @@ class PlayerTracker:
             motion,
             nearest,
             gap,
+            "raw",
+            0,
         )
 
 

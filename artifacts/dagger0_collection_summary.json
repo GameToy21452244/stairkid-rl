@@ -1,0 +1,176 @@
+{
+  "aggregation_seeds": [
+    300,
+    301,
+    302,
+    303,
+    304,
+    305,
+    306,
+    307,
+    308,
+    309,
+    310,
+    311,
+    312,
+    313,
+    314,
+    315,
+    316,
+    317,
+    318,
+    319
+  ],
+  "correction_records": 1634,
+  "failure_categories": {
+    "missed_platform_risk": 867,
+    "brake_too_late": 276,
+    "wrong_target": 371,
+    "wall_collision": 120
+  },
+  "mean_corrections_per_episode": 81.7,
+  "rollout": [
+    {
+      "seed": 300,
+      "floors": 61,
+      "steps": 340,
+      "terminal_reason": "top",
+      "corrections": 123
+    },
+    {
+      "seed": 301,
+      "floors": 50,
+      "steps": 285,
+      "terminal_reason": "top",
+      "corrections": 79
+    },
+    {
+      "seed": 302,
+      "floors": 11,
+      "steps": 69,
+      "terminal_reason": "bottom",
+      "corrections": 20
+    },
+    {
+      "seed": 303,
+      "floors": 46,
+      "steps": 265,
+      "terminal_reason": "top",
+      "corrections": 73
+    },
+    {
+      "seed": 304,
+      "floors": 32,
+      "steps": 195,
+      "terminal_reason": "top",
+      "corrections": 93
+    },
+    {
+      "seed": 305,
+      "floors": 36,
+      "steps": 215,
+      "terminal_reason": "top",
+      "corrections": 88
+    },
+    {
+      "seed": 306,
+      "floors": 33,
+      "steps": 200,
+      "terminal_reason": "top",
+      "corrections": 71
+    },
+    {
+      "seed": 307,
+      "floors": 44,
+      "steps": 255,
+      "terminal_reason": "top",
+      "corrections": 78
+    },
+    {
+      "seed": 308,
+      "floors": 27,
+      "steps": 170,
+      "terminal_reason": "top",
+      "corrections": 68
+    },
+    {
+      "seed": 309,
+      "floors": 58,
+      "steps": 325,
+      "terminal_reason": "top",
+      "corrections": 117
+    },
+    {
+      "seed": 310,
+      "floors": 36,
+      "steps": 215,
+      "terminal_reason": "top",
+      "corrections": 109
+    },
+    {
+      "seed": 311,
+      "floors": 49,
+      "steps": 280,
+      "terminal_reason": "top",
+      "corrections": 101
+    },
+    {
+      "seed": 312,
+      "floors": 30,
+      "steps": 186,
+      "terminal_reason": "top",
+      "corrections": 83
+    },
+    {
+      "seed": 313,
+      "floors": 28,
+      "steps": 175,
+      "terminal_reason": "top",
+      "corrections": 79
+    },
+    {
+      "seed": 314,
+      "floors": 30,
+      "steps": 185,
+      "terminal_reason": "top",
+      "corrections": 63
+    },
+    {
+      "seed": 315,
+      "floors": 35,
+      "steps": 210,
+      "terminal_reason": "top",
+      "corrections": 100
+    },
+    {
+      "seed": 316,
+      "floors": 9,
+      "steps": 61,
+      "terminal_reason": "bottom",
+      "corrections": 32
+    },
+    {
+      "seed": 317,
+      "floors": 34,
+      "steps": 205,
+      "terminal_reason": "top",
+      "corrections": 83
+    },
+    {
+      "seed": 318,
+      "floors": 28,
+      "steps": 175,
+      "terminal_reason": "top",
+      "corrections": 74
+    },
+    {
+      "seed": 319,
+      "floors": 50,
+      "steps": 285,
+      "terminal_reason": "top",
+      "corrections": 100
+    }
+  ],
+  "source_model": "bc0_hard_v0_model.pt",
+  "combined_dataset": "artifacts\\teacher_dataset_dagger0.jsonl"
+}

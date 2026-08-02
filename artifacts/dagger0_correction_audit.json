@@ -1,0 +1,194 @@
+{
+  "correction_records": 1634,
+  "base_train_records": 2362,
+  "correction_to_base_ratio": 0.6917866215071973,
+  "exact_duplicate_records": 0,
+  "exact_duplicate_ratio": 0.0,
+  "rounded_3dp_duplicate_records": 0,
+  "rounded_3dp_duplicate_ratio": 0.0,
+  "episodes": 20,
+  "episode_record_min": 20,
+  "episode_record_median": 81.0,
+  "episode_record_max": 123,
+  "largest_episode_share": 0.07527539779681762,
+  "base_train_action_counts": {
+    "0": 1045,
+    "1": 655,
+    "2": 662
+  },
+  "correction_teacher_action_counts": {
+    "0": 396,
+    "1": 744,
+    "2": 494
+  },
+  "correction_learner_action_counts": {
+    "0": 828,
+    "1": 392,
+    "2": 414
+  },
+  "learner_to_teacher_action_pairs": {
+    "0->1": 520,
+    "1->0": 206,
+    "0->2": 308,
+    "2->0": 190,
+    "1->2": 186,
+    "2->1": 224
+  },
+  "category_by_teacher_action": {
+    "missed_platform_risk|1": 470,
+    "brake_too_late|0": 276,
+    "missed_platform_risk|2": 287,
+    "missed_platform_risk|0": 110,
+    "wrong_target|2": 158,
+    "wrong_target|1": 213,
+    "wall_collision|0": 10,
+    "wall_collision|2": 49,
+    "wall_collision|1": 61
+  },
+  "clusters": [
+    {
+      "cluster": 0,
+      "records": 80,
+      "share": 0.04895960832313342,
+      "dominant_category": "missed_platform_risk",
+      "dominant_category_share": 0.5625,
+      "release": 16,
+      "left": 46,
+      "right": 18,
+      "episodes": 18,
+      "largest_episode_share": 0.1625
+    },
+    {
+      "cluster": 1,
+      "records": 62,
+      "share": 0.037943696450428395,
+      "dominant_category": "missed_platform_risk",
+      "dominant_category_share": 0.8387096774193549,
+      "release": 32,
+      "left": 20,
+      "right": 10,
+      "episodes": 18,
+      "largest_episode_share": 0.11290322580645161
+    },
+    {
+      "cluster": 2,
+      "records": 197,
+      "share": 0.12056303549571604,
+      "dominant_category": "missed_platform_risk",
+      "dominant_category_share": 0.5583756345177665,
+      "release": 55,
+      "left": 43,
+      "right": 99,
+      "episodes": 17,
+      "largest_episode_share": 0.16751269035532995
+    },
+    {
+      "cluster": 3,
+      "records": 141,
+      "share": 0.08629130966952264,
+      "dominant_category": "missed_platform_risk",
+      "dominant_category_share": 0.475177304964539,
+      "release": 39,
+      "left": 68,
+      "right": 34,
+      "episodes": 20,
+      "largest_episode_share": 0.0851063829787234
+    },
+    {
+      "cluster": 4,
+      "records": 41,
+      "share": 0.025091799265605876,
+      "dominant_category": "missed_platform_risk",
+      "dominant_category_share": 0.6341463414634146,
+      "release": 5,
+      "left": 31,
+      "right": 5,
+      "episodes": 13,
+      "largest_episode_share": 0.17073170731707318
+    },
+    {
+      "cluster": 5,
+      "records": 182,
+      "share": 0.11138310893512852,
+      "dominant_category": "wrong_target",
+      "dominant_category_share": 0.3076923076923077,
+      "release": 82,
+      "left": 8,
+      "right": 92,
+      "episodes": 18,
+      "largest_episode_share": 0.11538461538461539
+    },
+    {
+      "cluster": 6,
+      "records": 95,
+      "share": 0.05813953488372093,
+      "dominant_category": "missed_platform_risk",
+      "dominant_category_share": 0.8210526315789474,
+      "release": 4,
+      "left": 75,
+      "right": 16,
+      "episodes": 17,
+      "largest_episode_share": 0.14736842105263157
+    },
+    {
+      "cluster": 7,
+      "records": 173,
+      "share": 0.105875152998776,
+      "dominant_category": "missed_platform_risk",
+      "dominant_category_share": 0.5838150289017341,
+      "release": 22,
+      "left": 119,
+      "right": 32,
+      "episodes": 20,
+      "largest_episode_share": 0.10982658959537572
+    },
+    {
+      "cluster": 8,
+      "records": 82,
+      "share": 0.05018359853121175,
+      "dominant_category": "missed_platform_risk",
+      "dominant_category_share": 0.7073170731707317,
+      "release": 15,
+      "left": 47,
+      "right": 20,
+      "episodes": 18,
+      "largest_episode_share": 0.12195121951219512
+    },
+    {
+      "cluster": 9,
+      "records": 287,
+      "share": 0.17564259485924114,
+      "dominant_category": "missed_platform_risk",
+      "dominant_category_share": 0.42857142857142855,
+      "release": 94,
+      "left": 130,
+      "right": 63,
+      "episodes": 18,
+      "largest_episode_share": 0.11846689895470383
+    },
+    {
+      "cluster": 10,
+      "records": 199,
+      "share": 0.12178702570379436,
+      "dominant_category": "missed_platform_risk",
+      "dominant_category_share": 0.5728643216080402,
+      "release": 18,
+      "left": 139,
+      "right": 42,
+      "episodes": 20,
+      "largest_episode_share": 0.12562814070351758
+    },
+    {
+      "cluster": 11,
+      "records": 95,
+      "share": 0.05813953488372093,
+      "dominant_category": "missed_platform_risk",
+      "dominant_category_share": 0.5052631578947369,
+      "release": 14,
+      "left": 18,
+      "right": 63,
+      "episodes": 18,
+      "largest_episode_share": 0.10526315789473684
+    }
+  ]
+}

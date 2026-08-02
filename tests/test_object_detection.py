@@ -5,6 +5,7 @@ from stair_agent.config import VisionConfig
 from stair_agent.object_detection import (
     ObjectDetector,
     PlatformKind,
+    player_color_diagnostics,
 )
 
 
@@ -52,6 +53,18 @@ def test_detects_one_player_in_absolute_coordinates() -> None:
     assert 45 <= box.top <= 49
     assert 24 <= box.width <= 36
     assert 20 <= box.height <= 32
+
+
+def test_player_color_diagnostics_uses_the_same_candidate_rules() -> None:
+    frame, _template = make_scene()
+
+    diagnostics, mask = player_color_diagnostics(frame, vision_config())
+
+    assert diagnostics["raw_colored_pixels"] > 0
+    assert diagnostics["component_count"] >= 1
+    assert diagnostics["eligible_component_count"] == 1
+    assert diagnostics["best_eligible_component"]["colored_pixels"] >= 12
+    assert mask.shape == (140, 190)
 
 
 def test_detects_repeated_normal_platform_templates() -> None:
@@ -157,6 +170,52 @@ def test_no_player_or_template_returns_empty_candidates() -> None:
 
     assert objects.player is None
     assert objects.platforms == []
+
+
+def test_player_detection_closes_small_warm_sprite_gaps() -> None:
+    frame = np.zeros((160, 220, 3), dtype=np.uint8)
+    frame[:] = (80, 0, 0)
+    # Raw game sprites can fragment into several warm-colour islands while
+    # flashing.  The pieces are individually too small, but together form a
+    # valid player-sized component.
+    frame[48:52, 94:104] = (0, 190, 255)
+    frame[54:58, 103:113] = (20, 100, 255)
+    frame[60:65, 91:102] = (0, 150, 255)
+
+    objects = ObjectDetector(vision_config(), None).detect(frame)
+
+    assert objects.player is not None
+    assert 88 <= objects.player.box.left <= 96
+    assert 45 <= objects.player.box.top <= 50
+
+
+def test_player_detection_separates_sprite_from_long_warm_platform_strip() -> None:
+    frame = np.zeros((160, 220, 3), dtype=np.uint8)
+    frame[:] = (80, 0, 0)
+    # A live-game dropout showed the sprite merging with a roughly 95 px warm
+    # horizontal platform row.  The platform run is too wide to be a player,
+    # while the compact sprite above it must remain detectable.
+    frame[45:68, 91:115] = (20, 100, 255)
+    frame[65:69, 70:166] = (0, 180, 255)
+
+    detector = ObjectDetector(vision_config(), None)
+    objects = detector.detect(frame)
+    diagnostics, _mask = player_color_diagnostics(frame, vision_config())
+
+    assert objects.player is not None
+    assert 88 <= objects.player.box.left <= 94
+    assert 42 <= objects.player.box.top <= 48
+    assert objects.player.box.width <= vision_config().player_max_width
+    assert diagnostics["eligible_component_count"] == 1
+    assert diagnostics["horizontal_colored_pixels_removed"] > 0
+
+
+def test_player_detection_rejects_tiny_warm_noise() -> None:
+    frame = np.zeros((160, 220, 3), dtype=np.uint8)
+    frame[:] = (80, 0, 0)
+    frame[60:62, 100:103] = (0, 180, 255)
+
+    assert ObjectDetector(vision_config(), None).detect(frame).player is None
 
 
 def test_annotated_frame_keeps_original_dimensions() -> None:

@@ -1,0 +1,2012 @@
+{
+  "experiment": "teacher-observable-health-recovery-v0",
+  "gate_seeds": [
+    1600,
+    1601,
+    1602,
+    1603,
+    1604,
+    1605,
+    1606,
+    1607,
+    1608,
+    1609,
+    1610,
+    1611,
+    1612,
+    1613,
+    1614,
+    1615,
+    1616,
+    1617,
+    1618,
+    1619,
+    1620,
+    1621,
+    1622,
+    1623,
+    1624,
+    1625,
+    1626,
+    1627,
+    1628,
+    1629,
+    1630,
+    1631,
+    1632,
+    1633,
+    1634,
+    1635,
+    1636,
+    1637,
+    1638,
+    1639,
+    1640,
+    1641,
+    1642,
+    1643,
+    1644,
+    1645,
+    1646,
+    1647,
+    1648,
+    1649,
+    1650,
+    1651,
+    1652,
+    1653,
+    1654,
+    1655,
+    1656,
+    1657,
+    1658,
+    1659,
+    1660,
+    1661,
+    1662,
+    1663,
+    1664,
+    1665,
+    1666,
+    1667,
+    1668,
+    1669,
+    1670,
+    1671,
+    1672,
+    1673,
+    1674,
+    1675,
+    1676,
+    1677,
+    1678,
+    1679,
+    1680,
+    1681,
+    1682,
+    1683,
+    1684,
+    1685,
+    1686,
+    1687,
+    1688,
+    1689,
+    1690,
+    1691,
+    1692,
+    1693,
+    1694,
+    1695,
+    1696,
+    1697,
+    1698,
+    1699
+  ],
+  "initial_health_segments": 7,
+  "recovery_full_health_segments": 12,
+  "reason_counts": {
+    "aligned_with_recovery_platform": 2686,
+    "escape_launch_platform": 9452,
+    "direction_change_brake": 2918,
+    "move_toward_recovery_platform": 2292,
+    "move_toward_safe_platform": 2177,
+    "aligned_with_safe_platform": 2460,
+    "move_toward_deeper_safe_platform": 1789,
+    "aligned_with_deeper_safe_platform": 3307,
+    "reposition_for_unseen_landing": 56,
+    "no_reachable_landing": 128
+  },
+  "recovery_decisions": 4978,
+  "low_health_evaluation": {
+    "candidate": "teacher_observable_recovery",
+    "episodes": 100,
+    "total_steps": 27265,
+    "mean_length": 272.65,
+    "mean_return": 24.899999999999945,
+    "mean_floors": 30.93,
+    "mean_landings": 30.93,
+    "action_counts": {
+      "RELEASE_ALL": 11506,
+      "LEFT": 8240,
+      "RIGHT": 7519
+    },
+    "max_action_share": 0.422006235099945,
+    "collapsed": false,
+    "longest_same_action_streak": 180,
+    "direction_switches": 0,
+    "terminal_reasons": {
+      "top": 56,
+      "time_limit": 3,
+      "bottom": 41
+    },
+    "episode_results": [
+      {
+        "seed": 1600,
+        "length": 210,
+        "total_return": 20.199999999999918,
+        "floors": 26,
+        "deepest_floor": 35,
+        "landings": 26,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1601,
+        "length": 230,
+        "total_return": 22.099999999999888,
+        "floors": 28,
+        "deepest_floor": 39,
+        "landings": 28,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1602,
+        "length": 251,
+        "total_return": 23.98999999999986,
+        "floors": 30,
+        "deepest_floor": 43,
+        "landings": 30,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1603,
+        "length": 600,
+        "total_return": 63.30000000000029,
+        "floors": 66,
+        "deepest_floor": 114,
+        "landings": 66,
+        "terminal_reason": "time_limit"
+      },
+      {
+        "seed": 1604,
+        "length": 215,
+        "total_return": 20.149999999999906,
+        "floors": 26,
+        "deepest_floor": 36,
+        "landings": 26,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1605,
+        "length": 255,
+        "total_return": 24.99999999999985,
+        "floors": 31,
+        "deepest_floor": 44,
+        "landings": 31,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1606,
+        "length": 590,
+        "total_return": 58.40000000000027,
+        "floors": 66,
+        "deepest_floor": 111,
+        "landings": 66,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1607,
+        "length": 203,
+        "total_return": 16.06999999999993,
+        "floors": 22,
+        "deepest_floor": 31,
+        "landings": 22,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1608,
+        "length": 236,
+        "total_return": 22.039999999999885,
+        "floors": 28,
+        "deepest_floor": 40,
+        "landings": 28,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1609,
+        "length": 265,
+        "total_return": 25.949999999999854,
+        "floors": 32,
+        "deepest_floor": 46,
+        "landings": 32,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1610,
+        "length": 241,
+        "total_return": 19.889999999999866,
+        "floors": 26,
+        "deepest_floor": 39,
+        "landings": 26,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1611,
+        "length": 178,
+        "total_return": 14.219999999999947,
+        "floors": 20,
+        "deepest_floor": 24,
+        "landings": 20,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1612,
+        "length": 395,
+        "total_return": 39.34999999999996,
+        "floors": 46,
+        "deepest_floor": 72,
+        "landings": 46,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1613,
+        "length": 205,
+        "total_return": 19.199999999999932,
+        "floors": 25,
+        "deepest_floor": 34,
+        "landings": 25,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1614,
+        "length": 240,
+        "total_return": 23.04999999999987,
+        "floors": 29,
+        "deepest_floor": 41,
+        "landings": 29,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1615,
+        "length": 402,
+        "total_return": 37.18,
+        "floors": 44,
+        "deepest_floor": 69,
+        "landings": 44,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1616,
+        "length": 354,
+        "total_return": 31.35999999999987,
+        "floors": 38,
+        "deepest_floor": 63,
+        "landings": 38,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1617,
+        "length": 190,
+        "total_return": 18.299999999999947,
+        "floors": 24,
+        "deepest_floor": 31,
+        "landings": 24,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1618,
+        "length": 409,
+        "total_return": 36.059999999999995,
+        "floors": 43,
+        "deepest_floor": 73,
+        "landings": 43,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1619,
+        "length": 111,
+        "total_return": 5.440000000000017,
+        "floors": 11,
+        "deepest_floor": 19,
+        "landings": 11,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1620,
+        "length": 240,
+        "total_return": 23.049999999999862,
+        "floors": 29,
+        "deepest_floor": 41,
+        "landings": 29,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1621,
+        "length": 345,
+        "total_return": 33.54999999999988,
+        "floors": 40,
+        "deepest_floor": 62,
+        "landings": 40,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1622,
+        "length": 205,
+        "total_return": 19.19999999999991,
+        "floors": 25,
+        "deepest_floor": 34,
+        "landings": 25,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1623,
+        "length": 200,
+        "total_return": 19.24999999999993,
+        "floors": 25,
+        "deepest_floor": 33,
+        "landings": 25,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1624,
+        "length": 380,
+        "total_return": 33.199999999999946,
+        "floors": 40,
+        "deepest_floor": 68,
+        "landings": 40,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1625,
+        "length": 172,
+        "total_return": 13.22999999999996,
+        "floors": 19,
+        "deepest_floor": 24,
+        "landings": 19,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1626,
+        "length": 457,
+        "total_return": 41.880000000000074,
+        "floors": 49,
+        "deepest_floor": 82,
+        "landings": 49,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1627,
+        "length": 52,
+        "total_return": -1.319999999999994,
+        "floors": 4,
+        "deepest_floor": 8,
+        "landings": 4,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1628,
+        "length": 196,
+        "total_return": 18.239999999999924,
+        "floors": 24,
+        "deepest_floor": 32,
+        "landings": 24,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1629,
+        "length": 510,
+        "total_return": 50.80000000000015,
+        "floors": 58,
+        "deepest_floor": 95,
+        "landings": 58,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1630,
+        "length": 87,
+        "total_return": 3.5800000000000125,
+        "floors": 9,
+        "deepest_floor": 10,
+        "landings": 9,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1631,
+        "length": 320,
+        "total_return": 31.699999999999854,
+        "floors": 38,
+        "deepest_floor": 57,
+        "landings": 38,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1632,
+        "length": 170,
+        "total_return": 16.399999999999956,
+        "floors": 22,
+        "deepest_floor": 27,
+        "landings": 22,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1633,
+        "length": 260,
+        "total_return": 24.949999999999854,
+        "floors": 31,
+        "deepest_floor": 45,
+        "landings": 31,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1634,
+        "length": 285,
+        "total_return": 27.849999999999802,
+        "floors": 34,
+        "deepest_floor": 50,
+        "landings": 34,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1635,
+        "length": 52,
+        "total_return": -1.3199999999999954,
+        "floors": 4,
+        "deepest_floor": 8,
+        "landings": 4,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1636,
+        "length": 325,
+        "total_return": 31.649999999999864,
+        "floors": 38,
+        "deepest_floor": 58,
+        "landings": 38,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1637,
+        "length": 345,
+        "total_return": 33.54999999999987,
+        "floors": 40,
+        "deepest_floor": 62,
+        "landings": 40,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1638,
+        "length": 395,
+        "total_return": 39.34999999999996,
+        "floors": 46,
+        "deepest_floor": 72,
+        "landings": 46,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1639,
+        "length": 212,
+        "total_return": 17.029999999999916,
+        "floors": 23,
+        "deepest_floor": 31,
+        "landings": 23,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1640,
+        "length": 260,
+        "total_return": 24.94999999999984,
+        "floors": 31,
+        "deepest_floor": 45,
+        "landings": 31,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1641,
+        "length": 270,
+        "total_return": 25.89999999999985,
+        "floors": 32,
+        "deepest_floor": 47,
+        "landings": 32,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1642,
+        "length": 390,
+        "total_return": 34.14999999999995,
+        "floors": 41,
+        "deepest_floor": 69,
+        "landings": 41,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1643,
+        "length": 370,
+        "total_return": 36.44999999999993,
+        "floors": 43,
+        "deepest_floor": 67,
+        "landings": 43,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1644,
+        "length": 600,
+        "total_return": 64.3500000000003,
+        "floors": 67,
+        "deepest_floor": 114,
+        "landings": 67,
+        "terminal_reason": "time_limit"
+      },
+      {
+        "seed": 1645,
+        "length": 475,
+        "total_return": 46.950000000000095,
+        "floors": 54,
+        "deepest_floor": 88,
+        "landings": 54,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1646,
+        "length": 330,
+        "total_return": 31.599999999999866,
+        "floors": 38,
+        "deepest_floor": 59,
+        "landings": 38,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1647,
+        "length": 169,
+        "total_return": 13.259999999999957,
+        "floors": 19,
+        "deepest_floor": 24,
+        "landings": 19,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1648,
+        "length": 170,
+        "total_return": 16.399999999999963,
+        "floors": 22,
+        "deepest_floor": 27,
+        "landings": 22,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1649,
+        "length": 485,
+        "total_return": 47.90000000000011,
+        "floors": 55,
+        "deepest_floor": 90,
+        "landings": 55,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1650,
+        "length": 322,
+        "total_return": 27.479999999999826,
+        "floors": 34,
+        "deepest_floor": 57,
+        "landings": 34,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1651,
+        "length": 296,
+        "total_return": 27.739999999999824,
+        "floors": 34,
+        "deepest_floor": 52,
+        "landings": 34,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1652,
+        "length": 53,
+        "total_return": -0.27999999999999314,
+        "floors": 5,
+        "deepest_floor": 5,
+        "landings": 5,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1653,
+        "length": 240,
+        "total_return": 23.049999999999862,
+        "floors": 29,
+        "deepest_floor": 41,
+        "landings": 29,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1654,
+        "length": 195,
+        "total_return": 18.249999999999943,
+        "floors": 24,
+        "deepest_floor": 32,
+        "landings": 24,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1655,
+        "length": 400,
+        "total_return": 39.30000000000002,
+        "floors": 46,
+        "deepest_floor": 73,
+        "landings": 46,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1656,
+        "length": 312,
+        "total_return": 26.529999999999774,
+        "floors": 33,
+        "deepest_floor": 53,
+        "landings": 33,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1657,
+        "length": 165,
+        "total_return": 15.399999999999972,
+        "floors": 21,
+        "deepest_floor": 26,
+        "landings": 21,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1658,
+        "length": 330,
+        "total_return": 31.599999999999845,
+        "floors": 38,
+        "deepest_floor": 59,
+        "landings": 38,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1659,
+        "length": 198,
+        "total_return": 15.069999999999924,
+        "floors": 21,
+        "deepest_floor": 31,
+        "landings": 21,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1660,
+        "length": 51,
+        "total_return": -1.3099999999999943,
+        "floors": 4,
+        "deepest_floor": 7,
+        "landings": 4,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1661,
+        "length": 260,
+        "total_return": 24.949999999999854,
+        "floors": 31,
+        "deepest_floor": 45,
+        "landings": 31,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1662,
+        "length": 390,
+        "total_return": 38.34999999999994,
+        "floors": 45,
+        "deepest_floor": 71,
+        "landings": 45,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1663,
+        "length": 406,
+        "total_return": 40.290000000000006,
+        "floors": 47,
+        "deepest_floor": 74,
+        "landings": 47,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1664,
+        "length": 290,
+        "total_return": 27.799999999999812,
+        "floors": 34,
+        "deepest_floor": 51,
+        "landings": 34,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1665,
+        "length": 426,
+        "total_return": 37.98999999999998,
+        "floors": 45,
+        "deepest_floor": 74,
+        "landings": 45,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1666,
+        "length": 405,
+        "total_return": 39.24999999999994,
+        "floors": 46,
+        "deepest_floor": 74,
+        "landings": 46,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1667,
+        "length": 79,
+        "total_return": 1.560000000000012,
+        "floors": 7,
+        "deepest_floor": 13,
+        "landings": 7,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1668,
+        "length": 302,
+        "total_return": 25.579999999999764,
+        "floors": 32,
+        "deepest_floor": 57,
+        "landings": 32,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1669,
+        "length": 340,
+        "total_return": 30.44999999999989,
+        "floors": 37,
+        "deepest_floor": 57,
+        "landings": 37,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1670,
+        "length": 386,
+        "total_return": 38.389999999999965,
+        "floors": 45,
+        "deepest_floor": 70,
+        "landings": 45,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1671,
+        "length": 67,
+        "total_return": 0.6300000000000088,
+        "floors": 6,
+        "deepest_floor": 9,
+        "landings": 6,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1672,
+        "length": 50,
+        "total_return": -1.2999999999999945,
+        "floors": 4,
+        "deepest_floor": 6,
+        "landings": 4,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1673,
+        "length": 299,
+        "total_return": 25.60999999999978,
+        "floors": 32,
+        "deepest_floor": 49,
+        "landings": 32,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1674,
+        "length": 155,
+        "total_return": 14.449999999999987,
+        "floors": 20,
+        "deepest_floor": 24,
+        "landings": 20,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1675,
+        "length": 52,
+        "total_return": -1.3199999999999954,
+        "floors": 4,
+        "deepest_floor": 8,
+        "landings": 4,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1676,
+        "length": 435,
+        "total_return": 40.00000000000002,
+        "floors": 47,
+        "deepest_floor": 79,
+        "landings": 47,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1677,
+        "length": 50,
+        "total_return": -1.2999999999999945,
+        "floors": 4,
+        "deepest_floor": 6,
+        "landings": 4,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1678,
+        "length": 300,
+        "total_return": 29.799999999999862,
+        "floors": 36,
+        "deepest_floor": 53,
+        "landings": 36,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1679,
+        "length": 240,
+        "total_return": 23.049999999999855,
+        "floors": 29,
+        "deepest_floor": 41,
+        "landings": 29,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1680,
+        "length": 205,
+        "total_return": 19.199999999999925,
+        "floors": 25,
+        "deepest_floor": 34,
+        "landings": 25,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1681,
+        "length": 177,
+        "total_return": 13.179999999999959,
+        "floors": 19,
+        "deepest_floor": 27,
+        "landings": 19,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1682,
+        "length": 297,
+        "total_return": 25.629999999999782,
+        "floors": 32,
+        "deepest_floor": 49,
+        "landings": 32,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1683,
+        "length": 358,
+        "total_return": 31.3199999999999,
+        "floors": 38,
+        "deepest_floor": 64,
+        "landings": 38,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1684,
+        "length": 155,
+        "total_return": 14.44999999999998,
+        "floors": 20,
+        "deepest_floor": 24,
+        "landings": 20,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1685,
+        "length": 112,
+        "total_return": 5.430000000000019,
+        "floors": 11,
+        "deepest_floor": 18,
+        "landings": 11,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1686,
+        "length": 270,
+        "total_return": 25.899999999999828,
+        "floors": 32,
+        "deepest_floor": 47,
+        "landings": 32,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1687,
+        "length": 210,
+        "total_return": 20.199999999999896,
+        "floors": 26,
+        "deepest_floor": 35,
+        "landings": 26,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1688,
+        "length": 596,
+        "total_return": 58.340000000000316,
+        "floors": 66,
+        "deepest_floor": 112,
+        "landings": 66,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1689,
+        "length": 96,
+        "total_return": 3.4900000000000144,
+        "floors": 9,
+        "deepest_floor": 14,
+        "landings": 9,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1690,
+        "length": 272,
+        "total_return": 22.72999999999982,
+        "floors": 29,
+        "deepest_floor": 47,
+        "landings": 29,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1691,
+        "length": 78,
+        "total_return": 1.570000000000011,
+        "floors": 7,
+        "deepest_floor": 12,
+        "landings": 7,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1692,
+        "length": 190,
+        "total_return": 18.299999999999926,
+        "floors": 24,
+        "deepest_floor": 31,
+        "landings": 24,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1693,
+        "length": 295,
+        "total_return": 28.799999999999834,
+        "floors": 35,
+        "deepest_floor": 52,
+        "landings": 35,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1694,
+        "length": 150,
+        "total_return": 10.300000000000022,
+        "floors": 16,
+        "deepest_floor": 21,
+        "landings": 16,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1695,
+        "length": 600,
+        "total_return": 64.35000000000029,
+        "floors": 67,
+        "deepest_floor": 117,
+        "landings": 67,
+        "terminal_reason": "time_limit"
+      },
+      {
+        "seed": 1696,
+        "length": 266,
+        "total_return": 22.78999999999983,
+        "floors": 29,
+        "deepest_floor": 43,
+        "landings": 29,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1697,
+        "length": 196,
+        "total_return": 18.23999999999993,
+        "floors": 24,
+        "deepest_floor": 32,
+        "landings": 24,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1698,
+        "length": 316,
+        "total_return": 27.53999999999985,
+        "floors": 34,
+        "deepest_floor": 52,
+        "landings": 34,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1699,
+        "length": 425,
+        "total_return": 42.19999999999999,
+        "floors": 49,
+        "deepest_floor": 78,
+        "landings": 49,
+        "terminal_reason": "top"
+      }
+    ],
+    "median_floors": 31.0,
+    "std_floors": 15.042775674721737,
+    "floor_quantile_25": 22.0,
+    "mean_deepest_floor": 47.39,
+    "median_deepest_floor": 45.0,
+    "deepest_floor_quantile_25": 31.0,
+    "floors_bootstrap_ci95": [
+      28.09,
+      34.01
+    ],
+    "success_rate_floor_1": 1.0,
+    "success_rate_floor_3": 1.0,
+    "success_rate_floor_5": 0.94,
+    "success_rate_floor_10": 0.88,
+    "reach_rate_floor_1": 1.0,
+    "reach_rate_floor_3": 1.0,
+    "reach_rate_floor_5": 1.0,
+    "reach_rate_floor_10": 0.92
+  },
+  "full_health_reference": {
+    "candidate": "teacher_observable_full_health_reference",
+    "episodes": 100,
+    "total_steps": 27763,
+    "mean_length": 277.63,
+    "mean_return": 25.36469999999995,
+    "mean_floors": 31.42,
+    "mean_landings": 31.42,
+    "action_counts": {
+      "RELEASE_ALL": 11715,
+      "LEFT": 8413,
+      "RIGHT": 7635
+    },
+    "max_action_share": 0.4219644851060764,
+    "collapsed": false,
+    "longest_same_action_streak": 179,
+    "direction_switches": 0,
+    "terminal_reasons": {
+      "top": 55,
+      "time_limit": 3,
+      "bottom": 42
+    },
+    "episode_results": [
+      {
+        "seed": 1600,
+        "length": 210,
+        "total_return": 20.199999999999918,
+        "floors": 26,
+        "deepest_floor": 35,
+        "landings": 26,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1601,
+        "length": 230,
+        "total_return": 22.099999999999888,
+        "floors": 28,
+        "deepest_floor": 39,
+        "landings": 28,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1602,
+        "length": 251,
+        "total_return": 23.98999999999986,
+        "floors": 30,
+        "deepest_floor": 43,
+        "landings": 30,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1603,
+        "length": 600,
+        "total_return": 63.30000000000029,
+        "floors": 66,
+        "deepest_floor": 114,
+        "landings": 66,
+        "terminal_reason": "time_limit"
+      },
+      {
+        "seed": 1604,
+        "length": 215,
+        "total_return": 20.149999999999906,
+        "floors": 26,
+        "deepest_floor": 36,
+        "landings": 26,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1605,
+        "length": 255,
+        "total_return": 24.99999999999985,
+        "floors": 31,
+        "deepest_floor": 44,
+        "landings": 31,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1606,
+        "length": 590,
+        "total_return": 58.40000000000027,
+        "floors": 66,
+        "deepest_floor": 111,
+        "landings": 66,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1607,
+        "length": 203,
+        "total_return": 16.06999999999993,
+        "floors": 22,
+        "deepest_floor": 31,
+        "landings": 22,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1608,
+        "length": 236,
+        "total_return": 22.039999999999885,
+        "floors": 28,
+        "deepest_floor": 40,
+        "landings": 28,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1609,
+        "length": 265,
+        "total_return": 25.949999999999854,
+        "floors": 32,
+        "deepest_floor": 46,
+        "landings": 32,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1610,
+        "length": 241,
+        "total_return": 19.889999999999866,
+        "floors": 26,
+        "deepest_floor": 39,
+        "landings": 26,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1611,
+        "length": 445,
+        "total_return": 44.099999999999994,
+        "floors": 51,
+        "deepest_floor": 82,
+        "landings": 51,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1612,
+        "length": 395,
+        "total_return": 39.34999999999996,
+        "floors": 46,
+        "deepest_floor": 72,
+        "landings": 46,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1613,
+        "length": 205,
+        "total_return": 19.199999999999932,
+        "floors": 25,
+        "deepest_floor": 34,
+        "landings": 25,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1614,
+        "length": 240,
+        "total_return": 23.04999999999987,
+        "floors": 29,
+        "deepest_floor": 41,
+        "landings": 29,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1615,
+        "length": 402,
+        "total_return": 37.18,
+        "floors": 44,
+        "deepest_floor": 69,
+        "landings": 44,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1616,
+        "length": 351,
+        "total_return": 31.389999999999873,
+        "floors": 38,
+        "deepest_floor": 63,
+        "landings": 38,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1617,
+        "length": 190,
+        "total_return": 18.299999999999947,
+        "floors": 24,
+        "deepest_floor": 31,
+        "landings": 24,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1618,
+        "length": 409,
+        "total_return": 36.059999999999995,
+        "floors": 43,
+        "deepest_floor": 73,
+        "landings": 43,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1619,
+        "length": 111,
+        "total_return": 5.440000000000017,
+        "floors": 11,
+        "deepest_floor": 19,
+        "landings": 11,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1620,
+        "length": 240,
+        "total_return": 23.049999999999862,
+        "floors": 29,
+        "deepest_floor": 41,
+        "landings": 29,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1621,
+        "length": 345,
+        "total_return": 33.54999999999988,
+        "floors": 40,
+        "deepest_floor": 62,
+        "landings": 40,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1622,
+        "length": 205,
+        "total_return": 19.19999999999991,
+        "floors": 25,
+        "deepest_floor": 34,
+        "landings": 25,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1623,
+        "length": 200,
+        "total_return": 19.24999999999993,
+        "floors": 25,
+        "deepest_floor": 33,
+        "landings": 25,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1624,
+        "length": 380,
+        "total_return": 33.199999999999946,
+        "floors": 40,
+        "deepest_floor": 68,
+        "landings": 40,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1625,
+        "length": 172,
+        "total_return": 13.22999999999996,
+        "floors": 19,
+        "deepest_floor": 24,
+        "landings": 19,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1626,
+        "length": 457,
+        "total_return": 41.880000000000074,
+        "floors": 49,
+        "deepest_floor": 82,
+        "landings": 49,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1627,
+        "length": 52,
+        "total_return": -1.319999999999994,
+        "floors": 4,
+        "deepest_floor": 8,
+        "landings": 4,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1628,
+        "length": 196,
+        "total_return": 18.239999999999924,
+        "floors": 24,
+        "deepest_floor": 32,
+        "landings": 24,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1629,
+        "length": 510,
+        "total_return": 50.80000000000015,
+        "floors": 58,
+        "deepest_floor": 95,
+        "landings": 58,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1630,
+        "length": 87,
+        "total_return": 3.5800000000000125,
+        "floors": 9,
+        "deepest_floor": 10,
+        "landings": 9,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1631,
+        "length": 320,
+        "total_return": 31.699999999999854,
+        "floors": 38,
+        "deepest_floor": 57,
+        "landings": 38,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1632,
+        "length": 223,
+        "total_return": 17.96999999999987,
+        "floors": 24,
+        "deepest_floor": 36,
+        "landings": 24,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1633,
+        "length": 260,
+        "total_return": 24.949999999999854,
+        "floors": 31,
+        "deepest_floor": 45,
+        "landings": 31,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1634,
+        "length": 285,
+        "total_return": 27.849999999999802,
+        "floors": 34,
+        "deepest_floor": 50,
+        "landings": 34,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1635,
+        "length": 52,
+        "total_return": -1.3199999999999954,
+        "floors": 4,
+        "deepest_floor": 8,
+        "landings": 4,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1636,
+        "length": 325,
+        "total_return": 31.649999999999864,
+        "floors": 38,
+        "deepest_floor": 58,
+        "landings": 38,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1637,
+        "length": 345,
+        "total_return": 33.54999999999987,
+        "floors": 40,
+        "deepest_floor": 62,
+        "landings": 40,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1638,
+        "length": 395,
+        "total_return": 39.34999999999996,
+        "floors": 46,
+        "deepest_floor": 72,
+        "landings": 46,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1639,
+        "length": 212,
+        "total_return": 17.029999999999916,
+        "floors": 23,
+        "deepest_floor": 31,
+        "landings": 23,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1640,
+        "length": 442,
+        "total_return": 39.930000000000064,
+        "floors": 47,
+        "deepest_floor": 81,
+        "landings": 47,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1641,
+        "length": 270,
+        "total_return": 25.89999999999985,
+        "floors": 32,
+        "deepest_floor": 47,
+        "landings": 32,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1642,
+        "length": 390,
+        "total_return": 34.14999999999995,
+        "floors": 41,
+        "deepest_floor": 69,
+        "landings": 41,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1643,
+        "length": 370,
+        "total_return": 36.44999999999993,
+        "floors": 43,
+        "deepest_floor": 67,
+        "landings": 43,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1644,
+        "length": 600,
+        "total_return": 64.3500000000003,
+        "floors": 67,
+        "deepest_floor": 114,
+        "landings": 67,
+        "terminal_reason": "time_limit"
+      },
+      {
+        "seed": 1645,
+        "length": 475,
+        "total_return": 46.950000000000095,
+        "floors": 54,
+        "deepest_floor": 88,
+        "landings": 54,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1646,
+        "length": 330,
+        "total_return": 31.599999999999866,
+        "floors": 38,
+        "deepest_floor": 59,
+        "landings": 38,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1647,
+        "length": 169,
+        "total_return": 13.259999999999957,
+        "floors": 19,
+        "deepest_floor": 24,
+        "landings": 19,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1648,
+        "length": 170,
+        "total_return": 16.399999999999963,
+        "floors": 22,
+        "deepest_floor": 27,
+        "landings": 22,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1649,
+        "length": 485,
+        "total_return": 47.90000000000011,
+        "floors": 55,
+        "deepest_floor": 90,
+        "landings": 55,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1650,
+        "length": 322,
+        "total_return": 27.479999999999826,
+        "floors": 34,
+        "deepest_floor": 57,
+        "landings": 34,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1651,
+        "length": 296,
+        "total_return": 27.739999999999824,
+        "floors": 34,
+        "deepest_floor": 52,
+        "landings": 34,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1652,
+        "length": 53,
+        "total_return": -0.27999999999999314,
+        "floors": 5,
+        "deepest_floor": 5,
+        "landings": 5,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1653,
+        "length": 240,
+        "total_return": 23.049999999999862,
+        "floors": 29,
+        "deepest_floor": 41,
+        "landings": 29,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1654,
+        "length": 195,
+        "total_return": 18.249999999999943,
+        "floors": 24,
+        "deepest_floor": 32,
+        "landings": 24,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1655,
+        "length": 400,
+        "total_return": 39.30000000000002,
+        "floors": 46,
+        "deepest_floor": 73,
+        "landings": 46,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1656,
+        "length": 312,
+        "total_return": 26.529999999999774,
+        "floors": 33,
+        "deepest_floor": 53,
+        "landings": 33,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1657,
+        "length": 165,
+        "total_return": 15.399999999999972,
+        "floors": 21,
+        "deepest_floor": 26,
+        "landings": 21,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1658,
+        "length": 330,
+        "total_return": 31.599999999999845,
+        "floors": 38,
+        "deepest_floor": 59,
+        "landings": 38,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1659,
+        "length": 198,
+        "total_return": 15.069999999999924,
+        "floors": 21,
+        "deepest_floor": 31,
+        "landings": 21,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1660,
+        "length": 51,
+        "total_return": -1.3099999999999943,
+        "floors": 4,
+        "deepest_floor": 7,
+        "landings": 4,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1661,
+        "length": 260,
+        "total_return": 24.949999999999854,
+        "floors": 31,
+        "deepest_floor": 45,
+        "landings": 31,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1662,
+        "length": 390,
+        "total_return": 38.34999999999994,
+        "floors": 45,
+        "deepest_floor": 71,
+        "landings": 45,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1663,
+        "length": 406,
+        "total_return": 40.290000000000006,
+        "floors": 47,
+        "deepest_floor": 74,
+        "landings": 47,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1664,
+        "length": 290,
+        "total_return": 27.799999999999812,
+        "floors": 34,
+        "deepest_floor": 51,
+        "landings": 34,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1665,
+        "length": 426,
+        "total_return": 37.98999999999998,
+        "floors": 45,
+        "deepest_floor": 74,
+        "landings": 45,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1666,
+        "length": 405,
+        "total_return": 39.24999999999994,
+        "floors": 46,
+        "deepest_floor": 74,
+        "landings": 46,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1667,
+        "length": 79,
+        "total_return": 1.560000000000012,
+        "floors": 7,
+        "deepest_floor": 13,
+        "landings": 7,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1668,
+        "length": 302,
+        "total_return": 25.579999999999764,
+        "floors": 32,
+        "deepest_floor": 57,
+        "landings": 32,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1669,
+        "length": 340,
+        "total_return": 30.44999999999989,
+        "floors": 37,
+        "deepest_floor": 57,
+        "landings": 37,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1670,
+        "length": 386,
+        "total_return": 38.389999999999965,
+        "floors": 45,
+        "deepest_floor": 70,
+        "landings": 45,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1671,
+        "length": 67,
+        "total_return": 0.6300000000000088,
+        "floors": 6,
+        "deepest_floor": 9,
+        "landings": 6,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1672,
+        "length": 50,
+        "total_return": -1.2999999999999945,
+        "floors": 4,
+        "deepest_floor": 6,
+        "landings": 4,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1673,
+        "length": 298,
+        "total_return": 25.619999999999777,
+        "floors": 32,
+        "deepest_floor": 49,
+        "landings": 32,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1674,
+        "length": 155,
+        "total_return": 14.449999999999987,
+        "floors": 20,
+        "deepest_floor": 24,
+        "landings": 20,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1675,
+        "length": 52,
+        "total_return": -1.3199999999999954,
+        "floors": 4,
+        "deepest_floor": 8,
+        "landings": 4,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1676,
+        "length": 435,
+        "total_return": 40.00000000000002,
+        "floors": 47,
+        "deepest_floor": 79,
+        "landings": 47,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1677,
+        "length": 50,
+        "total_return": -1.2999999999999945,
+        "floors": 4,
+        "deepest_floor": 6,
+        "landings": 4,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1678,
+        "length": 300,
+        "total_return": 29.799999999999862,
+        "floors": 36,
+        "deepest_floor": 53,
+        "landings": 36,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1679,
+        "length": 240,
+        "total_return": 23.049999999999855,
+        "floors": 29,
+        "deepest_floor": 41,
+        "landings": 29,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1680,
+        "length": 205,
+        "total_return": 19.199999999999925,
+        "floors": 25,
+        "deepest_floor": 34,
+        "landings": 25,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1681,
+        "length": 177,
+        "total_return": 13.179999999999959,
+        "floors": 19,
+        "deepest_floor": 27,
+        "landings": 19,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1682,
+        "length": 297,
+        "total_return": 25.629999999999782,
+        "floors": 32,
+        "deepest_floor": 49,
+        "landings": 32,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1683,
+        "length": 358,
+        "total_return": 31.3199999999999,
+        "floors": 38,
+        "deepest_floor": 64,
+        "landings": 38,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1684,
+        "length": 155,
+        "total_return": 14.44999999999998,
+        "floors": 20,
+        "deepest_floor": 24,
+        "landings": 20,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1685,
+        "length": 112,
+        "total_return": 5.430000000000019,
+        "floors": 11,
+        "deepest_floor": 18,
+        "landings": 11,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1686,
+        "length": 270,
+        "total_return": 25.899999999999828,
+        "floors": 32,
+        "deepest_floor": 47,
+        "landings": 32,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1687,
+        "length": 210,
+        "total_return": 20.199999999999896,
+        "floors": 26,
+        "deepest_floor": 35,
+        "landings": 26,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1688,
+        "length": 596,
+        "total_return": 58.340000000000316,
+        "floors": 66,
+        "deepest_floor": 112,
+        "landings": 66,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1689,
+        "length": 96,
+        "total_return": 3.4900000000000144,
+        "floors": 9,
+        "deepest_floor": 14,
+        "landings": 9,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1690,
+        "length": 272,
+        "total_return": 22.72999999999982,
+        "floors": 29,
+        "deepest_floor": 47,
+        "landings": 29,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1691,
+        "length": 78,
+        "total_return": 1.570000000000011,
+        "floors": 7,
+        "deepest_floor": 12,
+        "landings": 7,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1692,
+        "length": 190,
+        "total_return": 18.299999999999926,
+        "floors": 24,
+        "deepest_floor": 31,
+        "landings": 24,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1693,
+        "length": 295,
+        "total_return": 28.799999999999834,
+        "floors": 35,
+        "deepest_floor": 52,
+        "landings": 35,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1694,
+        "length": 150,
+        "total_return": 10.300000000000022,
+        "floors": 16,
+        "deepest_floor": 21,
+        "landings": 16,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1695,
+        "length": 600,
+        "total_return": 64.35000000000029,
+        "floors": 67,
+        "deepest_floor": 117,
+        "landings": 67,
+        "terminal_reason": "time_limit"
+      },
+      {
+        "seed": 1696,
+        "length": 266,
+        "total_return": 22.78999999999983,
+        "floors": 29,
+        "deepest_floor": 43,
+        "landings": 29,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1697,
+        "length": 196,
+        "total_return": 18.23999999999993,
+        "floors": 24,
+        "deepest_floor": 32,
+        "landings": 24,
+        "terminal_reason": "top"
+      },
+      {
+        "seed": 1698,
+        "length": 316,
+        "total_return": 27.53999999999985,
+        "floors": 34,
+        "deepest_floor": 52,
+        "landings": 34,
+        "terminal_reason": "bottom"
+      },
+      {
+        "seed": 1699,
+        "length": 425,
+        "total_return": 42.19999999999999,
+        "floors": 49,
+        "deepest_floor": 78,
+        "landings": 49,
+        "terminal_reason": "top"
+      }
+    ],
+    "median_floors": 31.0,
+    "std_floors": 15.203407512791337,
+    "floor_quantile_25": 23.75,
+    "mean_deepest_floor": 48.42,
+    "median_deepest_floor": 45.5,
+    "deepest_floor_quantile_25": 31.0,
+    "floors_bootstrap_ci95": [
+      28.529500000000002,
+      34.55
+    ],
+    "success_rate_floor_1": 1.0,
+    "success_rate_floor_3": 1.0,
+    "success_rate_floor_5": 0.94,
+    "success_rate_floor_10": 0.88,
+    "reach_rate_floor_1": 1.0,
+    "reach_rate_floor_3": 1.0,
+    "reach_rate_floor_5": 1.0,
+    "reach_rate_floor_10": 0.92
+  },
+  "gate": {
+    "passed": true,
+    "recovery_safety_non_regression_passed": true,
+    "absolute_reliability_passed": true,
+    "criteria": "recovery decisions >0, no health death/collapse, within 2pp of full-health reach-floor-10 and >=80% reference Q25; absolute reach-floor-10 >=90%, floor Q25 >=10"
+  }
+}

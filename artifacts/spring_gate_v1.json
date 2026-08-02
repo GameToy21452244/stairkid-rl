@@ -1,0 +1,36 @@
+{
+  "environment_version": "ns-shaft-sim-v0.2+spring-v1",
+  "feature_default_enabled": false,
+  "normal_jump_velocity_px_per_second": 95.0,
+  "provisional_spring_jump_velocity_px_per_second": 190.0,
+  "fixed_gates": {
+    "seeds": 100,
+    "stronger_bounce": {
+      "passed": true,
+      "failures": []
+    },
+    "oracle_normal_preference": {
+      "passed": true,
+      "failures": []
+    }
+  },
+  "no_spawn_feature_equivalence": {
+    "passed": true,
+    "seeds": 100,
+    "feature_off_mean_floors": 34.68,
+    "feature_on_mean_floors": 34.68,
+    "feature_off_terminal_reasons": {
+      "top": 57,
+      "bottom": 39,
+      "time_limit": 4
+    },
+    "feature_on_terminal_reasons": {
+      "top": 57,
+      "bottom": 39,
+      "time_limit": 4
+    }
+  },
+  "renderer_test": "pytest",
+  "calibration_interface_test": "pytest",
+  "passed": true
+}
