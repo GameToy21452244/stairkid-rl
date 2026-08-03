@@ -1,0 +1,27 @@
+{
+  "experiment": "p41-dataset-regeneration-drift-check-v1",
+  "date": "2026-08-03",
+  "command": "python scripts/generate_spike_teacher_dataset.py --seed-start 2000 --seed-count 60 --dataset-id spike_teacher_dataset_v1 --episode-prefix spike-v1 --output <temporary>/spike_teacher_dataset_v1.jsonl --summary-output <temporary>/summary.json --teacher-gate artifacts/teacher_recovery_holdout_1800.json",
+  "frozen_dataset": {
+    "records": 3529,
+    "sha256": "fa3e111a6204ac53767824e8d71d1ccf841637976427c410c1e14dff308c7a0a",
+    "action_counts": {
+      "0": 1328,
+      "1": 1092,
+      "2": 1109
+    }
+  },
+  "regenerated_with_current_source": {
+    "records": 3571,
+    "sha256": "04417d1de89535b16f9ee65a3f5910a476437a3ecb28cb4e4acae9a289975205",
+    "action_counts": {
+      "0": 1729,
+      "1": 975,
+      "2": 867
+    }
+  },
+  "matched": false,
+  "cause_boundary": "Teacher/control source changed after the frozen dataset was generated while teacher_policy_version remained teacher-observable-safe-platform-v2.",
+  "decision": "P4.1 uses the exact frozen 3529-row dataset from the manifest. Colab regeneration is forbidden because it would confound dataset and representation changes.",
+  "temporary_regeneration_removed": true
+}

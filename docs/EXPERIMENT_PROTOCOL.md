@@ -141,6 +141,32 @@
 bootstrap CI `[0.0979,0.1411]`，全部PASS。這只解鎖bounded P4.1消融，不等於模型
 或closed-loop Gate通過。
 
+## P4.1 Frozen bounded ablation protocol
+
+- Dataset：`spike_teacher_dataset_v1.jsonl`，60 episodes／3,529 rows；只接受manifest
+  SHA-256 `fa3e111a6204ac53767824e8d71d1ccf841637976427c410c1e14dff308c7a0a`。
+  Current Teacher source重建結果不同，因此Colab不得重建或重新命名冒充原資料。
+- S0：268→256→128→3 MLP；S1：268＋9維past-action causal state→同型MLP；
+  S2：268維sequence→GRU-128→3；S3：22維latest compact observation＋9維causal
+  state→GRU-128→3。
+- 9維state只由`action<t`更新，decision t前snapshot；episode reset全零。當步sidecar、
+  Teacher phase/target私有memory、future observation、simulator state與raw IDs禁止。
+- Sequence length 24、burn-in 8；chunk不跨episode，padding mask與loss mask分離；每個
+  row label只計入一次。GRU deployment hidden在每回合reset。
+- Hard CE、Adam 1e-3；四組相同300 optimizer updates、candidate updates
+  100／200／300、initialization seeds 0／1／2。MLP batch 112；sequence batch最多
+  8 chunks。凍結train split下兩者都是21 updates完整看完2,327 labels一次；每update
+  實際label數仍隨artifact保存。
+- Development interface seeds 3900／3901永久退休；checkpoint selection只用
+  4000～4019；架構與checkpoint凍結後，4100～4139 final seeds每個checkpoint只跑一次。
+- Selection及final都先拒絕collapse／health regression，再依reach-10、bottom、Q25、
+  CVaR25、oscillation、median、mean排序；offline loss只作最後tie-break。
+- Final Gate要求候選相對S0在每個主要指標至少2/3 initialization方向非負，平均至少
+  Q25 +1 floor、CVaR25 +0.5 floor、reach-10 +0.05、bottom death rate -0.025、
+  direction switches/100 steps -0.10，並維持0 health death與無action collapse。
+- 若selection沒有任何S1/S2/S3通過，不使用final seeds；若final FAIL，保存artifact後
+  停止。科學FAIL是正常完成，runner回傳0；只有runtime/schema錯誤才非零中止。
+
 ## 當前結論
 
 P3.6 Gate v11與P4.0 State-aliasing Gate已PASS。目前唯一 **Go** 是設計並執行

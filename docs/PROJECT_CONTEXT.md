@@ -50,6 +50,11 @@
 舊版已完成的資料 audit、Simulator v0.2、Teacher 分離與特殊平台機制仍是有效
 基礎，不重新實作；只是訓練停點已被新的 sequence-control Gate 取代。
 
+2026-08-03目前停點：P3.6與P4.0已PASS；P4.1的本機causal/sequence介面與短smoke
+PASS，下一步才是Colab三初始化bounded scientific Gate。P4.1固定使用hash鎖定的
+3,529-row Spike Dataset v1；current Teacher source重建結果不同，故不得在Colab重建。
+只有P4.1 final Gate通過才可建立P4.2 rare-branch sequence dataset。
+
 ## 已完成的基礎路線
 
 1. Data Resource Audit 先判斷既有資料可作 demo、replay、dynamics 或 relabel。

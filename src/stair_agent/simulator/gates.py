@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass
+import math
 from time import perf_counter
 from typing import Any, Iterable
 
@@ -109,6 +110,18 @@ def bootstrap_ci(values: Iterable[float], *, seed: int = 20260730) -> tuple[floa
     return float(np.quantile(means, 0.025)), float(np.quantile(means, 0.975))
 
 
+def lower_tail_mean(values: Iterable[float], *, fraction: float = 0.25) -> float:
+    """Return the mean of the exact worst ``ceil(n * fraction)`` samples."""
+
+    array = np.sort(np.asarray(list(values), dtype=np.float64))
+    if not len(array):
+        return float("nan")
+    if not 0.0 < fraction <= 1.0:
+        raise ValueError("tail fraction 必須位於 (0, 1]。")
+    count = max(1, int(math.ceil(len(array) * fraction)))
+    return float(array[:count].mean())
+
+
 def evaluation_summary(result: ProbeEvaluation) -> dict[str, Any]:
     floors = np.asarray([episode.floors for episode in result.episode_results], dtype=float)
     deepest_floors = np.asarray(
@@ -125,6 +138,21 @@ def evaluation_summary(result: ProbeEvaluation) -> dict[str, Any]:
         "median_deepest_floor": float(np.median(deepest_floors)),
         "deepest_floor_quantile_25": float(
             np.quantile(deepest_floors, 0.25)
+        ),
+        "floor_cvar25": lower_tail_mean(floors, fraction=0.25),
+        "deepest_floor_cvar25": lower_tail_mean(
+            deepest_floors, fraction=0.25
+        ),
+        "bottom_death_rate": float(
+            result.terminal_reasons.get("bottom", 0)
+            / max(1, result.episodes)
+        ),
+        "health_death_rate": float(
+            result.terminal_reasons.get("health_depleted", 0)
+            / max(1, result.episodes)
+        ),
+        "direction_switches_per_100_steps": float(
+            100.0 * result.direction_switches / max(1, result.total_steps)
         ),
         "floors_bootstrap_ci95": [ci_low, ci_high],
         "success_rate_floor_1": float(np.mean(floors >= 1)),
@@ -196,6 +224,7 @@ __all__ = [
     "bootstrap_ci",
     "evaluate_gate_candidates",
     "evaluation_summary",
+    "lower_tail_mean",
     "oracle_selector",
     "run_reachability_gate",
 ]

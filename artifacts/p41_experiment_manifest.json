@@ -1,0 +1,229 @@
+{
+  "schema_version": "p41-causal-sequence-v1",
+  "status": "FROZEN_LOCAL_PREFLIGHT",
+  "dataset": {
+    "path": "artifacts/spike_teacher_dataset_v1.jsonl",
+    "sha256": "fa3e111a6204ac53767824e8d71d1ccf841637976427c410c1e14dff308c7a0a",
+    "records": 3529,
+    "episodes": 60,
+    "records_by_split": {
+      "train": 2327,
+      "validation": 605,
+      "test": 597
+    },
+    "episodes_by_split": {
+      "train": 40,
+      "validation": 10,
+      "test": 10
+    },
+    "seeds_by_split": {
+      "train": [
+        2000,
+        2001,
+        2002,
+        2003,
+        2004,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025,
+        2026,
+        2027,
+        2028,
+        2029,
+        2030,
+        2031,
+        2032,
+        2033,
+        2034,
+        2035,
+        2036,
+        2037,
+        2038,
+        2039
+      ],
+      "validation": [
+        2040,
+        2041,
+        2042,
+        2043,
+        2044,
+        2045,
+        2046,
+        2047,
+        2048,
+        2049
+      ],
+      "test": [
+        2050,
+        2051,
+        2052,
+        2053,
+        2054,
+        2055,
+        2056,
+        2057,
+        2058,
+        2059
+      ]
+    },
+    "action_counts": {
+      "0": 1328,
+      "1": 1092,
+      "2": 1109
+    },
+    "environment_versions": [
+      "ns-shaft-sim-v0.2+health-v1+spikes-v1+spike-curriculum-v0"
+    ],
+    "teacher_policy_versions": [
+      "teacher-observable-safe-platform-v2"
+    ]
+  },
+  "models": {
+    "S0": {
+      "type": "MLP",
+      "input_dim": 268
+    },
+    "S1": {
+      "type": "MLP",
+      "input_dim": 277,
+      "causal_state_dim": 9
+    },
+    "S2": {
+      "type": "GRU",
+      "input_dim": 268,
+      "hidden_size": 128
+    },
+    "S3": {
+      "type": "GRU",
+      "input_dim": 31,
+      "hidden_size": 128
+    }
+  },
+  "protocol": {
+    "loss": "hard_cross_entropy",
+    "optimizer": "Adam",
+    "learning_rate": 0.001,
+    "mlp_batch_size": 112,
+    "sequence_batch_chunks": 8,
+    "train_updates_per_full_dataset_pass": 21,
+    "train_labels_per_full_dataset_pass": 2327,
+    "sequence_length": 24,
+    "burn_in": 8,
+    "max_updates": 300,
+    "candidate_updates": [
+      100,
+      200,
+      300
+    ],
+    "initialization_seeds": [
+      0,
+      1,
+      2
+    ],
+    "selection_environment_seeds": [
+      4000,
+      4001,
+      4002,
+      4003,
+      4004,
+      4005,
+      4006,
+      4007,
+      4008,
+      4009,
+      4010,
+      4011,
+      4012,
+      4013,
+      4014,
+      4015,
+      4016,
+      4017,
+      4018,
+      4019
+    ],
+    "final_environment_seeds": [
+      4100,
+      4101,
+      4102,
+      4103,
+      4104,
+      4105,
+      4106,
+      4107,
+      4108,
+      4109,
+      4110,
+      4111,
+      4112,
+      4113,
+      4114,
+      4115,
+      4116,
+      4117,
+      4118,
+      4119,
+      4120,
+      4121,
+      4122,
+      4123,
+      4124,
+      4125,
+      4126,
+      4127,
+      4128,
+      4129,
+      4130,
+      4131,
+      4132,
+      4133,
+      4134,
+      4135,
+      4136,
+      4137,
+      4138,
+      4139
+    ],
+    "max_episode_steps": 600,
+    "physics_frequency_hz": 60,
+    "policy_frequency_hz": 10,
+    "checkpoint_selection": "closed_loop_selection_seeds_only",
+    "final_evaluation": "single_use_after_architecture_and_checkpoint_freeze",
+    "causal_timing": "state from actions < t; reset at episode boundary"
+  },
+  "gate_priority": [
+    "safety_events",
+    "health_death",
+    "bottom_death",
+    "deepest_floor_q25",
+    "deepest_floor_cvar25",
+    "reach_floor_10",
+    "oscillation",
+    "median",
+    "mean"
+  ],
+  "forbidden_inputs": [
+    "same_step_post_decision_controller_sidecar",
+    "future_observation",
+    "simulator_privileged_state",
+    "raw_platform_or_track_id"
+  ]
+}

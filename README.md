@@ -13,9 +13,11 @@ conservative sequence DAgger → compact NEAT 公平對照。前一 Gate 未通�
 floors 為 `8,11,4,2,2,5,4,4,8,2`；Gate v11 以不可變 sidecars 重分類後全部 checks
 PASS。P4.0 已對10回合／753筆實機資料完成 State-aliasing Audit：跨episode 5-NN
 action conflict由observation-only的56.20%降至lagged causal memory的45.39%，相對
-改善19.23%，episode bootstrap下界亦為正，Gate PASS。下一步只解鎖bounded且公平的
-S0～S3短消融；正式Student、rare-branch dataset與BC、DAgger、PPO、DQN、NEAT長訓練
-仍禁止。當步controller sidecar含post-decision label leakage，不得當同一步模型輸入。
+改善19.23%，episode bootstrap下界亦為正，Gate PASS。P4.1 的 causal schema、資料
+manifest、S0～S3介面、checkpoint lifecycle與本機4-update／2-seed smoke均已PASS；
+下一步是Colab三初始化bounded ablation。正式rare-branch dataset與BC、DAgger、PPO、
+DQN、NEAT長訓練仍禁止。當步controller sidecar含post-decision label leakage，不得當
+同一步模型輸入。
 
 最新 Spike Teacher Dataset v1 有 60 episodes／3,529 rows、validator 0 error；
 但單步 BC0 v1 的 final mean deepest 45.5 雖接近 baseline 49.7，Q25 只有
@@ -49,7 +51,7 @@ Teacher 真機轉移及以 causal memory／sequence 表示能否在閉迴路穩�
 | P3.5 Spike curriculum | 最終 STOP | BC 曾通過，但 DAgger／新版 BC lower-tail 失敗，不再加 epochs |
 | P3.6 Teacher Real-Game Gate | PASS | Gate v11 十回合通過；Teacher 仍有 lower-tail 風險 |
 | P4.0 State-aliasing Audit | **PASS** | causal memory 顯著減少動作衝突 |
-| P4.1 S0／S1／S2／S3 bounded ablation | **NEXT** | 下一個唯一允許的模型實驗 |
+| P4.1 S0／S1／S2／S3 bounded ablation | **LOCAL PREFLIGHT PASS／COLAB NEXT** | 本機介面已通過；科學 Gate 尚未評估 |
 | P4.2～P8 | BLOCKED | 必須逐 Gate 解鎖，不可直接跳階段 |
 
 ### 共通規則：每一個 Gate 都怎麼做
@@ -223,7 +225,7 @@ entropy 改善 0.1873 bits、accuracy 增 13.01 points、bootstrap CI
 full memory，因此 P4.1 優先 compact S1。Post-decision ceiling 11.42% 是答案洩漏，
 永遠不能當 Student 輸入。完整報告見 `reports/STATE_ALIASING_AUDIT.md`。
 
-### P4.1：S0／S1／S2／S3 公平 bounded ablation（下一步）
+### P4.1：S0／S1／S2／S3 公平 bounded ablation（本機 PASS；Colab 下一步）
 
 目的：確認「明確 causal state」或「sequence model」是否真的在 closed-loop 穩定優於
 原本的單步 MLP，而不是只提高 offline accuracy。
@@ -235,6 +237,28 @@ full memory，因此 P4.1 優先 compact S1。Post-decision ceiling 11.42% 是�
 - S2：完整 observation sequence＋GRU；
 - S3：compact deployable observation/state sequence＋GRU；
 - S4 只有在前四者資料與 Gate 穩定後，才可考慮 phase／target／brake auxiliary loss。
+
+目前已凍結的第一版實作如下：
+
+- 資料固定為 Spike Teacher Dataset v1 的 60 episodes／3,529 rows，SHA-256
+  `fa3e111a6204ac53767824e8d71d1ccf841637976427c410c1e14dff308c7a0a`；
+- S1 的 9 維 causal state 只由 `action<t` 重建：前一動作、是否有前一動作、最後
+  非 RELEASE 方向、同動作 streak、RELEASE streak、最近方向切換率；
+- S3 的 compact observation 為最新一幀16個核心特徵＋最近平台6個特徵，再加上述
+  9維 causal state，共31維；不含 raw ID、Teacher phase或當步sidecar；
+- S2／S3固定 sequence length 24、burn-in 8、GRU hidden 128；每筆label只計loss一次，
+  chunk不跨episode，padding／loss mask分離；
+- 四組都用hard CE、Adam 1e-3、300 updates、candidate updates 100／200／300、
+  MLP batch 112、sequence batch 8 chunks；兩者在2,327-row train split都是21 updates
+  完整看完一次資料。Initialization seeds 0／1／2；selection seeds 4000～4019，
+  final seeds 4100～4139；
+- final seeds只在架構與checkpoint凍結後使用一次。科學FAIL會正常保存JSON並停止，
+  不再以非零exit code讓Colab只留下`CalledProcessError`。
+
+目前程式無法由current source bit-exact重建舊Dataset v1：重建結果為3,571 rows且
+SHA-256不同，因Teacher控制程式後續已變更但policy version未升版。為隔離representation
+效果，P4.1禁止重建，改由本機專用bundle攜帶凍結JSONL；完整證據見
+`artifacts/p41_dataset_regeneration_drift.json`。
 
 必須依序執行：
 
@@ -260,6 +284,12 @@ P4.1 Gate：至少一個 S1/S2/S3 在 safety 不退化的前提下，對 Q25、C
 reach-floor-10、bottom 與 oscillation 穩定優於 S0，而且不是 action collapse。若只有
 offline accuracy 提升、只有 mean／maximum 提升，或多 seeds 不一致，立即 FAIL／STOP，
 回到 causal schema、sequence length、label timing或資料 coverage；不得直接進 P4.2。
+
+本機 interface smoke 已完成：四組各4 updates、development seeds 3900／3901、
+checkpoint save/load與closed-loop兩回合都PASS；這些seeds永久只作介面診斷。S2在兩個
+短回合曾有mean deepest 9.5，但四組bottom rate均為1.0，樣本也只有兩回合，因此不得
+當作S2優勝或P4.1 PASS。完整結果見`artifacts/p41_local_interface_smoke.json`與
+`reports/SEQUENCE_MODEL_ABLATION.md`。
 
 ### P4.2：Rare-Branch Sequence Dataset
 
@@ -330,6 +360,17 @@ episode 上限、transition、sidecar、MP4 與 HUD audit。
   原版遊戲本身，因此所有成功最後都要過真機 transfer Gate。
 - 原版遊戲：只收有限校正、Teacher／Student transfer 與最終 bounded evaluation；
   保留完整安全機制，不做長時間線上探索。
+
+P4.1 的一般 GitHub source ZIP 不含被 ignore 的凍結 JSONL，因此不能用來跑正式消融。
+本機在 clean commit 後建立專用 Colab bundle：
+
+```powershell
+.\.venv\Scripts\python.exe scripts\package_p41_colab.py
+```
+
+將父目錄產生的 `ai-stair-agent-p41-colab.zip` 手動上傳 Colab，依序跑 setup、pytest、
+`check_env`，最後只把 notebook 最後一格 `RUN_P41_ABLATION` 改為 `True`。舊的
+`RUN_SPIKE_BC0` 與 `RUN_COLAB_PIPELINE_VALIDATION` 保持 `False`。
 
 ### Repository 與本機實驗資料保留政策
 

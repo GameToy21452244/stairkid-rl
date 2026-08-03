@@ -2,6 +2,34 @@
 
 日期：2026-07-30
 
+## 2026-08-03 P4.1 本機 preflight／interface smoke
+
+- 前置狀態：P3.6 Gate v11與P4.0 State-aliasing均PASS；本輪只執行被解鎖的
+  P4.1 bounded本機工程，不啟動長訓或真實遊戲。
+- 新增`p41-causal-sequence-v1`唯讀資料view：S1/S3的9維state只由past actions重建；
+  S3 compact observation 22維；同一步sidecar、未來資訊、privileged state與raw IDs
+  全部拒絕。
+- 實作S0/S1 MLP、S2/S3 GRU-128、24-step chunks、burn-in 8、padding/loss mask、
+  hidden/causal reset、hard CE bounded trainer、closed-loop policy與版本化checkpoint。
+- 凍結manifest：3,529-row Dataset v1 hash `fa3e111a...`、300 updates、candidate
+  100/200/300、init seeds 0/1/2、selection 4000～4019、final 4100～4139。
+- Data provenance audit發現current source重建同名資料為3,571 rows/hash `04417d...`；
+  已記錄`p41_dataset_regeneration_drift.json`並決定Colab不得重建。新Teacher dataset
+  必須升版另過Gate。
+- 本機各4 updates／seeds 3900、3901 interface smoke：12/12工程checks PASS；四組
+  bottom rate皆100%，故明確不作科學判定。S2兩回合mean deepest 9.5只列診斷。
+- Notebook已新增預設停用P4.1 cell；runner在scientific FAIL時仍保存JSON/ZIP並正常
+  return，避免`CalledProcessError`掩蓋結果。Bundle工具只允許clean commit及exact JSONL，
+  排除config/EXE/media/weights；dirty dev bundle合成檢查373 entries PASS後已刪除。
+- 新增／修改主要檔案：`p41_sequence.py`、`p41_ablation.py`、`p41_bundle.py`、
+  `run_p41_ablation.py`、`package_p41_colab.py`、notebook、P4.1 tests、manifest、smoke、
+  drift artifact、`SEQUENCE_MODEL_ABLATION.md`及永久docs。
+- Gate：Local engineering **PASS**；P4.1 scientific **PENDING**；P4.2及後續仍BLOCKED。
+- Targeted 21 tests PASS；完整**432 tests passed in 63.34s**。compileall、三個P4.1
+  JSON、notebook JSON／末格syntax、absolute-path manifest preflight及diff check PASS。
+  正式clean bundle仍須等本輪commit後建立；沒有把dirty dev bundle交付使用者。
+- Git：目前沿用commit `0da7550`且有本輪dirty changes；尚未收到本輪commit/push指示。
+
 ## 2026-07-31 Sequence-control 工作包（進行中）
 
 - 已完整恢復三版 Prompt、AGENTS、README、永久 docs、近期 Teacher/BC/DAgger/

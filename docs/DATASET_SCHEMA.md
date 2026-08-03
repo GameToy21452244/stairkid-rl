@@ -83,6 +83,28 @@ Teacher recovery holdout 作前置 provenance。其 train／validation／test �
 2,327／605／597，validator 0 error；所有列標記
 `teacher-observable-safe-platform-v2`。
 
+## P4.1 causal／sequence view（不修改原 JSONL）
+
+P4.1不另造或改寫Teacher rows，而是以manifest鎖定上述3,529-row JSONL及SHA-256。
+Loader重新驗證episode連續、step、verified Teacher、268維、有限值、soft-target、
+split/seed/platform-sequence隔離與terminal continuity，再建立下列唯讀view：
+
+- S0：原268維row；
+- S1：原268維＋decision前9維causal action state；
+- S2：不跨episode的268維24-step chunks；
+- S3：每step的22維compact observation＋9維causal action state之24-step chunks。
+
+9維state包含前一action one-hot、previous-present、last non-release direction one-hot、
+same-action streak、release streak與最近direction switch rate。建立row t特徵後才以
+label `action_t`更新state，因此沒有同一步答案；episode第0步及deployment reset全零。
+Compact observation只取268維stack最新一個67維frame中的前22維（16 core＋最近平台
+6維），明確排除該frame內3維action one-hot，避免和causal state重複。
+
+Chunk固定length 24、burn-in 8；`valid_mask`標實際row，`loss_mask`只標本chunk首次
+負責的target rows，padding step為-1。所有episode的loss steps合併後必須恰為
+`0..N-1`且各一次。這只是訓練view schema `p41-causal-sequence-v1`，不是P4.2正式
+rare-branch sequence dataset。
+
 ## Validator
 
 `python scripts/validate_dataset.py path/to/data.jsonl`

@@ -31,9 +31,16 @@ bits、accuracy 增13.01 points，episode bootstrap 95% CI `[0.0979,0.1411]`，�
 track IDs 不可用。causal action history 單組 disagreement 42.76%，優於 full memory，
 是 P4.1 S1 的主要 compact 候選。
 
-目前進入 **P4.1 bounded S0/S1/S2/S3 ablation 設計與 smoke**。只可凍結 episode
-split、seeds、update budget 與 Student 可用的 causal schema，再做短消融；不可用本次
-P4.0 PASS 直接啟動長 BC/DAgger/PPO/DQN/NEAT，也不可跳到 rare-branch dataset。
+目前 **P4.1 本機設計、causal schema、測試與4-update interface smoke已PASS**。
+凍結資料為3,529-row Spike Teacher Dataset v1；S1/S3使用9維action-derived causal
+state，S2/S3使用24-step sequence、8-step burn-in與hidden 128。三初始化各300 updates、
+candidate 100/200/300、selection 4000～4019、final 4100～4139。下一個唯一工作是
+Colab bounded ablation；scientific Gate尚未評估，不可跳到rare-branch dataset、長
+BC/DAgger/PPO/DQN/NEAT。
+
+Current source無法bit-exact重建凍結Dataset v1（3,571 vs 3,529 rows），故P4.1專用
+Colab bundle必須攜帶原JSONL並核對SHA-256，不得在Colab重新生成同名資料。新Teacher
+資料若要使用，必須升teacher policy／dataset version並重跑獨立Gate，不可覆蓋本消融。
 
 Action-conditioned dynamics 雖在475 strict rows／15 held-out episodes優於 carry-vx，
 但自然 reverse-braking LEFT／RIGHT僅11/15，仍不得進 shadow/live。固定平台23/21

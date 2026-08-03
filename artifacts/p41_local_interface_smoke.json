@@ -1,0 +1,755 @@
+{
+  "experiment": "P4.1-local-interface-smoke-v1",
+  "status": "INTERFACE_PASS",
+  "scientific_gate_evaluated": false,
+  "device": "cpu",
+  "manifest_schema_version": "p41-causal-sequence-v1",
+  "dataset_sha256": "fa3e111a6204ac53767824e8d71d1ccf841637976427c410c1e14dff308c7a0a",
+  "dataset_records": 3529,
+  "development_seeds": [
+    3900,
+    3901
+  ],
+  "retired_seed_note": "development interface only; never selection or final",
+  "checks": {
+    "S0_finite_training": true,
+    "S0_checkpoint_round_trip": true,
+    "S0_two_closed_loop_episodes": true,
+    "S1_finite_training": true,
+    "S1_checkpoint_round_trip": true,
+    "S1_two_closed_loop_episodes": true,
+    "S2_finite_training": true,
+    "S2_checkpoint_round_trip": true,
+    "S2_two_closed_loop_episodes": true,
+    "S3_finite_training": true,
+    "S3_checkpoint_round_trip": true,
+    "S3_two_closed_loop_episodes": true
+  },
+  "models": {
+    "S0": {
+      "parameter_count": 102147,
+      "updates": 4,
+      "labels_per_update": {
+        "minimum": 112,
+        "maximum": 112,
+        "mean": 112.0
+      },
+      "history": [
+        {
+          "update": 2,
+          "train_loss": 1.0845555067062378,
+          "validation_loss": 1.0716222524642944,
+          "validation": {
+            "loss": 1.0716222524642944,
+            "records": 605,
+            "accuracy": 0.5768595337867737,
+            "confusion_matrix": [
+              [
+                181,
+                8,
+                27
+              ],
+              [
+                106,
+                40,
+                44
+              ],
+              [
+                63,
+                8,
+                128
+              ]
+            ],
+            "recall": [
+              0.8379629850387573,
+              0.21052631735801697,
+              0.643216073513031
+            ],
+            "predicted_action_counts": {
+              "0": 350,
+              "1": 56,
+              "2": 199
+            }
+          }
+        },
+        {
+          "update": 4,
+          "train_loss": 1.0542640686035156,
+          "validation_loss": 1.0544946193695068,
+          "validation": {
+            "loss": 1.0544946193695068,
+            "records": 605,
+            "accuracy": 0.5090909004211426,
+            "confusion_matrix": [
+              [
+                175,
+                41,
+                0
+              ],
+              [
+                67,
+                123,
+                0
+              ],
+              [
+                130,
+                59,
+                10
+              ]
+            ],
+            "recall": [
+              0.8101851940155029,
+              0.6473684310913086,
+              0.05025125667452812
+            ],
+            "predicted_action_counts": {
+              "0": 372,
+              "1": 223,
+              "2": 10
+            }
+          }
+        }
+      ],
+      "test_classification": {
+        "loss": 1.0538309812545776,
+        "records": 597,
+        "accuracy": 0.5293132066726685,
+        "confusion_matrix": [
+          [
+            185,
+            40,
+            0
+          ],
+          [
+            61,
+            120,
+            0
+          ],
+          [
+            128,
+            52,
+            11
+          ]
+        ],
+        "recall": [
+          0.8222222328186035,
+          0.6629834175109863,
+          0.057591624557971954
+        ],
+        "predicted_action_counts": {
+          "0": 374,
+          "1": 212,
+          "2": 11
+        }
+      },
+      "closed_loop_development_smoke": {
+        "candidate": "p41-S0",
+        "episodes": 2,
+        "total_steps": 44,
+        "mean_length": 22.0,
+        "mean_return": -4.17,
+        "mean_floors": 1.0,
+        "mean_landings": 1.0,
+        "action_counts": {
+          "RELEASE_ALL": 30,
+          "LEFT": 14,
+          "RIGHT": 0
+        },
+        "max_action_share": 0.6818181818181818,
+        "collapsed": false,
+        "longest_same_action_streak": 12,
+        "direction_switches": 0,
+        "terminal_reasons": {
+          "bottom": 2
+        },
+        "episode_results": [
+          {
+            "seed": 3900,
+            "length": 22,
+            "total_return": -4.17,
+            "floors": 1,
+            "deepest_floor": 1,
+            "landings": 1,
+            "terminal_reason": "bottom"
+          },
+          {
+            "seed": 3901,
+            "length": 22,
+            "total_return": -4.17,
+            "floors": 1,
+            "deepest_floor": 1,
+            "landings": 1,
+            "terminal_reason": "bottom"
+          }
+        ],
+        "median_floors": 1.0,
+        "std_floors": 0.0,
+        "floor_quantile_25": 1.0,
+        "mean_deepest_floor": 1.0,
+        "median_deepest_floor": 1.0,
+        "deepest_floor_quantile_25": 1.0,
+        "floor_cvar25": 1.0,
+        "deepest_floor_cvar25": 1.0,
+        "bottom_death_rate": 1.0,
+        "health_death_rate": 0.0,
+        "direction_switches_per_100_steps": 0.0,
+        "floors_bootstrap_ci95": [
+          1.0,
+          1.0
+        ],
+        "success_rate_floor_1": 1.0,
+        "success_rate_floor_3": 0.0,
+        "success_rate_floor_5": 0.0,
+        "success_rate_floor_10": 0.0,
+        "reach_rate_floor_1": 1.0,
+        "reach_rate_floor_3": 0.0,
+        "reach_rate_floor_5": 0.0,
+        "reach_rate_floor_10": 0.0
+      }
+    },
+    "S1": {
+      "parameter_count": 104451,
+      "updates": 4,
+      "labels_per_update": {
+        "minimum": 112,
+        "maximum": 112,
+        "mean": 112.0
+      },
+      "history": [
+        {
+          "update": 2,
+          "train_loss": 1.0889006853103638,
+          "validation_loss": 1.0686266422271729,
+          "validation": {
+            "loss": 1.0686266422271729,
+            "records": 605,
+            "accuracy": 0.5256198644638062,
+            "confusion_matrix": [
+              [
+                22,
+                46,
+                148
+              ],
+              [
+                1,
+                121,
+                68
+              ],
+              [
+                14,
+                10,
+                175
+              ]
+            ],
+            "recall": [
+              0.10185185074806213,
+              0.6368421316146851,
+              0.8793969750404358
+            ],
+            "predicted_action_counts": {
+              "0": 37,
+              "1": 177,
+              "2": 391
+            }
+          }
+        },
+        {
+          "update": 4,
+          "train_loss": 1.048852801322937,
+          "validation_loss": 1.0445623397827148,
+          "validation": {
+            "loss": 1.0445623397827148,
+            "records": 605,
+            "accuracy": 0.5140495896339417,
+            "confusion_matrix": [
+              [
+                89,
+                123,
+                4
+              ],
+              [
+                21,
+                169,
+                0
+              ],
+              [
+                55,
+                91,
+                53
+              ]
+            ],
+            "recall": [
+              0.41203704476356506,
+              0.8894736766815186,
+              0.26633167266845703
+            ],
+            "predicted_action_counts": {
+              "0": 165,
+              "1": 383,
+              "2": 57
+            }
+          }
+        }
+      ],
+      "test_classification": {
+        "loss": 1.0452888011932373,
+        "records": 597,
+        "accuracy": 0.5025125741958618,
+        "confusion_matrix": [
+          [
+            94,
+            125,
+            6
+          ],
+          [
+            14,
+            167,
+            0
+          ],
+          [
+            61,
+            91,
+            39
+          ]
+        ],
+        "recall": [
+          0.41777777671813965,
+          0.9226519465446472,
+          0.2041884809732437
+        ],
+        "predicted_action_counts": {
+          "0": 169,
+          "1": 383,
+          "2": 45
+        }
+      },
+      "closed_loop_development_smoke": {
+        "candidate": "p41-S1",
+        "episodes": 2,
+        "total_steps": 34,
+        "mean_length": 17.0,
+        "mean_return": -4.645,
+        "mean_floors": 0.5,
+        "mean_landings": 0.5,
+        "action_counts": {
+          "RELEASE_ALL": 11,
+          "LEFT": 23,
+          "RIGHT": 0
+        },
+        "max_action_share": 0.6764705882352942,
+        "collapsed": false,
+        "longest_same_action_streak": 12,
+        "direction_switches": 0,
+        "terminal_reasons": {
+          "bottom": 2
+        },
+        "episode_results": [
+          {
+            "seed": 3900,
+            "length": 12,
+            "total_return": -5.12,
+            "floors": 0,
+            "deepest_floor": 0,
+            "landings": 0,
+            "terminal_reason": "bottom"
+          },
+          {
+            "seed": 3901,
+            "length": 22,
+            "total_return": -4.17,
+            "floors": 1,
+            "deepest_floor": 1,
+            "landings": 1,
+            "terminal_reason": "bottom"
+          }
+        ],
+        "median_floors": 0.5,
+        "std_floors": 0.5,
+        "floor_quantile_25": 0.25,
+        "mean_deepest_floor": 0.5,
+        "median_deepest_floor": 0.5,
+        "deepest_floor_quantile_25": 0.25,
+        "floor_cvar25": 0.0,
+        "deepest_floor_cvar25": 0.0,
+        "bottom_death_rate": 1.0,
+        "health_death_rate": 0.0,
+        "direction_switches_per_100_steps": 0.0,
+        "floors_bootstrap_ci95": [
+          0.0,
+          1.0
+        ],
+        "success_rate_floor_1": 0.5,
+        "success_rate_floor_3": 0.0,
+        "success_rate_floor_5": 0.0,
+        "success_rate_floor_10": 0.0,
+        "reach_rate_floor_1": 0.5,
+        "reach_rate_floor_3": 0.0,
+        "reach_rate_floor_5": 0.0,
+        "reach_rate_floor_10": 0.0
+      }
+    },
+    "S2": {
+      "parameter_count": 153219,
+      "updates": 4,
+      "labels_per_update": {
+        "minimum": 96,
+        "maximum": 128,
+        "mean": 112.0
+      },
+      "history": [
+        {
+          "update": 2,
+          "train_loss": 1.0834994316101074,
+          "validation_loss": 1.0904045104980469,
+          "validation": {
+            "loss": 1.0904045104980469,
+            "records": 605,
+            "accuracy": 0.4033057987689972,
+            "confusion_matrix": [
+              [
+                110,
+                106,
+                0
+              ],
+              [
+                56,
+                134,
+                0
+              ],
+              [
+                105,
+                94,
+                0
+              ]
+            ],
+            "recall": [
+              0.5092592835426331,
+              0.7052631378173828,
+              0.0
+            ],
+            "predicted_action_counts": {
+              "0": 271,
+              "1": 334,
+              "2": 0
+            }
+          }
+        },
+        {
+          "update": 4,
+          "train_loss": 1.0592738389968872,
+          "validation_loss": 1.064750075340271,
+          "validation": {
+            "loss": 1.064750075340271,
+            "records": 605,
+            "accuracy": 0.35702478885650635,
+            "confusion_matrix": [
+              [
+                216,
+                0,
+                0
+              ],
+              [
+                190,
+                0,
+                0
+              ],
+              [
+                199,
+                0,
+                0
+              ]
+            ],
+            "recall": [
+              1.0,
+              0.0,
+              0.0
+            ],
+            "predicted_action_counts": {
+              "0": 605,
+              "1": 0,
+              "2": 0
+            }
+          }
+        }
+      ],
+      "test_classification": {
+        "loss": 1.0658584833145142,
+        "records": 597,
+        "accuracy": 0.37688443064689636,
+        "confusion_matrix": [
+          [
+            225,
+            0,
+            0
+          ],
+          [
+            181,
+            0,
+            0
+          ],
+          [
+            191,
+            0,
+            0
+          ]
+        ],
+        "recall": [
+          1.0,
+          0.0,
+          0.0
+        ],
+        "predicted_action_counts": {
+          "0": 597,
+          "1": 0,
+          "2": 0
+        }
+      },
+      "closed_loop_development_smoke": {
+        "candidate": "p41-S2",
+        "episodes": 2,
+        "total_steps": 147,
+        "mean_length": 73.5,
+        "mean_return": 1.6150000000000095,
+        "mean_floors": 7.0,
+        "mean_landings": 7.0,
+        "action_counts": {
+          "RELEASE_ALL": 144,
+          "LEFT": 0,
+          "RIGHT": 3
+        },
+        "max_action_share": 0.9795918367346939,
+        "collapsed": false,
+        "longest_same_action_streak": 103,
+        "direction_switches": 0,
+        "terminal_reasons": {
+          "bottom": 2
+        },
+        "episode_results": [
+          {
+            "seed": 3900,
+            "length": 42,
+            "total_return": -2.269999999999997,
+            "floors": 3,
+            "deepest_floor": 6,
+            "landings": 3,
+            "terminal_reason": "bottom"
+          },
+          {
+            "seed": 3901,
+            "length": 105,
+            "total_return": 5.500000000000016,
+            "floors": 11,
+            "deepest_floor": 13,
+            "landings": 11,
+            "terminal_reason": "bottom"
+          }
+        ],
+        "median_floors": 7.0,
+        "std_floors": 4.0,
+        "floor_quantile_25": 5.0,
+        "mean_deepest_floor": 9.5,
+        "median_deepest_floor": 9.5,
+        "deepest_floor_quantile_25": 7.75,
+        "floor_cvar25": 3.0,
+        "deepest_floor_cvar25": 6.0,
+        "bottom_death_rate": 1.0,
+        "health_death_rate": 0.0,
+        "direction_switches_per_100_steps": 0.0,
+        "floors_bootstrap_ci95": [
+          3.0,
+          11.0
+        ],
+        "success_rate_floor_1": 1.0,
+        "success_rate_floor_3": 1.0,
+        "success_rate_floor_5": 0.5,
+        "success_rate_floor_10": 0.5,
+        "reach_rate_floor_1": 1.0,
+        "reach_rate_floor_3": 1.0,
+        "reach_rate_floor_5": 1.0,
+        "reach_rate_floor_10": 0.5
+      }
+    },
+    "S3": {
+      "parameter_count": 62211,
+      "updates": 4,
+      "labels_per_update": {
+        "minimum": 96,
+        "maximum": 128,
+        "mean": 112.0
+      },
+      "history": [
+        {
+          "update": 2,
+          "train_loss": 1.0926570892333984,
+          "validation_loss": 1.0857609510421753,
+          "validation": {
+            "loss": 1.0857609510421753,
+            "records": 605,
+            "accuracy": 0.3190082609653473,
+            "confusion_matrix": [
+              [
+                2,
+                213,
+                1
+              ],
+              [
+                0,
+                190,
+                0
+              ],
+              [
+                2,
+                196,
+                1
+              ]
+            ],
+            "recall": [
+              0.009259259328246117,
+              1.0,
+              0.005025125574320555
+            ],
+            "predicted_action_counts": {
+              "0": 4,
+              "1": 599,
+              "2": 2
+            }
+          }
+        },
+        {
+          "update": 4,
+          "train_loss": 1.0808923244476318,
+          "validation_loss": 1.0666192770004272,
+          "validation": {
+            "loss": 1.0666192770004272,
+            "records": 605,
+            "accuracy": 0.5123966932296753,
+            "confusion_matrix": [
+              [
+                139,
+                73,
+                4
+              ],
+              [
+                30,
+                159,
+                1
+              ],
+              [
+                139,
+                48,
+                12
+              ]
+            ],
+            "recall": [
+              0.6435185074806213,
+              0.8368421196937561,
+              0.060301508754491806
+            ],
+            "predicted_action_counts": {
+              "0": 308,
+              "1": 280,
+              "2": 17
+            }
+          }
+        }
+      ],
+      "test_classification": {
+        "loss": 1.0688449144363403,
+        "records": 597,
+        "accuracy": 0.46901172399520874,
+        "confusion_matrix": [
+          [
+            122,
+            95,
+            8
+          ],
+          [
+            27,
+            154,
+            0
+          ],
+          [
+            131,
+            56,
+            4
+          ]
+        ],
+        "recall": [
+          0.5422222018241882,
+          0.8508287072181702,
+          0.020942408591508865
+        ],
+        "predicted_action_counts": {
+          "0": 280,
+          "1": 305,
+          "2": 12
+        }
+      },
+      "closed_loop_development_smoke": {
+        "candidate": "p41-S3",
+        "episodes": 2,
+        "total_steps": 34,
+        "mean_length": 17.0,
+        "mean_return": -4.645,
+        "mean_floors": 0.5,
+        "mean_landings": 0.5,
+        "action_counts": {
+          "RELEASE_ALL": 12,
+          "LEFT": 22,
+          "RIGHT": 0
+        },
+        "max_action_share": 0.6470588235294118,
+        "collapsed": false,
+        "longest_same_action_streak": 11,
+        "direction_switches": 0,
+        "terminal_reasons": {
+          "bottom": 2
+        },
+        "episode_results": [
+          {
+            "seed": 3900,
+            "length": 12,
+            "total_return": -5.12,
+            "floors": 0,
+            "deepest_floor": 0,
+            "landings": 0,
+            "terminal_reason": "bottom"
+          },
+          {
+            "seed": 3901,
+            "length": 22,
+            "total_return": -4.17,
+            "floors": 1,
+            "deepest_floor": 1,
+            "landings": 1,
+            "terminal_reason": "bottom"
+          }
+        ],
+        "median_floors": 0.5,
+        "std_floors": 0.5,
+        "floor_quantile_25": 0.25,
+        "mean_deepest_floor": 0.5,
+        "median_deepest_floor": 0.5,
+        "deepest_floor_quantile_25": 0.25,
+        "floor_cvar25": 0.0,
+        "deepest_floor_cvar25": 0.0,
+        "bottom_death_rate": 1.0,
+        "health_death_rate": 0.0,
+        "direction_switches_per_100_steps": 0.0,
+        "floors_bootstrap_ci95": [
+          0.0,
+          1.0
+        ],
+        "success_rate_floor_1": 0.5,
+        "success_rate_floor_3": 0.0,
+        "success_rate_floor_5": 0.0,
+        "success_rate_floor_10": 0.0,
+        "reach_rate_floor_1": 0.5,
+        "reach_rate_floor_3": 0.0,
+        "reach_rate_floor_5": 0.0,
+        "reach_rate_floor_10": 0.0
+      }
+    }
+  },
+  "next_stage": "READY_FOR_BOUNDED_COLAB_ABLATION"
+}

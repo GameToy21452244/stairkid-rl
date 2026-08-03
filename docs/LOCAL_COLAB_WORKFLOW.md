@@ -55,7 +55,7 @@ Drive、pytest、check_env、headless smoke、vector env benchmark、TensorBoard
 checkpoint save/load、256-step resume 與實際 MP4 產生。validation cell 預設
 停用，需在前置 gate 通過後手動設
 `RUN_COLAB_PIPELINE_VALIDATION=True`；總訓練上限 768 steps。它不包含
-BC／DAgger／DQfD 或長訓。
+自動長訓；後方另有歷史Spike BC0與目前P4.1的預設停用bounded cells。
 
 2026-07-30 實際 Colab gate 已通過 pytest（219 tests）、check_env、
 1／4／8／16 env throughput、checkpoint save/load/resume 與 MP4。768-step
@@ -71,3 +71,30 @@ early stopping，eval seeds 固定為 1100～1119。
 
 Cell 最後會封裝三個 summary／model 與 `spike_bc0_colab_gate.json`。任一 seed
 失敗便停止，不會接著執行 DAgger。下載 cell 顯示的 ZIP 交回分析即可。
+
+### P4.1 bounded S0／S1／S2／S3
+
+P4.1不能使用一般GitHub source ZIP，因為凍結的25 MiB JSONL依repository政策被
+git-ignore，而current source重新生成同名資料又與原資料不同。正式流程是：
+
+1. 先完成本機程式、測試、文件並commit，使工作樹clean。
+2. 執行：
+
+   ```powershell
+   .\.venv\Scripts\python.exe scripts\package_p41_colab.py
+   ```
+
+3. 上傳父目錄的`ai-stair-agent-p41-colab.zip`；setup cell會安全解壓並定位專案。
+4. 依序執行安裝、pytest、check_env與benchmark；歷史
+   `RUN_COLAB_PIPELINE_VALIDATION`、`RUN_SPIKE_BC0`保持`False`。
+5. 只把最後一格`RUN_P41_ABLATION=False`改為`True`並執行一次。
+6. 下載cell輸出的`*_p41_ablation.zip`；無論status是PASS或FAIL_STOP都交回分析。
+
+Bundle會拒絕dirty工作樹、local `config.yaml`、遊戲EXE、影片、舊weights與其他JSONL；
+唯一例外是manifest hash完全相符的`spike_teacher_dataset_v1.jsonl`。Bundle內另有
+`p41_bundle_manifest.json`保存commit、dataset與archive provenance。
+
+P4.1 cell固定3 initialization、300 optimizer updates、selection seeds
+4000～4019與single-use final seeds 4100～4139。若selection沒有任一S1/S2/S3穩定
+超過S0，runner不碰final seeds；科學FAIL仍正常回傳0並保存summary，只有schema、hash、
+依賴或runtime錯誤才會拋出`CalledProcessError`。Colab不會啟動P4.2、DAgger或任何RL。

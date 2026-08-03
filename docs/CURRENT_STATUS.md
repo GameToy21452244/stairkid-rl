@@ -2,7 +2,39 @@
 
 最後更新：2026-08-03
 
-## 最高優先狀態：P4.0 State-aliasing Audit PASS；只解鎖 P4.1 bounded ablation
+## 最高優先狀態：P4.1 本機 preflight／interface smoke PASS；Colab bounded Gate 待執行
+
+- 已凍結 `artifacts/p41_experiment_manifest.json`：唯一訓練資料為 Spike Teacher
+  Dataset v1，60 episodes／3,529 rows，SHA-256
+  `fa3e111a6204ac53767824e8d71d1ccf841637976427c410c1e14dff308c7a0a`；split、Teacher
+  version、S0～S3架構、sequence length 24、burn-in 8、hidden 128、300 updates、
+  candidate updates 100／200／300、三初始化與selection/final seeds均已凍結。
+- S1／S3只使用由模型自身`action<t`重建的9維causal action state；episode第0步
+  全零，reset不carry。S3為22維最新幀compact observation＋9維state。當步post-decision
+  controller sidecar、未來observation、privileged simulator state與raw IDs全部拒絕。
+- 已完成dataset loader、episode/seed/sequence split防洩漏、chunk、padding、loss mask、
+  每row只計loss一次、GRU hidden reset、policy causal reset、checkpoint save/load與
+  closed-loop reset測試。S0～S3各2-update synthetic training均PASS。
+- 本機真實Dataset interface smoke已執行：S0～S3各4 updates、development seeds
+  3900／3901，所有finite training、checkpoint round-trip與2回合closed-loop checks
+  共12/12 PASS，狀態`INTERFACE_PASS`。兩回合結果只證明介面；四組bottom rate皆1.0，
+  不構成科學Gate，S2短樣本mean deepest 9.5也不得當作優勝證據。
+- 可重現性檢查發現current source重建同名Dataset v1會得到3,571 rows、SHA-256
+  `04417d...`，與凍結資料不同；Teacher程式後續已變更但policy version未升版。依
+  D-061禁止Colab重建，正式bundle必須攜帶凍結JSONL並核對manifest hash。
+- `notebooks/ns_shaft_colab.ipynb`已新增預設停用的P4.1 cell；scientific FAIL會保存
+  summary且exit 0，不再只顯示`CalledProcessError`。`scripts/package_p41_colab.py`
+  會拒絕dirty工作樹、local `config.yaml`、遊戲與媒體／權重，並只加入唯一凍結JSONL。
+- 完整回歸：**432 tests passed in 63.34s**；compileall、三個P4.1 JSON、notebook JSON／
+  最後一格Python syntax、absolute-path manifest preflight與`git diff --check` PASS。
+  Dirty development bundle另以373 entries驗證必要檔／dataset存在且config缺席，隨後刪除。
+- 目前下一個唯一工作是：完成本輪完整回歸與clean commit後建立專用bundle，再由使用者
+  在Colab明示執行三初始化bounded Gate。P4.2、長BC/DAgger/PPO/DQN/NEAT與新增實機
+  rollout仍為No-Go。
+- 產物：`reports/SEQUENCE_MODEL_ABLATION.md`、`artifacts/p41_experiment_manifest.json`、
+  `artifacts/p41_local_interface_smoke.json`、`artifacts/p41_dataset_regeneration_drift.json`。
+
+### P4.0 State-aliasing Audit（前置 Gate 已 PASS）
 
 - 已對 Gate v11 的 10 回合、753 筆實機 Teacher transitions 完成 P4.0；每筆皆為
   268 維，controller／transition 的 step、action 與筆數完全對齊，kNN 僅允許跨

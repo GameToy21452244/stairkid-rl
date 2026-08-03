@@ -746,3 +746,34 @@
   十回合完整資料、calibration、vision templates、summary JSON/CSV與所有失敗報告。
 - 影響：舊模型的bit-exact重播不再保證，但它們原已禁止續訓；結論與設定仍由summary、
   reports、版本化script與seed保存。P4.1不得依賴已刪除checkpoint。
+
+## D-061：P4.1 固定舊 Dataset v1，不用新版 Teacher 靜默重建
+
+- 日期：2026-08-03
+- 證據：保留的 Spike Teacher Dataset v1 是3,529 rows，SHA-256
+  `fa3e111a6204ac53767824e8d71d1ccf841637976427c410c1e14dff308c7a0a`；以current
+  source、相同seeds 2000～2059與相同CLI重建得到3,571 rows、SHA-256
+  `04417d1de89535b16f9ee65a3f5910a476437a3ecb28cb4e4acae9a289975205`，動作分布
+  也由1328/1092/1109變為1729/975/867。Teacher控制已演進，但兩者仍標成同一
+  `teacher-observable-safe-platform-v2`，故名稱/version不足以證明等價。
+- 決策：P4.1是representation公平消融，固定使用曾產生S0 lower-tail失敗證據的原
+  3,529-row資料；manifest以hash拒絕替換。Colab專用bundle明確攜帶此ignored JSONL，
+  notebook缺檔即停止，不呼叫generator。
+- 替代方案：以current Teacher建立Dataset v2；拒絕在本Gate採用，因需先升policy／
+  dataset version、重跑Teacher reliability與dataset coverage，否則同時改資料和模型
+  表示會混淆因果。未來可作獨立實驗，不能覆寫P4.1 v1。
+- 影響：一般GitHub source ZIP不足以跑P4.1；須用`package_p41_colab.py`。大型JSONL
+  仍不commit，bundle manifest保存commit、dirty flag、dataset/archive hash。
+
+## D-062：P4.1 明確 causal state 只由 Student 過去動作重建
+
+- 日期：2026-08-03
+- 證據：P4.0中action-history group的disagreement 42.76%，優於121維full memory
+  45.39%；同一步post-decision sidecar則低至11.42%，但已確認含本步label leakage。
+- 決策：S1/S3採固定9維state：previous action、presence、last non-release direction、
+  same/release streak與recent switch rate。它在decision前snapshot，action選出後才更新；
+  reset全零。Teacher phase、target、platform ID及任何當步sidecar都不進第一版。
+- Sequence：S2/S3固定24-step、burn-in 8、GRU-128；每row label只計一次。四組300
+  updates、三初始化、相同selection/final env seeds；offline accuracy不選模。
+- Gate：候選必須對S0的Q25、CVaR25、reach-10、bottom及oscillation跨初始化一致改善，
+  維持health safety且不collapse。selection FAIL不碰final；final FAIL停止P4.2。

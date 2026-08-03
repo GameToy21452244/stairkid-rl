@@ -3,6 +3,7 @@ from __future__ import annotations
 from stair_agent.simulator.gates import (
     FAILURE_REASONS,
     evaluation_summary,
+    lower_tail_mean,
     run_reachability_gate,
 )
 from stair_agent.simulator.state import ShaftEnvConfig
@@ -30,4 +31,12 @@ def test_gate_summary_has_required_success_rates_and_bootstrap_ci() -> None:
     assert "reach_rate_floor_10" in summary
     assert "mean_deepest_floor" in summary
     assert "floor_quantile_25" in summary
+    assert "deepest_floor_cvar25" in summary
+    assert "bottom_death_rate" in summary
+    assert "direction_switches_per_100_steps" in summary
     assert {"top_death", "bottom_death", "timeout"} <= set(FAILURE_REASONS)
+
+
+def test_lower_tail_mean_uses_exact_worst_fraction() -> None:
+    assert lower_tail_mean([1, 2, 10, 20], fraction=0.25) == 1.0
+    assert lower_tail_mean([1, 2, 3, 10, 20], fraction=0.25) == 1.5

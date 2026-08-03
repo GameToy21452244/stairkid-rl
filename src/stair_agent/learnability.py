@@ -64,6 +64,9 @@ def learned_selector(model: Any) -> ActionSelector:
         action, _state = model.predict(observation, deterministic=True)
         return int(action)
 
+    reset_model = getattr(model, "reset", None)
+    if callable(reset_model):
+        setattr(choose, "reset", reset_model)
     return choose
 
 
