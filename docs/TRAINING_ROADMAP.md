@@ -1,5 +1,10 @@
 # Training Roadmap
 
+> 2026-08-04 blocking update：v7 receding candidate已test-first實作，但全新16000～16099
+> development reach-floor-10只有76%，低於95%門檻與v6 reference 96%；bottom death由2
+> 增至22。狀態`FAIL_STOP_ORACLE_ROBUSTNESS_DEVELOPMENT`，17000～17099完全未使用。
+> v7正式REJECT；下一步只准先凍結paired trace audit，不直接做第二候選或任何訓練。
+
 ## 原則
 
 每一階段都必須保留固定評估集、版本化 observation/reward、seed、設定、checkpoint
@@ -102,6 +107,14 @@ PPO 不允許：
 - 以不增加觀測／動作多樣性的方式反覆追加 timesteps。
 
 ## 目前停點
+
+2026-08-03最新：Spring Failure Trace確認top death來自重複contact＋Oracle RELEASE，
+不是first bounce；真機packet不足以校正physics，所以190 px/s未改。唯一Oracle clearance
+候選在development與untouched holdout均100% reach10，spring-conditioned也100%，top 0。
+Holdout Baseline retention101.35%、reach3 94%，全部PASS。Spring distribution工程阻擋
+已解除，但Dataset v2與Student仍停止；下一步依D-071做conveyor/flipping低比例Gate與
+phase-aware support ownership shadow。這些離線項目通過後才安排一次受監督實機驗證，
+不得先啟動BC、DAgger或純RL長訓。
 
 舊階段 0／1、v0.1 骨架與校正已完成；Colab runtime／pytest／check_env／
 throughput／checkpoint／resume／MP4 pipeline 已通過，但 768-step PPO

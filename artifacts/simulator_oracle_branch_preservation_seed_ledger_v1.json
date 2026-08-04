@@ -1,0 +1,65 @@
+{
+  "schema_version": "simulator-oracle-branch-preservation-seed-ledger-v1",
+  "created_at": "2026-08-04",
+  "status": "CLEAN_AND_FROZEN",
+  "scan_scope": [
+    "repository source",
+    "tests",
+    "reports",
+    "artifacts",
+    "existing ledgers"
+  ],
+  "scan_method": "repository-wide exact five-digit text search with manual context classification; binary media and virtual environments excluded",
+  "partitions": {
+    "primary_development": {
+      "start": 18000,
+      "end": 18099,
+      "count": 100,
+      "used_before_freeze": false,
+      "role": "formal development"
+    },
+    "conditional_development_extension": {
+      "start": 18100,
+      "end": 18199,
+      "count": 100,
+      "used_before_freeze": false,
+      "role": "pre-frozen extension only if primary paired v6 has zero top failures"
+    },
+    "one_time_holdout": {
+      "start": 19000,
+      "end": 19099,
+      "count": 100,
+      "used_before_freeze": false,
+      "used": false,
+      "role": "candidate-exclusive one-time holdout"
+    }
+  },
+  "reviewed_matches": {
+    "declaration_only": [
+      "reports/NEXT_WORK_DELTA_2026-08-04.md",
+      "reports/COLAB_READINESS_MASTER_REPORT.md",
+      "reports/SIMULATOR_ORACLE_V8_PHASE2F_DESIGN_REVIEW.md",
+      "artifacts/simulator_oracle_v8_phase2f_review_v1.json",
+      "scripts/build_simulator_oracle_v8_phase2f_review.py"
+    ],
+    "non_seed_numeric_matches": [
+      {
+        "path": "artifacts/simulator_oracle_failure_taxonomy_v1.json",
+        "values": [18834, 18675],
+        "field": "total_expanded_nodes"
+      }
+    ],
+    "actual_seed_usage_matches": []
+  },
+  "forbidden_partitions": [
+    "14000-14099",
+    "16000-16099",
+    "17000-17099"
+  ],
+  "conditional_rule": "If primary paired v6 has zero top failures, aggregate all formal development checks across 18000-18199; if the combined 200 still have zero v6 top failures, stop INSUFFICIENT_EVIDENCE without holdout.",
+  "holdout_started_at": null,
+  "holdout_used": false,
+  "training_started": false,
+  "dataset_generated": false,
+  "real_game_started": false
+}

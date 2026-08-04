@@ -14,6 +14,12 @@
 小朋友下樓梯 agent。重點不是在真實遊戲上堆疊昂貴的單步 PPO 訓練，而是把真實
 資料、模擬器與離線／互動式學習拆成可驗證階段。
 
+2026-08-04 最新阻擋：v7 receding route planner在retired failures有局部改善，但全新
+16000～16099 development只有76%到第10層，低於v6 reference 96%；bottom由2增至22。
+狀態`FAIL_STOP_ORACLE_ROBUSTNESS_DEVELOPMENT`，17000～17099 holdout完全未使用。
+v7已REJECT；下一步只准對已曝光development做paired trace audit，不直接提出第二候選。
+權威證據見 `reports/SIMULATOR_ORACLE_ROBUSTNESS_REPORT.md`。
+
 ## 不變界線
 
 - 不修改、注入、掛鉤、反編譯或讀取遊戲記憶體。
@@ -50,10 +56,13 @@
 舊版已完成的資料 audit、Simulator v0.2、Teacher 分離與特殊平台機制仍是有效
 基礎，不重新實作；只是訓練停點已被新的 sequence-control Gate 取代。
 
-2026-08-03目前停點：P3.6與P4.0已PASS；P4.1的本機causal/sequence介面與短smoke
-PASS，下一步才是Colab三初始化bounded scientific Gate。P4.1固定使用hash鎖定的
-3,529-row Spike Dataset v1；current Teacher source重建結果不同，故不得在Colab重建。
-只有P4.1 final Gate通過才可建立P4.2 rare-branch sequence dataset。
+2026-08-03目前停點：P3.6與P4.0已PASS，P4.1及後續Simulator Teacher候選依序FAIL。
+Real alignment packet已PASS，但Simulator／Real Audit發現一般分布與support phase差異。
+第一個補充分布spring curriculum初次Oracle只有71%，但trace證明是重複contact時Oracle
+持續RELEASE。只修privileged spring clearance後，development與untouched holdout均
+100% reach10，Baseline retention101.35%、reach3 94%，Spring工程Gate PASS。真機packet
+仍沒有confirmed spring event pairs，故190 px/s fidelity未宣稱通過。P4.2與Dataset v2
+仍未解鎖；下一步是conveyor/flipping低比例Gate及support-phase shadow，不啟動長訓練。
 
 ## 已完成的基礎路線
 

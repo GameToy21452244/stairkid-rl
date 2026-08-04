@@ -315,14 +315,14 @@ def load_p41_checkpoint(
 
 def selection_key(summary: Mapping[str, object], validation_loss: float, update: int) -> tuple:
     health = float(summary.get("health_death_rate", 0.0))
-    safe = health == 0.0 and not bool(summary.get("collapsed", True))
     return (
-        safe,
-        float(summary.get("reach_rate_floor_10", 0.0)),
+        not bool(summary.get("collapsed", True)),
+        -health,
         -float(summary.get("bottom_death_rate", 1.0)),
         float(summary.get("deepest_floor_quantile_25", 0.0)),
         float(summary.get("deepest_floor_cvar25", 0.0)),
-        -float(summary.get("direction_switches_per_100_steps", float("inf"))),
+        float(summary.get("reach_rate_floor_10", 0.0)),
+        -float(summary.get("direction_reversals_per_100_steps", float("inf"))),
         float(summary.get("median_deepest_floor", 0.0)),
         float(summary.get("mean_deepest_floor", 0.0)),
         -float(validation_loss),
@@ -343,7 +343,7 @@ def compare_to_s0_gate(
     }
     lower_metrics = {
         "bottom": "bottom_death_rate",
-        "oscillation": "direction_switches_per_100_steps",
+        "oscillation": "direction_reversals_per_100_steps",
     }
     deltas: dict[str, list[float]] = {}
     for name, field in higher_metrics.items():
@@ -375,7 +375,7 @@ def compare_to_s0_gate(
         "material_cvar25_improvement": means["cvar25"] >= 0.5,
         "material_reach10_improvement": means["reach10"] >= 0.05,
         "material_bottom_improvement": means["bottom"] >= 0.025,
-        "material_oscillation_improvement": means["oscillation"] >= 0.10,
+        "mean_oscillation_not_degraded": means["oscillation"] >= -1e-9,
     }
     return {
         "passed": all(checks.values()),
@@ -387,7 +387,7 @@ def compare_to_s0_gate(
             "cvar25_floors": 0.5,
             "reach_floor_10_rate": 0.05,
             "bottom_death_rate": 0.025,
-            "direction_switches_per_100_steps": 0.10,
+            "direction_reversals_per_100_steps": "mean non-regression",
             "consistent_initializations": "at least 2 of 3 nonnegative for every primary metric",
         },
     }

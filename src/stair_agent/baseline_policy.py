@@ -32,9 +32,33 @@ class _Landing:
 class SafePlatformPolicy:
     """先選擇可達落點，再決定方向的可解釋規則基準。"""
 
-    def __init__(self, config: BaselineConfig) -> None:
+    def __init__(
+        self,
+        config: BaselineConfig,
+        *,
+        normal_support_departure_enabled: bool = True,
+        normal_support_departure_delay_steps: int = 0,
+        support_aware_launch_handoff_enabled: bool = False,
+        support_contact_uses_tracker_aabb_overlap: bool = False,
+    ) -> None:
+        if normal_support_departure_delay_steps < 0:
+            raise ValueError(
+                "normal_support_departure_delay_steps 不可小於 0。"
+            )
         self.config = config
         self.safe_kinds = set(config.safe_platform_kinds)
+        self._normal_support_departure_enabled = bool(
+            normal_support_departure_enabled
+        )
+        self._normal_support_departure_delay_steps = int(
+            normal_support_departure_delay_steps
+        )
+        self._support_aware_launch_handoff_enabled = bool(
+            support_aware_launch_handoff_enabled
+        )
+        self._support_contact_uses_tracker_aabb_overlap = bool(
+            support_contact_uses_tracker_aabb_overlap
+        )
         self.reset()
 
     def reset(self) -> None:
@@ -63,6 +87,9 @@ class SafePlatformPolicy:
         self._departure_lost_frames = 0
         self._departure_blocked_source_id: int | None = None
         self._departure_abort_cooldown_steps = 0
+        self._normal_departure_candidate_source_id: int | None = None
+        self._normal_departure_candidate_destination_id: int | None = None
+        self._normal_departure_candidate_steps = 0
         self._coast_frames = 0
         self._special_source_id: int | None = None
         self._special_source_kind: str | None = None
@@ -671,6 +698,49 @@ class SafePlatformPolicy:
         self._departure_abort_cooldown_steps = 0
         self._clear_launch_escape()
         self._clear_aligned_dwell()
+
+    def _clear_normal_departure_candidate(self) -> None:
+        self._normal_departure_candidate_source_id = None
+        self._normal_departure_candidate_destination_id = None
+        self._normal_departure_candidate_steps = 0
+
+    def _normal_support_departure_ready(
+        self,
+        source: dict,
+        destination: _Landing,
+    ) -> bool:
+        if str(source.get("kind", "")) != "normal":
+            self._clear_normal_departure_candidate()
+            return True
+        if not self._normal_support_departure_enabled:
+            self._clear_normal_departure_candidate()
+            return False
+        if self._normal_support_departure_delay_steps == 0:
+            self._clear_normal_departure_candidate()
+            return True
+        source_raw = source.get("track_id")
+        destination_raw = destination.platform.get("track_id")
+        source_id = None if source_raw is None else int(source_raw)
+        destination_id = (
+            None if destination_raw is None else int(destination_raw)
+        )
+        if (
+            source_id == self._normal_departure_candidate_source_id
+            and destination_id
+            == self._normal_departure_candidate_destination_id
+        ):
+            self._normal_departure_candidate_steps += 1
+        else:
+            self._normal_departure_candidate_source_id = source_id
+            self._normal_departure_candidate_destination_id = destination_id
+            self._normal_departure_candidate_steps = 1
+        if (
+            self._normal_departure_candidate_steps
+            <= self._normal_support_departure_delay_steps
+        ):
+            return False
+        self._clear_normal_departure_candidate()
+        return True
 
     def _continue_support_departure(
         self,
@@ -1363,6 +1433,8 @@ class SafePlatformPolicy:
         self,
         observation: GameObservation,
         player_x: float,
+        *,
+        require_reachable_future_target: bool = False,
     ) -> tuple[Action, dict, float] | None:
         clearance = self.config.launch_escape_clearance_pixels
         if any(
@@ -1450,6 +1522,11 @@ class SafePlatformPolicy:
                 <= self.config.max_target_vertical_gap_pixels
             ):
                 continue
+            if (
+                require_reachable_future_target
+                and not self._is_reachable(landing)
+            ):
+                continue
             kind = str(candidate.get("kind", ""))
             if kind == "spikes":
                 future_spikes.append(landing)
@@ -1491,6 +1568,9 @@ class SafePlatformPolicy:
                     abs(item.horizontal_delta),
                 ),
             )
+
+        if require_reachable_future_target and future_target is None:
+            return None
 
         future_delta = (
             None
@@ -1602,6 +1682,7 @@ class SafePlatformPolicy:
         )
         player = observation.player
         if player is None:
+            self._clear_normal_departure_candidate()
             if (
                 self._top_pressure_direction is not None
                 and self._top_pressure_memory_steps_remaining > 0
@@ -1667,7 +1748,11 @@ class SafePlatformPolicy:
         if nearest_gap is not None and 0.0 <= nearest_gap <= 12.0:
             left = float(nearest_box.get("left", 0.0))
             right = left + float(nearest_box.get("width", 0.0))
-            if left <= player_x <= right and right > left:
+            tracker_overlap_is_support = (
+                self._support_contact_uses_tracker_aabb_overlap
+                or left <= player_x <= right
+            )
+            if right > left and tracker_overlap_is_support:
                 self._support_contact_active = True
                 support_id = nearest.get("track_id")
                 self._support_platform_id = (
@@ -1705,10 +1790,16 @@ class SafePlatformPolicy:
             return departure
 
         launch_escape = None
-        if not self._support_contact_active:
+        support_launch_overlap = (
+            self._support_aware_launch_handoff_enabled
+            and self._support_contact_active
+            and self._current_player_motion in {"rising", "falling"}
+        )
+        if not self._support_contact_active or support_launch_overlap:
             launch_escape = self._detect_or_continue_launch_escape(
                 observation,
                 player_x,
+                require_reachable_future_target=support_launch_overlap,
             )
         if launch_escape is not None:
             direction, platform, horizontal_delta = launch_escape
@@ -1881,6 +1972,7 @@ class SafePlatformPolicy:
         ):
             if self._departure_blocked_source_id == self._support_platform_id:
                 if self._departure_abort_cooldown_steps > 0:
+                    self._clear_normal_departure_candidate()
                     self._departure_abort_cooldown_steps -= 1
                     return self._decision(
                         Action.RELEASE_ALL,
@@ -1889,10 +1981,13 @@ class SafePlatformPolicy:
                         horizontal_delta=target.horizontal_delta,
                     )
                 self._departure_blocked_source_id = None
-            self._start_support_departure(nearest, target, player_x)
-            departure = self._continue_support_departure(player_x)
-            if departure is not None:
-                return departure
+            if self._normal_support_departure_ready(nearest, target):
+                self._start_support_departure(nearest, target, player_x)
+                departure = self._continue_support_departure(player_x)
+                if departure is not None:
+                    return departure
+        else:
+            self._clear_normal_departure_candidate()
         horizontal_delta = self._release_landing_horizontal_delta(
             target,
             player_x,

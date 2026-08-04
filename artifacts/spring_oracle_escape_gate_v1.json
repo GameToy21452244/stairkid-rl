@@ -1,0 +1,6462 @@
+{
+  "experiment": "spring-oracle-escape-gate-v1",
+  "status": "PASS_SPRING_ORACLE_ESCAPE_AND_BASELINE",
+  "passed": true,
+  "training_started": false,
+  "dataset_generated": false,
+  "real_game_started": false,
+  "oracle_policy_version": "oracle-full-v2-spring-clearance",
+  "protocol": {
+    "path": "reports/SPRING_ORACLE_ESCAPE_CANDIDATE_PROTOCOL.md",
+    "sha256": "895a5e390b81c2d04759fc6d236b8620730b492fcdb5e8717014f24517d21c9d",
+    "frozen_before_execution": true
+  },
+  "seed_partitions": {
+    "development": [
+      11000,
+      11099
+    ],
+    "untouched_holdout": [
+      12000,
+      12099
+    ],
+    "reserved_fresh_6000_6099_used": false
+  },
+  "max_episode_steps": 600,
+  "candidate_environment_config": {
+    "environment_version": "ns-shaft-sim-v0.2",
+    "width": 634,
+    "height": 431,
+    "fps": 10,
+    "physics_hz": 60,
+    "distribution": "easy",
+    "max_episode_steps": 3000,
+    "player_width": 24.0,
+    "player_height": 27.0,
+    "horizontal_acceleration": 1048.0,
+    "max_horizontal_speed": 230.0,
+    "release_drag": 0.035,
+    "gravity": -192.0,
+    "jump_velocity": 95.0,
+    "platform_width": 96.0,
+    "platform_height": 16.0,
+    "platform_spacing": 48.0,
+    "max_platform_shift": 180.0,
+    "platform_count": 9,
+    "reachability_lookahead": 3,
+    "safe_landing_margin": 14.0,
+    "easy_max_platform_shift": 64.0,
+    "hard_max_platform_shift": 220.0,
+    "recycle_margin": 64.0,
+    "scroll_speed": 96.0,
+    "step_penalty": 0.01,
+    "landing_reward": 0.05,
+    "floor_reward": 1.0,
+    "death_penalty": 5.0,
+    "observation_history_frames": 4,
+    "include_action_history": true,
+    "enable_health": true,
+    "max_health_segments": 12,
+    "initial_health_segments": 12,
+    "normal_platform_heal_segments": 1,
+    "health_gain_reward_per_segment": 0.0,
+    "enable_spikes": true,
+    "spike_damage_segments": 5,
+    "spike_damage_penalty_per_segment": 0.0,
+    "spike_spawn_probability": 0.1,
+    "initial_safe_normal_platforms": 3,
+    "minimum_normal_platforms_between_spikes": 5,
+    "enable_conveyor": false,
+    "conveyor_velocity_delta": 80.0,
+    "enable_spring": true,
+    "spring_jump_velocity": 190.0,
+    "spring_spawn_probability": 0.06,
+    "minimum_normal_platforms_before_spring": 3,
+    "enable_flipping": false,
+    "flipping_active_seconds": 1.0,
+    "flipping_inactive_seconds": 1.0
+  },
+  "reference_environment_config": {
+    "environment_version": "ns-shaft-sim-v0.2",
+    "width": 634,
+    "height": 431,
+    "fps": 10,
+    "physics_hz": 60,
+    "distribution": "easy",
+    "max_episode_steps": 3000,
+    "player_width": 24.0,
+    "player_height": 27.0,
+    "horizontal_acceleration": 1048.0,
+    "max_horizontal_speed": 230.0,
+    "release_drag": 0.035,
+    "gravity": -192.0,
+    "jump_velocity": 95.0,
+    "platform_width": 96.0,
+    "platform_height": 16.0,
+    "platform_spacing": 48.0,
+    "max_platform_shift": 180.0,
+    "platform_count": 9,
+    "reachability_lookahead": 3,
+    "safe_landing_margin": 14.0,
+    "easy_max_platform_shift": 64.0,
+    "hard_max_platform_shift": 220.0,
+    "recycle_margin": 64.0,
+    "scroll_speed": 96.0,
+    "step_penalty": 0.01,
+    "landing_reward": 0.05,
+    "floor_reward": 1.0,
+    "death_penalty": 5.0,
+    "observation_history_frames": 4,
+    "include_action_history": true,
+    "enable_health": true,
+    "max_health_segments": 12,
+    "initial_health_segments": 12,
+    "normal_platform_heal_segments": 1,
+    "health_gain_reward_per_segment": 0.0,
+    "enable_spikes": true,
+    "spike_damage_segments": 5,
+    "spike_damage_penalty_per_segment": 0.0,
+    "spike_spawn_probability": 0.1,
+    "initial_safe_normal_platforms": 3,
+    "minimum_normal_platforms_between_spikes": 5,
+    "enable_conveyor": false,
+    "conveyor_velocity_delta": 80.0,
+    "enable_spring": false,
+    "spring_jump_velocity": 190.0,
+    "spring_spawn_probability": 0.0,
+    "minimum_normal_platforms_before_spring": 3,
+    "enable_flipping": false,
+    "flipping_active_seconds": 1.0,
+    "flipping_inactive_seconds": 1.0
+  },
+  "source_fingerprint": {
+    "sha256": "ea42dadbc41abee71b90d89a76334b11017dd25714471599e742eba87567f1ba",
+    "files": {
+      "src/stair_agent/learnability.py": "d8f9d9b8caa3d08dbdee77b9e6543f42d4e74503ee23218ca9706a6cbc7102f4",
+      "src/stair_agent/policies/simulator_teachers.py": "846635a431675f9d68751d5204836823e982d777033726f054ca9d4d27eabb59",
+      "src/stair_agent/simulator/physics.py": "86b5e0f8651d8788c7c9eedca19c44686c3f7a214896557c02c7a4677189eb64",
+      "src/stair_agent/simulator/state.py": "06b236b118debdd2b9648cafb1edc381b74c067bcf16b88f763cca75a77edc21",
+      "src/stair_agent/training/spring_curriculum_gate.py": "d3018950d472e21af5901db01a6bdddf4779517ec3738c28f5aaa19b261775da",
+      "src/stair_agent/training/spring_oracle_escape_gate.py": "1bcee39c0762adfefbcc4bcb7aec8acd306d9d55cedbe5bcf8fa212444438b4b",
+      "scripts/run_spring_oracle_escape_gate.py": "7d846841da17c8898df0a4a7206798d23967bbf34a89c5c12211d8729c14750e"
+    }
+  },
+  "git": {
+    "commit": "745dc70b2bf07044ca16a4b280a7ea2106f6f248",
+    "dirty": true,
+    "status_sha256": "af3a1e074ec1c32f1216cb1fc40d1c783e0c857d94b63ba13fa73995b8071f6b"
+  },
+  "gates": {
+    "development_oracle": {
+      "passed": true,
+      "checks": {
+        "overall_reach_floor_10_at_least_0.95": true,
+        "spring_episodes_at_least_20": true,
+        "spring_reach_floor_10_at_least_0.90": true,
+        "top_death_rate_at_most_0.05": true,
+        "health_deaths_zero": true,
+        "no_spring_reach_floor_10_1.0": true,
+        "not_collapsed": true
+      },
+      "top_death_rate": 0.0,
+      "branch": {
+        "spring_episode_count": 30,
+        "spring_reach_floor_10_count": 30,
+        "spring_reach_floor_10_rate": 1.0,
+        "spring_top_death_count": 0,
+        "spring_early_top_death_count": 0,
+        "spring_early_top_death_rate": 0.0,
+        "no_spring_episode_count": 70,
+        "no_spring_reach_floor_10_count": 70,
+        "no_spring_reach_floor_10_rate": 1.0
+      },
+      "evaluation": {
+        "candidate": "oracle_full_v2_spring_clearance_development",
+        "episodes": 100,
+        "total_steps": 7071,
+        "mean_length": 70.71,
+        "mean_return": 9.79290000000001,
+        "mean_floors": 10.0,
+        "mean_landings": 10.0,
+        "action_counts": {
+          "RELEASE_ALL": 2867,
+          "LEFT": 2094,
+          "RIGHT": 2110
+        },
+        "max_action_share": 0.40545891670202233,
+        "collapsed": false,
+        "longest_same_action_streak": 18,
+        "direction_switches": 2160,
+        "direction_reversals": 2580,
+        "terminal_reasons": {
+          "target_reached": 100
+        },
+        "event_counts": {
+          "landed": 1000,
+          "floor_descended": 1000,
+          "spring_contact": 33,
+          "spring_bounce": 33,
+          "spike_contact": 54,
+          "damage": 54,
+          "health_gained": 176
+        },
+        "episode_results": [
+          {
+            "seed": 11000,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 11001,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 11002,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 11003,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1,
+              "spike_contact": 1,
+              "damage": 1
+            }
+          },
+          {
+            "seed": 11004,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1
+            }
+          },
+          {
+            "seed": 11005,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 11006,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 4
+            }
+          },
+          {
+            "seed": 11007,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 11008,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 4
+            }
+          },
+          {
+            "seed": 11009,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 11010,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 11011,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 11012,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 1
+            }
+          },
+          {
+            "seed": 11013,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 11014,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 11015,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 2
+            }
+          },
+          {
+            "seed": 11016,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 11017,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1,
+              "spike_contact": 1,
+              "damage": 1
+            }
+          },
+          {
+            "seed": 11018,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 11019,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 11020,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 2
+            }
+          },
+          {
+            "seed": 11021,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 1
+            }
+          },
+          {
+            "seed": 11022,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 11023,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 11024,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 4
+            }
+          },
+          {
+            "seed": 11025,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 11026,
+            "length": 82,
+            "total_return": 9.680000000000014,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 2,
+              "spring_bounce": 2
+            }
+          },
+          {
+            "seed": 11027,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 11028,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 11029,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 11030,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 11031,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 11032,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1
+            }
+          },
+          {
+            "seed": 11033,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 11034,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 4
+            }
+          },
+          {
+            "seed": 11035,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 11036,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 3
+            }
+          },
+          {
+            "seed": 11037,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 4
+            }
+          },
+          {
+            "seed": 11038,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 11039,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 11040,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 11041,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 2
+            }
+          },
+          {
+            "seed": 11042,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 2
+            }
+          },
+          {
+            "seed": 11043,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 11044,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 2
+            }
+          },
+          {
+            "seed": 11045,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 11046,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 3
+            }
+          },
+          {
+            "seed": 11047,
+            "length": 82,
+            "total_return": 9.68000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 2,
+              "spring_bounce": 2
+            }
+          },
+          {
+            "seed": 11048,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 11049,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 11050,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 4
+            }
+          },
+          {
+            "seed": 11051,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 11052,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 1
+            }
+          },
+          {
+            "seed": 11053,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 11054,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 11055,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 2
+            }
+          },
+          {
+            "seed": 11056,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 11057,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 11058,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 2,
+              "damage": 2,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 11059,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 11060,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 11061,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 11062,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 11063,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 11064,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 11065,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 1
+            }
+          },
+          {
+            "seed": 11066,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 11067,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 11068,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 11069,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 3
+            }
+          },
+          {
+            "seed": 11070,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 11071,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 11072,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 1
+            }
+          },
+          {
+            "seed": 11073,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 11074,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 11075,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 11076,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 11077,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 11078,
+            "length": 82,
+            "total_return": 9.68000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 2,
+              "spring_bounce": 2,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 11079,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 11080,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 11081,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 2
+            }
+          },
+          {
+            "seed": 11082,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 11083,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 11084,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 1
+            }
+          },
+          {
+            "seed": 11085,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 11086,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 11087,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 4
+            }
+          },
+          {
+            "seed": 11088,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 11089,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 11090,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 4
+            }
+          },
+          {
+            "seed": 11091,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 11092,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1
+            }
+          },
+          {
+            "seed": 11093,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 11094,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 11095,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 2
+            }
+          },
+          {
+            "seed": 11096,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 11097,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 11098,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 11099,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 3
+            }
+          }
+        ],
+        "median_floors": 10.0,
+        "std_floors": 0.0,
+        "floor_quantile_25": 10.0,
+        "mean_deepest_floor": 10.0,
+        "median_deepest_floor": 10.0,
+        "deepest_floor_quantile_25": 10.0,
+        "floor_cvar25": 10.0,
+        "deepest_floor_cvar25": 10.0,
+        "bottom_death_rate": 0.0,
+        "health_death_rate": 0.0,
+        "direction_switches_per_100_steps": 30.54730589732711,
+        "direction_reversals_per_100_steps": 36.487059821807385,
+        "floors_bootstrap_ci95": [
+          10.0,
+          10.0
+        ],
+        "success_rate_floor_1": 1.0,
+        "success_rate_floor_3": 1.0,
+        "success_rate_floor_5": 1.0,
+        "success_rate_floor_10": 1.0,
+        "reach_rate_floor_1": 1.0,
+        "reach_rate_floor_3": 1.0,
+        "reach_rate_floor_5": 1.0,
+        "reach_rate_floor_10": 1.0
+      }
+    },
+    "holdout_oracle": {
+      "passed": true,
+      "checks": {
+        "overall_reach_floor_10_at_least_0.95": true,
+        "spring_episodes_at_least_20": true,
+        "spring_reach_floor_10_at_least_0.90": true,
+        "top_death_rate_at_most_0.05": true,
+        "health_deaths_zero": true,
+        "no_spring_reach_floor_10_1.0": true,
+        "not_collapsed": true
+      },
+      "top_death_rate": 0.0,
+      "branch": {
+        "spring_episode_count": 29,
+        "spring_reach_floor_10_count": 29,
+        "spring_reach_floor_10_rate": 1.0,
+        "spring_top_death_count": 0,
+        "spring_early_top_death_count": 0,
+        "spring_early_top_death_rate": 0.0,
+        "no_spring_episode_count": 71,
+        "no_spring_reach_floor_10_count": 71,
+        "no_spring_reach_floor_10_rate": 1.0
+      },
+      "evaluation": {
+        "candidate": "oracle_full_v2_spring_clearance_holdout",
+        "episodes": 100,
+        "total_steps": 7050,
+        "mean_length": 70.5,
+        "mean_return": 9.79500000000001,
+        "mean_floors": 10.0,
+        "mean_landings": 10.0,
+        "action_counts": {
+          "RELEASE_ALL": 2904,
+          "LEFT": 2073,
+          "RIGHT": 2073
+        },
+        "max_action_share": 0.41191489361702127,
+        "collapsed": false,
+        "longest_same_action_streak": 19,
+        "direction_switches": 2123,
+        "direction_reversals": 2569,
+        "terminal_reasons": {
+          "target_reached": 100
+        },
+        "event_counts": {
+          "landed": 1000,
+          "floor_descended": 1000,
+          "spike_contact": 56,
+          "damage": 56,
+          "health_gained": 186,
+          "spring_contact": 31,
+          "spring_bounce": 31
+        },
+        "episode_results": [
+          {
+            "seed": 12000,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 2
+            }
+          },
+          {
+            "seed": 12001,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12002,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 2
+            }
+          },
+          {
+            "seed": 12003,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 12004,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 12005,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1
+            }
+          },
+          {
+            "seed": 12006,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12007,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 12008,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 12009,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 2
+            }
+          },
+          {
+            "seed": 12010,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 1
+            }
+          },
+          {
+            "seed": 12011,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1
+            }
+          },
+          {
+            "seed": 12012,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 12013,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 12014,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 2
+            }
+          },
+          {
+            "seed": 12015,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 12016,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12017,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 12018,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 12019,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 12020,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12021,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12022,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 12023,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 2,
+              "spring_bounce": 2
+            }
+          },
+          {
+            "seed": 12024,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12025,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1
+            }
+          },
+          {
+            "seed": 12026,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 4
+            }
+          },
+          {
+            "seed": 12027,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 12028,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1
+            }
+          },
+          {
+            "seed": 12029,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 12030,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12031,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12032,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 12033,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 1
+            }
+          },
+          {
+            "seed": 12034,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 3
+            }
+          },
+          {
+            "seed": 12035,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 12036,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12037,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1
+            }
+          },
+          {
+            "seed": 12038,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 3
+            }
+          },
+          {
+            "seed": 12039,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 12040,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 12041,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 2,
+              "spring_bounce": 2
+            }
+          },
+          {
+            "seed": 12042,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 3,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 12043,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 12044,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12045,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 12046,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 12047,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 12048,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 12049,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 12050,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12051,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 12052,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 3
+            }
+          },
+          {
+            "seed": 12053,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 3
+            }
+          },
+          {
+            "seed": 12054,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12055,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12056,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 2
+            }
+          },
+          {
+            "seed": 12057,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 4,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 12058,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 12059,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 4
+            }
+          },
+          {
+            "seed": 12060,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12061,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 12062,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 12063,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 1
+            }
+          },
+          {
+            "seed": 12064,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 3
+            }
+          },
+          {
+            "seed": 12065,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 12066,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1
+            }
+          },
+          {
+            "seed": 12067,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 12068,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 12069,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 12070,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 12071,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12072,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12073,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 2,
+              "damage": 2,
+              "health_gained": 6
+            }
+          },
+          {
+            "seed": 12074,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 12075,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 12076,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12077,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 12078,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 4
+            }
+          },
+          {
+            "seed": 12079,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 12080,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 12081,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 12082,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 4
+            }
+          },
+          {
+            "seed": 12083,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12084,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12085,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12086,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12087,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 4
+            }
+          },
+          {
+            "seed": 12088,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 12089,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 1
+            }
+          },
+          {
+            "seed": 12090,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 12091,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 3
+            }
+          },
+          {
+            "seed": 12092,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 1
+            }
+          },
+          {
+            "seed": 12093,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 12094,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 12095,
+            "length": 75,
+            "total_return": 9.75000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 12096,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 4
+            }
+          },
+          {
+            "seed": 12097,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 12098,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12099,
+            "length": 69,
+            "total_return": 9.81000000000001,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 10,
+            "terminal_reason": "target_reached",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 1
+            }
+          }
+        ],
+        "median_floors": 10.0,
+        "std_floors": 0.0,
+        "floor_quantile_25": 10.0,
+        "mean_deepest_floor": 10.0,
+        "median_deepest_floor": 10.0,
+        "deepest_floor_quantile_25": 10.0,
+        "floor_cvar25": 10.0,
+        "deepest_floor_cvar25": 10.0,
+        "bottom_death_rate": 0.0,
+        "health_death_rate": 0.0,
+        "direction_switches_per_100_steps": 30.113475177304963,
+        "direction_reversals_per_100_steps": 36.43971631205674,
+        "floors_bootstrap_ci95": [
+          10.0,
+          10.0
+        ],
+        "success_rate_floor_1": 1.0,
+        "success_rate_floor_3": 1.0,
+        "success_rate_floor_5": 1.0,
+        "success_rate_floor_10": 1.0,
+        "reach_rate_floor_1": 1.0,
+        "reach_rate_floor_3": 1.0,
+        "reach_rate_floor_5": 1.0,
+        "reach_rate_floor_10": 1.0
+      }
+    },
+    "holdout_baseline": {
+      "passed": true,
+      "checks": {
+        "mean_floor_retention_at_least_0.80": true,
+        "reach_floor_3_at_least_0.90": true,
+        "health_deaths_zero": true,
+        "not_collapsed": true,
+        "spring_episodes_at_least_20": true,
+        "spring_early_top_rate_at_most_0.10": true
+      },
+      "retention_vs_spike_reference": 1.0135048231511254,
+      "branch": {
+        "spring_episode_count": 40,
+        "spring_reach_floor_10_count": 36,
+        "spring_reach_floor_10_rate": 0.9,
+        "spring_top_death_count": 30,
+        "spring_early_top_death_count": 0,
+        "spring_early_top_death_rate": 0.0,
+        "no_spring_episode_count": 60,
+        "no_spring_reach_floor_10_count": 37,
+        "no_spring_reach_floor_10_rate": 0.6166666666666667
+      },
+      "evaluation": {
+        "candidate": "baseline_spring_curriculum_v0_holdout",
+        "episodes": 100,
+        "total_steps": 13656,
+        "mean_length": 136.56,
+        "mean_return": 10.192399999999981,
+        "mean_floors": 15.76,
+        "mean_landings": 15.96,
+        "action_counts": {
+          "RELEASE_ALL": 6358,
+          "LEFT": 3819,
+          "RIGHT": 3479
+        },
+        "max_action_share": 0.46558289396602226,
+        "collapsed": false,
+        "longest_same_action_streak": 30,
+        "direction_switches": 0,
+        "direction_reversals": 1668,
+        "terminal_reasons": {
+          "top": 57,
+          "bottom": 43
+        },
+        "event_counts": {
+          "landed": 1596,
+          "floor_descended": 1576,
+          "spike_contact": 84,
+          "damage": 84,
+          "health_gained": 364,
+          "spring_contact": 65,
+          "spring_bounce": 65
+        },
+        "episode_results": [
+          {
+            "seed": 12000,
+            "length": 235,
+            "total_return": 23.09999999999988,
+            "floors": 29,
+            "deepest_floor": 40,
+            "landings": 29,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 29,
+              "floor_descended": 29,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12001,
+            "length": 105,
+            "total_return": 8.650000000000015,
+            "floors": 14,
+            "deepest_floor": 14,
+            "landings": 14,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 14,
+              "floor_descended": 14,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 12002,
+            "length": 195,
+            "total_return": 19.29999999999992,
+            "floors": 25,
+            "deepest_floor": 32,
+            "landings": 25,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 25,
+              "floor_descended": 25,
+              "spike_contact": 4,
+              "damage": 4,
+              "health_gained": 14
+            }
+          },
+          {
+            "seed": 12003,
+            "length": 99,
+            "total_return": 5.610000000000017,
+            "floors": 11,
+            "deepest_floor": 13,
+            "landings": 12,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 12,
+              "floor_descended": 11,
+              "spring_contact": 3,
+              "spring_bounce": 3
+            }
+          },
+          {
+            "seed": 12004,
+            "length": 144,
+            "total_return": 9.31000000000002,
+            "floors": 15,
+            "deepest_floor": 22,
+            "landings": 15,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 15,
+              "floor_descended": 15
+            }
+          },
+          {
+            "seed": 12005,
+            "length": 32,
+            "total_return": -3.2199999999999998,
+            "floors": 2,
+            "deepest_floor": 3,
+            "landings": 2,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 2,
+              "floor_descended": 2
+            }
+          },
+          {
+            "seed": 12006,
+            "length": 139,
+            "total_return": 7.410000000000021,
+            "floors": 13,
+            "deepest_floor": 21,
+            "landings": 16,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 16,
+              "floor_descended": 13,
+              "spring_contact": 4,
+              "spring_bounce": 4
+            }
+          },
+          {
+            "seed": 12007,
+            "length": 160,
+            "total_return": 15.449999999999976,
+            "floors": 21,
+            "deepest_floor": 25,
+            "landings": 21,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 21,
+              "floor_descended": 21
+            }
+          },
+          {
+            "seed": 12008,
+            "length": 162,
+            "total_return": 11.229999999999977,
+            "floors": 17,
+            "deepest_floor": 21,
+            "landings": 17,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 17,
+              "floor_descended": 17,
+              "spring_contact": 1,
+              "spring_bounce": 1,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 4
+            }
+          },
+          {
+            "seed": 12009,
+            "length": 146,
+            "total_return": 13.489999999999997,
+            "floors": 19,
+            "deepest_floor": 22,
+            "landings": 19,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 19,
+              "floor_descended": 19,
+              "spike_contact": 2,
+              "damage": 2,
+              "health_gained": 9
+            }
+          },
+          {
+            "seed": 12010,
+            "length": 120,
+            "total_return": 11.650000000000015,
+            "floors": 17,
+            "deepest_floor": 17,
+            "landings": 17,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 17,
+              "floor_descended": 17,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12011,
+            "length": 130,
+            "total_return": 12.600000000000007,
+            "floors": 18,
+            "deepest_floor": 19,
+            "landings": 18,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 18,
+              "floor_descended": 18,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12012,
+            "length": 22,
+            "total_return": -4.17,
+            "floors": 1,
+            "deepest_floor": 1,
+            "landings": 1,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 1,
+              "floor_descended": 1
+            }
+          },
+          {
+            "seed": 12013,
+            "length": 136,
+            "total_return": 12.540000000000001,
+            "floors": 18,
+            "deepest_floor": 20,
+            "landings": 18,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 18,
+              "floor_descended": 18
+            }
+          },
+          {
+            "seed": 12014,
+            "length": 46,
+            "total_return": -1.2599999999999945,
+            "floors": 4,
+            "deepest_floor": 4,
+            "landings": 4,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 4,
+              "floor_descended": 4
+            }
+          },
+          {
+            "seed": 12015,
+            "length": 150,
+            "total_return": 14.499999999999984,
+            "floors": 20,
+            "deepest_floor": 23,
+            "landings": 20,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 20,
+              "floor_descended": 20,
+              "spike_contact": 2,
+              "damage": 2,
+              "health_gained": 8
+            }
+          },
+          {
+            "seed": 12016,
+            "length": 170,
+            "total_return": 16.39999999999995,
+            "floors": 22,
+            "deepest_floor": 27,
+            "landings": 22,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 22,
+              "floor_descended": 22,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12017,
+            "length": 150,
+            "total_return": 14.499999999999984,
+            "floors": 20,
+            "deepest_floor": 23,
+            "landings": 20,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 20,
+              "floor_descended": 20,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12018,
+            "length": 130,
+            "total_return": 12.600000000000003,
+            "floors": 18,
+            "deepest_floor": 19,
+            "landings": 18,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 18,
+              "floor_descended": 18,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12019,
+            "length": 38,
+            "total_return": -2.229999999999996,
+            "floors": 3,
+            "deepest_floor": 3,
+            "landings": 3,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 3,
+              "floor_descended": 3
+            }
+          },
+          {
+            "seed": 12020,
+            "length": 30,
+            "total_return": -3.2,
+            "floors": 2,
+            "deepest_floor": 2,
+            "landings": 2,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 2,
+              "floor_descended": 2
+            }
+          },
+          {
+            "seed": 12021,
+            "length": 260,
+            "total_return": 25.999999999999837,
+            "floors": 32,
+            "deepest_floor": 45,
+            "landings": 32,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 32,
+              "floor_descended": 32,
+              "spike_contact": 2,
+              "damage": 2,
+              "health_gained": 10
+            }
+          },
+          {
+            "seed": 12022,
+            "length": 130,
+            "total_return": 12.600000000000007,
+            "floors": 18,
+            "deepest_floor": 19,
+            "landings": 18,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 18,
+              "floor_descended": 18
+            }
+          },
+          {
+            "seed": 12023,
+            "length": 56,
+            "total_return": -3.41,
+            "floors": 2,
+            "deepest_floor": 6,
+            "landings": 3,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 3,
+              "floor_descended": 2,
+              "spring_contact": 2,
+              "spring_bounce": 2
+            }
+          },
+          {
+            "seed": 12024,
+            "length": 222,
+            "total_return": 21.129999999999896,
+            "floors": 27,
+            "deepest_floor": 38,
+            "landings": 27,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 27,
+              "floor_descended": 27,
+              "spike_contact": 2,
+              "damage": 2,
+              "health_gained": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 12025,
+            "length": 215,
+            "total_return": 21.199999999999903,
+            "floors": 27,
+            "deepest_floor": 36,
+            "landings": 27,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 27,
+              "floor_descended": 27
+            }
+          },
+          {
+            "seed": 12026,
+            "length": 46,
+            "total_return": -1.2599999999999945,
+            "floors": 4,
+            "deepest_floor": 4,
+            "landings": 4,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 4,
+              "floor_descended": 4
+            }
+          },
+          {
+            "seed": 12027,
+            "length": 135,
+            "total_return": 11.500000000000016,
+            "floors": 17,
+            "deepest_floor": 20,
+            "landings": 17,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 17,
+              "floor_descended": 17,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 12028,
+            "length": 175,
+            "total_return": 17.39999999999995,
+            "floors": 23,
+            "deepest_floor": 28,
+            "landings": 23,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 23,
+              "floor_descended": 23,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12029,
+            "length": 107,
+            "total_return": 6.580000000000014,
+            "floors": 12,
+            "deepest_floor": 15,
+            "landings": 13,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 13,
+              "floor_descended": 12,
+              "spring_contact": 2,
+              "spring_bounce": 2
+            }
+          },
+          {
+            "seed": 12030,
+            "length": 46,
+            "total_return": -1.2599999999999945,
+            "floors": 4,
+            "deepest_floor": 4,
+            "landings": 4,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 4,
+              "floor_descended": 4
+            }
+          },
+          {
+            "seed": 12031,
+            "length": 315,
+            "total_return": 29.64999999999982,
+            "floors": 36,
+            "deepest_floor": 56,
+            "landings": 36,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 36,
+              "floor_descended": 36,
+              "spike_contact": 2,
+              "damage": 2,
+              "health_gained": 10,
+              "spring_contact": 2,
+              "spring_bounce": 2
+            }
+          },
+          {
+            "seed": 12032,
+            "length": 100,
+            "total_return": 5.550000000000015,
+            "floors": 11,
+            "deepest_floor": 11,
+            "landings": 11,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 11,
+              "floor_descended": 11
+            }
+          },
+          {
+            "seed": 12033,
+            "length": 82,
+            "total_return": 2.5800000000000125,
+            "floors": 8,
+            "deepest_floor": 11,
+            "landings": 8,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 8,
+              "floor_descended": 8
+            }
+          },
+          {
+            "seed": 12034,
+            "length": 101,
+            "total_return": 5.590000000000014,
+            "floors": 11,
+            "deepest_floor": 13,
+            "landings": 12,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 12,
+              "floor_descended": 11,
+              "spring_contact": 2,
+              "spring_bounce": 2,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12035,
+            "length": 198,
+            "total_return": 16.119999999999926,
+            "floors": 22,
+            "deepest_floor": 29,
+            "landings": 22,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 22,
+              "floor_descended": 22,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 1
+            }
+          },
+          {
+            "seed": 12036,
+            "length": 147,
+            "total_return": 13.479999999999992,
+            "floors": 19,
+            "deepest_floor": 23,
+            "landings": 19,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 19,
+              "floor_descended": 19,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 12037,
+            "length": 158,
+            "total_return": 11.269999999999984,
+            "floors": 17,
+            "deepest_floor": 22,
+            "landings": 17,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 17,
+              "floor_descended": 17
+            }
+          },
+          {
+            "seed": 12038,
+            "length": 245,
+            "total_return": 24.049999999999876,
+            "floors": 30,
+            "deepest_floor": 42,
+            "landings": 30,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 30,
+              "floor_descended": 30,
+              "spike_contact": 2,
+              "damage": 2,
+              "health_gained": 10
+            }
+          },
+          {
+            "seed": 12039,
+            "length": 82,
+            "total_return": 4.730000000000011,
+            "floors": 10,
+            "deepest_floor": 10,
+            "landings": 11,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 11,
+              "floor_descended": 10,
+              "spring_contact": 2,
+              "spring_bounce": 2
+            }
+          },
+          {
+            "seed": 12040,
+            "length": 135,
+            "total_return": 11.50000000000002,
+            "floors": 17,
+            "deepest_floor": 20,
+            "landings": 17,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 17,
+              "floor_descended": 17,
+              "spring_contact": 1,
+              "spring_bounce": 1,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 4
+            }
+          },
+          {
+            "seed": 12041,
+            "length": 100,
+            "total_return": 3.450000000000017,
+            "floors": 9,
+            "deepest_floor": 13,
+            "landings": 9,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 9,
+              "floor_descended": 9,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 12042,
+            "length": 22,
+            "total_return": -4.17,
+            "floors": 1,
+            "deepest_floor": 1,
+            "landings": 1,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 1,
+              "floor_descended": 1
+            }
+          },
+          {
+            "seed": 12043,
+            "length": 100,
+            "total_return": 5.600000000000012,
+            "floors": 11,
+            "deepest_floor": 13,
+            "landings": 12,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 12,
+              "floor_descended": 11,
+              "spring_contact": 2,
+              "spring_bounce": 2
+            }
+          },
+          {
+            "seed": 12044,
+            "length": 144,
+            "total_return": 9.31000000000002,
+            "floors": 15,
+            "deepest_floor": 22,
+            "landings": 15,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 15,
+              "floor_descended": 15,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12045,
+            "length": 229,
+            "total_return": 16.859999999999893,
+            "floors": 23,
+            "deepest_floor": 40,
+            "landings": 23,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 23,
+              "floor_descended": 23,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 12046,
+            "length": 145,
+            "total_return": 12.450000000000008,
+            "floors": 18,
+            "deepest_floor": 22,
+            "landings": 18,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 18,
+              "floor_descended": 18,
+              "spring_contact": 1,
+              "spring_bounce": 1,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 4
+            }
+          },
+          {
+            "seed": 12047,
+            "length": 205,
+            "total_return": 16.099999999999973,
+            "floors": 22,
+            "deepest_floor": 34,
+            "landings": 23,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 23,
+              "floor_descended": 22,
+              "spring_contact": 3,
+              "spring_bounce": 3
+            }
+          },
+          {
+            "seed": 12048,
+            "length": 149,
+            "total_return": 10.31000000000002,
+            "floors": 16,
+            "deepest_floor": 21,
+            "landings": 16,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 16,
+              "floor_descended": 16
+            }
+          },
+          {
+            "seed": 12049,
+            "length": 59,
+            "total_return": -0.33999999999999275,
+            "floors": 5,
+            "deepest_floor": 8,
+            "landings": 5,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 5,
+              "floor_descended": 5
+            }
+          },
+          {
+            "seed": 12050,
+            "length": 38,
+            "total_return": -2.229999999999996,
+            "floors": 3,
+            "deepest_floor": 3,
+            "landings": 3,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 3,
+              "floor_descended": 3,
+              "spike_contact": 1,
+              "damage": 1
+            }
+          },
+          {
+            "seed": 12051,
+            "length": 116,
+            "total_return": 6.440000000000019,
+            "floors": 12,
+            "deepest_floor": 19,
+            "landings": 12,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 12,
+              "floor_descended": 12
+            }
+          },
+          {
+            "seed": 12052,
+            "length": 120,
+            "total_return": 11.650000000000015,
+            "floors": 17,
+            "deepest_floor": 17,
+            "landings": 17,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 17,
+              "floor_descended": 17,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12053,
+            "length": 41,
+            "total_return": -2.2599999999999976,
+            "floors": 3,
+            "deepest_floor": 8,
+            "landings": 3,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 3,
+              "floor_descended": 3,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 1
+            }
+          },
+          {
+            "seed": 12054,
+            "length": 259,
+            "total_return": 23.95999999999985,
+            "floors": 30,
+            "deepest_floor": 45,
+            "landings": 31,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 31,
+              "floor_descended": 30,
+              "spike_contact": 3,
+              "damage": 3,
+              "health_gained": 15,
+              "spring_contact": 2,
+              "spring_bounce": 2
+            }
+          },
+          {
+            "seed": 12055,
+            "length": 536,
+            "total_return": 53.690000000000204,
+            "floors": 61,
+            "deepest_floor": 100,
+            "landings": 61,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 61,
+              "floor_descended": 61,
+              "spike_contact": 3,
+              "damage": 3,
+              "health_gained": 15,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 12056,
+            "length": 205,
+            "total_return": 20.249999999999908,
+            "floors": 26,
+            "deepest_floor": 34,
+            "landings": 26,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 26,
+              "floor_descended": 26,
+              "spike_contact": 2,
+              "damage": 2,
+              "health_gained": 10
+            }
+          },
+          {
+            "seed": 12057,
+            "length": 176,
+            "total_return": 12.139999999999967,
+            "floors": 18,
+            "deepest_floor": 26,
+            "landings": 18,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 18,
+              "floor_descended": 18,
+              "spring_contact": 1,
+              "spring_bounce": 1,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 2
+            }
+          },
+          {
+            "seed": 12058,
+            "length": 22,
+            "total_return": -4.17,
+            "floors": 1,
+            "deepest_floor": 1,
+            "landings": 1,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 1,
+              "floor_descended": 1
+            }
+          },
+          {
+            "seed": 12059,
+            "length": 22,
+            "total_return": -4.17,
+            "floors": 1,
+            "deepest_floor": 1,
+            "landings": 1,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 1,
+              "floor_descended": 1
+            }
+          },
+          {
+            "seed": 12060,
+            "length": 256,
+            "total_return": 23.93999999999985,
+            "floors": 30,
+            "deepest_floor": 44,
+            "landings": 30,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 30,
+              "floor_descended": 30,
+              "spike_contact": 2,
+              "damage": 2,
+              "health_gained": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 12061,
+            "length": 67,
+            "total_return": 0.7300000000000084,
+            "floors": 6,
+            "deepest_floor": 7,
+            "landings": 8,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 8,
+              "floor_descended": 6,
+              "spring_contact": 3,
+              "spring_bounce": 3
+            }
+          },
+          {
+            "seed": 12062,
+            "length": 262,
+            "total_return": 20.729999999999848,
+            "floors": 27,
+            "deepest_floor": 44,
+            "landings": 27,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 27,
+              "floor_descended": 27,
+              "spring_contact": 1,
+              "spring_bounce": 1,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 3
+            }
+          },
+          {
+            "seed": 12063,
+            "length": 38,
+            "total_return": -2.229999999999996,
+            "floors": 3,
+            "deepest_floor": 3,
+            "landings": 3,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 3,
+              "floor_descended": 3
+            }
+          },
+          {
+            "seed": 12064,
+            "length": 160,
+            "total_return": 15.449999999999966,
+            "floors": 21,
+            "deepest_floor": 25,
+            "landings": 21,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 21,
+              "floor_descended": 21,
+              "spike_contact": 2,
+              "damage": 2,
+              "health_gained": 10
+            }
+          },
+          {
+            "seed": 12065,
+            "length": 250,
+            "total_return": 23.999999999999858,
+            "floors": 30,
+            "deepest_floor": 43,
+            "landings": 30,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 30,
+              "floor_descended": 30,
+              "spring_contact": 1,
+              "spring_bounce": 1,
+              "spike_contact": 1,
+              "damage": 1
+            }
+          },
+          {
+            "seed": 12066,
+            "length": 53,
+            "total_return": -0.27999999999999314,
+            "floors": 5,
+            "deepest_floor": 5,
+            "landings": 5,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 5,
+              "floor_descended": 5
+            }
+          },
+          {
+            "seed": 12067,
+            "length": 277,
+            "total_return": 21.629999999999832,
+            "floors": 28,
+            "deepest_floor": 46,
+            "landings": 28,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 28,
+              "floor_descended": 28,
+              "spring_contact": 2,
+              "spring_bounce": 2,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12068,
+            "length": 105,
+            "total_return": 8.650000000000015,
+            "floors": 14,
+            "deepest_floor": 14,
+            "landings": 14,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 14,
+              "floor_descended": 14,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 12069,
+            "length": 41,
+            "total_return": -2.2599999999999962,
+            "floors": 3,
+            "deepest_floor": 5,
+            "landings": 3,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 3,
+              "floor_descended": 3
+            }
+          },
+          {
+            "seed": 12070,
+            "length": 53,
+            "total_return": -0.27999999999999314,
+            "floors": 5,
+            "deepest_floor": 5,
+            "landings": 5,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 5,
+              "floor_descended": 5
+            }
+          },
+          {
+            "seed": 12071,
+            "length": 54,
+            "total_return": -3.39,
+            "floors": 2,
+            "deepest_floor": 4,
+            "landings": 3,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 3,
+              "floor_descended": 2,
+              "spring_contact": 2,
+              "spring_bounce": 2
+            }
+          },
+          {
+            "seed": 12072,
+            "length": 120,
+            "total_return": 11.650000000000015,
+            "floors": 17,
+            "deepest_floor": 17,
+            "landings": 17,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 17,
+              "floor_descended": 17,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12073,
+            "length": 150,
+            "total_return": 14.49999999999998,
+            "floors": 20,
+            "deepest_floor": 23,
+            "landings": 20,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 20,
+              "floor_descended": 20,
+              "spike_contact": 3,
+              "damage": 3,
+              "health_gained": 10
+            }
+          },
+          {
+            "seed": 12074,
+            "length": 58,
+            "total_return": -0.3299999999999921,
+            "floors": 5,
+            "deepest_floor": 8,
+            "landings": 5,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 5,
+              "floor_descended": 5
+            }
+          },
+          {
+            "seed": 12075,
+            "length": 33,
+            "total_return": -3.23,
+            "floors": 2,
+            "deepest_floor": 5,
+            "landings": 2,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 2,
+              "floor_descended": 2
+            }
+          },
+          {
+            "seed": 12076,
+            "length": 104,
+            "total_return": 7.660000000000011,
+            "floors": 13,
+            "deepest_floor": 14,
+            "landings": 14,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 14,
+              "floor_descended": 13,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5,
+              "spring_contact": 2,
+              "spring_bounce": 2
+            }
+          },
+          {
+            "seed": 12077,
+            "length": 90,
+            "total_return": 4.650000000000013,
+            "floors": 10,
+            "deepest_floor": 11,
+            "landings": 11,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 11,
+              "floor_descended": 10,
+              "spring_contact": 2,
+              "spring_bounce": 2
+            }
+          },
+          {
+            "seed": 12078,
+            "length": 108,
+            "total_return": 9.670000000000014,
+            "floors": 15,
+            "deepest_floor": 15,
+            "landings": 15,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 15,
+              "floor_descended": 15,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 12079,
+            "length": 74,
+            "total_return": 1.610000000000011,
+            "floors": 7,
+            "deepest_floor": 11,
+            "landings": 7,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 7,
+              "floor_descended": 7
+            }
+          },
+          {
+            "seed": 12080,
+            "length": 89,
+            "total_return": 2.510000000000013,
+            "floors": 8,
+            "deepest_floor": 10,
+            "landings": 8,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 8,
+              "floor_descended": 8,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 12081,
+            "length": 164,
+            "total_return": 10.160000000000025,
+            "floors": 16,
+            "deepest_floor": 29,
+            "landings": 16,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 16,
+              "floor_descended": 16,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 12082,
+            "length": 52,
+            "total_return": -1.2199999999999935,
+            "floors": 4,
+            "deepest_floor": 4,
+            "landings": 6,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 6,
+              "floor_descended": 4,
+              "spring_contact": 3,
+              "spring_bounce": 3
+            }
+          },
+          {
+            "seed": 12083,
+            "length": 208,
+            "total_return": 20.2199999999999,
+            "floors": 26,
+            "deepest_floor": 35,
+            "landings": 26,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 26,
+              "floor_descended": 26,
+              "spike_contact": 2,
+              "damage": 2,
+              "health_gained": 10,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 12084,
+            "length": 61,
+            "total_return": 0.6900000000000084,
+            "floors": 6,
+            "deepest_floor": 6,
+            "landings": 6,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 6,
+              "floor_descended": 6,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 2
+            }
+          },
+          {
+            "seed": 12085,
+            "length": 136,
+            "total_return": 12.539999999999994,
+            "floors": 18,
+            "deepest_floor": 20,
+            "landings": 18,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 18,
+              "floor_descended": 18,
+              "spike_contact": 2,
+              "damage": 2,
+              "health_gained": 10
+            }
+          },
+          {
+            "seed": 12086,
+            "length": 88,
+            "total_return": 5.720000000000011,
+            "floors": 11,
+            "deepest_floor": 11,
+            "landings": 12,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 12,
+              "floor_descended": 11,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5,
+              "spring_contact": 2,
+              "spring_bounce": 2
+            }
+          },
+          {
+            "seed": 12087,
+            "length": 358,
+            "total_return": 35.51999999999996,
+            "floors": 42,
+            "deepest_floor": 65,
+            "landings": 42,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 42,
+              "floor_descended": 42,
+              "spike_contact": 3,
+              "damage": 3,
+              "health_gained": 14,
+              "spring_contact": 1,
+              "spring_bounce": 1
+            }
+          },
+          {
+            "seed": 12088,
+            "length": 85,
+            "total_return": 3.600000000000014,
+            "floors": 9,
+            "deepest_floor": 9,
+            "landings": 9,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 9,
+              "floor_descended": 9
+            }
+          },
+          {
+            "seed": 12089,
+            "length": 195,
+            "total_return": 18.249999999999936,
+            "floors": 24,
+            "deepest_floor": 32,
+            "landings": 24,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 24,
+              "floor_descended": 24,
+              "spring_contact": 1,
+              "spring_bounce": 1,
+              "spike_contact": 2,
+              "damage": 2,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12090,
+            "length": 22,
+            "total_return": -4.17,
+            "floors": 1,
+            "deepest_floor": 1,
+            "landings": 1,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 1,
+              "floor_descended": 1
+            }
+          },
+          {
+            "seed": 12091,
+            "length": 136,
+            "total_return": 12.540000000000004,
+            "floors": 18,
+            "deepest_floor": 20,
+            "landings": 18,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 18,
+              "floor_descended": 18,
+              "spike_contact": 3,
+              "damage": 3,
+              "health_gained": 9
+            }
+          },
+          {
+            "seed": 12092,
+            "length": 130,
+            "total_return": 12.600000000000003,
+            "floors": 18,
+            "deepest_floor": 19,
+            "landings": 18,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 18,
+              "floor_descended": 18,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12093,
+            "length": 150,
+            "total_return": 14.499999999999988,
+            "floors": 20,
+            "deepest_floor": 23,
+            "landings": 20,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 20,
+              "floor_descended": 20,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 4
+            }
+          },
+          {
+            "seed": 12094,
+            "length": 270,
+            "total_return": 26.94999999999981,
+            "floors": 33,
+            "deepest_floor": 47,
+            "landings": 33,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 33,
+              "floor_descended": 33,
+              "spike_contact": 3,
+              "damage": 3,
+              "health_gained": 15
+            }
+          },
+          {
+            "seed": 12095,
+            "length": 53,
+            "total_return": -0.27999999999999314,
+            "floors": 5,
+            "deepest_floor": 5,
+            "landings": 5,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 5,
+              "floor_descended": 5
+            }
+          },
+          {
+            "seed": 12096,
+            "length": 164,
+            "total_return": 11.209999999999992,
+            "floors": 17,
+            "deepest_floor": 28,
+            "landings": 17,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 17,
+              "floor_descended": 17,
+              "spike_contact": 2,
+              "damage": 2,
+              "health_gained": 10
+            }
+          },
+          {
+            "seed": 12097,
+            "length": 502,
+            "total_return": 48.78000000000013,
+            "floors": 56,
+            "deepest_floor": 94,
+            "landings": 56,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 56,
+              "floor_descended": 56,
+              "spike_contact": 5,
+              "damage": 5,
+              "health_gained": 25,
+              "spring_contact": 2,
+              "spring_bounce": 2
+            }
+          },
+          {
+            "seed": 12098,
+            "length": 98,
+            "total_return": 6.670000000000014,
+            "floors": 12,
+            "deepest_floor": 13,
+            "landings": 13,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 13,
+              "floor_descended": 12,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5,
+              "spring_contact": 2,
+              "spring_bounce": 2
+            }
+          },
+          {
+            "seed": 12099,
+            "length": 160,
+            "total_return": 15.449999999999969,
+            "floors": 21,
+            "deepest_floor": 25,
+            "landings": 21,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 21,
+              "floor_descended": 21,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          }
+        ],
+        "median_floors": 16.5,
+        "std_floors": 11.119460418563483,
+        "floor_quantile_25": 6.0,
+        "mean_deepest_floor": 20.96,
+        "median_deepest_floor": 19.0,
+        "deepest_floor_quantile_25": 8.0,
+        "floor_cvar25": 3.08,
+        "deepest_floor_cvar25": 3.96,
+        "bottom_death_rate": 0.43,
+        "health_death_rate": 0.0,
+        "direction_switches_per_100_steps": 0.0,
+        "direction_reversals_per_100_steps": 12.214411247803163,
+        "floors_bootstrap_ci95": [
+          13.69,
+          17.9805
+        ],
+        "success_rate_floor_1": 1.0,
+        "success_rate_floor_3": 0.9,
+        "success_rate_floor_5": 0.81,
+        "success_rate_floor_10": 0.69,
+        "reach_rate_floor_1": 1.0,
+        "reach_rate_floor_3": 0.94,
+        "reach_rate_floor_5": 0.85,
+        "reach_rate_floor_10": 0.73
+      },
+      "spike_reference_evaluation": {
+        "candidate": "baseline_spike_curriculum_v0_holdout_reference",
+        "episodes": 100,
+        "total_steps": 12779,
+        "mean_length": 127.79,
+        "mean_return": 10.049599999999984,
+        "mean_floors": 15.55,
+        "mean_landings": 15.55,
+        "action_counts": {
+          "RELEASE_ALL": 6099,
+          "LEFT": 3485,
+          "RIGHT": 3195
+        },
+        "max_action_share": 0.47726739181469596,
+        "collapsed": false,
+        "longest_same_action_streak": 12,
+        "direction_switches": 0,
+        "direction_reversals": 1519,
+        "terminal_reasons": {
+          "top": 56,
+          "bottom": 44
+        },
+        "event_counts": {
+          "landed": 1555,
+          "floor_descended": 1555,
+          "spike_contact": 76,
+          "damage": 76,
+          "health_gained": 304
+        },
+        "episode_results": [
+          {
+            "seed": 12000,
+            "length": 155,
+            "total_return": 14.449999999999983,
+            "floors": 20,
+            "deepest_floor": 24,
+            "landings": 20,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 20,
+              "floor_descended": 20,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 4
+            }
+          },
+          {
+            "seed": 12001,
+            "length": 81,
+            "total_return": 2.5900000000000123,
+            "floors": 8,
+            "deepest_floor": 10,
+            "landings": 8,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 8,
+              "floor_descended": 8
+            }
+          },
+          {
+            "seed": 12002,
+            "length": 136,
+            "total_return": 12.540000000000001,
+            "floors": 18,
+            "deepest_floor": 20,
+            "landings": 18,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 18,
+              "floor_descended": 18,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12003,
+            "length": 120,
+            "total_return": 11.650000000000015,
+            "floors": 17,
+            "deepest_floor": 17,
+            "landings": 17,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 17,
+              "floor_descended": 17,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12004,
+            "length": 113,
+            "total_return": 6.470000000000017,
+            "floors": 12,
+            "deepest_floor": 14,
+            "landings": 12,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 12,
+              "floor_descended": 12
+            }
+          },
+          {
+            "seed": 12005,
+            "length": 105,
+            "total_return": 4.450000000000017,
+            "floors": 10,
+            "deepest_floor": 17,
+            "landings": 10,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 12006,
+            "length": 139,
+            "total_return": 9.36000000000002,
+            "floors": 15,
+            "deepest_floor": 19,
+            "landings": 15,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 15,
+              "floor_descended": 15,
+              "spike_contact": 2,
+              "damage": 2,
+              "health_gained": 8
+            }
+          },
+          {
+            "seed": 12007,
+            "length": 130,
+            "total_return": 12.600000000000007,
+            "floors": 18,
+            "deepest_floor": 19,
+            "landings": 18,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 18,
+              "floor_descended": 18
+            }
+          },
+          {
+            "seed": 12008,
+            "length": 130,
+            "total_return": 12.600000000000007,
+            "floors": 18,
+            "deepest_floor": 19,
+            "landings": 18,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 18,
+              "floor_descended": 18,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12009,
+            "length": 170,
+            "total_return": 16.399999999999956,
+            "floors": 22,
+            "deepest_floor": 27,
+            "landings": 22,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 22,
+              "floor_descended": 22
+            }
+          },
+          {
+            "seed": 12010,
+            "length": 120,
+            "total_return": 11.650000000000015,
+            "floors": 17,
+            "deepest_floor": 17,
+            "landings": 17,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 17,
+              "floor_descended": 17,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12011,
+            "length": 56,
+            "total_return": -0.3099999999999925,
+            "floors": 5,
+            "deepest_floor": 6,
+            "landings": 5,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 5,
+              "floor_descended": 5
+            }
+          },
+          {
+            "seed": 12012,
+            "length": 22,
+            "total_return": -4.17,
+            "floors": 1,
+            "deepest_floor": 1,
+            "landings": 1,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 1,
+              "floor_descended": 1
+            }
+          },
+          {
+            "seed": 12013,
+            "length": 160,
+            "total_return": 15.449999999999973,
+            "floors": 21,
+            "deepest_floor": 25,
+            "landings": 21,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 21,
+              "floor_descended": 21
+            }
+          },
+          {
+            "seed": 12014,
+            "length": 46,
+            "total_return": -1.2599999999999945,
+            "floors": 4,
+            "deepest_floor": 4,
+            "landings": 4,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 4,
+              "floor_descended": 4
+            }
+          },
+          {
+            "seed": 12015,
+            "length": 175,
+            "total_return": 17.39999999999995,
+            "floors": 23,
+            "deepest_floor": 28,
+            "landings": 23,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 23,
+              "floor_descended": 23,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12016,
+            "length": 196,
+            "total_return": 19.289999999999928,
+            "floors": 25,
+            "deepest_floor": 32,
+            "landings": 25,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 25,
+              "floor_descended": 25,
+              "spike_contact": 2,
+              "damage": 2,
+              "health_gained": 10
+            }
+          },
+          {
+            "seed": 12017,
+            "length": 185,
+            "total_return": 18.349999999999945,
+            "floors": 24,
+            "deepest_floor": 30,
+            "landings": 24,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 24,
+              "floor_descended": 24,
+              "spike_contact": 1,
+              "damage": 1
+            }
+          },
+          {
+            "seed": 12018,
+            "length": 136,
+            "total_return": 12.540000000000001,
+            "floors": 18,
+            "deepest_floor": 20,
+            "landings": 18,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 18,
+              "floor_descended": 18
+            }
+          },
+          {
+            "seed": 12019,
+            "length": 46,
+            "total_return": -1.2599999999999945,
+            "floors": 4,
+            "deepest_floor": 4,
+            "landings": 4,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 4,
+              "floor_descended": 4
+            }
+          },
+          {
+            "seed": 12020,
+            "length": 120,
+            "total_return": 11.650000000000015,
+            "floors": 17,
+            "deepest_floor": 17,
+            "landings": 17,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 17,
+              "floor_descended": 17
+            }
+          },
+          {
+            "seed": 12021,
+            "length": 170,
+            "total_return": 16.39999999999995,
+            "floors": 22,
+            "deepest_floor": 27,
+            "landings": 22,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 22,
+              "floor_descended": 22
+            }
+          },
+          {
+            "seed": 12022,
+            "length": 170,
+            "total_return": 16.39999999999995,
+            "floors": 22,
+            "deepest_floor": 27,
+            "landings": 22,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 22,
+              "floor_descended": 22,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12023,
+            "length": 22,
+            "total_return": -4.17,
+            "floors": 1,
+            "deepest_floor": 1,
+            "landings": 1,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 1,
+              "floor_descended": 1
+            }
+          },
+          {
+            "seed": 12024,
+            "length": 50,
+            "total_return": -1.2999999999999954,
+            "floors": 4,
+            "deepest_floor": 8,
+            "landings": 4,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 4,
+              "floor_descended": 4
+            }
+          },
+          {
+            "seed": 12025,
+            "length": 181,
+            "total_return": 17.33999999999994,
+            "floors": 23,
+            "deepest_floor": 29,
+            "landings": 23,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 23,
+              "floor_descended": 23,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12026,
+            "length": 236,
+            "total_return": 23.089999999999876,
+            "floors": 29,
+            "deepest_floor": 40,
+            "landings": 29,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 29,
+              "floor_descended": 29,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12027,
+            "length": 120,
+            "total_return": 11.650000000000015,
+            "floors": 17,
+            "deepest_floor": 17,
+            "landings": 17,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 17,
+              "floor_descended": 17
+            }
+          },
+          {
+            "seed": 12028,
+            "length": 85,
+            "total_return": 3.600000000000014,
+            "floors": 9,
+            "deepest_floor": 9,
+            "landings": 9,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 9,
+              "floor_descended": 9
+            }
+          },
+          {
+            "seed": 12029,
+            "length": 140,
+            "total_return": 13.549999999999992,
+            "floors": 19,
+            "deepest_floor": 21,
+            "landings": 19,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 19,
+              "floor_descended": 19
+            }
+          },
+          {
+            "seed": 12030,
+            "length": 136,
+            "total_return": 12.540000000000004,
+            "floors": 18,
+            "deepest_floor": 20,
+            "landings": 18,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 18,
+              "floor_descended": 18,
+              "spike_contact": 2,
+              "damage": 2,
+              "health_gained": 8
+            }
+          },
+          {
+            "seed": 12031,
+            "length": 260,
+            "total_return": 25.999999999999837,
+            "floors": 32,
+            "deepest_floor": 45,
+            "landings": 32,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 32,
+              "floor_descended": 32,
+              "spike_contact": 3,
+              "damage": 3,
+              "health_gained": 10
+            }
+          },
+          {
+            "seed": 12032,
+            "length": 113,
+            "total_return": 6.470000000000017,
+            "floors": 12,
+            "deepest_floor": 14,
+            "landings": 12,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 12,
+              "floor_descended": 12
+            }
+          },
+          {
+            "seed": 12033,
+            "length": 38,
+            "total_return": -2.229999999999996,
+            "floors": 3,
+            "deepest_floor": 3,
+            "landings": 3,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 3,
+              "floor_descended": 3
+            }
+          },
+          {
+            "seed": 12034,
+            "length": 136,
+            "total_return": 12.540000000000004,
+            "floors": 18,
+            "deepest_floor": 20,
+            "landings": 18,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 18,
+              "floor_descended": 18,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12035,
+            "length": 118,
+            "total_return": 6.420000000000016,
+            "floors": 12,
+            "deepest_floor": 17,
+            "landings": 12,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 12,
+              "floor_descended": 12
+            }
+          },
+          {
+            "seed": 12036,
+            "length": 185,
+            "total_return": 18.349999999999937,
+            "floors": 24,
+            "deepest_floor": 30,
+            "landings": 24,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 24,
+              "floor_descended": 24
+            }
+          },
+          {
+            "seed": 12037,
+            "length": 66,
+            "total_return": 0.6400000000000086,
+            "floors": 6,
+            "deepest_floor": 8,
+            "landings": 6,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 6,
+              "floor_descended": 6
+            }
+          },
+          {
+            "seed": 12038,
+            "length": 46,
+            "total_return": -1.2599999999999945,
+            "floors": 4,
+            "deepest_floor": 4,
+            "landings": 4,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 4,
+              "floor_descended": 4
+            }
+          },
+          {
+            "seed": 12039,
+            "length": 215,
+            "total_return": 21.199999999999896,
+            "floors": 27,
+            "deepest_floor": 36,
+            "landings": 27,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 27,
+              "floor_descended": 27,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 2
+            }
+          },
+          {
+            "seed": 12040,
+            "length": 150,
+            "total_return": 14.49999999999998,
+            "floors": 20,
+            "deepest_floor": 23,
+            "landings": 20,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 20,
+              "floor_descended": 20,
+              "spike_contact": 3,
+              "damage": 3,
+              "health_gained": 10
+            }
+          },
+          {
+            "seed": 12041,
+            "length": 154,
+            "total_return": 11.30999999999998,
+            "floors": 17,
+            "deepest_floor": 21,
+            "landings": 17,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 17,
+              "floor_descended": 17,
+              "spike_contact": 2,
+              "damage": 2,
+              "health_gained": 8
+            }
+          },
+          {
+            "seed": 12042,
+            "length": 33,
+            "total_return": -3.23,
+            "floors": 2,
+            "deepest_floor": 5,
+            "landings": 2,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 2,
+              "floor_descended": 2
+            }
+          },
+          {
+            "seed": 12043,
+            "length": 130,
+            "total_return": 12.600000000000003,
+            "floors": 18,
+            "deepest_floor": 19,
+            "landings": 18,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 18,
+              "floor_descended": 18,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12044,
+            "length": 221,
+            "total_return": 21.139999999999887,
+            "floors": 27,
+            "deepest_floor": 37,
+            "landings": 27,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 27,
+              "floor_descended": 27,
+              "spike_contact": 3,
+              "damage": 3,
+              "health_gained": 13
+            }
+          },
+          {
+            "seed": 12045,
+            "length": 136,
+            "total_return": 12.540000000000001,
+            "floors": 18,
+            "deepest_floor": 20,
+            "landings": 18,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 18,
+              "floor_descended": 18,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12046,
+            "length": 87,
+            "total_return": 3.5800000000000125,
+            "floors": 9,
+            "deepest_floor": 10,
+            "landings": 9,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 9,
+              "floor_descended": 9,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 4
+            }
+          },
+          {
+            "seed": 12047,
+            "length": 130,
+            "total_return": 12.600000000000007,
+            "floors": 18,
+            "deepest_floor": 19,
+            "landings": 18,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 18,
+              "floor_descended": 18,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12048,
+            "length": 160,
+            "total_return": 15.449999999999969,
+            "floors": 21,
+            "deepest_floor": 25,
+            "landings": 21,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 21,
+              "floor_descended": 21,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12049,
+            "length": 75,
+            "total_return": 1.6000000000000103,
+            "floors": 7,
+            "deepest_floor": 10,
+            "landings": 7,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 7,
+              "floor_descended": 7
+            }
+          },
+          {
+            "seed": 12050,
+            "length": 38,
+            "total_return": -2.229999999999996,
+            "floors": 3,
+            "deepest_floor": 3,
+            "landings": 3,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 3,
+              "floor_descended": 3,
+              "spike_contact": 1,
+              "damage": 1
+            }
+          },
+          {
+            "seed": 12051,
+            "length": 160,
+            "total_return": 15.449999999999966,
+            "floors": 21,
+            "deepest_floor": 25,
+            "landings": 21,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 21,
+              "floor_descended": 21
+            }
+          },
+          {
+            "seed": 12052,
+            "length": 130,
+            "total_return": 12.600000000000007,
+            "floors": 18,
+            "deepest_floor": 19,
+            "landings": 18,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 18,
+              "floor_descended": 18,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12053,
+            "length": 146,
+            "total_return": 9.290000000000026,
+            "floors": 15,
+            "deepest_floor": 23,
+            "landings": 15,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 15,
+              "floor_descended": 15,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12054,
+            "length": 150,
+            "total_return": 14.499999999999977,
+            "floors": 20,
+            "deepest_floor": 23,
+            "landings": 20,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 20,
+              "floor_descended": 20,
+              "spike_contact": 2,
+              "damage": 2,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12055,
+            "length": 95,
+            "total_return": 4.550000000000013,
+            "floors": 10,
+            "deepest_floor": 11,
+            "landings": 10,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 4
+            }
+          },
+          {
+            "seed": 12056,
+            "length": 150,
+            "total_return": 14.499999999999988,
+            "floors": 20,
+            "deepest_floor": 23,
+            "landings": 20,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 20,
+              "floor_descended": 20,
+              "spike_contact": 3,
+              "damage": 3,
+              "health_gained": 11
+            }
+          },
+          {
+            "seed": 12057,
+            "length": 170,
+            "total_return": 16.39999999999997,
+            "floors": 22,
+            "deepest_floor": 27,
+            "landings": 22,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 22,
+              "floor_descended": 22,
+              "spike_contact": 2,
+              "damage": 2,
+              "health_gained": 10
+            }
+          },
+          {
+            "seed": 12058,
+            "length": 22,
+            "total_return": -4.17,
+            "floors": 1,
+            "deepest_floor": 1,
+            "landings": 1,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 1,
+              "floor_descended": 1
+            }
+          },
+          {
+            "seed": 12059,
+            "length": 22,
+            "total_return": -4.17,
+            "floors": 1,
+            "deepest_floor": 1,
+            "landings": 1,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 1,
+              "floor_descended": 1
+            }
+          },
+          {
+            "seed": 12060,
+            "length": 76,
+            "total_return": 1.5900000000000114,
+            "floors": 7,
+            "deepest_floor": 11,
+            "landings": 7,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 7,
+              "floor_descended": 7
+            }
+          },
+          {
+            "seed": 12061,
+            "length": 136,
+            "total_return": 12.540000000000001,
+            "floors": 18,
+            "deepest_floor": 20,
+            "landings": 18,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 18,
+              "floor_descended": 18
+            }
+          },
+          {
+            "seed": 12062,
+            "length": 128,
+            "total_return": 8.420000000000018,
+            "floors": 14,
+            "deepest_floor": 16,
+            "landings": 14,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 14,
+              "floor_descended": 14,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12063,
+            "length": 38,
+            "total_return": -2.229999999999996,
+            "floors": 3,
+            "deepest_floor": 3,
+            "landings": 3,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 3,
+              "floor_descended": 3
+            }
+          },
+          {
+            "seed": 12064,
+            "length": 58,
+            "total_return": -0.32999999999999385,
+            "floors": 5,
+            "deepest_floor": 8,
+            "landings": 5,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 5,
+              "floor_descended": 5,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 1
+            }
+          },
+          {
+            "seed": 12065,
+            "length": 195,
+            "total_return": 19.299999999999933,
+            "floors": 25,
+            "deepest_floor": 32,
+            "landings": 25,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 25,
+              "floor_descended": 25,
+              "spike_contact": 2,
+              "damage": 2,
+              "health_gained": 10
+            }
+          },
+          {
+            "seed": 12066,
+            "length": 160,
+            "total_return": 15.449999999999973,
+            "floors": 21,
+            "deepest_floor": 25,
+            "landings": 21,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 21,
+              "floor_descended": 21
+            }
+          },
+          {
+            "seed": 12067,
+            "length": 130,
+            "total_return": 12.600000000000003,
+            "floors": 18,
+            "deepest_floor": 19,
+            "landings": 18,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 18,
+              "floor_descended": 18,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12068,
+            "length": 108,
+            "total_return": 6.520000000000016,
+            "floors": 12,
+            "deepest_floor": 12,
+            "landings": 12,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 12,
+              "floor_descended": 12
+            }
+          },
+          {
+            "seed": 12069,
+            "length": 52,
+            "total_return": -1.3199999999999954,
+            "floors": 4,
+            "deepest_floor": 8,
+            "landings": 4,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 4,
+              "floor_descended": 4
+            }
+          },
+          {
+            "seed": 12070,
+            "length": 77,
+            "total_return": 2.6300000000000114,
+            "floors": 8,
+            "deepest_floor": 8,
+            "landings": 8,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 8,
+              "floor_descended": 8
+            }
+          },
+          {
+            "seed": 12071,
+            "length": 22,
+            "total_return": -4.17,
+            "floors": 1,
+            "deepest_floor": 1,
+            "landings": 1,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 1,
+              "floor_descended": 1
+            }
+          },
+          {
+            "seed": 12072,
+            "length": 130,
+            "total_return": 12.600000000000003,
+            "floors": 18,
+            "deepest_floor": 19,
+            "landings": 18,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 18,
+              "floor_descended": 18,
+              "spike_contact": 2,
+              "damage": 2,
+              "health_gained": 10
+            }
+          },
+          {
+            "seed": 12073,
+            "length": 120,
+            "total_return": 11.650000000000015,
+            "floors": 17,
+            "deepest_floor": 17,
+            "landings": 17,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 17,
+              "floor_descended": 17,
+              "spike_contact": 3,
+              "damage": 3,
+              "health_gained": 10
+            }
+          },
+          {
+            "seed": 12074,
+            "length": 53,
+            "total_return": -0.27999999999999314,
+            "floors": 5,
+            "deepest_floor": 5,
+            "landings": 5,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 5,
+              "floor_descended": 5
+            }
+          },
+          {
+            "seed": 12075,
+            "length": 170,
+            "total_return": 16.399999999999956,
+            "floors": 22,
+            "deepest_floor": 27,
+            "landings": 22,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 22,
+              "floor_descended": 22,
+              "spike_contact": 1,
+              "damage": 1
+            }
+          },
+          {
+            "seed": 12076,
+            "length": 136,
+            "total_return": 12.540000000000001,
+            "floors": 18,
+            "deepest_floor": 20,
+            "landings": 18,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 18,
+              "floor_descended": 18,
+              "spike_contact": 2,
+              "damage": 2,
+              "health_gained": 7
+            }
+          },
+          {
+            "seed": 12077,
+            "length": 38,
+            "total_return": -2.229999999999996,
+            "floors": 3,
+            "deepest_floor": 3,
+            "landings": 3,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 3,
+              "floor_descended": 3
+            }
+          },
+          {
+            "seed": 12078,
+            "length": 146,
+            "total_return": 13.489999999999993,
+            "floors": 19,
+            "deepest_floor": 22,
+            "landings": 19,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 19,
+              "floor_descended": 19
+            }
+          },
+          {
+            "seed": 12079,
+            "length": 38,
+            "total_return": -2.229999999999996,
+            "floors": 3,
+            "deepest_floor": 3,
+            "landings": 3,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 3,
+              "floor_descended": 3
+            }
+          },
+          {
+            "seed": 12080,
+            "length": 79,
+            "total_return": 2.610000000000012,
+            "floors": 8,
+            "deepest_floor": 9,
+            "landings": 8,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 8,
+              "floor_descended": 8
+            }
+          },
+          {
+            "seed": 12081,
+            "length": 122,
+            "total_return": 7.4300000000000175,
+            "floors": 13,
+            "deepest_floor": 16,
+            "landings": 13,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 13,
+              "floor_descended": 13,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 1
+            }
+          },
+          {
+            "seed": 12082,
+            "length": 120,
+            "total_return": 11.650000000000015,
+            "floors": 17,
+            "deepest_floor": 17,
+            "landings": 17,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 17,
+              "floor_descended": 17,
+              "spike_contact": 2,
+              "damage": 2,
+              "health_gained": 7
+            }
+          },
+          {
+            "seed": 12083,
+            "length": 150,
+            "total_return": 14.499999999999984,
+            "floors": 20,
+            "deepest_floor": 23,
+            "landings": 20,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 20,
+              "floor_descended": 20
+            }
+          },
+          {
+            "seed": 12084,
+            "length": 69,
+            "total_return": 1.66000000000001,
+            "floors": 7,
+            "deepest_floor": 7,
+            "landings": 7,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 7,
+              "floor_descended": 7
+            }
+          },
+          {
+            "seed": 12085,
+            "length": 160,
+            "total_return": 15.449999999999973,
+            "floors": 21,
+            "deepest_floor": 25,
+            "landings": 21,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 21,
+              "floor_descended": 21,
+              "spike_contact": 2,
+              "damage": 2,
+              "health_gained": 10
+            }
+          },
+          {
+            "seed": 12086,
+            "length": 205,
+            "total_return": 20.249999999999908,
+            "floors": 26,
+            "deepest_floor": 34,
+            "landings": 26,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 26,
+              "floor_descended": 26,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12087,
+            "length": 120,
+            "total_return": 11.650000000000015,
+            "floors": 17,
+            "deepest_floor": 17,
+            "landings": 17,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 17,
+              "floor_descended": 17
+            }
+          },
+          {
+            "seed": 12088,
+            "length": 99,
+            "total_return": 4.510000000000016,
+            "floors": 10,
+            "deepest_floor": 13,
+            "landings": 10,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 10,
+              "floor_descended": 10
+            }
+          },
+          {
+            "seed": 12089,
+            "length": 335,
+            "total_return": 33.649999999999885,
+            "floors": 40,
+            "deepest_floor": 60,
+            "landings": 40,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 40,
+              "floor_descended": 40,
+              "spike_contact": 2,
+              "damage": 2,
+              "health_gained": 10
+            }
+          },
+          {
+            "seed": 12090,
+            "length": 22,
+            "total_return": -4.17,
+            "floors": 1,
+            "deepest_floor": 1,
+            "landings": 1,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 1,
+              "floor_descended": 1
+            }
+          },
+          {
+            "seed": 12091,
+            "length": 179,
+            "total_return": 13.159999999999949,
+            "floors": 19,
+            "deepest_floor": 28,
+            "landings": 19,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 19,
+              "floor_descended": 19,
+              "spike_contact": 2,
+              "damage": 2,
+              "health_gained": 7
+            }
+          },
+          {
+            "seed": 12092,
+            "length": 150,
+            "total_return": 14.499999999999984,
+            "floors": 20,
+            "deepest_floor": 23,
+            "landings": 20,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 20,
+              "floor_descended": 20,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12093,
+            "length": 136,
+            "total_return": 12.540000000000001,
+            "floors": 18,
+            "deepest_floor": 20,
+            "landings": 18,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 18,
+              "floor_descended": 18
+            }
+          },
+          {
+            "seed": 12094,
+            "length": 325,
+            "total_return": 32.69999999999987,
+            "floors": 39,
+            "deepest_floor": 58,
+            "landings": 39,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 39,
+              "floor_descended": 39,
+              "spike_contact": 2,
+              "damage": 2,
+              "health_gained": 10
+            }
+          },
+          {
+            "seed": 12095,
+            "length": 82,
+            "total_return": 2.5800000000000116,
+            "floors": 8,
+            "deepest_floor": 10,
+            "landings": 8,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 8,
+              "floor_descended": 8,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 1
+            }
+          },
+          {
+            "seed": 12096,
+            "length": 222,
+            "total_return": 17.979999999999876,
+            "floors": 24,
+            "deepest_floor": 35,
+            "landings": 24,
+            "terminal_reason": "bottom",
+            "event_counts": {
+              "landed": 24,
+              "floor_descended": 24
+            }
+          },
+          {
+            "seed": 12097,
+            "length": 380,
+            "total_return": 39.49999999999995,
+            "floors": 46,
+            "deepest_floor": 69,
+            "landings": 46,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 46,
+              "floor_descended": 46,
+              "spike_contact": 3,
+              "damage": 3,
+              "health_gained": 13
+            }
+          },
+          {
+            "seed": 12098,
+            "length": 160,
+            "total_return": 15.449999999999973,
+            "floors": 21,
+            "deepest_floor": 25,
+            "landings": 21,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 21,
+              "floor_descended": 21,
+              "spike_contact": 1,
+              "damage": 1,
+              "health_gained": 5
+            }
+          },
+          {
+            "seed": 12099,
+            "length": 266,
+            "total_return": 25.939999999999827,
+            "floors": 32,
+            "deepest_floor": 46,
+            "landings": 32,
+            "terminal_reason": "top",
+            "event_counts": {
+              "landed": 32,
+              "floor_descended": 32
+            }
+          }
+        ],
+        "median_floors": 18.0,
+        "std_floors": 9.131675640319251,
+        "floor_quantile_25": 8.0,
+        "mean_deepest_floor": 19.06,
+        "median_deepest_floor": 19.0,
+        "deepest_floor_quantile_25": 9.75,
+        "floor_cvar25": 3.72,
+        "deepest_floor_cvar25": 4.56,
+        "bottom_death_rate": 0.44,
+        "health_death_rate": 0.0,
+        "direction_switches_per_100_steps": 0.0,
+        "direction_reversals_per_100_steps": 11.886689099303545,
+        "floors_bootstrap_ci95": [
+          13.69975,
+          17.250249999999998
+        ],
+        "success_rate_floor_1": 1.0,
+        "success_rate_floor_3": 0.93,
+        "success_rate_floor_5": 0.83,
+        "success_rate_floor_10": 0.7,
+        "reach_rate_floor_1": 1.0,
+        "reach_rate_floor_3": 0.94,
+        "reach_rate_floor_5": 0.86,
+        "reach_rate_floor_10": 0.75
+      }
+    }
+  }
+}

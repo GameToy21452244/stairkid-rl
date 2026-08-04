@@ -2,6 +2,10 @@
 
 | ID | 風險 | 嚴重度 | 證據／觸發 | 緩解與狀態 |
 |---|---|---:|---|---|
+| R-106 | 人工校準全域覆寫v0.3，破壞frozen Oracle replay | 極高 | Targeted suite最初有4個固定seed行為回歸 | v0.4改為manual-only opt-in profile；保留v0.3 defaults與RNG stream，歷史tests恢復。已控制 |
+| R-107 | 斜向高速落台在substep末已離開AABB而穿透 | 高 | before diagonal-edge crossing瞬間重疊但end-x不重疊；各render FPS都重現 | v0.4用time-of-impact x做swept overlap；FPS invariance與回歸測試。候選已控制，待人工重測 |
+| R-108 | 以使用者主觀scroll感受覆蓋實機量測 | 高 | 使用者稱96 px/s太快，但alignment packet實測亦為96 | 80只列manual candidate；before／after切換、rating與後續實機reference才能升版。開放 |
+| R-109 | Rising-from-below one-way語意與原版不一致 | 高 | Simulator候選刻意pass-through，但沒有直接實機clip | 明標`UNRESOLVED_ONE_WAY_SEMANTICS`；不以人工或離線案例宣稱formal alignment。開放 |
 | R-01 | 真實輸入送錯視窗或按鍵未釋放 | 極高 | Windows 自動輸入 | 保留 foreground／related-window／F8／release_all；自動測試禁實機。持續 |
 | R-02 | 舊資料 transition 錯位或跨 episode | 高 | legacy JSONL 缺 episode、next obs、時間戳 | quarantine + 新 validator；writer 尚未接入。開放 |
 | R-03 | 動作 label 與實際生效時間錯位 | 高 | capture/action latency 未量測 | 四個時間戳、held/action duration schema；待 calibration。開放 |
@@ -77,3 +81,33 @@
 | R-73 | 姓名輸入 modal 中斷多回合 Gate，或過寬自動 Enter 誤操作未知視窗 | 高 | 前一個10回合attempt於5/10被owned dialog中斷；使用者確認姓名框可Enter略過 | 僅唯一same-process owned #32770＋title白名單可明示啟用Enter-once；其餘fail closed。77 related tests通過，但成功10回合未觸發，live仍待觀察。部分控制。 |
 | R-74 | Teacher程式演進但policy/dataset version未升，Colab重建同名資料造成實驗漂移 | 極高 | 凍結Dataset v1為3,529 rows/hash `fa3e...`；current source同seeds重建為3,571 rows/hash `04417...`，action counts亦顯著改變 | P4.1 manifest鎖exact hash；專用bundle攜帶原JSONL，notebook禁止重建。新Teacher資料必須升版並重跑reliability/coverage Gate。部分控制；version discipline仍待修。 |
 | R-75 | Sequence模型介面成功或兩個短回合高樓層被誤當P4.1科學PASS | 極高 | 4-update smoke中S2兩回合mean deepest 9.5，但四組bottom rate皆1.0，S2 max action share 97.96%接近collapse門檻 | Artifact明標`scientific_gate_evaluated=false`；3900/3901永久只作development。只有3 initialization、selection/final隔離且tail/bottom/oscillation Gate通過才准P4.2。已控制。 |
+| R-76 | P4.1平均與Q25改善掩蓋更差的最壞尾端 | 極高 | S1 mean/Q25比S0高7.35/10.67 floors，但CVaR25低1.27、reach-10低3.33 pp、bottom death高5 pp | `FAIL_STOP_SELECTION`；final seeds未使用，P4.2維持BLOCKED。S1只保留為診斷候選，不以mean重新解讀。已控制。 |
+| R-77 | Oscillation metric與門檻不相容造成不可達Gate | 高 | 舊metric只計相鄰LEFT↔RIGHT，S0平均0.005/100 steps，理論最大improvement小於預設0.10 | 保留舊欄位；新增release-bridged reversal並改為跨初始化與平均non-regression。S0/S1重播完整重現，修正Gate仍FAIL。已控制。 |
+| R-78 | S1 causal state提高成功軌跡卻增加方向反轉與tail failure | 極高 | 重播S0/S1 reversal平均10.05/10.73；S1三初始化delta全負，且bottom多5 pp、reach少3.33 pp | 不進P4.2、不碰final；下一步先做Dataset v2 Gap Audit，檢查recovery/early-failure coverage，不直接加epochs。開放。 |
+| R-79 | 舊Dataset coverage Gate會把可靠度嚴重退化的Teacher誤判為PASS | 極高 | current Teacher同60 seeds reach 75%、bottom 25%，但validator/split/recovery舊Gate仍全PASS | v2新增同種子reach/bottom/health/action-TV blocking Gate；通過後才准fresh100。已控制於生成前。 |
+| R-80 | 真機Teacher修復直接共用到simulator，造成已通過真機控制與資料可靠度互相牽制 | 極高 | 60/60 trajectories在step1分歧，57次由aligned改為depart support；但後續trajectory已分叉，不能證明單一根因 | 分離Real-game與Simulator Teacher profile/version；只在sim profile做departure delayed/disabled micro-ablation，不回退真機controller。開放。 |
+| R-81 | 只修support departure會把局部改善誤當Teacher已恢復 | 極高 | delayed reach 81.67%、bottom 18.33%優於current，但仍遠離91.33%/8.67% Gate；disabled也退化 | 三候選全FAIL，fresh未跑；不掃delay、不放寬門檻。已控制於Gate。 |
+| R-82 | Simulator的近平台contact與rising/falling launch phase alias，阻止必要離台 | 極高 | delayed首次分歧median step6；53/60為舊escape_launch→新aligned，launch rows僅736對v1 1692；11個bottom尾端皆no_reachable | Support-aware handoff已測且退化；phase audit確認support 936 rows中876為rising。停止heuristic，改查可部署schema。部分控制。 |
+| R-83 | 廣義contact＋motion handoff過度觸發，完全吃掉support departure | 極高 | 候選support departure 117→0、wall guard 223→314、reach -6.67pp、bottom +6.67pp | Candidate FAIL且fresh未跑；不部署、不新增第二heuristic。已控制於Gate。 |
+| R-84 | 以branch count接近frozen資料誤判phase已對齊 | 極高 | launch 736→991且action TV改善，但CVaR與bottom惡化；candidate vs v1仍各25次launch→aligned/brake | Phase audit已完成且未放行候選；branch count永久只作診斷，不覆蓋closed-loop/tail Gate。已控制。 |
+| R-85 | 介入改變終局樣本過少，從8個案例擬合phase rule會過擬合 | 極高 | 60個首次分歧僅2改善、6退化、52不變；changed/improved/regressed固定門檻全FAIL | 停止phase model與controller修改；先做bounded schema probe與held-out可分性Gate。開放。 |
+| R-86 | 相同可部署phase signature需要相反介入，Teacher決策仍有state alias | 極高 | 同一簽章含1改善、2退化、7不變；privileged post-bounce與last-landed也無法分離 | 不引入raw ID/privileged state；只評估真機可重建的causal memory與來源/目標相對幾何。開放。 |
+| R-87 | 在幾乎沒有正向counterfactual的資料上繼續調launch heuristic | 極高 | 400回合只有1改善、29退化；handoff使reach -7 pp、bottom +7 pp、Q25 -2、CVaR25 -1.10 | `INSUFFICIENT_EVIDENCE_STOP_SCHEMA_PROBE`；拒絕此介入族，不掃參數、不重跑holdout，改做真機alignment。已控制於Gate。 |
+| R-88 | 凍結schema文字與執行feature不完全一致，導致錯誤解讀held-out比較 | 高 | 協定phase_basic列vx/vy；執行basic只含vy，vx只在causal/combined | 報告公開偏差；因evidence先FAIL而不重跑test，不宣稱schema separability。下一實驗須在run前以dimension/name測試鎖定schema。開放。 |
+| R-89 | 以舊MP4或post-decision sidecar猜補真機alignment欄位 | 極高 | 舊transition無structured platforms；sidecar已含當步action，壓縮影片重偵測不等同live observation | 不遷移舊run；新v1 packet同步記錄pre/post memory、structured obs、timing與frame index，且固定diagnostic-only。已控制於新collector。 |
+| R-90 | Alignment工程dry-run被誤當真機Gate或訓練解鎖 | 極高 | Dry-run可驗schema/安全入口，但沒有任何真機records或分支coverage | 狀態明標PENDING；需3回合Integrity/Coverage Gate，PASS也只解鎖sim/real audit。已控制於protocol。 |
+| R-91 | Simulator已有特殊mechanism但一般generator未生成，誤以為訓練分布已對齊 | 極高 | 真機重要kinds有normal/spikes/spring/conveyor/flipping；30-seed Simulator只有normal/spikes | 分開報告implemented與distribution-enabled；缺kind直接阻擋Dataset v2／RL。開放。 |
+| R-92 | Rising期間長時間保留同一support ownership，造成timeout、restart及序列label反轉 | 極高 | 真機rising-support 40.58%、max11；episode3 source12有8/8 persistence→timeout→同source restart；Simulator max2 | 先以既有packet做phase-aware shadow replay；只允許單一test-first候選，真機Gate仍要求timeout/restart/reversal為0。開放。 |
+| R-93 | Spring mechanism單測PASS卻在一般分布造成重複彈跳與top death | 極高 | 舊Gate無spring65/65；有spring僅6/35，29次全在2～4 contacts後top。Oracle v2在development/holdout spring 30/30、29/29成功，Baseline retention101.35% | 只修Oracle clearance且spike-only exact non-regression；Simulator可解性已控制。真機0 confirmed spring event pairs，190 px/s fidelity仍開放，不能把Oracle PASS冒充真機校正。部分控制。 |
+| R-94 | 把整張擷取畫布當可玩區，平台生成到實機右側UI並扭曲wall guard | 極高 | 2,083個實機platform detections為x=40～423；舊Simulator為0～634，Baseline真機邊界固定40／423 | v0.3 generator、clamp、Oracle與renderer共用calibrated playfield；新增fixed-seed boundary test與實機montage。已控制於normal geometry，特殊分布待重驗。 |
+| R-95 | 舊穿透／寬鬆top boundary讓Oracle成功率虛高，誤解鎖訓練 | 極高 | v2錯場寬Oracle reach10 98%；加入實機場地與頂刺後v3僅48%，但edge violations保持0 | v1/v2與所有v0.2 curriculum PASS降級historical；v3於Oracle development FAIL即停，Baseline／holdout／Dataset／training不執行。已控制於Gate。 |
+| R-96 | 修掉單一離台反轉但長期成功率不變，卻誤判可進訓練 | 極高 | v5修掉seed13009折返，mean 8.72→8.93且死亡樓層後移，但reach10仍48%、top仍52 | 保留局部commit修正但Gate維持FAIL；停止第二個heuristic，下一步改為另凍結的action-conditioned route planner。已控制於Gate。 |
+| R-97 | Privileged snapshot planner PASS被誤當可部署Teacher或Student能力 | 極高 | Oracle reach10 96%，但observable Baseline reach3僅73%、top death88；planner可讀完整state並試跑future actions | Oracle只證可解性，明禁作BC label／Student input；Baseline FAIL即停止holdout與Dataset。下一步另做observable route-intent Gate。已控制於Gate。 |
+| R-98 | Development Oracle剛過門檻卻在新holdout失敗，誤把單一分區成功當穩健可解性 | 極高 | development reach10 96%，首次holdout僅93%；7 failures分布於floor3～9，含4 bottom／3 top | Holdout Oracle FAIL即停且candidate holdout未跑；14000～14099退休。先做failure taxonomy，再用全新分區重驗，不降95%門檻。開放。 |
+| R-99 | Observable route intent的development大幅改善被誤當已通過holdout或可直接上實機 | 極高 | candidate development reach3 97%、reach10 55%，但上游Oracle holdout先FAIL | 候選獨立opt-in，真實Teacher預設不變；不得產資料、訓練或實機部署。待新Oracle robustness Gate後才首次評估candidate holdout。已控制於隔離。 |
+| R-100 | 把retired 7-seed反事實改善誤當泛化成功，對舊holdout過擬合 | 極高 | receding current-trigger在已知失敗救回4/7，但3/7仍unresolved；樣本是看過結果後挑出 | 只用它選單一機制候選；正式結論改用16000 development與17000 one-time holdout，14000～14099永久退休。部分控制。 |
+| R-101 | 誤以為更早／更大搜尋必然更好，導致算力增加且策略退化 | 高 | always-receding與extended 24/96均0/7；expanded nodes 61,473／157,092，extended仍全bottom | 明確拒絕always-plan與擴大搜尋；v7固定原trigger、12/24，只改open-loop execution。已控制於protocol。 |
+| R-102 | 在已知失敗子集修復open-loop，卻破壞原本成功軌跡 | 極高 | retired failures救回4/7；新development僅救1個v6 failure，卻破壞21個v6 successes，bottom 2→22 | v7正式REJECT、holdout未用；下一步先做paired first-divergence audit，任何新候選需另凍結protocol。開放。 |
+| R-103 | Shared beam以短期score壟斷branch，讓可救首動作在floor-progress前消失 | 極高 | v8兩個top failures中，14/14可完整reach10的RIGHT paths在depth 4被剪；rank 35～39低於beam=24 cutoff，replan遂100%重建v6 RELEASE suffix | v8正式淘汰；只支持terminal-only first-action branch preservation進新protocol。新候選仍須全新development、v6-success non-regression、tail與switch Gate。開放。 |
+| R-104 | 為保留branch而全域改score／擴beam／逐步重選，可能再破壞既有96%成功路徑或重現v7切換退化 | 極高 | Phase 2F只證結構化RIGHT lane可救兩個development top failures；未證明score weight、beam=96或commit/cooldown，v7曾有21個success regressions | C/F/G維持證據不足；新protocol只能凍結單一結構變因、terminal-only作用域與commit語意，使用全新partition驗證後才可碰one-time holdout。開放。 |
+| R-105 | 因候選相對改善而忽略Oracle絕對可解性門檻，過早解鎖holdout與Student | 極高 | 新development v6/candidate reach10 90%／93%，修復3個top且0 regression，但candidate仍低於凍結95% | Formal Gate維持FAIL；19000 unused，所有Alignment／Dataset／Student／Colab停止。若有下一研究方向必須另立protocol與全新partition，不得重跑或調參本批seeds。已控制於Gate。 |

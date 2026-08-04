@@ -49,6 +49,31 @@ def platform(track_id, kind, left, top=210, width=96):
     }
 
 
+def test_support_contact_uses_tracker_aabb_overlap_not_player_center() -> None:
+    policy = SafePlatformPolicy(
+        BaselineConfig(),
+        support_contact_uses_tracker_aabb_overlap=True,
+    )
+    source = platform(0, "normal", 183.5, top=354.5)
+    destination = platform(1, "normal", 40.0, top=402.5)
+    item = observation(
+        player_x=177.1,
+        player_y=309.7,
+        velocity_x=-230.0,
+        velocity_y=-96.0,
+        motion="rising",
+        platforms=[source, destination],
+        nearest_platform={**source, "vertical_gap": 0.0},
+    )
+
+    decision = policy.choose(item)
+    memory = policy.memory_snapshot()
+
+    assert memory["support_contact_active"] is True
+    assert memory["support_platform_id"] == 0
+    assert decision.reason == "depart_support_platform"
+
+
 def test_policy_moves_toward_closest_safe_platform() -> None:
     policy = SafePlatformPolicy(BaselineConfig())
     item = observation(
@@ -1496,6 +1521,111 @@ def test_live_hesitation_replay_latches_departure_until_support_is_lost() -> Non
     assert memory["support_departure_source_id"] == 7
     assert memory["support_departure_destination_id"] == 9
     assert memory["support_departure_direction"] == "LEFT"
+
+
+def test_normal_support_departure_can_be_delayed_without_changing_default() -> None:
+    source = platform(7, "normal", 157, top=210)
+    destination = platform(9, "normal", 157, top=280)
+    item = observation(
+        player_x=200,
+        player_y=195,
+        velocity_x=0,
+        motion="stable",
+        platforms=[source, destination],
+        nearest_platform={**source, "vertical_gap": 5.0},
+    )
+    current = SafePlatformPolicy(BaselineConfig())
+    delayed = SafePlatformPolicy(
+        BaselineConfig(),
+        normal_support_departure_delay_steps=2,
+    )
+
+    assert current.choose(item).reason == "depart_support_platform"
+    assert [delayed.choose(item).reason for _ in range(3)] == [
+        "aligned_with_safe_platform",
+        "aligned_with_safe_platform",
+        "depart_support_platform",
+    ]
+
+
+def test_normal_support_departure_can_be_disabled_for_simulator_profile() -> None:
+    source = platform(7, "normal", 157, top=210)
+    destination = platform(9, "normal", 157, top=280)
+    item = observation(
+        player_x=200,
+        player_y=195,
+        velocity_x=0,
+        motion="stable",
+        platforms=[source, destination],
+        nearest_platform={**source, "vertical_gap": 5.0},
+    )
+    policy = SafePlatformPolicy(
+        BaselineConfig(),
+        normal_support_departure_enabled=False,
+    )
+
+    decisions = [policy.choose(item) for _ in range(4)]
+
+    assert all(item.reason != "depart_support_platform" for item in decisions)
+    assert policy.memory_snapshot()["support_departure_active"] is False
+
+
+def test_support_aware_launch_handoff_handles_contact_motion_overlap() -> None:
+    source = platform(7, "normal", 157, top=210)
+    destination = platform(9, "normal", 157, top=280)
+    item = observation(
+        player_x=200,
+        player_y=195,
+        velocity_x=0,
+        motion="rising",
+        platforms=[source, destination],
+        nearest_platform={**source, "vertical_gap": 5.0},
+    )
+    base = SafePlatformPolicy(
+        BaselineConfig(),
+        normal_support_departure_delay_steps=2,
+    )
+    candidate = SafePlatformPolicy(
+        BaselineConfig(),
+        normal_support_departure_delay_steps=2,
+        support_aware_launch_handoff_enabled=True,
+    )
+
+    assert base.choose(item).reason == "aligned_with_safe_platform"
+    decision = candidate.choose(item)
+
+    assert decision.reason == "escape_launch_platform"
+    assert decision.target_platform_id == 7
+
+
+def test_support_aware_launch_handoff_rejects_stable_or_no_future_landing() -> None:
+    source = platform(7, "normal", 157, top=210)
+    destination = platform(9, "normal", 157, top=280)
+    policy = SafePlatformPolicy(
+        BaselineConfig(),
+        normal_support_departure_delay_steps=2,
+        support_aware_launch_handoff_enabled=True,
+    )
+    stable = observation(
+        player_x=200,
+        player_y=195,
+        velocity_x=0,
+        motion="stable",
+        platforms=[source, destination],
+        nearest_platform={**source, "vertical_gap": 5.0},
+    )
+    no_future = observation(
+        player_x=200,
+        player_y=195,
+        velocity_x=0,
+        motion="rising",
+        platforms=[source],
+        nearest_platform={**source, "vertical_gap": 5.0},
+    )
+
+    assert policy.choose(stable).reason == "aligned_with_safe_platform"
+    policy.reset()
+    assert policy.choose(no_future).reason != "escape_launch_platform"
 
 
 def test_departure_keeps_destination_when_a_closer_target_appears() -> None:

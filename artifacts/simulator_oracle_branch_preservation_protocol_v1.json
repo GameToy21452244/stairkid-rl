@@ -1,0 +1,406 @@
+{
+  "schema_version": "simulator-oracle-branch-preservation-protocol-v1",
+  "created_at": "2026-08-04T09:33:20.218021+00:00",
+  "review_status": "READY_FOR_TEST_FIRST_IMPLEMENTATION",
+  "candidate": "oracle-full-v9-terminal-branch-preserving",
+  "single_production_variable": "three independent first-action lanes only during terminal-risk search",
+  "frozen_hashes": {
+    "reports\\SIMULATOR_ORACLE_BRANCH_PRESERVATION_PROTOCOL.md": "9d4fae44ae6c47714e48a3ebdae4b953f9e6f257c6f6604f8469cfd10859ccbe",
+    "artifacts\\simulator_oracle_branch_preservation_seed_ledger_v1.json": "9da4b0b725f0ce7f932f6a15cc7819bf3d7471a59262dc8f861156ad58230c54",
+    "artifacts\\simulator_oracle_v8_phase2f_review_v1.json": "1343e9183d670c4f4afa865f65818287c7f0fdce667ad48dd300321558e9c98c",
+    "src\\stair_agent\\policies\\simulator_teachers.py": "18018669ed6e97056be20bf07642afd766dfa0b3c0bf4e232e476c26c295cbbb",
+    "src\\stair_agent\\policies\\simulator_route_planner.py": "c52671e08c607d919e8c83b5f63b5c0faaf8b92541322996bdc736b66444a394"
+  },
+  "selector_audit": {
+    "selector": "max(lane_winner.score) in RELEASE_ALL/LEFT/RIGHT stable order",
+    "selector_modified": false,
+    "score_modified": false,
+    "trigger_count": 14,
+    "passed_count": 14,
+    "all_select_right_survivor": true,
+    "rows": [
+      {
+        "seed": 16002,
+        "trigger_step": 39,
+        "lane_order": [
+          "RELEASE_ALL",
+          "LEFT",
+          "RIGHT"
+        ],
+        "lane_scores": {
+          "RELEASE_ALL": -999791.2,
+          "LEFT": -999791.2,
+          "RIGHT": 10601.402696904312
+        },
+        "lane_terminal_reasons": {
+          "RELEASE_ALL": "top",
+          "LEFT": "top",
+          "RIGHT": null
+        },
+        "existing_selector_action": "RIGHT",
+        "existing_selector_terminal_reason": null,
+        "existing_selector_completion_reason": "floor_progress",
+        "committed_counterfactual_reach10": true,
+        "passed": true
+      },
+      {
+        "seed": 16002,
+        "trigger_step": 40,
+        "lane_order": [
+          "RELEASE_ALL",
+          "LEFT",
+          "RIGHT"
+        ],
+        "lane_scores": {
+          "RELEASE_ALL": -999791.1,
+          "LEFT": 10448.900000000005,
+          "RIGHT": 10547.336830237646
+        },
+        "lane_terminal_reasons": {
+          "RELEASE_ALL": "top",
+          "LEFT": null,
+          "RIGHT": null
+        },
+        "existing_selector_action": "RIGHT",
+        "existing_selector_terminal_reason": null,
+        "existing_selector_completion_reason": "floor_progress",
+        "committed_counterfactual_reach10": true,
+        "passed": true
+      },
+      {
+        "seed": 16002,
+        "trigger_step": 41,
+        "lane_order": [
+          "RELEASE_ALL",
+          "LEFT",
+          "RIGHT"
+        ],
+        "lane_scores": {
+          "RELEASE_ALL": -999791.0,
+          "LEFT": 10400.900000000003,
+          "RIGHT": 10517.252100000005
+        },
+        "lane_terminal_reasons": {
+          "RELEASE_ALL": "top",
+          "LEFT": null,
+          "RIGHT": null
+        },
+        "existing_selector_action": "RIGHT",
+        "existing_selector_terminal_reason": null,
+        "existing_selector_completion_reason": "floor_progress",
+        "committed_counterfactual_reach10": true,
+        "passed": true
+      },
+      {
+        "seed": 16002,
+        "trigger_step": 42,
+        "lane_order": [
+          "RELEASE_ALL",
+          "LEFT",
+          "RIGHT"
+        ],
+        "lane_scores": {
+          "RELEASE_ALL": -999790.9,
+          "LEFT": 10352.900000000003,
+          "RIGHT": 10469.252100000005
+        },
+        "lane_terminal_reasons": {
+          "RELEASE_ALL": "top",
+          "LEFT": null,
+          "RIGHT": null
+        },
+        "existing_selector_action": "RIGHT",
+        "existing_selector_terminal_reason": null,
+        "existing_selector_completion_reason": "floor_progress",
+        "committed_counterfactual_reach10": true,
+        "passed": true
+      },
+      {
+        "seed": 16002,
+        "trigger_step": 43,
+        "lane_order": [
+          "RELEASE_ALL",
+          "LEFT",
+          "RIGHT"
+        ],
+        "lane_scores": {
+          "RELEASE_ALL": -999790.8,
+          "LEFT": 10304.900000000003,
+          "RIGHT": 10421.252100000003
+        },
+        "lane_terminal_reasons": {
+          "RELEASE_ALL": "top",
+          "LEFT": null,
+          "RIGHT": null
+        },
+        "existing_selector_action": "RIGHT",
+        "existing_selector_terminal_reason": null,
+        "existing_selector_completion_reason": "floor_progress",
+        "committed_counterfactual_reach10": true,
+        "passed": true
+      },
+      {
+        "seed": 16002,
+        "trigger_step": 44,
+        "lane_order": [
+          "RELEASE_ALL",
+          "LEFT",
+          "RIGHT"
+        ],
+        "lane_scores": {
+          "RELEASE_ALL": -999790.7,
+          "LEFT": -999790.7,
+          "RIGHT": 10373.252100000003
+        },
+        "lane_terminal_reasons": {
+          "RELEASE_ALL": "top",
+          "LEFT": "top",
+          "RIGHT": null
+        },
+        "existing_selector_action": "RIGHT",
+        "existing_selector_terminal_reason": null,
+        "existing_selector_completion_reason": "floor_progress",
+        "committed_counterfactual_reach10": true,
+        "passed": true
+      },
+      {
+        "seed": 16002,
+        "trigger_step": 45,
+        "lane_order": [
+          "RELEASE_ALL",
+          "LEFT",
+          "RIGHT"
+        ],
+        "lane_scores": {
+          "RELEASE_ALL": -999790.6,
+          "LEFT": -999790.6,
+          "RIGHT": 10325.252100000003
+        },
+        "lane_terminal_reasons": {
+          "RELEASE_ALL": "top",
+          "LEFT": "top",
+          "RIGHT": null
+        },
+        "existing_selector_action": "RIGHT",
+        "existing_selector_terminal_reason": null,
+        "existing_selector_completion_reason": "floor_progress",
+        "committed_counterfactual_reach10": true,
+        "passed": true
+      },
+      {
+        "seed": 16002,
+        "trigger_step": 46,
+        "lane_order": [
+          "RELEASE_ALL",
+          "LEFT",
+          "RIGHT"
+        ],
+        "lane_scores": {
+          "RELEASE_ALL": -999790.5,
+          "LEFT": -999790.5,
+          "RIGHT": 20441.781900000005
+        },
+        "lane_terminal_reasons": {
+          "RELEASE_ALL": "top",
+          "LEFT": "top",
+          "RIGHT": null
+        },
+        "existing_selector_action": "RIGHT",
+        "existing_selector_terminal_reason": null,
+        "existing_selector_completion_reason": "floor_progress",
+        "committed_counterfactual_reach10": true,
+        "passed": true
+      },
+      {
+        "seed": 16030,
+        "trigger_step": 51,
+        "lane_order": [
+          "RELEASE_ALL",
+          "LEFT",
+          "RIGHT"
+        ],
+        "lane_scores": {
+          "RELEASE_ALL": -999791.0,
+          "LEFT": -999791.0,
+          "RIGHT": 20735.691106791674
+        },
+        "lane_terminal_reasons": {
+          "RELEASE_ALL": "top",
+          "LEFT": "top",
+          "RIGHT": null
+        },
+        "existing_selector_action": "RIGHT",
+        "existing_selector_terminal_reason": null,
+        "existing_selector_completion_reason": "floor_progress",
+        "committed_counterfactual_reach10": true,
+        "passed": true
+      },
+      {
+        "seed": 16030,
+        "trigger_step": 52,
+        "lane_order": [
+          "RELEASE_ALL",
+          "LEFT",
+          "RIGHT"
+        ],
+        "lane_scores": {
+          "RELEASE_ALL": -999790.9,
+          "LEFT": -999790.9,
+          "RIGHT": 20687.691106791674
+        },
+        "lane_terminal_reasons": {
+          "RELEASE_ALL": "top",
+          "LEFT": "top",
+          "RIGHT": null
+        },
+        "existing_selector_action": "RIGHT",
+        "existing_selector_terminal_reason": null,
+        "existing_selector_completion_reason": "floor_progress",
+        "committed_counterfactual_reach10": true,
+        "passed": true
+      },
+      {
+        "seed": 16030,
+        "trigger_step": 53,
+        "lane_order": [
+          "RELEASE_ALL",
+          "LEFT",
+          "RIGHT"
+        ],
+        "lane_scores": {
+          "RELEASE_ALL": -999790.8,
+          "LEFT": -999790.8,
+          "RIGHT": 20639.691106791674
+        },
+        "lane_terminal_reasons": {
+          "RELEASE_ALL": "top",
+          "LEFT": "top",
+          "RIGHT": null
+        },
+        "existing_selector_action": "RIGHT",
+        "existing_selector_terminal_reason": null,
+        "existing_selector_completion_reason": "floor_progress",
+        "committed_counterfactual_reach10": true,
+        "passed": true
+      },
+      {
+        "seed": 16030,
+        "trigger_step": 54,
+        "lane_order": [
+          "RELEASE_ALL",
+          "LEFT",
+          "RIGHT"
+        ],
+        "lane_scores": {
+          "RELEASE_ALL": -999790.7,
+          "LEFT": -999790.7,
+          "RIGHT": 20636.691106791674
+        },
+        "lane_terminal_reasons": {
+          "RELEASE_ALL": "top",
+          "LEFT": "top",
+          "RIGHT": null
+        },
+        "existing_selector_action": "RIGHT",
+        "existing_selector_terminal_reason": null,
+        "existing_selector_completion_reason": "floor_progress",
+        "committed_counterfactual_reach10": true,
+        "passed": true
+      },
+      {
+        "seed": 16030,
+        "trigger_step": 55,
+        "lane_order": [
+          "RELEASE_ALL",
+          "LEFT",
+          "RIGHT"
+        ],
+        "lane_scores": {
+          "RELEASE_ALL": -999790.6,
+          "LEFT": -999790.6,
+          "RIGHT": 20588.691106791674
+        },
+        "lane_terminal_reasons": {
+          "RELEASE_ALL": "top",
+          "LEFT": "top",
+          "RIGHT": null
+        },
+        "existing_selector_action": "RIGHT",
+        "existing_selector_terminal_reason": null,
+        "existing_selector_completion_reason": "floor_progress",
+        "committed_counterfactual_reach10": true,
+        "passed": true
+      },
+      {
+        "seed": 16030,
+        "trigger_step": 56,
+        "lane_order": [
+          "RELEASE_ALL",
+          "LEFT",
+          "RIGHT"
+        ],
+        "lane_scores": {
+          "RELEASE_ALL": -999790.5,
+          "LEFT": -999790.5,
+          "RIGHT": 20540.691106791674
+        },
+        "lane_terminal_reasons": {
+          "RELEASE_ALL": "top",
+          "LEFT": "top",
+          "RIGHT": null
+        },
+        "existing_selector_action": "RIGHT",
+        "existing_selector_terminal_reason": null,
+        "existing_selector_completion_reason": "floor_progress",
+        "committed_counterfactual_reach10": true,
+        "passed": true
+      }
+    ]
+  },
+  "lane_bounds": {
+    "actions": [
+      "RELEASE_ALL",
+      "LEFT",
+      "RIGHT"
+    ],
+    "horizon_per_lane": 12,
+    "beam_width_per_lane": 24,
+    "theoretical_expanded_nodes_per_lane": 793,
+    "theoretical_expanded_nodes_total": 2379,
+    "structural_peak_node_snapshots": 364,
+    "wall_clock_watchdog_seconds": 5.0,
+    "sequential_lane_execution": true
+  },
+  "tie_break": "stable lane order RELEASE_ALL, LEFT, RIGHT",
+  "empty_lane_handling": "INCOMPLETE invariant failure",
+  "all_terminal_fallback": "existing max-score selector; cache and execute full selected suffix",
+  "commit_semantics": {
+    "cache_full_suffix": true,
+    "receding_lane_switch": false,
+    "cooldown_added": false,
+    "hysteresis_added": false,
+    "minimum_commitment_threshold_added": false
+  },
+  "development": {
+    "primary_partition": "18000-18099",
+    "conditional_extension": "18100-18199",
+    "extension_condition": "paired v6 primary top failures == 0",
+    "combined_gate_if_extended": "all checks over 18000-18199",
+    "zero_top_after_extension": "INSUFFICIENT_EVIDENCE"
+  },
+  "holdout": {
+    "partition": "19000-19099",
+    "used": false,
+    "one_time_only": true
+  },
+  "forbidden_seed_partitions": [
+    "14000-14099",
+    "16000-16099",
+    "17000-17099"
+  ],
+  "production_modified_during_review": false,
+  "training_started": false,
+  "dataset_generated": false,
+  "real_game_started": false,
+  "next_phase": "TEST_FIRST_IMPLEMENTATION"
+}

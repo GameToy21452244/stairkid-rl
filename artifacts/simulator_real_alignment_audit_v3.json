@@ -1,0 +1,2094 @@
+{
+  "schema_version": "simulator-real-alignment-audit-v1",
+  "status": "FAIL_STOP_SIMULATOR_REAL_ALIGNMENT",
+  "passed": false,
+  "training_started": false,
+  "real_game_started": false,
+  "gate": {
+    "passed": false,
+    "checks": {
+      "primary_packet_passed": true,
+      "primary_record_and_episode_minimum": true,
+      "real_cadence_70_to_140_ms": true,
+      "simulator_cadence_within_25_percent": true,
+      "action_samples_sufficient": true,
+      "real_direction_response_correct": true,
+      "simulator_direction_response_correct": true,
+      "important_kinds_enabled": false,
+      "support_phase_alias_not_confirmed": false,
+      "primary_support_departure_timeouts_zero": false,
+      "primary_same_support_restarts_zero": false
+    }
+  },
+  "platform_kinds": {
+    "real_important": [
+      "conveyor",
+      "flipping",
+      "normal",
+      "spikes",
+      "spring"
+    ],
+    "simulator_mechanisms_implemented": [
+      "conveyor",
+      "flipping",
+      "normal",
+      "spikes",
+      "spring"
+    ],
+    "simulator_diagnostic_distribution_enabled": [
+      "normal",
+      "spikes"
+    ],
+    "simulator_diagnostic_distribution_observed": [
+      "normal",
+      "spikes"
+    ],
+    "missing_from_simulator_distribution": [
+      "conveyor",
+      "flipping",
+      "spring"
+    ]
+  },
+  "action_response_scale_ratio_simulator_over_real": {
+    "LEFT_abs_delta_vx_median": 2.381818181818182,
+    "RIGHT_abs_delta_vx_median": 1.656321846219778
+  },
+  "primary_real": {
+    "records": 308,
+    "episodes": 3,
+    "cadence_ms": {
+      "samples": 308,
+      "median": 125.0,
+      "p25": 125.0,
+      "p75": 125.0
+    },
+    "action_response": {
+      "LEFT": {
+        "samples": 97,
+        "delta_x_median": -18.0,
+        "delta_x_p25": -23.5,
+        "delta_x_p75": -16.0,
+        "delta_vx_median": -44.0,
+        "delta_vx_p25": -104.0,
+        "delta_vx_p75": 0.0
+      },
+      "RELEASE_ALL": {
+        "samples": 108,
+        "delta_x_median": 0.0,
+        "delta_x_p25": -0.5,
+        "delta_x_p75": 5.5,
+        "delta_vx_median": -8.0,
+        "delta_vx_p25": -84.103896,
+        "delta_vx_p75": 49.0
+      },
+      "RIGHT": {
+        "samples": 102,
+        "delta_x_median": 18.25,
+        "delta_x_p25": 16.0,
+        "delta_x_p75": 23.5,
+        "delta_vx_median": 63.272727,
+        "delta_vx_p25": -6.142857,
+        "delta_vx_p75": 121.517991
+      }
+    },
+    "important_platform_kind_counts": {
+      "conveyor": 15,
+      "flipping": 52,
+      "normal": 219,
+      "spikes": 23,
+      "spring": 7
+    },
+    "important_platform_kinds": [
+      "conveyor",
+      "flipping",
+      "normal",
+      "spikes",
+      "spring"
+    ],
+    "motion_counts": {
+      "falling": 95,
+      "rising": 201,
+      "stable": 9,
+      "unknown": 3
+    },
+    "support_motion_counts": {
+      "falling": 8,
+      "rising": 139,
+      "stable": 1
+    },
+    "rising_support_persistence_records": 125,
+    "rising_support_persistence_rate": 0.40584415584415584,
+    "max_rising_support_persistence_streak": 11,
+    "support_departure_timeout_count": 1,
+    "support_departure_timeouts": [
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-03",
+        "step": 47,
+        "source_id": 12,
+        "pre_departure_steps": 8,
+        "rising_support_records_in_departure": 8,
+        "alias_confirmed": true
+      }
+    ],
+    "same_support_restart_count": 1,
+    "same_support_restarts": [
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-03",
+        "step": 50,
+        "source_id": 12
+      }
+    ],
+    "support_phase_alias_status": "SUPPORT_PHASE_ALIAS_CONFIRMED",
+    "directional_reversal_count": 27,
+    "directional_reversals": [
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-01",
+        "from_step": 11,
+        "to_step": 14,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-01",
+        "from_step": 38,
+        "to_step": 40,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-01",
+        "from_step": 45,
+        "to_step": 47,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-01",
+        "from_step": 63,
+        "to_step": 66,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-01",
+        "from_step": 76,
+        "to_step": 78,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-01",
+        "from_step": 100,
+        "to_step": 102,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-01",
+        "from_step": 111,
+        "to_step": 114,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-02",
+        "from_step": 2,
+        "to_step": 4,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-02",
+        "from_step": 4,
+        "to_step": 6,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-02",
+        "from_step": 13,
+        "to_step": 15,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-02",
+        "from_step": 20,
+        "to_step": 22,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-02",
+        "from_step": 36,
+        "to_step": 38,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-02",
+        "from_step": 49,
+        "to_step": 52,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-02",
+        "from_step": 68,
+        "to_step": 71,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-02",
+        "from_step": 72,
+        "to_step": 74,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-02",
+        "from_step": 76,
+        "to_step": 78,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-02",
+        "from_step": 84,
+        "to_step": 86,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-02",
+        "from_step": 93,
+        "to_step": 95,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-03",
+        "from_step": 3,
+        "to_step": 5,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-03",
+        "from_step": 11,
+        "to_step": 13,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-03",
+        "from_step": 16,
+        "to_step": 19,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-03",
+        "from_step": 42,
+        "to_step": 44,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-03",
+        "from_step": 57,
+        "to_step": 59,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-03",
+        "from_step": 66,
+        "to_step": 69,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-03",
+        "from_step": 69,
+        "to_step": 72,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-03",
+        "from_step": 76,
+        "to_step": 78,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-03",
+        "from_step": 84,
+        "to_step": 86,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      }
+    ],
+    "target_conflicting_directional_steps": 16,
+    "target_conflict_samples": [
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-01",
+        "step": 17,
+        "action": "RIGHT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-01",
+        "step": 37,
+        "action": "RIGHT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-01",
+        "step": 38,
+        "action": "RIGHT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-01",
+        "step": 117,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-02",
+        "step": 36,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-02",
+        "step": 49,
+        "action": "RIGHT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-02",
+        "step": 62,
+        "action": "RIGHT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-02",
+        "step": 72,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-02",
+        "step": 78,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-02",
+        "step": 90,
+        "action": "RIGHT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-03",
+        "step": 11,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-03",
+        "step": 23,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-03",
+        "step": 24,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-03",
+        "step": 64,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-03",
+        "step": 75,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-03",
+        "step": 76,
+        "action": "LEFT"
+      }
+    ],
+    "support_departure_direction_reversal_count": 5,
+    "support_departure_direction_reversals": [
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-02",
+        "step": 21,
+        "source_id": 10,
+        "from_direction": "LEFT",
+        "to_direction": "RIGHT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-02",
+        "step": 74,
+        "source_id": 22,
+        "from_direction": "LEFT",
+        "to_direction": "RIGHT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-02",
+        "step": 85,
+        "source_id": 21,
+        "from_direction": "LEFT",
+        "to_direction": "RIGHT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-03",
+        "step": 43,
+        "source_id": 12,
+        "from_direction": "RIGHT",
+        "to_direction": "LEFT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205952_924961-03",
+        "step": 77,
+        "source_id": 20,
+        "from_direction": "LEFT",
+        "to_direction": "RIGHT"
+      }
+    ]
+  },
+  "secondary_real": {
+    "records": 136,
+    "episodes": 3,
+    "cadence_ms": {
+      "samples": 136,
+      "median": 125.0,
+      "p25": 125.0,
+      "p75": 125.0
+    },
+    "action_response": {
+      "LEFT": {
+        "samples": 37,
+        "delta_x_median": -18.0,
+        "delta_x_p25": -23.0,
+        "delta_x_p75": -16.0,
+        "delta_vx_median": -58.524823,
+        "delta_vx_p25": -127.659574,
+        "delta_vx_p75": 12.0
+      },
+      "RELEASE_ALL": {
+        "samples": 54,
+        "delta_x_median": 0.0,
+        "delta_x_p25": 0.0,
+        "delta_x_p75": 0.0,
+        "delta_vx_median": 0.0,
+        "delta_vx_p25": -47.638298,
+        "delta_vx_p75": 48.0
+      },
+      "RIGHT": {
+        "samples": 43,
+        "delta_x_median": 18.0,
+        "delta_x_p25": 16.0,
+        "delta_x_p75": 22.75,
+        "delta_vx_median": 48.0,
+        "delta_vx_p25": -14.5,
+        "delta_vx_p75": 81.251871
+      }
+    },
+    "important_platform_kind_counts": {
+      "conveyor": 7,
+      "normal": 115,
+      "spikes": 11
+    },
+    "important_platform_kinds": [
+      "conveyor",
+      "normal",
+      "spikes"
+    ],
+    "motion_counts": {
+      "falling": 34,
+      "rising": 97,
+      "stable": 2,
+      "unknown": 3
+    },
+    "support_motion_counts": {
+      "rising": 65
+    },
+    "rising_support_persistence_records": 61,
+    "rising_support_persistence_rate": 0.4485294117647059,
+    "max_rising_support_persistence_streak": 15,
+    "support_departure_timeout_count": 0,
+    "support_departure_timeouts": [],
+    "same_support_restart_count": 0,
+    "same_support_restarts": [],
+    "support_phase_alias_status": "SUPPORT_PHASE_ALIAS_RISK",
+    "directional_reversal_count": 9,
+    "directional_reversals": [
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205750_137469-01",
+        "from_step": 25,
+        "to_step": 28,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205750_137469-01",
+        "from_step": 32,
+        "to_step": 34,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205750_137469-01",
+        "from_step": 39,
+        "to_step": 41,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205750_137469-01",
+        "from_step": 44,
+        "to_step": 47,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205750_137469-02",
+        "from_step": 5,
+        "to_step": 8,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205750_137469-02",
+        "from_step": 12,
+        "to_step": 14,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205750_137469-02",
+        "from_step": 15,
+        "to_step": 17,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205750_137469-03",
+        "from_step": 22,
+        "to_step": 25,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205750_137469-03",
+        "from_step": 41,
+        "to_step": 44,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      }
+    ],
+    "target_conflicting_directional_steps": 3,
+    "target_conflict_samples": [
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205750_137469-01",
+        "step": 32,
+        "action": "RIGHT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205750_137469-03",
+        "step": 41,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "teacher-real-teacher_real_micro_20260803_205750_137469-03",
+        "step": 50,
+        "action": "RIGHT"
+      }
+    ],
+    "support_departure_direction_reversal_count": 0,
+    "support_departure_direction_reversals": []
+  },
+  "simulator": {
+    "records": 1838,
+    "episodes": 30,
+    "cadence_ms": {
+      "samples": 1838,
+      "median": 100.0,
+      "p25": 100.0,
+      "p75": 100.0
+    },
+    "action_response": {
+      "LEFT": {
+        "samples": 422,
+        "delta_x_median": -20.155,
+        "delta_x_p25": -21.765,
+        "delta_x_p75": -10.48,
+        "delta_vx_median": -104.8,
+        "delta_vx_p25": -104.8,
+        "delta_vx_p75": -104.8
+      },
+      "RELEASE_ALL": {
+        "samples": 1069,
+        "delta_x_median": 0.0,
+        "delta_x_p25": 0.0,
+        "delta_x_p75": 0.0,
+        "delta_vx_median": 0.0,
+        "delta_vx_p25": -3.668,
+        "delta_vx_p75": 7.07924
+      },
+      "RIGHT": {
+        "samples": 347,
+        "delta_x_median": 10.48,
+        "delta_x_p25": 10.48,
+        "delta_x_p75": 20.96,
+        "delta_vx_median": 104.8,
+        "delta_vx_p25": 104.8,
+        "delta_vx_p75": 104.8
+      }
+    },
+    "important_platform_kind_counts": {
+      "normal": 1517,
+      "spikes": 77
+    },
+    "important_platform_kinds": [
+      "normal",
+      "spikes"
+    ],
+    "motion_counts": {
+      "falling": 634,
+      "rising": 1030,
+      "stable": 174
+    },
+    "support_motion_counts": {
+      "falling": 30,
+      "rising": 405
+    },
+    "rising_support_persistence_records": 311,
+    "rising_support_persistence_rate": 0.1692056583242655,
+    "max_rising_support_persistence_streak": 2,
+    "support_departure_timeout_count": 0,
+    "support_departure_timeouts": [],
+    "same_support_restart_count": 0,
+    "same_support_restarts": [],
+    "support_phase_alias_status": "SUPPORT_PHASE_ALIAS_RISK",
+    "directional_reversal_count": 93,
+    "directional_reversals": [
+      {
+        "episode_id": "sim-alignment-seed-8000",
+        "from_step": 27,
+        "to_step": 29,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8000",
+        "from_step": 43,
+        "to_step": 46,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8000",
+        "from_step": 52,
+        "to_step": 54,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8000",
+        "from_step": 58,
+        "to_step": 60,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8001",
+        "from_step": 8,
+        "to_step": 11,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8001",
+        "from_step": 18,
+        "to_step": 20,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8001",
+        "from_step": 37,
+        "to_step": 39,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8001",
+        "from_step": 44,
+        "to_step": 46,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8002",
+        "from_step": 16,
+        "to_step": 18,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8002",
+        "from_step": 47,
+        "to_step": 49,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8002",
+        "from_step": 54,
+        "to_step": 56,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8002",
+        "from_step": 60,
+        "to_step": 62,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8003",
+        "from_step": 33,
+        "to_step": 36,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8003",
+        "from_step": 49,
+        "to_step": 51,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8004",
+        "from_step": 16,
+        "to_step": 18,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8004",
+        "from_step": 26,
+        "to_step": 29,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8004",
+        "from_step": 33,
+        "to_step": 35,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8004",
+        "from_step": 48,
+        "to_step": 50,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8005",
+        "from_step": 4,
+        "to_step": 6,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8005",
+        "from_step": 15,
+        "to_step": 18,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8005",
+        "from_step": 24,
+        "to_step": 26,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8005",
+        "from_step": 31,
+        "to_step": 33,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8007",
+        "from_step": 11,
+        "to_step": 13,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8007",
+        "from_step": 18,
+        "to_step": 20,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8007",
+        "from_step": 24,
+        "to_step": 26,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8008",
+        "from_step": 51,
+        "to_step": 53,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8008",
+        "from_step": 55,
+        "to_step": 57,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8008",
+        "from_step": 60,
+        "to_step": 62,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8008",
+        "from_step": 66,
+        "to_step": 68,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8009",
+        "from_step": 23,
+        "to_step": 25,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8009",
+        "from_step": 58,
+        "to_step": 60,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8010",
+        "from_step": 4,
+        "to_step": 6,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8010",
+        "from_step": 10,
+        "to_step": 12,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8010",
+        "from_step": 26,
+        "to_step": 29,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8010",
+        "from_step": 33,
+        "to_step": 36,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8010",
+        "from_step": 40,
+        "to_step": 43,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8011",
+        "from_step": 11,
+        "to_step": 13,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8011",
+        "from_step": 19,
+        "to_step": 21,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8011",
+        "from_step": 25,
+        "to_step": 27,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8011",
+        "from_step": 40,
+        "to_step": 42,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8012",
+        "from_step": 2,
+        "to_step": 4,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8012",
+        "from_step": 12,
+        "to_step": 14,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8012",
+        "from_step": 62,
+        "to_step": 64,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8013",
+        "from_step": 16,
+        "to_step": 18,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8013",
+        "from_step": 26,
+        "to_step": 28,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8013",
+        "from_step": 32,
+        "to_step": 34,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8013",
+        "from_step": 37,
+        "to_step": 40,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8013",
+        "from_step": 41,
+        "to_step": 43,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8014",
+        "from_step": 5,
+        "to_step": 7,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8014",
+        "from_step": 22,
+        "to_step": 24,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8014",
+        "from_step": 29,
+        "to_step": 31,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8014",
+        "from_step": 35,
+        "to_step": 37,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8015",
+        "from_step": 12,
+        "to_step": 14,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8015",
+        "from_step": 19,
+        "to_step": 21,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8015",
+        "from_step": 26,
+        "to_step": 28,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8015",
+        "from_step": 39,
+        "to_step": 41,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8016",
+        "from_step": 16,
+        "to_step": 18,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8016",
+        "from_step": 40,
+        "to_step": 43,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8017",
+        "from_step": 26,
+        "to_step": 28,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8018",
+        "from_step": 16,
+        "to_step": 18,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8018",
+        "from_step": 19,
+        "to_step": 21,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8019",
+        "from_step": 12,
+        "to_step": 14,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8019",
+        "from_step": 19,
+        "to_step": 22,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8019",
+        "from_step": 32,
+        "to_step": 34,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8019",
+        "from_step": 40,
+        "to_step": 42,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8021",
+        "from_step": 59,
+        "to_step": 61,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8021",
+        "from_step": 62,
+        "to_step": 64,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8021",
+        "from_step": 68,
+        "to_step": 70,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8022",
+        "from_step": 12,
+        "to_step": 14,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8022",
+        "from_step": 26,
+        "to_step": 29,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8022",
+        "from_step": 59,
+        "to_step": 61,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8023",
+        "from_step": 15,
+        "to_step": 17,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8023",
+        "from_step": 22,
+        "to_step": 24,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8023",
+        "from_step": 28,
+        "to_step": 30,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8024",
+        "from_step": 8,
+        "to_step": 10,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8024",
+        "from_step": 33,
+        "to_step": 36,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8024",
+        "from_step": 36,
+        "to_step": 39,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8024",
+        "from_step": 39,
+        "to_step": 41,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8024",
+        "from_step": 46,
+        "to_step": 48,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8024",
+        "from_step": 52,
+        "to_step": 54,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8025",
+        "from_step": 8,
+        "to_step": 11,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8025",
+        "from_step": 16,
+        "to_step": 18,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8025",
+        "from_step": 26,
+        "to_step": 28,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8025",
+        "from_step": 30,
+        "to_step": 33,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8025",
+        "from_step": 59,
+        "to_step": 61,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8026",
+        "from_step": 33,
+        "to_step": 35,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8026",
+        "from_step": 35,
+        "to_step": 37,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8026",
+        "from_step": 37,
+        "to_step": 39,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8027",
+        "from_step": 40,
+        "to_step": 43,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8028",
+        "from_step": 8,
+        "to_step": 11,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8028",
+        "from_step": 40,
+        "to_step": 43,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8028",
+        "from_step": 59,
+        "to_step": 61,
+        "from_action": "LEFT",
+        "to_action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8029",
+        "from_step": 23,
+        "to_step": 25,
+        "from_action": "RIGHT",
+        "to_action": "LEFT"
+      }
+    ],
+    "target_conflicting_directional_steps": 128,
+    "target_conflict_samples": [
+      {
+        "episode_id": "sim-alignment-seed-8000",
+        "step": 26,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8000",
+        "step": 27,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8000",
+        "step": 46,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8000",
+        "step": 49,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8000",
+        "step": 50,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8000",
+        "step": 51,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8000",
+        "step": 52,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8000",
+        "step": 60,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8000",
+        "step": 61,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8000",
+        "step": 62,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8000",
+        "step": 63,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8001",
+        "step": 20,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8001",
+        "step": 21,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8001",
+        "step": 39,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8001",
+        "step": 40,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8001",
+        "step": 41,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8001",
+        "step": 42,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8001",
+        "step": 43,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8001",
+        "step": 44,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8002",
+        "step": 26,
+        "action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8002",
+        "step": 50,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8002",
+        "step": 51,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8002",
+        "step": 52,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8002",
+        "step": 53,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8002",
+        "step": 54,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8002",
+        "step": 62,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8002",
+        "step": 63,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8002",
+        "step": 64,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8004",
+        "step": 32,
+        "action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8004",
+        "step": 33,
+        "action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8004",
+        "step": 40,
+        "action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8005",
+        "step": 18,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8005",
+        "step": 20,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8005",
+        "step": 22,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8005",
+        "step": 23,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8005",
+        "step": 24,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8005",
+        "step": 33,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8005",
+        "step": 34,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8006",
+        "step": 39,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8006",
+        "step": 40,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8007",
+        "step": 11,
+        "action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8007",
+        "step": 15,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8007",
+        "step": 16,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8007",
+        "step": 17,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8007",
+        "step": 18,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8007",
+        "step": 26,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8007",
+        "step": 27,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8007",
+        "step": 28,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8008",
+        "step": 55,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8008",
+        "step": 65,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8008",
+        "step": 66,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8010",
+        "step": 6,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8010",
+        "step": 7,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8010",
+        "step": 8,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8010",
+        "step": 9,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8010",
+        "step": 10,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8010",
+        "step": 19,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8010",
+        "step": 47,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8011",
+        "step": 13,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8011",
+        "step": 14,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8011",
+        "step": 15,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8011",
+        "step": 16,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8011",
+        "step": 17,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8011",
+        "step": 18,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8011",
+        "step": 19,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8011",
+        "step": 27,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8012",
+        "step": 4,
+        "action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8012",
+        "step": 17,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8013",
+        "step": 28,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8013",
+        "step": 29,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8013",
+        "step": 30,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8013",
+        "step": 31,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8013",
+        "step": 32,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8013",
+        "step": 40,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8014",
+        "step": 4,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8014",
+        "step": 25,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8014",
+        "step": 26,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8014",
+        "step": 27,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8014",
+        "step": 28,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8014",
+        "step": 29,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8014",
+        "step": 37,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8014",
+        "step": 38,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8014",
+        "step": 39,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8015",
+        "step": 4,
+        "action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8015",
+        "step": 17,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8015",
+        "step": 18,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8015",
+        "step": 19,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8015",
+        "step": 35,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8016",
+        "step": 26,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8017",
+        "step": 33,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8018",
+        "step": 23,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8019",
+        "step": 4,
+        "action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8019",
+        "step": 34,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8019",
+        "step": 35,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8019",
+        "step": 36,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8019",
+        "step": 37,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8019",
+        "step": 38,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8019",
+        "step": 39,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8019",
+        "step": 40,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8020",
+        "step": 41,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8021",
+        "step": 68,
+        "action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8022",
+        "step": 4,
+        "action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8023",
+        "step": 19,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8023",
+        "step": 21,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8023",
+        "step": 22,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8023",
+        "step": 30,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8023",
+        "step": 31,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8023",
+        "step": 32,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8023",
+        "step": 33,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8024",
+        "step": 41,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8024",
+        "step": 42,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8024",
+        "step": 43,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8024",
+        "step": 44,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8024",
+        "step": 45,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8024",
+        "step": 46,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8024",
+        "step": 54,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8024",
+        "step": 55,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8024",
+        "step": 56,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8024",
+        "step": 57,
+        "action": "LEFT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8025",
+        "step": 25,
+        "action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8025",
+        "step": 26,
+        "action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8025",
+        "step": 33,
+        "action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8026",
+        "step": 26,
+        "action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8026",
+        "step": 32,
+        "action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8026",
+        "step": 33,
+        "action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8026",
+        "step": 37,
+        "action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8026",
+        "step": 47,
+        "action": "RIGHT"
+      },
+      {
+        "episode_id": "sim-alignment-seed-8028",
+        "step": 26,
+        "action": "LEFT"
+      }
+    ],
+    "support_departure_direction_reversal_count": 0,
+    "support_departure_direction_reversals": []
+  },
+  "next_stage": "STOP_AND_FIX_SIMULATOR_DISTRIBUTION_OR_SUPPORT_PHASE",
+  "experiment": "bounded-simulator-real-alignment-audit",
+  "protocol": {
+    "path": "reports/SIMULATOR_REAL_ALIGNMENT_AUDIT_PROTOCOL.md",
+    "frozen_before_execution": true,
+    "simulator_seed_range": [
+      8000,
+      8029
+    ],
+    "reserved_fresh_seeds_used": false,
+    "simulator_episodes": 30,
+    "max_steps_per_episode": 300,
+    "profile": {
+      "name": "departure_delayed",
+      "policy_version": "teacher-observable-simulator-v3-departure-delay2",
+      "departure_enabled": true,
+      "departure_delay_steps": 2,
+      "support_aware_launch_handoff_enabled": false
+    },
+    "environment_config": {
+      "environment_version": "ns-shaft-sim-v0.2",
+      "width": 634,
+      "height": 431,
+      "fps": 10,
+      "physics_hz": 60,
+      "distribution": "easy",
+      "max_episode_steps": 300,
+      "player_width": 24.0,
+      "player_height": 27.0,
+      "horizontal_acceleration": 1048.0,
+      "max_horizontal_speed": 230.0,
+      "release_drag": 0.035,
+      "gravity": -192.0,
+      "jump_velocity": 95.0,
+      "platform_width": 96.0,
+      "platform_height": 16.0,
+      "platform_spacing": 48.0,
+      "max_platform_shift": 180.0,
+      "platform_count": 9,
+      "reachability_lookahead": 3,
+      "safe_landing_margin": 14.0,
+      "easy_max_platform_shift": 64.0,
+      "hard_max_platform_shift": 220.0,
+      "recycle_margin": 64.0,
+      "scroll_speed": 96.0,
+      "step_penalty": 0.01,
+      "landing_reward": 0.05,
+      "floor_reward": 1.0,
+      "death_penalty": 5.0,
+      "observation_history_frames": 4,
+      "include_action_history": true,
+      "enable_health": true,
+      "max_health_segments": 12,
+      "initial_health_segments": 12,
+      "normal_platform_heal_segments": 1,
+      "health_gain_reward_per_segment": 0.0,
+      "enable_spikes": true,
+      "spike_damage_segments": 5,
+      "spike_damage_penalty_per_segment": 0.0,
+      "spike_spawn_probability": 0.1,
+      "initial_safe_normal_platforms": 3,
+      "minimum_normal_platforms_between_spikes": 5,
+      "enable_conveyor": false,
+      "conveyor_velocity_delta": 80.0,
+      "enable_spring": false,
+      "spring_jump_velocity": 190.0,
+      "enable_flipping": false,
+      "flipping_active_seconds": 1.0,
+      "flipping_inactive_seconds": 1.0
+    }
+  },
+  "inputs": {
+    "primary_real": {
+      "directory": "logs/teacher_real_micro_20260803_205952_924961",
+      "packet_status": "PASS_REAL_ALIGNMENT_PACKET",
+      "files": [
+        {
+          "path": "logs/teacher_real_micro_20260803_205952_924961/episode_01.alignment.jsonl",
+          "sha256": "522156e793c019c4532705388c44e4c4eac5786f2d0f0ab5f1e9ee4e3722a6b8"
+        },
+        {
+          "path": "logs/teacher_real_micro_20260803_205952_924961/episode_02.alignment.jsonl",
+          "sha256": "c71e1a6155a05e0714289349df0870ea44ae90d8cf42bfaaade069c72a937364"
+        },
+        {
+          "path": "logs/teacher_real_micro_20260803_205952_924961/episode_03.alignment.jsonl",
+          "sha256": "2f38bd38b7106ff5416b6a269f81d319a6d2f36f7ee89e9a0c445da494748c6a"
+        }
+      ]
+    },
+    "secondary_real": {
+      "directory": "logs/teacher_real_micro_20260803_205750_137469",
+      "packet_status": "INSUFFICIENT_EVIDENCE_STOP_ALIGNMENT_COVERAGE",
+      "files": [
+        {
+          "path": "logs/teacher_real_micro_20260803_205750_137469/episode_01.alignment.jsonl",
+          "sha256": "3962fe318f0e74872b06e05700767a512692cbe38aad03a650f9aecef52e655b"
+        },
+        {
+          "path": "logs/teacher_real_micro_20260803_205750_137469/episode_02.alignment.jsonl",
+          "sha256": "319acddcbd288f53018fb93325bc2d314908ba3d236a68c6611afb0fc188088a"
+        },
+        {
+          "path": "logs/teacher_real_micro_20260803_205750_137469/episode_03.alignment.jsonl",
+          "sha256": "a80b63e21405aefd5ec776ee8fd78f173aa3868393558109942d5792e26ed197"
+        }
+      ]
+    }
+  },
+  "source_fingerprint": {
+    "sha256": "391e3dc2e69b693730a31e080f7e2eb02a02abdbd9a6fb69262eee68076cb098",
+    "files": {
+      "src/stair_agent/baseline_policy.py": "373d1c17b2ab9d56046dddbd532c3bf508df3ae721c08c65f4856e3693272240",
+      "src/stair_agent/data/real_alignment.py": "fb83a4270861dc0fdbbab1b7b6909b0685603dfe41c2bd31c565f517ab113d4f",
+      "src/stair_agent/data/simulator_real_alignment.py": "16a186e6ed92722b31f31f79587ac3e9c4909504cc549050570ecd878f59052a",
+      "src/stair_agent/envs/shaft_env.py": "b0a9d50bb5526142fd07fde32d2f1ce8a4be953a445bc42f1094d85fdde5c571",
+      "src/stair_agent/simulator/generator.py": "815cbd8b84b59c7c478dcc89c43d1e74fcbf6e96b6c38cecfa3bacebe01a3154",
+      "src/stair_agent/simulator/physics.py": "86b5e0f8651d8788c7c9eedca19c44686c3f7a214896557c02c7a4677189eb64",
+      "src/stair_agent/simulator/state.py": "95ed3c7fe1d4bbbca810f59a4d762583330bc7a66583b6e829aa1506c970e3be",
+      "src/stair_agent/training/simulator_teacher_profile_gate.py": "188f8c2748bcecf585a4279d103609665336d86b98905cb3885a69ae7e451293",
+      "scripts/audit_simulator_real_alignment.py": "069a8321ea415fc3b9c1f378f6aa59a584bf9e563a7abdeab293977efede599c"
+    }
+  }
+}

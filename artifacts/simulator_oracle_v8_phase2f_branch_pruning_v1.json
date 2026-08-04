@@ -1,0 +1,4883 @@
+{
+  "schema_version": "simulator-oracle-v8-phase2f-branch-pruning-v1",
+  "created_at": "2026-08-04T08:56:57.927481+00:00",
+  "formal_gate": false,
+  "development_diagnostic_only": true,
+  "source": "artifacts\\simulator_oracle_v8_phase2f_counterfactuals_v1.json",
+  "source_sha256": "5ca208dfa9095e39335ae35c55779e1c023760be5bebfc90919289abcef9a221",
+  "trigger_source": "artifacts\\simulator_oracle_v8_phase2f_trigger_diagnostics_v1.json",
+  "trigger_source_sha256": "645e20deccf607153294459d38de9aba74fe44fefdb645024e762830ebc2cb5f",
+  "summary": {
+    "full_rescue_path_count": 14,
+    "first_prune_depth_counts": {
+      "4": 14
+    },
+    "all_rescue_paths_pruned_from_global_beam": true,
+    "all_pruned_scores_below_beam_cutoff": true,
+    "prune_events": [
+      {
+        "seed": 16002,
+        "trigger_step": 39,
+        "prune_depth": 4,
+        "forced_unique_rank": 39,
+        "forced_score": 471.48359586617516,
+        "beam_cutoff_score": 491.60000000000434,
+        "score_below_cutoff": true,
+        "beam_first_action_counts": {
+          "RELEASE_ALL": 14,
+          "LEFT": 3,
+          "RIGHT": 7
+        }
+      },
+      {
+        "seed": 16002,
+        "trigger_step": 40,
+        "prune_depth": 4,
+        "forced_unique_rank": 35,
+        "forced_score": 425.6843958661756,
+        "beam_cutoff_score": 443.6000000000048,
+        "score_below_cutoff": true,
+        "beam_first_action_counts": {
+          "RELEASE_ALL": 15,
+          "LEFT": 3,
+          "RIGHT": 6
+        }
+      },
+      {
+        "seed": 16002,
+        "trigger_step": 41,
+        "prune_depth": 4,
+        "forced_unique_rank": 35,
+        "forced_score": 423.264330237644,
+        "beam_cutoff_score": 440.6000000000047,
+        "score_below_cutoff": true,
+        "beam_first_action_counts": {
+          "RELEASE_ALL": 15,
+          "LEFT": 3,
+          "RIGHT": 6
+        }
+      },
+      {
+        "seed": 16002,
+        "trigger_step": 42,
+        "prune_depth": 4,
+        "forced_unique_rank": 35,
+        "forced_score": 375.26433023764366,
+        "beam_cutoff_score": 392.6000000000043,
+        "score_below_cutoff": true,
+        "beam_first_action_counts": {
+          "RELEASE_ALL": 15,
+          "LEFT": 3,
+          "RIGHT": 6
+        }
+      },
+      {
+        "seed": 16002,
+        "trigger_step": 43,
+        "prune_depth": 4,
+        "forced_unique_rank": 35,
+        "forced_score": 327.264330237643,
+        "beam_cutoff_score": 344.6000000000036,
+        "score_below_cutoff": true,
+        "beam_first_action_counts": {
+          "RELEASE_ALL": 15,
+          "LEFT": 3,
+          "RIGHT": 6
+        }
+      },
+      {
+        "seed": 16002,
+        "trigger_step": 44,
+        "prune_depth": 4,
+        "forced_unique_rank": 35,
+        "forced_score": 279.2643302376423,
+        "beam_cutoff_score": 296.6000000000029,
+        "score_below_cutoff": true,
+        "beam_first_action_counts": {
+          "RELEASE_ALL": 15,
+          "LEFT": 3,
+          "RIGHT": 6
+        }
+      },
+      {
+        "seed": 16002,
+        "trigger_step": 45,
+        "prune_depth": 4,
+        "forced_unique_rank": 35,
+        "forced_score": 231.26433023764156,
+        "beam_cutoff_score": 248.6000000000022,
+        "score_below_cutoff": true,
+        "beam_first_action_counts": {
+          "RELEASE_ALL": 15,
+          "LEFT": 3,
+          "RIGHT": 6
+        }
+      },
+      {
+        "seed": 16002,
+        "trigger_step": 46,
+        "prune_depth": 4,
+        "forced_unique_rank": 38,
+        "forced_score": 201.17960000000133,
+        "beam_cutoff_score": 245.60000000000153,
+        "score_below_cutoff": true,
+        "beam_first_action_counts": {
+          "RELEASE_ALL": 15,
+          "LEFT": 4,
+          "RIGHT": 5
+        }
+      },
+      {
+        "seed": 16030,
+        "trigger_step": 51,
+        "prune_depth": 4,
+        "forced_unique_rank": 39,
+        "forced_score": 397.43750000000716,
+        "beam_cutoff_score": 440.6000000000058,
+        "score_below_cutoff": true,
+        "beam_first_action_counts": {
+          "RELEASE_ALL": 15,
+          "LEFT": 4,
+          "RIGHT": 5
+        }
+      },
+      {
+        "seed": 16030,
+        "trigger_step": 52,
+        "prune_depth": 4,
+        "forced_unique_rank": 39,
+        "forced_score": 349.4375000000067,
+        "beam_cutoff_score": 392.6000000000054,
+        "score_below_cutoff": true,
+        "beam_first_action_counts": {
+          "RELEASE_ALL": 15,
+          "LEFT": 4,
+          "RIGHT": 5
+        }
+      },
+      {
+        "seed": 16030,
+        "trigger_step": 53,
+        "prune_depth": 4,
+        "forced_unique_rank": 39,
+        "forced_score": 301.437500000006,
+        "beam_cutoff_score": 344.60000000000474,
+        "score_below_cutoff": true,
+        "beam_first_action_counts": {
+          "RELEASE_ALL": 15,
+          "LEFT": 4,
+          "RIGHT": 5
+        }
+      },
+      {
+        "seed": 16030,
+        "trigger_step": 54,
+        "prune_depth": 4,
+        "forced_unique_rank": 39,
+        "forced_score": 253.43750000000534,
+        "beam_cutoff_score": 296.60000000000406,
+        "score_below_cutoff": true,
+        "beam_first_action_counts": {
+          "RELEASE_ALL": 15,
+          "LEFT": 4,
+          "RIGHT": 5
+        }
+      },
+      {
+        "seed": 16030,
+        "trigger_step": 55,
+        "prune_depth": 4,
+        "forced_unique_rank": 39,
+        "forced_score": 205.43750000000466,
+        "beam_cutoff_score": 248.60000000000335,
+        "score_below_cutoff": true,
+        "beam_first_action_counts": {
+          "RELEASE_ALL": 15,
+          "LEFT": 4,
+          "RIGHT": 5
+        }
+      },
+      {
+        "seed": 16030,
+        "trigger_step": 56,
+        "prune_depth": 4,
+        "forced_unique_rank": 39,
+        "forced_score": 202.43750000000398,
+        "beam_cutoff_score": 245.60000000000267,
+        "score_below_cutoff": true,
+        "beam_first_action_counts": {
+          "RELEASE_ALL": 15,
+          "LEFT": 4,
+          "RIGHT": 5
+        }
+      }
+    ]
+  },
+  "traces": [
+    {
+      "seed": 16002,
+      "trigger_step": 39,
+      "forced_branch": {
+        "horizon": 12,
+        "beam_width": 24,
+        "forced_first_action": "RIGHT",
+        "root_floor": 5,
+        "root_headroom": 112.20000000000076,
+        "selected": {
+          "actions": [
+            "RIGHT",
+            "RIGHT",
+            "RIGHT",
+            "RIGHT",
+            "RIGHT",
+            "RELEASE_ALL",
+            "RELEASE_ALL",
+            "RELEASE_ALL",
+            "RIGHT"
+          ],
+          "first_action": "RIGHT",
+          "score": 10601.402696904312,
+          "predicted_terminal_reason": null,
+          "terminal_step": null,
+          "evaluated_steps": 9,
+          "survival_steps_before_terminal": 9,
+          "survived_to_horizon": false,
+          "nonterminal_or_floor_progress": true,
+          "completion_reason": "floor_progress",
+          "deepest_floor": 6,
+          "floor_progress": 1,
+          "headroom": 77.05333333333442,
+          "minimum_headroom": 70.92000000000093,
+          "supported_floor": null,
+          "last_landed_floor": 6,
+          "landing_count": 1,
+          "support_departure_count": 2,
+          "floor_descended_count": 1,
+          "event_counts": {
+            "support_departed": 2,
+            "landed": 1,
+            "floor_descended": 1
+          },
+          "reversals": 0
+        },
+        "best_completed_by_first_action": {
+          "RELEASE_ALL": null,
+          "LEFT": null,
+          "RIGHT": {
+            "actions": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RELEASE_ALL",
+              "RELEASE_ALL",
+              "RIGHT"
+            ],
+            "first_action": "RIGHT",
+            "score": 10601.402696904312,
+            "predicted_terminal_reason": null,
+            "terminal_step": null,
+            "evaluated_steps": 9,
+            "survival_steps_before_terminal": 9,
+            "survived_to_horizon": false,
+            "nonterminal_or_floor_progress": true,
+            "completion_reason": "floor_progress",
+            "deepest_floor": 6,
+            "floor_progress": 1,
+            "headroom": 77.05333333333442,
+            "minimum_headroom": 70.92000000000093,
+            "supported_floor": null,
+            "last_landed_floor": 6,
+            "landing_count": 1,
+            "support_departure_count": 2,
+            "floor_descended_count": 1,
+            "event_counts": {
+              "support_departed": 2,
+              "landed": 1,
+              "floor_descended": 1
+            },
+            "reversals": 0
+          }
+        },
+        "completed_nodes": 48,
+        "expanded_nodes": 373,
+        "runtime_seconds": 0.1876909999991767,
+        "snapshot_restored": true,
+        "platform_identity_restored": true
+      },
+      "global_beam_pruning_trace": {
+        "horizon": 12,
+        "beam_width": 24,
+        "forced_actions": [
+          "RIGHT",
+          "RIGHT",
+          "RIGHT",
+          "RIGHT",
+          "RIGHT",
+          "RELEASE_ALL",
+          "RELEASE_ALL",
+          "RELEASE_ALL",
+          "RIGHT"
+        ],
+        "first_pruned_depth": 4,
+        "depths": [
+          {
+            "depth": 1,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT"
+            ],
+            "forced_score": 647.900000000004,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 3,
+            "equivalent_unique_score": 647.900000000004,
+            "beam_cutoff_score": 647.900000000004,
+            "forced_signature_in_global_beam": true,
+            "global_unique_candidate_count": 3,
+            "global_beam_size": 3,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 1,
+              "LEFT": 1,
+              "RIGHT": 1
+            }
+          },
+          {
+            "depth": 2,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 599.800000000004,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 6,
+            "equivalent_unique_score": 599.800000000004,
+            "beam_cutoff_score": 576.5964041338332,
+            "forced_signature_in_global_beam": true,
+            "global_unique_candidate_count": 9,
+            "global_beam_size": 9,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 3,
+              "LEFT": 3,
+              "RIGHT": 3
+            }
+          },
+          {
+            "depth": 3,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 551.7000000000045,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 11,
+            "equivalent_unique_score": 551.7000000000045,
+            "beam_cutoff_score": 513.1952041338335,
+            "forced_signature_in_global_beam": true,
+            "global_unique_candidate_count": 20,
+            "global_beam_size": 20,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 9,
+              "LEFT": 6,
+              "RIGHT": 5
+            }
+          },
+          {
+            "depth": 4,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 471.48359586617516,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 39,
+            "equivalent_unique_score": 471.48359586617516,
+            "beam_cutoff_score": 491.60000000000434,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 41,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 14,
+              "LEFT": 3,
+              "RIGHT": 7
+            }
+          },
+          {
+            "depth": 5,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 557.8812293238005,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": 455.5000000000048,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 53,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 17,
+              "LEFT": 1,
+              "RIGHT": 6
+            }
+          },
+          {
+            "depth": 6,
+            "forced_action": "RELEASE_ALL",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL"
+            ],
+            "forced_score": 597.1560302376439,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": 452.40000000000464,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 54,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 24,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          },
+          {
+            "depth": 7,
+            "forced_action": "RELEASE_ALL",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RELEASE_ALL"
+            ],
+            "forced_score": 617.0560302376439,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": 404.3000000000043,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 56,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 24,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          },
+          {
+            "depth": 8,
+            "forced_action": "RELEASE_ALL",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RELEASE_ALL",
+              "RELEASE_ALL"
+            ],
+            "forced_score": 646.5560302376438,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": 356.20000000000357,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 56,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 24,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          },
+          {
+            "depth": 9,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RELEASE_ALL",
+              "RELEASE_ALL",
+              "RIGHT"
+            ],
+            "forced_score": 10601.402696904312,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 6,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": 308.1000000000029,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 56,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 24,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          }
+        ],
+        "snapshot_restored": true,
+        "platform_identity_restored": true
+      }
+    },
+    {
+      "seed": 16002,
+      "trigger_step": 40,
+      "forced_branch": {
+        "horizon": 12,
+        "beam_width": 24,
+        "forced_first_action": "RIGHT",
+        "root_floor": 5,
+        "root_headroom": 102.60000000000079,
+        "selected": {
+          "actions": [
+            "RIGHT",
+            "RIGHT",
+            "RIGHT",
+            "RIGHT",
+            "RIGHT",
+            "RELEASE_ALL",
+            "RELEASE_ALL",
+            "RELEASE_ALL",
+            "RIGHT"
+          ],
+          "first_action": "RIGHT",
+          "score": 10547.336830237646,
+          "predicted_terminal_reason": null,
+          "terminal_step": null,
+          "evaluated_steps": 9,
+          "survival_steps_before_terminal": 9,
+          "survived_to_horizon": false,
+          "nonterminal_or_floor_progress": true,
+          "completion_reason": "floor_progress",
+          "deepest_floor": 6,
+          "floor_progress": 1,
+          "headroom": 65.80000000000109,
+          "minimum_headroom": 59.56000000000091,
+          "supported_floor": null,
+          "last_landed_floor": 6,
+          "landing_count": 1,
+          "support_departure_count": 2,
+          "floor_descended_count": 1,
+          "event_counts": {
+            "support_departed": 2,
+            "landed": 1,
+            "floor_descended": 1
+          },
+          "reversals": 0
+        },
+        "best_completed_by_first_action": {
+          "RELEASE_ALL": null,
+          "LEFT": null,
+          "RIGHT": {
+            "actions": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RELEASE_ALL",
+              "RELEASE_ALL",
+              "RIGHT"
+            ],
+            "first_action": "RIGHT",
+            "score": 10547.336830237646,
+            "predicted_terminal_reason": null,
+            "terminal_step": null,
+            "evaluated_steps": 9,
+            "survival_steps_before_terminal": 9,
+            "survived_to_horizon": false,
+            "nonterminal_or_floor_progress": true,
+            "completion_reason": "floor_progress",
+            "deepest_floor": 6,
+            "floor_progress": 1,
+            "headroom": 65.80000000000109,
+            "minimum_headroom": 59.56000000000091,
+            "supported_floor": null,
+            "last_landed_floor": 6,
+            "landing_count": 1,
+            "support_departure_count": 2,
+            "floor_descended_count": 1,
+            "event_counts": {
+              "support_departed": 2,
+              "landed": 1,
+              "floor_descended": 1
+            },
+            "reversals": 0
+          }
+        },
+        "completed_nodes": 48,
+        "expanded_nodes": 373,
+        "runtime_seconds": 0.1892100000004575,
+        "snapshot_restored": true,
+        "platform_identity_restored": true
+      },
+      "global_beam_pruning_trace": {
+        "horizon": 12,
+        "beam_width": 24,
+        "forced_actions": [
+          "RIGHT",
+          "RIGHT",
+          "RIGHT",
+          "RIGHT",
+          "RIGHT",
+          "RELEASE_ALL",
+          "RELEASE_ALL",
+          "RELEASE_ALL",
+          "RIGHT"
+        ],
+        "first_pruned_depth": 4,
+        "depths": [
+          {
+            "depth": 1,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT"
+            ],
+            "forced_score": 599.9000000000041,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 3,
+            "equivalent_unique_score": 599.9000000000041,
+            "beam_cutoff_score": 599.9000000000041,
+            "forced_signature_in_global_beam": true,
+            "global_unique_candidate_count": 3,
+            "global_beam_size": 3,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 1,
+              "LEFT": 1,
+              "RIGHT": 1
+            }
+          },
+          {
+            "depth": 2,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 551.8000000000044,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 6,
+            "equivalent_unique_score": 551.8000000000044,
+            "beam_cutoff_score": 526.3956041338334,
+            "forced_signature_in_global_beam": true,
+            "global_unique_candidate_count": 9,
+            "global_beam_size": 9,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 3,
+              "LEFT": 3,
+              "RIGHT": 3
+            }
+          },
+          {
+            "depth": 3,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 503.7000000000043,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 11,
+            "equivalent_unique_score": 503.7000000000043,
+            "beam_cutoff_score": 465.19520413383333,
+            "forced_signature_in_global_beam": true,
+            "global_unique_candidate_count": 20,
+            "global_beam_size": 20,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 9,
+              "LEFT": 6,
+              "RIGHT": 5
+            }
+          },
+          {
+            "depth": 4,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 425.6843958661756,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 35,
+            "equivalent_unique_score": 425.6843958661756,
+            "beam_cutoff_score": 443.6000000000048,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 39,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 15,
+              "LEFT": 3,
+              "RIGHT": 6
+            }
+          },
+          {
+            "depth": 5,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 533.4643302376438,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": 452.50000000000466,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 51,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 17,
+              "LEFT": 2,
+              "RIGHT": 5
+            }
+          },
+          {
+            "depth": 6,
+            "forced_action": "RELEASE_ALL",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL"
+            ],
+            "forced_score": 540.9568302376438,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": 404.40000000000424,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 56,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 24,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          },
+          {
+            "depth": 7,
+            "forced_action": "RELEASE_ALL",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RELEASE_ALL"
+            ],
+            "forced_score": 559.256830237644,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": 356.3000000000036,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 56,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 24,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          },
+          {
+            "depth": 8,
+            "forced_action": "RELEASE_ALL",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RELEASE_ALL",
+              "RELEASE_ALL"
+            ],
+            "forced_score": 587.156830237644,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": 308.2000000000029,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 56,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 24,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          },
+          {
+            "depth": 9,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RELEASE_ALL",
+              "RELEASE_ALL",
+              "RIGHT"
+            ],
+            "forced_score": 10547.336830237646,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 6,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": 260.10000000000224,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 56,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 24,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          }
+        ],
+        "snapshot_restored": true,
+        "platform_identity_restored": true
+      }
+    },
+    {
+      "seed": 16002,
+      "trigger_step": 41,
+      "forced_branch": {
+        "horizon": 12,
+        "beam_width": 24,
+        "forced_first_action": "RIGHT",
+        "root_floor": 5,
+        "root_headroom": 93.00000000000082,
+        "selected": {
+          "actions": [
+            "RIGHT",
+            "RIGHT",
+            "RIGHT",
+            "RIGHT",
+            "RIGHT",
+            "RELEASE_ALL",
+            "RELEASE_ALL",
+            "RELEASE_ALL",
+            "RIGHT"
+          ],
+          "first_action": "RIGHT",
+          "score": 10517.252100000005,
+          "predicted_terminal_reason": null,
+          "terminal_step": null,
+          "evaluated_steps": 9,
+          "survival_steps_before_terminal": 9,
+          "survived_to_horizon": false,
+          "nonterminal_or_floor_progress": true,
+          "completion_reason": "floor_progress",
+          "deepest_floor": 6,
+          "floor_progress": 1,
+          "headroom": 56.20000000000107,
+          "minimum_headroom": 49.960000000000946,
+          "supported_floor": null,
+          "last_landed_floor": 6,
+          "landing_count": 1,
+          "support_departure_count": 2,
+          "floor_descended_count": 1,
+          "event_counts": {
+            "support_departed": 2,
+            "landed": 1,
+            "floor_descended": 1
+          },
+          "reversals": 0
+        },
+        "best_completed_by_first_action": {
+          "RELEASE_ALL": null,
+          "LEFT": null,
+          "RIGHT": {
+            "actions": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RELEASE_ALL",
+              "RELEASE_ALL",
+              "RIGHT"
+            ],
+            "first_action": "RIGHT",
+            "score": 10517.252100000005,
+            "predicted_terminal_reason": null,
+            "terminal_step": null,
+            "evaluated_steps": 9,
+            "survival_steps_before_terminal": 9,
+            "survived_to_horizon": false,
+            "nonterminal_or_floor_progress": true,
+            "completion_reason": "floor_progress",
+            "deepest_floor": 6,
+            "floor_progress": 1,
+            "headroom": 56.20000000000107,
+            "minimum_headroom": 49.960000000000946,
+            "supported_floor": null,
+            "last_landed_floor": 6,
+            "landing_count": 1,
+            "support_departure_count": 2,
+            "floor_descended_count": 1,
+            "event_counts": {
+              "support_departed": 2,
+              "landed": 1,
+              "floor_descended": 1
+            },
+            "reversals": 0
+          }
+        },
+        "completed_nodes": 48,
+        "expanded_nodes": 373,
+        "runtime_seconds": 0.22251039999991917,
+        "snapshot_restored": true,
+        "platform_identity_restored": true
+      },
+      "global_beam_pruning_trace": {
+        "horizon": 12,
+        "beam_width": 24,
+        "forced_actions": [
+          "RIGHT",
+          "RIGHT",
+          "RIGHT",
+          "RIGHT",
+          "RIGHT",
+          "RELEASE_ALL",
+          "RELEASE_ALL",
+          "RELEASE_ALL",
+          "RIGHT"
+        ],
+        "first_pruned_depth": 4,
+        "depths": [
+          {
+            "depth": 1,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT"
+            ],
+            "forced_score": 551.9000000000044,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 3,
+            "equivalent_unique_score": 551.9000000000044,
+            "beam_cutoff_score": 551.9000000000044,
+            "forced_signature_in_global_beam": true,
+            "global_unique_candidate_count": 3,
+            "global_beam_size": 3,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 1,
+              "LEFT": 1,
+              "RIGHT": 1
+            }
+          },
+          {
+            "depth": 2,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 503.80000000000433,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 6,
+            "equivalent_unique_score": 503.80000000000433,
+            "beam_cutoff_score": 478.3956041338334,
+            "forced_signature_in_global_beam": true,
+            "global_unique_candidate_count": 9,
+            "global_beam_size": 9,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 3,
+              "LEFT": 3,
+              "RIGHT": 3
+            }
+          },
+          {
+            "depth": 3,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 455.70000000000476,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 11,
+            "equivalent_unique_score": 455.70000000000476,
+            "beam_cutoff_score": 417.1952041338338,
+            "forced_signature_in_global_beam": true,
+            "global_unique_candidate_count": 20,
+            "global_beam_size": 20,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 9,
+              "LEFT": 6,
+              "RIGHT": 5
+            }
+          },
+          {
+            "depth": 4,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 423.264330237644,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 35,
+            "equivalent_unique_score": 423.264330237644,
+            "beam_cutoff_score": 440.6000000000047,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 39,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 15,
+              "LEFT": 3,
+              "RIGHT": 6
+            }
+          },
+          {
+            "depth": 5,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 485.464330237644,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": 404.50000000000426,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 51,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 17,
+              "LEFT": 2,
+              "RIGHT": 5
+            }
+          },
+          {
+            "depth": 6,
+            "forced_action": "RELEASE_ALL",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL"
+            ],
+            "forced_score": 492.956830237644,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": 356.40000000000356,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 56,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 24,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          },
+          {
+            "depth": 7,
+            "forced_action": "RELEASE_ALL",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RELEASE_ALL"
+            ],
+            "forced_score": 511.25683023764407,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": 308.3000000000029,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 56,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 24,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          },
+          {
+            "depth": 8,
+            "forced_action": "RELEASE_ALL",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RELEASE_ALL",
+              "RELEASE_ALL"
+            ],
+            "forced_score": 539.1568302376442,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": 260.2000000000022,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 56,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 24,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          },
+          {
+            "depth": 9,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RELEASE_ALL",
+              "RELEASE_ALL",
+              "RIGHT"
+            ],
+            "forced_score": 10517.252100000005,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 6,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": 257.10000000000156,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 56,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 24,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          }
+        ],
+        "snapshot_restored": true,
+        "platform_identity_restored": true
+      }
+    },
+    {
+      "seed": 16002,
+      "trigger_step": 42,
+      "forced_branch": {
+        "horizon": 12,
+        "beam_width": 24,
+        "forced_first_action": "RIGHT",
+        "root_floor": 5,
+        "root_headroom": 83.40000000000089,
+        "selected": {
+          "actions": [
+            "RIGHT",
+            "RIGHT",
+            "RIGHT",
+            "RIGHT",
+            "RIGHT",
+            "RELEASE_ALL",
+            "RELEASE_ALL",
+            "RELEASE_ALL",
+            "RIGHT"
+          ],
+          "first_action": "RIGHT",
+          "score": 10469.252100000005,
+          "predicted_terminal_reason": null,
+          "terminal_step": null,
+          "evaluated_steps": 9,
+          "survival_steps_before_terminal": 9,
+          "survived_to_horizon": false,
+          "nonterminal_or_floor_progress": true,
+          "completion_reason": "floor_progress",
+          "deepest_floor": 6,
+          "floor_progress": 1,
+          "headroom": 46.600000000001046,
+          "minimum_headroom": 40.36000000000081,
+          "supported_floor": null,
+          "last_landed_floor": 6,
+          "landing_count": 1,
+          "support_departure_count": 2,
+          "floor_descended_count": 1,
+          "event_counts": {
+            "support_departed": 2,
+            "landed": 1,
+            "floor_descended": 1
+          },
+          "reversals": 0
+        },
+        "best_completed_by_first_action": {
+          "RELEASE_ALL": null,
+          "LEFT": null,
+          "RIGHT": {
+            "actions": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RELEASE_ALL",
+              "RELEASE_ALL",
+              "RIGHT"
+            ],
+            "first_action": "RIGHT",
+            "score": 10469.252100000005,
+            "predicted_terminal_reason": null,
+            "terminal_step": null,
+            "evaluated_steps": 9,
+            "survival_steps_before_terminal": 9,
+            "survived_to_horizon": false,
+            "nonterminal_or_floor_progress": true,
+            "completion_reason": "floor_progress",
+            "deepest_floor": 6,
+            "floor_progress": 1,
+            "headroom": 46.600000000001046,
+            "minimum_headroom": 40.36000000000081,
+            "supported_floor": null,
+            "last_landed_floor": 6,
+            "landing_count": 1,
+            "support_departure_count": 2,
+            "floor_descended_count": 1,
+            "event_counts": {
+              "support_departed": 2,
+              "landed": 1,
+              "floor_descended": 1
+            },
+            "reversals": 0
+          }
+        },
+        "completed_nodes": 48,
+        "expanded_nodes": 373,
+        "runtime_seconds": 0.2966386000007333,
+        "snapshot_restored": true,
+        "platform_identity_restored": true
+      },
+      "global_beam_pruning_trace": {
+        "horizon": 12,
+        "beam_width": 24,
+        "forced_actions": [
+          "RIGHT",
+          "RIGHT",
+          "RIGHT",
+          "RIGHT",
+          "RIGHT",
+          "RELEASE_ALL",
+          "RELEASE_ALL",
+          "RELEASE_ALL",
+          "RIGHT"
+        ],
+        "first_pruned_depth": 4,
+        "depths": [
+          {
+            "depth": 1,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT"
+            ],
+            "forced_score": 503.9000000000043,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 3,
+            "equivalent_unique_score": 503.9000000000043,
+            "beam_cutoff_score": 503.9000000000043,
+            "forced_signature_in_global_beam": true,
+            "global_unique_candidate_count": 3,
+            "global_beam_size": 3,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 1,
+              "LEFT": 1,
+              "RIGHT": 1
+            }
+          },
+          {
+            "depth": 2,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 455.8000000000048,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 6,
+            "equivalent_unique_score": 455.8000000000048,
+            "beam_cutoff_score": 430.39560413383384,
+            "forced_signature_in_global_beam": true,
+            "global_unique_candidate_count": 9,
+            "global_beam_size": 9,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 3,
+              "LEFT": 3,
+              "RIGHT": 3
+            }
+          },
+          {
+            "depth": 3,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 452.70000000000465,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 11,
+            "equivalent_unique_score": 452.70000000000465,
+            "beam_cutoff_score": 413.61526976236513,
+            "forced_signature_in_global_beam": true,
+            "global_unique_candidate_count": 20,
+            "global_beam_size": 20,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 9,
+              "LEFT": 6,
+              "RIGHT": 5
+            }
+          },
+          {
+            "depth": 4,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 375.26433023764366,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 35,
+            "equivalent_unique_score": 375.26433023764366,
+            "beam_cutoff_score": 392.6000000000043,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 39,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 15,
+              "LEFT": 3,
+              "RIGHT": 6
+            }
+          },
+          {
+            "depth": 5,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 437.4643302376433,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": 356.5000000000036,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 51,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 17,
+              "LEFT": 2,
+              "RIGHT": 5
+            }
+          },
+          {
+            "depth": 6,
+            "forced_action": "RELEASE_ALL",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL"
+            ],
+            "forced_score": 444.9568302376433,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": 308.4000000000029,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 56,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 24,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          },
+          {
+            "depth": 7,
+            "forced_action": "RELEASE_ALL",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RELEASE_ALL"
+            ],
+            "forced_score": 463.2568302376434,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": 260.3000000000022,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 56,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 24,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          },
+          {
+            "depth": 8,
+            "forced_action": "RELEASE_ALL",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RELEASE_ALL",
+              "RELEASE_ALL"
+            ],
+            "forced_score": 509.0721000000039,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": 257.2000000000015,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 56,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 24,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          },
+          {
+            "depth": 9,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RELEASE_ALL",
+              "RELEASE_ALL",
+              "RIGHT"
+            ],
+            "forced_score": 10469.252100000005,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 6,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": -999790.9,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 52,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 24,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          }
+        ],
+        "snapshot_restored": true,
+        "platform_identity_restored": true
+      }
+    },
+    {
+      "seed": 16002,
+      "trigger_step": 43,
+      "forced_branch": {
+        "horizon": 12,
+        "beam_width": 24,
+        "forced_first_action": "RIGHT",
+        "root_floor": 5,
+        "root_headroom": 73.80000000000086,
+        "selected": {
+          "actions": [
+            "RIGHT",
+            "RIGHT",
+            "RIGHT",
+            "RIGHT",
+            "RIGHT",
+            "RELEASE_ALL",
+            "RELEASE_ALL",
+            "RELEASE_ALL",
+            "RIGHT"
+          ],
+          "first_action": "RIGHT",
+          "score": 10421.252100000003,
+          "predicted_terminal_reason": null,
+          "terminal_step": null,
+          "evaluated_steps": 9,
+          "survival_steps_before_terminal": 9,
+          "survived_to_horizon": false,
+          "nonterminal_or_floor_progress": true,
+          "completion_reason": "floor_progress",
+          "deepest_floor": 6,
+          "floor_progress": 1,
+          "headroom": 37.00000000000091,
+          "minimum_headroom": 30.760000000000673,
+          "supported_floor": null,
+          "last_landed_floor": 6,
+          "landing_count": 1,
+          "support_departure_count": 2,
+          "floor_descended_count": 1,
+          "event_counts": {
+            "support_departed": 2,
+            "landed": 1,
+            "floor_descended": 1
+          },
+          "reversals": 0
+        },
+        "best_completed_by_first_action": {
+          "RELEASE_ALL": null,
+          "LEFT": null,
+          "RIGHT": {
+            "actions": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RELEASE_ALL",
+              "RELEASE_ALL",
+              "RIGHT"
+            ],
+            "first_action": "RIGHT",
+            "score": 10421.252100000003,
+            "predicted_terminal_reason": null,
+            "terminal_step": null,
+            "evaluated_steps": 9,
+            "survival_steps_before_terminal": 9,
+            "survived_to_horizon": false,
+            "nonterminal_or_floor_progress": true,
+            "completion_reason": "floor_progress",
+            "deepest_floor": 6,
+            "floor_progress": 1,
+            "headroom": 37.00000000000091,
+            "minimum_headroom": 30.760000000000673,
+            "supported_floor": null,
+            "last_landed_floor": 6,
+            "landing_count": 1,
+            "support_departure_count": 2,
+            "floor_descended_count": 1,
+            "event_counts": {
+              "support_departed": 2,
+              "landed": 1,
+              "floor_descended": 1
+            },
+            "reversals": 0
+          }
+        },
+        "completed_nodes": 48,
+        "expanded_nodes": 373,
+        "runtime_seconds": 0.22675239999989572,
+        "snapshot_restored": true,
+        "platform_identity_restored": true
+      },
+      "global_beam_pruning_trace": {
+        "horizon": 12,
+        "beam_width": 24,
+        "forced_actions": [
+          "RIGHT",
+          "RIGHT",
+          "RIGHT",
+          "RIGHT",
+          "RIGHT",
+          "RELEASE_ALL",
+          "RELEASE_ALL",
+          "RELEASE_ALL",
+          "RIGHT"
+        ],
+        "first_pruned_depth": 4,
+        "depths": [
+          {
+            "depth": 1,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT"
+            ],
+            "forced_score": 455.90000000000475,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 3,
+            "equivalent_unique_score": 455.90000000000475,
+            "beam_cutoff_score": 455.90000000000475,
+            "forced_signature_in_global_beam": true,
+            "global_unique_candidate_count": 3,
+            "global_beam_size": 3,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 1,
+              "LEFT": 1,
+              "RIGHT": 1
+            }
+          },
+          {
+            "depth": 2,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 452.8000000000047,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 6,
+            "equivalent_unique_score": 452.8000000000047,
+            "beam_cutoff_score": 426.81566976236513,
+            "forced_signature_in_global_beam": true,
+            "global_unique_candidate_count": 9,
+            "global_beam_size": 9,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 3,
+              "LEFT": 3,
+              "RIGHT": 3
+            }
+          },
+          {
+            "depth": 3,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 404.70000000000425,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 11,
+            "equivalent_unique_score": 404.70000000000425,
+            "beam_cutoff_score": 365.61526976236473,
+            "forced_signature_in_global_beam": true,
+            "global_unique_candidate_count": 20,
+            "global_beam_size": 20,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 9,
+              "LEFT": 6,
+              "RIGHT": 5
+            }
+          },
+          {
+            "depth": 4,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 327.264330237643,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 35,
+            "equivalent_unique_score": 327.264330237643,
+            "beam_cutoff_score": 344.6000000000036,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 39,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 15,
+              "LEFT": 3,
+              "RIGHT": 6
+            }
+          },
+          {
+            "depth": 5,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 389.4643302376426,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": 308.5000000000029,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 51,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 17,
+              "LEFT": 2,
+              "RIGHT": 5
+            }
+          },
+          {
+            "depth": 6,
+            "forced_action": "RELEASE_ALL",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL"
+            ],
+            "forced_score": 396.95683023764263,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": 260.4000000000022,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 56,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 24,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          },
+          {
+            "depth": 7,
+            "forced_action": "RELEASE_ALL",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RELEASE_ALL"
+            ],
+            "forced_score": 433.1721000000031,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": 257.30000000000155,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 56,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 24,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          },
+          {
+            "depth": 8,
+            "forced_action": "RELEASE_ALL",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RELEASE_ALL",
+              "RELEASE_ALL"
+            ],
+            "forced_score": 461.0721000000032,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": -999790.8,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 52,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 24,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          },
+          {
+            "depth": 9,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RELEASE_ALL",
+              "RELEASE_ALL",
+              "RIGHT"
+            ],
+            "forced_score": 10421.252100000003,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 6,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": null,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 0,
+            "global_beam_size": 0,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 0,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          }
+        ],
+        "snapshot_restored": true,
+        "platform_identity_restored": true
+      }
+    },
+    {
+      "seed": 16002,
+      "trigger_step": 44,
+      "forced_branch": {
+        "horizon": 12,
+        "beam_width": 24,
+        "forced_first_action": "RIGHT",
+        "root_floor": 5,
+        "root_headroom": 64.20000000000095,
+        "selected": {
+          "actions": [
+            "RIGHT",
+            "RIGHT",
+            "RIGHT",
+            "RIGHT",
+            "RIGHT",
+            "RELEASE_ALL",
+            "RELEASE_ALL",
+            "RELEASE_ALL",
+            "RIGHT"
+          ],
+          "first_action": "RIGHT",
+          "score": 10373.252100000003,
+          "predicted_terminal_reason": null,
+          "terminal_step": null,
+          "evaluated_steps": 9,
+          "survival_steps_before_terminal": 9,
+          "survived_to_horizon": false,
+          "nonterminal_or_floor_progress": true,
+          "completion_reason": "floor_progress",
+          "deepest_floor": 6,
+          "floor_progress": 1,
+          "headroom": 27.400000000000773,
+          "minimum_headroom": 21.160000000000537,
+          "supported_floor": null,
+          "last_landed_floor": 6,
+          "landing_count": 1,
+          "support_departure_count": 2,
+          "floor_descended_count": 1,
+          "event_counts": {
+            "support_departed": 2,
+            "landed": 1,
+            "floor_descended": 1
+          },
+          "reversals": 0
+        },
+        "best_completed_by_first_action": {
+          "RELEASE_ALL": null,
+          "LEFT": null,
+          "RIGHT": {
+            "actions": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RELEASE_ALL",
+              "RELEASE_ALL",
+              "RIGHT"
+            ],
+            "first_action": "RIGHT",
+            "score": 10373.252100000003,
+            "predicted_terminal_reason": null,
+            "terminal_step": null,
+            "evaluated_steps": 9,
+            "survival_steps_before_terminal": 9,
+            "survived_to_horizon": false,
+            "nonterminal_or_floor_progress": true,
+            "completion_reason": "floor_progress",
+            "deepest_floor": 6,
+            "floor_progress": 1,
+            "headroom": 27.400000000000773,
+            "minimum_headroom": 21.160000000000537,
+            "supported_floor": null,
+            "last_landed_floor": 6,
+            "landing_count": 1,
+            "support_departure_count": 2,
+            "floor_descended_count": 1,
+            "event_counts": {
+              "support_departed": 2,
+              "landed": 1,
+              "floor_descended": 1
+            },
+            "reversals": 0
+          }
+        },
+        "completed_nodes": 49,
+        "expanded_nodes": 370,
+        "runtime_seconds": 0.2450901000001977,
+        "snapshot_restored": true,
+        "platform_identity_restored": true
+      },
+      "global_beam_pruning_trace": {
+        "horizon": 12,
+        "beam_width": 24,
+        "forced_actions": [
+          "RIGHT",
+          "RIGHT",
+          "RIGHT",
+          "RIGHT",
+          "RIGHT",
+          "RELEASE_ALL",
+          "RELEASE_ALL",
+          "RELEASE_ALL",
+          "RIGHT"
+        ],
+        "first_pruned_depth": 4,
+        "depths": [
+          {
+            "depth": 1,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT"
+            ],
+            "forced_score": 452.90000000000464,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 3,
+            "equivalent_unique_score": 452.90000000000464,
+            "beam_cutoff_score": 452.90000000000464,
+            "forced_signature_in_global_beam": true,
+            "global_unique_candidate_count": 3,
+            "global_beam_size": 3,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 1,
+              "LEFT": 1,
+              "RIGHT": 1
+            }
+          },
+          {
+            "depth": 2,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 404.8000000000043,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 6,
+            "equivalent_unique_score": 404.8000000000043,
+            "beam_cutoff_score": 378.81566976236473,
+            "forced_signature_in_global_beam": true,
+            "global_unique_candidate_count": 9,
+            "global_beam_size": 9,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 3,
+              "LEFT": 3,
+              "RIGHT": 3
+            }
+          },
+          {
+            "depth": 3,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 356.70000000000357,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 11,
+            "equivalent_unique_score": 356.70000000000357,
+            "beam_cutoff_score": 317.61526976236405,
+            "forced_signature_in_global_beam": true,
+            "global_unique_candidate_count": 20,
+            "global_beam_size": 20,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 9,
+              "LEFT": 6,
+              "RIGHT": 5
+            }
+          },
+          {
+            "depth": 4,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 279.2643302376423,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 35,
+            "equivalent_unique_score": 279.2643302376423,
+            "beam_cutoff_score": 296.6000000000029,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 39,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 15,
+              "LEFT": 3,
+              "RIGHT": 6
+            }
+          },
+          {
+            "depth": 5,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 341.46433023764195,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": 260.5000000000022,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 51,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 17,
+              "LEFT": 2,
+              "RIGHT": 5
+            }
+          },
+          {
+            "depth": 6,
+            "forced_action": "RELEASE_ALL",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL"
+            ],
+            "forced_score": 366.87210000000243,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": 257.4000000000015,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 56,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 20,
+              "LEFT": 1,
+              "RIGHT": 3
+            }
+          },
+          {
+            "depth": 7,
+            "forced_action": "RELEASE_ALL",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RELEASE_ALL"
+            ],
+            "forced_score": 385.17210000000244,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": -999790.7,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 52,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 24,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          },
+          {
+            "depth": 8,
+            "forced_action": "RELEASE_ALL",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RELEASE_ALL",
+              "RELEASE_ALL"
+            ],
+            "forced_score": 413.07210000000254,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": null,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 0,
+            "global_beam_size": 0,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 0,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          }
+        ],
+        "snapshot_restored": true,
+        "platform_identity_restored": true
+      }
+    },
+    {
+      "seed": 16002,
+      "trigger_step": 45,
+      "forced_branch": {
+        "horizon": 12,
+        "beam_width": 24,
+        "forced_first_action": "RIGHT",
+        "root_floor": 5,
+        "root_headroom": 54.60000000000093,
+        "selected": {
+          "actions": [
+            "RIGHT",
+            "RIGHT",
+            "RIGHT",
+            "RIGHT",
+            "RIGHT",
+            "RELEASE_ALL",
+            "RELEASE_ALL",
+            "RELEASE_ALL",
+            "RIGHT"
+          ],
+          "first_action": "RIGHT",
+          "score": 10325.252100000003,
+          "predicted_terminal_reason": null,
+          "terminal_step": null,
+          "evaluated_steps": 9,
+          "survival_steps_before_terminal": 9,
+          "survived_to_horizon": false,
+          "nonterminal_or_floor_progress": true,
+          "completion_reason": "floor_progress",
+          "deepest_floor": 6,
+          "floor_progress": 1,
+          "headroom": 17.800000000000637,
+          "minimum_headroom": 11.5600000000004,
+          "supported_floor": null,
+          "last_landed_floor": 6,
+          "landing_count": 1,
+          "support_departure_count": 2,
+          "floor_descended_count": 1,
+          "event_counts": {
+            "support_departed": 2,
+            "landed": 1,
+            "floor_descended": 1
+          },
+          "reversals": 0
+        },
+        "best_completed_by_first_action": {
+          "RELEASE_ALL": null,
+          "LEFT": null,
+          "RIGHT": {
+            "actions": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RELEASE_ALL",
+              "RELEASE_ALL",
+              "RIGHT"
+            ],
+            "first_action": "RIGHT",
+            "score": 10325.252100000003,
+            "predicted_terminal_reason": null,
+            "terminal_step": null,
+            "evaluated_steps": 9,
+            "survival_steps_before_terminal": 9,
+            "survived_to_horizon": false,
+            "nonterminal_or_floor_progress": true,
+            "completion_reason": "floor_progress",
+            "deepest_floor": 6,
+            "floor_progress": 1,
+            "headroom": 17.800000000000637,
+            "minimum_headroom": 11.5600000000004,
+            "supported_floor": null,
+            "last_landed_floor": 6,
+            "landing_count": 1,
+            "support_departure_count": 2,
+            "floor_descended_count": 1,
+            "event_counts": {
+              "support_departed": 2,
+              "landed": 1,
+              "floor_descended": 1
+            },
+            "reversals": 0
+          }
+        },
+        "completed_nodes": 63,
+        "expanded_nodes": 319,
+        "runtime_seconds": 0.2506996000001891,
+        "snapshot_restored": true,
+        "platform_identity_restored": true
+      },
+      "global_beam_pruning_trace": {
+        "horizon": 12,
+        "beam_width": 24,
+        "forced_actions": [
+          "RIGHT",
+          "RIGHT",
+          "RIGHT",
+          "RIGHT",
+          "RIGHT",
+          "RELEASE_ALL",
+          "RELEASE_ALL",
+          "RELEASE_ALL",
+          "RIGHT"
+        ],
+        "first_pruned_depth": 4,
+        "depths": [
+          {
+            "depth": 1,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT"
+            ],
+            "forced_score": 404.90000000000424,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 3,
+            "equivalent_unique_score": 404.90000000000424,
+            "beam_cutoff_score": 404.90000000000424,
+            "forced_signature_in_global_beam": true,
+            "global_unique_candidate_count": 3,
+            "global_beam_size": 3,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 1,
+              "LEFT": 1,
+              "RIGHT": 1
+            }
+          },
+          {
+            "depth": 2,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 356.8000000000036,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 6,
+            "equivalent_unique_score": 356.8000000000036,
+            "beam_cutoff_score": 330.81566976236405,
+            "forced_signature_in_global_beam": true,
+            "global_unique_candidate_count": 9,
+            "global_beam_size": 9,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 3,
+              "LEFT": 3,
+              "RIGHT": 3
+            }
+          },
+          {
+            "depth": 3,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 308.7000000000029,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 11,
+            "equivalent_unique_score": 308.7000000000029,
+            "beam_cutoff_score": 269.61526976236337,
+            "forced_signature_in_global_beam": true,
+            "global_unique_candidate_count": 20,
+            "global_beam_size": 20,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 9,
+              "LEFT": 6,
+              "RIGHT": 5
+            }
+          },
+          {
+            "depth": 4,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 231.26433023764156,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 35,
+            "equivalent_unique_score": 231.26433023764156,
+            "beam_cutoff_score": 248.6000000000022,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 39,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 15,
+              "LEFT": 3,
+              "RIGHT": 6
+            }
+          },
+          {
+            "depth": 5,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 311.3796000000017,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": 257.50000000000153,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 51,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 17,
+              "LEFT": 2,
+              "RIGHT": 5
+            }
+          },
+          {
+            "depth": 6,
+            "forced_action": "RELEASE_ALL",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL"
+            ],
+            "forced_score": 318.87210000000175,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": -999790.6,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 52,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 24,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          },
+          {
+            "depth": 7,
+            "forced_action": "RELEASE_ALL",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RELEASE_ALL"
+            ],
+            "forced_score": 337.1721000000018,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": null,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 0,
+            "global_beam_size": 0,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 0,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          }
+        ],
+        "snapshot_restored": true,
+        "platform_identity_restored": true
+      }
+    },
+    {
+      "seed": 16002,
+      "trigger_step": 46,
+      "forced_branch": {
+        "horizon": 12,
+        "beam_width": 24,
+        "forced_first_action": "RIGHT",
+        "root_floor": 5,
+        "root_headroom": 45.00000000000085,
+        "selected": {
+          "actions": [
+            "RIGHT",
+            "RIGHT",
+            "RIGHT",
+            "RIGHT",
+            "RIGHT",
+            "RELEASE_ALL",
+            "RELEASE_ALL",
+            "RIGHT",
+            "RELEASE_ALL",
+            "RELEASE_ALL",
+            "RIGHT"
+          ],
+          "first_action": "RIGHT",
+          "score": 20441.781900000005,
+          "predicted_terminal_reason": null,
+          "terminal_step": null,
+          "evaluated_steps": 11,
+          "survival_steps_before_terminal": 11,
+          "survived_to_horizon": false,
+          "nonterminal_or_floor_progress": true,
+          "completion_reason": "floor_progress",
+          "deepest_floor": 7,
+          "floor_progress": 2,
+          "headroom": 35.400000000000944,
+          "minimum_headroom": 1.9600000000002638,
+          "supported_floor": null,
+          "last_landed_floor": 7,
+          "landing_count": 1,
+          "support_departure_count": 2,
+          "floor_descended_count": 1,
+          "event_counts": {
+            "support_departed": 2,
+            "landed": 1,
+            "floor_descended": 1
+          },
+          "reversals": 0
+        },
+        "best_completed_by_first_action": {
+          "RELEASE_ALL": null,
+          "LEFT": null,
+          "RIGHT": {
+            "actions": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RELEASE_ALL",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RELEASE_ALL",
+              "RIGHT"
+            ],
+            "first_action": "RIGHT",
+            "score": 20441.781900000005,
+            "predicted_terminal_reason": null,
+            "terminal_step": null,
+            "evaluated_steps": 11,
+            "survival_steps_before_terminal": 11,
+            "survived_to_horizon": false,
+            "nonterminal_or_floor_progress": true,
+            "completion_reason": "floor_progress",
+            "deepest_floor": 7,
+            "floor_progress": 2,
+            "headroom": 35.400000000000944,
+            "minimum_headroom": 1.9600000000002638,
+            "supported_floor": null,
+            "last_landed_floor": 7,
+            "landing_count": 1,
+            "support_departure_count": 2,
+            "floor_descended_count": 1,
+            "event_counts": {
+              "support_departed": 2,
+              "landed": 1,
+              "floor_descended": 1
+            },
+            "reversals": 0
+          }
+        },
+        "completed_nodes": 71,
+        "expanded_nodes": 268,
+        "runtime_seconds": 0.23292489999948884,
+        "snapshot_restored": true,
+        "platform_identity_restored": true
+      },
+      "global_beam_pruning_trace": {
+        "horizon": 12,
+        "beam_width": 24,
+        "forced_actions": [
+          "RIGHT",
+          "RIGHT",
+          "RIGHT",
+          "RIGHT",
+          "RIGHT",
+          "RELEASE_ALL",
+          "RELEASE_ALL",
+          "RIGHT",
+          "RELEASE_ALL",
+          "RELEASE_ALL",
+          "RIGHT"
+        ],
+        "first_pruned_depth": 4,
+        "depths": [
+          {
+            "depth": 1,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT"
+            ],
+            "forced_score": 356.90000000000356,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 3,
+            "equivalent_unique_score": 356.90000000000356,
+            "beam_cutoff_score": 356.90000000000356,
+            "forced_signature_in_global_beam": true,
+            "global_unique_candidate_count": 3,
+            "global_beam_size": 3,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 1,
+              "LEFT": 1,
+              "RIGHT": 1
+            }
+          },
+          {
+            "depth": 2,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 308.8000000000029,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 6,
+            "equivalent_unique_score": 308.8000000000029,
+            "beam_cutoff_score": 282.81566976236337,
+            "forced_signature_in_global_beam": true,
+            "global_unique_candidate_count": 9,
+            "global_beam_size": 9,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 3,
+              "LEFT": 3,
+              "RIGHT": 3
+            }
+          },
+          {
+            "depth": 3,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 260.7000000000022,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 11,
+            "equivalent_unique_score": 260.7000000000022,
+            "beam_cutoff_score": 221.6152697623627,
+            "forced_signature_in_global_beam": true,
+            "global_unique_candidate_count": 20,
+            "global_beam_size": 20,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 9,
+              "LEFT": 6,
+              "RIGHT": 5
+            }
+          },
+          {
+            "depth": 4,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 201.17960000000133,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 38,
+            "equivalent_unique_score": 201.17960000000133,
+            "beam_cutoff_score": 245.60000000000153,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 39,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 15,
+              "LEFT": 4,
+              "RIGHT": 5
+            }
+          },
+          {
+            "depth": 5,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 263.379600000001,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": -999790.5,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 49,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 19,
+              "LEFT": 1,
+              "RIGHT": 4
+            }
+          },
+          {
+            "depth": 6,
+            "forced_action": "RELEASE_ALL",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL"
+            ],
+            "forced_score": 270.87210000000107,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 5,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": null,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 0,
+            "global_beam_size": 0,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 0,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          }
+        ],
+        "snapshot_restored": true,
+        "platform_identity_restored": true
+      }
+    },
+    {
+      "seed": 16030,
+      "trigger_step": 51,
+      "forced_branch": {
+        "horizon": 12,
+        "beam_width": 24,
+        "forced_first_action": "RIGHT",
+        "root_floor": 7,
+        "root_headroom": 93.00000000000102,
+        "selected": {
+          "actions": [
+            "RIGHT",
+            "RIGHT",
+            "RIGHT",
+            "RIGHT",
+            "RELEASE_ALL",
+            "RIGHT",
+            "RELEASE_ALL",
+            "LEFT",
+            "LEFT",
+            "RELEASE_ALL",
+            "RIGHT"
+          ],
+          "first_action": "RIGHT",
+          "score": 20735.691106791674,
+          "predicted_terminal_reason": null,
+          "terminal_step": null,
+          "evaluated_steps": 11,
+          "survival_steps_before_terminal": 11,
+          "survived_to_horizon": false,
+          "nonterminal_or_floor_progress": true,
+          "completion_reason": "floor_progress",
+          "deepest_floor": 9,
+          "floor_progress": 2,
+          "headroom": 86.65333333333382,
+          "minimum_headroom": 53.5333333333345,
+          "supported_floor": null,
+          "last_landed_floor": 9,
+          "landing_count": 1,
+          "support_departure_count": 2,
+          "floor_descended_count": 1,
+          "event_counts": {
+            "support_departed": 2,
+            "landed": 1,
+            "floor_descended": 1
+          },
+          "reversals": 0
+        },
+        "best_completed_by_first_action": {
+          "RELEASE_ALL": null,
+          "LEFT": null,
+          "RIGHT": {
+            "actions": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RIGHT",
+              "RELEASE_ALL",
+              "LEFT",
+              "LEFT",
+              "RELEASE_ALL",
+              "RIGHT"
+            ],
+            "first_action": "RIGHT",
+            "score": 20735.691106791674,
+            "predicted_terminal_reason": null,
+            "terminal_step": null,
+            "evaluated_steps": 11,
+            "survival_steps_before_terminal": 11,
+            "survived_to_horizon": false,
+            "nonterminal_or_floor_progress": true,
+            "completion_reason": "floor_progress",
+            "deepest_floor": 9,
+            "floor_progress": 2,
+            "headroom": 86.65333333333382,
+            "minimum_headroom": 53.5333333333345,
+            "supported_floor": null,
+            "last_landed_floor": 9,
+            "landing_count": 1,
+            "support_departure_count": 2,
+            "floor_descended_count": 1,
+            "event_counts": {
+              "support_departed": 2,
+              "landed": 1,
+              "floor_descended": 1
+            },
+            "reversals": 0
+          }
+        },
+        "completed_nodes": 59,
+        "expanded_nodes": 493,
+        "runtime_seconds": 0.34435539999958564,
+        "snapshot_restored": true,
+        "platform_identity_restored": true
+      },
+      "global_beam_pruning_trace": {
+        "horizon": 12,
+        "beam_width": 24,
+        "forced_actions": [
+          "RIGHT",
+          "RIGHT",
+          "RIGHT",
+          "RIGHT",
+          "RELEASE_ALL",
+          "RIGHT",
+          "RELEASE_ALL",
+          "LEFT",
+          "LEFT",
+          "RELEASE_ALL",
+          "RIGHT"
+        ],
+        "first_pruned_depth": 4,
+        "depths": [
+          {
+            "depth": 1,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT"
+            ],
+            "forced_score": 551.9000000000052,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 3,
+            "equivalent_unique_score": 551.9000000000052,
+            "beam_cutoff_score": 551.9000000000052,
+            "forced_signature_in_global_beam": true,
+            "global_unique_candidate_count": 3,
+            "global_beam_size": 3,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 1,
+              "LEFT": 1,
+              "RIGHT": 1
+            }
+          },
+          {
+            "depth": 2,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 503.80000000000547,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 7,
+            "equivalent_unique_score": 503.80000000000547,
+            "beam_cutoff_score": 491.80000000000547,
+            "forced_signature_in_global_beam": true,
+            "global_unique_candidate_count": 9,
+            "global_beam_size": 9,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 3,
+              "LEFT": 3,
+              "RIGHT": 3
+            }
+          },
+          {
+            "depth": 3,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 435.037500000007,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 18,
+            "equivalent_unique_score": 435.037500000007,
+            "beam_cutoff_score": 431.7000000000056,
+            "forced_signature_in_global_beam": true,
+            "global_unique_candidate_count": 19,
+            "global_beam_size": 19,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 9,
+              "LEFT": 4,
+              "RIGHT": 6
+            }
+          },
+          {
+            "depth": 4,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 397.43750000000716,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 39,
+            "equivalent_unique_score": 397.43750000000716,
+            "beam_cutoff_score": 440.6000000000058,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 40,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 15,
+              "LEFT": 4,
+              "RIGHT": 5
+            }
+          },
+          {
+            "depth": 5,
+            "forced_action": "RELEASE_ALL",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL"
+            ],
+            "forced_score": 510.7966666666739,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": 404.5000000000054,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 46,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 19,
+              "LEFT": 3,
+              "RIGHT": 2
+            }
+          },
+          {
+            "depth": 6,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RIGHT"
+            ],
+            "forced_score": 505.7691666666741,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": 356.4000000000047,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 48,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 24,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          },
+          {
+            "depth": 7,
+            "forced_action": "RELEASE_ALL",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RIGHT",
+              "RELEASE_ALL"
+            ],
+            "forced_score": 526.676704166674,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": 308.30000000000405,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 48,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 24,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          },
+          {
+            "depth": 8,
+            "forced_action": "LEFT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RIGHT",
+              "RELEASE_ALL",
+              "LEFT"
+            ],
+            "forced_score": 572.9042416666739,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": 260.20000000000334,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 48,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 24,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          },
+          {
+            "depth": 9,
+            "forced_action": "LEFT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RIGHT",
+              "RELEASE_ALL",
+              "LEFT",
+              "LEFT"
+            ],
+            "forced_score": 689.4517791666739,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": 257.1000000000027,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 48,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 24,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          },
+          {
+            "depth": 10,
+            "forced_action": "RELEASE_ALL",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RIGHT",
+              "RELEASE_ALL",
+              "LEFT",
+              "LEFT",
+              "RELEASE_ALL"
+            ],
+            "forced_score": 740.8314429791737,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": -999791.0,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 48,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 24,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          },
+          {
+            "depth": 11,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RIGHT",
+              "RELEASE_ALL",
+              "LEFT",
+              "LEFT",
+              "RELEASE_ALL",
+              "RIGHT"
+            ],
+            "forced_score": 20735.691106791674,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 9,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": null,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 0,
+            "global_beam_size": 0,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 0,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          }
+        ],
+        "snapshot_restored": true,
+        "platform_identity_restored": true
+      }
+    },
+    {
+      "seed": 16030,
+      "trigger_step": 52,
+      "forced_branch": {
+        "horizon": 12,
+        "beam_width": 24,
+        "forced_first_action": "RIGHT",
+        "root_floor": 7,
+        "root_headroom": 83.40000000000106,
+        "selected": {
+          "actions": [
+            "RIGHT",
+            "RIGHT",
+            "RIGHT",
+            "RIGHT",
+            "RELEASE_ALL",
+            "RIGHT",
+            "RELEASE_ALL",
+            "LEFT",
+            "LEFT",
+            "RELEASE_ALL",
+            "RIGHT"
+          ],
+          "first_action": "RIGHT",
+          "score": 20687.691106791674,
+          "predicted_terminal_reason": null,
+          "terminal_step": null,
+          "evaluated_steps": 11,
+          "survival_steps_before_terminal": 11,
+          "survived_to_horizon": false,
+          "nonterminal_or_floor_progress": true,
+          "completion_reason": "floor_progress",
+          "deepest_floor": 9,
+          "floor_progress": 2,
+          "headroom": 77.05333333333385,
+          "minimum_headroom": 43.93333333333442,
+          "supported_floor": null,
+          "last_landed_floor": 9,
+          "landing_count": 1,
+          "support_departure_count": 2,
+          "floor_descended_count": 1,
+          "event_counts": {
+            "support_departed": 2,
+            "landed": 1,
+            "floor_descended": 1
+          },
+          "reversals": 0
+        },
+        "best_completed_by_first_action": {
+          "RELEASE_ALL": null,
+          "LEFT": null,
+          "RIGHT": {
+            "actions": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RIGHT",
+              "RELEASE_ALL",
+              "LEFT",
+              "LEFT",
+              "RELEASE_ALL",
+              "RIGHT"
+            ],
+            "first_action": "RIGHT",
+            "score": 20687.691106791674,
+            "predicted_terminal_reason": null,
+            "terminal_step": null,
+            "evaluated_steps": 11,
+            "survival_steps_before_terminal": 11,
+            "survived_to_horizon": false,
+            "nonterminal_or_floor_progress": true,
+            "completion_reason": "floor_progress",
+            "deepest_floor": 9,
+            "floor_progress": 2,
+            "headroom": 77.05333333333385,
+            "minimum_headroom": 43.93333333333442,
+            "supported_floor": null,
+            "last_landed_floor": 9,
+            "landing_count": 1,
+            "support_departure_count": 2,
+            "floor_descended_count": 1,
+            "event_counts": {
+              "support_departed": 2,
+              "landed": 1,
+              "floor_descended": 1
+            },
+            "reversals": 0
+          }
+        },
+        "completed_nodes": 60,
+        "expanded_nodes": 490,
+        "runtime_seconds": 0.3370459000007031,
+        "snapshot_restored": true,
+        "platform_identity_restored": true
+      },
+      "global_beam_pruning_trace": {
+        "horizon": 12,
+        "beam_width": 24,
+        "forced_actions": [
+          "RIGHT",
+          "RIGHT",
+          "RIGHT",
+          "RIGHT",
+          "RELEASE_ALL",
+          "RIGHT",
+          "RELEASE_ALL",
+          "LEFT",
+          "LEFT",
+          "RELEASE_ALL",
+          "RIGHT"
+        ],
+        "first_pruned_depth": 4,
+        "depths": [
+          {
+            "depth": 1,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT"
+            ],
+            "forced_score": 503.90000000000543,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 3,
+            "equivalent_unique_score": 503.90000000000543,
+            "beam_cutoff_score": 503.90000000000543,
+            "forced_signature_in_global_beam": true,
+            "global_unique_candidate_count": 3,
+            "global_beam_size": 3,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 1,
+              "LEFT": 1,
+              "RIGHT": 1
+            }
+          },
+          {
+            "depth": 2,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 455.80000000000564,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 7,
+            "equivalent_unique_score": 455.80000000000564,
+            "beam_cutoff_score": 443.80000000000564,
+            "forced_signature_in_global_beam": true,
+            "global_unique_candidate_count": 9,
+            "global_beam_size": 9,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 3,
+              "LEFT": 3,
+              "RIGHT": 3
+            }
+          },
+          {
+            "depth": 3,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 432.0375000000072,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 18,
+            "equivalent_unique_score": 432.0375000000072,
+            "beam_cutoff_score": 428.7000000000058,
+            "forced_signature_in_global_beam": true,
+            "global_unique_candidate_count": 19,
+            "global_beam_size": 19,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 9,
+              "LEFT": 4,
+              "RIGHT": 6
+            }
+          },
+          {
+            "depth": 4,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 349.4375000000067,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 39,
+            "equivalent_unique_score": 349.4375000000067,
+            "beam_cutoff_score": 392.6000000000054,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 40,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 15,
+              "LEFT": 4,
+              "RIGHT": 5
+            }
+          },
+          {
+            "depth": 5,
+            "forced_action": "RELEASE_ALL",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL"
+            ],
+            "forced_score": 462.79666666667345,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": 356.5000000000047,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 46,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 19,
+              "LEFT": 3,
+              "RIGHT": 2
+            }
+          },
+          {
+            "depth": 6,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RIGHT"
+            ],
+            "forced_score": 457.76916666667364,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": 308.400000000004,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 48,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 24,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          },
+          {
+            "depth": 7,
+            "forced_action": "RELEASE_ALL",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RIGHT",
+              "RELEASE_ALL"
+            ],
+            "forced_score": 478.6767041666736,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": 260.30000000000337,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 48,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 24,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          },
+          {
+            "depth": 8,
+            "forced_action": "LEFT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RIGHT",
+              "RELEASE_ALL",
+              "LEFT"
+            ],
+            "forced_score": 569.9042416666737,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": 257.20000000000266,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 48,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 24,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          },
+          {
+            "depth": 9,
+            "forced_action": "LEFT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RIGHT",
+              "RELEASE_ALL",
+              "LEFT",
+              "LEFT"
+            ],
+            "forced_score": 641.4517791666734,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": -999790.9,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 48,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 24,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          },
+          {
+            "depth": 10,
+            "forced_action": "RELEASE_ALL",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RIGHT",
+              "RELEASE_ALL",
+              "LEFT",
+              "LEFT",
+              "RELEASE_ALL"
+            ],
+            "forced_score": 692.8314429791734,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": null,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 0,
+            "global_beam_size": 0,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 0,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          }
+        ],
+        "snapshot_restored": true,
+        "platform_identity_restored": true
+      }
+    },
+    {
+      "seed": 16030,
+      "trigger_step": 53,
+      "forced_branch": {
+        "horizon": 12,
+        "beam_width": 24,
+        "forced_first_action": "RIGHT",
+        "root_floor": 7,
+        "root_headroom": 73.80000000000109,
+        "selected": {
+          "actions": [
+            "RIGHT",
+            "RIGHT",
+            "RIGHT",
+            "RIGHT",
+            "RELEASE_ALL",
+            "RIGHT",
+            "RELEASE_ALL",
+            "LEFT",
+            "LEFT",
+            "RELEASE_ALL",
+            "RIGHT"
+          ],
+          "first_action": "RIGHT",
+          "score": 20639.691106791674,
+          "predicted_terminal_reason": null,
+          "terminal_step": null,
+          "evaluated_steps": 11,
+          "survival_steps_before_terminal": 11,
+          "survived_to_horizon": false,
+          "nonterminal_or_floor_progress": true,
+          "completion_reason": "floor_progress",
+          "deepest_floor": 9,
+          "floor_progress": 2,
+          "headroom": 67.45333333333389,
+          "minimum_headroom": 34.33333333333428,
+          "supported_floor": null,
+          "last_landed_floor": 9,
+          "landing_count": 1,
+          "support_departure_count": 2,
+          "floor_descended_count": 1,
+          "event_counts": {
+            "support_departed": 2,
+            "landed": 1,
+            "floor_descended": 1
+          },
+          "reversals": 0
+        },
+        "best_completed_by_first_action": {
+          "RELEASE_ALL": null,
+          "LEFT": null,
+          "RIGHT": {
+            "actions": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RIGHT",
+              "RELEASE_ALL",
+              "LEFT",
+              "LEFT",
+              "RELEASE_ALL",
+              "RIGHT"
+            ],
+            "first_action": "RIGHT",
+            "score": 20639.691106791674,
+            "predicted_terminal_reason": null,
+            "terminal_step": null,
+            "evaluated_steps": 11,
+            "survival_steps_before_terminal": 11,
+            "survived_to_horizon": false,
+            "nonterminal_or_floor_progress": true,
+            "completion_reason": "floor_progress",
+            "deepest_floor": 9,
+            "floor_progress": 2,
+            "headroom": 67.45333333333389,
+            "minimum_headroom": 34.33333333333428,
+            "supported_floor": null,
+            "last_landed_floor": 9,
+            "landing_count": 1,
+            "support_departure_count": 2,
+            "floor_descended_count": 1,
+            "event_counts": {
+              "support_departed": 2,
+              "landed": 1,
+              "floor_descended": 1
+            },
+            "reversals": 0
+          }
+        },
+        "completed_nodes": 59,
+        "expanded_nodes": 493,
+        "runtime_seconds": 0.3773164000003817,
+        "snapshot_restored": true,
+        "platform_identity_restored": true
+      },
+      "global_beam_pruning_trace": {
+        "horizon": 12,
+        "beam_width": 24,
+        "forced_actions": [
+          "RIGHT",
+          "RIGHT",
+          "RIGHT",
+          "RIGHT",
+          "RELEASE_ALL",
+          "RIGHT",
+          "RELEASE_ALL",
+          "LEFT",
+          "LEFT",
+          "RELEASE_ALL",
+          "RIGHT"
+        ],
+        "first_pruned_depth": 4,
+        "depths": [
+          {
+            "depth": 1,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT"
+            ],
+            "forced_score": 455.9000000000056,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 3,
+            "equivalent_unique_score": 455.9000000000056,
+            "beam_cutoff_score": 455.9000000000056,
+            "forced_signature_in_global_beam": true,
+            "global_unique_candidate_count": 3,
+            "global_beam_size": 3,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 1,
+              "LEFT": 1,
+              "RIGHT": 1
+            }
+          },
+          {
+            "depth": 2,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 452.8000000000058,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 7,
+            "equivalent_unique_score": 452.8000000000058,
+            "beam_cutoff_score": 440.8000000000058,
+            "forced_signature_in_global_beam": true,
+            "global_unique_candidate_count": 9,
+            "global_beam_size": 9,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 3,
+              "LEFT": 3,
+              "RIGHT": 3
+            }
+          },
+          {
+            "depth": 3,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 384.0375000000068,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 18,
+            "equivalent_unique_score": 384.0375000000068,
+            "beam_cutoff_score": 380.7000000000054,
+            "forced_signature_in_global_beam": true,
+            "global_unique_candidate_count": 19,
+            "global_beam_size": 19,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 9,
+              "LEFT": 4,
+              "RIGHT": 6
+            }
+          },
+          {
+            "depth": 4,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 301.437500000006,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 39,
+            "equivalent_unique_score": 301.437500000006,
+            "beam_cutoff_score": 344.60000000000474,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 40,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 15,
+              "LEFT": 4,
+              "RIGHT": 5
+            }
+          },
+          {
+            "depth": 5,
+            "forced_action": "RELEASE_ALL",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL"
+            ],
+            "forced_score": 414.79666666667276,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": 308.50000000000404,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 46,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 19,
+              "LEFT": 3,
+              "RIGHT": 2
+            }
+          },
+          {
+            "depth": 6,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RIGHT"
+            ],
+            "forced_score": 409.76916666667296,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": 260.40000000000333,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 48,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 24,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          },
+          {
+            "depth": 7,
+            "forced_action": "RELEASE_ALL",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RIGHT",
+              "RELEASE_ALL"
+            ],
+            "forced_score": 475.6767041666729,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": 257.3000000000027,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 48,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 24,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          },
+          {
+            "depth": 8,
+            "forced_action": "LEFT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RIGHT",
+              "RELEASE_ALL",
+              "LEFT"
+            ],
+            "forced_score": 521.904241666673,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": -999790.8,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 48,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 24,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          },
+          {
+            "depth": 9,
+            "forced_action": "LEFT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RIGHT",
+              "RELEASE_ALL",
+              "LEFT",
+              "LEFT"
+            ],
+            "forced_score": 593.4517791666727,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": null,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 0,
+            "global_beam_size": 0,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 0,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          }
+        ],
+        "snapshot_restored": true,
+        "platform_identity_restored": true
+      }
+    },
+    {
+      "seed": 16030,
+      "trigger_step": 54,
+      "forced_branch": {
+        "horizon": 12,
+        "beam_width": 24,
+        "forced_first_action": "RIGHT",
+        "root_floor": 7,
+        "root_headroom": 64.20000000000113,
+        "selected": {
+          "actions": [
+            "RIGHT",
+            "RIGHT",
+            "RIGHT",
+            "RIGHT",
+            "RELEASE_ALL",
+            "RIGHT",
+            "RELEASE_ALL",
+            "LEFT",
+            "LEFT",
+            "RELEASE_ALL",
+            "RIGHT"
+          ],
+          "first_action": "RIGHT",
+          "score": 20636.691106791674,
+          "predicted_terminal_reason": null,
+          "terminal_step": null,
+          "evaluated_steps": 11,
+          "survival_steps_before_terminal": 11,
+          "survived_to_horizon": false,
+          "nonterminal_or_floor_progress": true,
+          "completion_reason": "floor_progress",
+          "deepest_floor": 9,
+          "floor_progress": 2,
+          "headroom": 57.853333333333865,
+          "minimum_headroom": 24.733333333334144,
+          "supported_floor": null,
+          "last_landed_floor": 9,
+          "landing_count": 1,
+          "support_departure_count": 2,
+          "floor_descended_count": 1,
+          "event_counts": {
+            "support_departed": 2,
+            "landed": 1,
+            "floor_descended": 1
+          },
+          "reversals": 0
+        },
+        "best_completed_by_first_action": {
+          "RELEASE_ALL": null,
+          "LEFT": null,
+          "RIGHT": {
+            "actions": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RIGHT",
+              "RELEASE_ALL",
+              "LEFT",
+              "LEFT",
+              "RELEASE_ALL",
+              "RIGHT"
+            ],
+            "first_action": "RIGHT",
+            "score": 20636.691106791674,
+            "predicted_terminal_reason": null,
+            "terminal_step": null,
+            "evaluated_steps": 11,
+            "survival_steps_before_terminal": 11,
+            "survived_to_horizon": false,
+            "nonterminal_or_floor_progress": true,
+            "completion_reason": "floor_progress",
+            "deepest_floor": 9,
+            "floor_progress": 2,
+            "headroom": 57.853333333333865,
+            "minimum_headroom": 24.733333333334144,
+            "supported_floor": null,
+            "last_landed_floor": 9,
+            "landing_count": 1,
+            "support_departure_count": 2,
+            "floor_descended_count": 1,
+            "event_counts": {
+              "support_departed": 2,
+              "landed": 1,
+              "floor_descended": 1
+            },
+            "reversals": 0
+          }
+        },
+        "completed_nodes": 60,
+        "expanded_nodes": 490,
+        "runtime_seconds": 0.3460908000006384,
+        "snapshot_restored": true,
+        "platform_identity_restored": true
+      },
+      "global_beam_pruning_trace": {
+        "horizon": 12,
+        "beam_width": 24,
+        "forced_actions": [
+          "RIGHT",
+          "RIGHT",
+          "RIGHT",
+          "RIGHT",
+          "RELEASE_ALL",
+          "RIGHT",
+          "RELEASE_ALL",
+          "LEFT",
+          "LEFT",
+          "RELEASE_ALL",
+          "RIGHT"
+        ],
+        "first_pruned_depth": 4,
+        "depths": [
+          {
+            "depth": 1,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT"
+            ],
+            "forced_score": 452.9000000000058,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 3,
+            "equivalent_unique_score": 452.9000000000058,
+            "beam_cutoff_score": 452.9000000000058,
+            "forced_signature_in_global_beam": true,
+            "global_unique_candidate_count": 3,
+            "global_beam_size": 3,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 1,
+              "LEFT": 1,
+              "RIGHT": 1
+            }
+          },
+          {
+            "depth": 2,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 404.8000000000054,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 7,
+            "equivalent_unique_score": 404.8000000000054,
+            "beam_cutoff_score": 392.8000000000054,
+            "forced_signature_in_global_beam": true,
+            "global_unique_candidate_count": 9,
+            "global_beam_size": 9,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 3,
+              "LEFT": 3,
+              "RIGHT": 3
+            }
+          },
+          {
+            "depth": 3,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 336.0375000000061,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 18,
+            "equivalent_unique_score": 336.0375000000061,
+            "beam_cutoff_score": 332.7000000000047,
+            "forced_signature_in_global_beam": true,
+            "global_unique_candidate_count": 19,
+            "global_beam_size": 19,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 9,
+              "LEFT": 4,
+              "RIGHT": 6
+            }
+          },
+          {
+            "depth": 4,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 253.43750000000534,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 39,
+            "equivalent_unique_score": 253.43750000000534,
+            "beam_cutoff_score": 296.60000000000406,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 40,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 15,
+              "LEFT": 4,
+              "RIGHT": 5
+            }
+          },
+          {
+            "depth": 5,
+            "forced_action": "RELEASE_ALL",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL"
+            ],
+            "forced_score": 366.7966666666721,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": 260.50000000000335,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 46,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 19,
+              "LEFT": 3,
+              "RIGHT": 2
+            }
+          },
+          {
+            "depth": 6,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RIGHT"
+            ],
+            "forced_score": 406.7691666666723,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": 257.40000000000265,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 48,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 24,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          },
+          {
+            "depth": 7,
+            "forced_action": "RELEASE_ALL",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RIGHT",
+              "RELEASE_ALL"
+            ],
+            "forced_score": 427.6767041666722,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": -999790.7,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 48,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 24,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          },
+          {
+            "depth": 8,
+            "forced_action": "LEFT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RIGHT",
+              "RELEASE_ALL",
+              "LEFT"
+            ],
+            "forced_score": 473.90424166667225,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": null,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 0,
+            "global_beam_size": 0,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 0,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          }
+        ],
+        "snapshot_restored": true,
+        "platform_identity_restored": true
+      }
+    },
+    {
+      "seed": 16030,
+      "trigger_step": 55,
+      "forced_branch": {
+        "horizon": 12,
+        "beam_width": 24,
+        "forced_first_action": "RIGHT",
+        "root_floor": 7,
+        "root_headroom": 54.60000000000116,
+        "selected": {
+          "actions": [
+            "RIGHT",
+            "RIGHT",
+            "RIGHT",
+            "RIGHT",
+            "RELEASE_ALL",
+            "RIGHT",
+            "RELEASE_ALL",
+            "LEFT",
+            "LEFT",
+            "RELEASE_ALL",
+            "RIGHT"
+          ],
+          "first_action": "RIGHT",
+          "score": 20588.691106791674,
+          "predicted_terminal_reason": null,
+          "terminal_step": null,
+          "evaluated_steps": 11,
+          "survival_steps_before_terminal": 11,
+          "survived_to_horizon": false,
+          "nonterminal_or_floor_progress": true,
+          "completion_reason": "floor_progress",
+          "deepest_floor": 9,
+          "floor_progress": 2,
+          "headroom": 48.2533333333339,
+          "minimum_headroom": 15.133333333334008,
+          "supported_floor": null,
+          "last_landed_floor": 9,
+          "landing_count": 1,
+          "support_departure_count": 2,
+          "floor_descended_count": 1,
+          "event_counts": {
+            "support_departed": 2,
+            "landed": 1,
+            "floor_descended": 1
+          },
+          "reversals": 0
+        },
+        "best_completed_by_first_action": {
+          "RELEASE_ALL": null,
+          "LEFT": null,
+          "RIGHT": {
+            "actions": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RIGHT",
+              "RELEASE_ALL",
+              "LEFT",
+              "LEFT",
+              "RELEASE_ALL",
+              "RIGHT"
+            ],
+            "first_action": "RIGHT",
+            "score": 20588.691106791674,
+            "predicted_terminal_reason": null,
+            "terminal_step": null,
+            "evaluated_steps": 11,
+            "survival_steps_before_terminal": 11,
+            "survived_to_horizon": false,
+            "nonterminal_or_floor_progress": true,
+            "completion_reason": "floor_progress",
+            "deepest_floor": 9,
+            "floor_progress": 2,
+            "headroom": 48.2533333333339,
+            "minimum_headroom": 15.133333333334008,
+            "supported_floor": null,
+            "last_landed_floor": 9,
+            "landing_count": 1,
+            "support_departure_count": 2,
+            "floor_descended_count": 1,
+            "event_counts": {
+              "support_departed": 2,
+              "landed": 1,
+              "floor_descended": 1
+            },
+            "reversals": 0
+          }
+        },
+        "completed_nodes": 68,
+        "expanded_nodes": 466,
+        "runtime_seconds": 0.33081399999991845,
+        "snapshot_restored": true,
+        "platform_identity_restored": true
+      },
+      "global_beam_pruning_trace": {
+        "horizon": 12,
+        "beam_width": 24,
+        "forced_actions": [
+          "RIGHT",
+          "RIGHT",
+          "RIGHT",
+          "RIGHT",
+          "RELEASE_ALL",
+          "RIGHT",
+          "RELEASE_ALL",
+          "LEFT",
+          "LEFT",
+          "RELEASE_ALL",
+          "RIGHT"
+        ],
+        "first_pruned_depth": 4,
+        "depths": [
+          {
+            "depth": 1,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT"
+            ],
+            "forced_score": 404.9000000000054,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 3,
+            "equivalent_unique_score": 404.9000000000054,
+            "beam_cutoff_score": 404.9000000000054,
+            "forced_signature_in_global_beam": true,
+            "global_unique_candidate_count": 3,
+            "global_beam_size": 3,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 1,
+              "LEFT": 1,
+              "RIGHT": 1
+            }
+          },
+          {
+            "depth": 2,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 356.80000000000473,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 7,
+            "equivalent_unique_score": 356.80000000000473,
+            "beam_cutoff_score": 344.80000000000473,
+            "forced_signature_in_global_beam": true,
+            "global_unique_candidate_count": 9,
+            "global_beam_size": 9,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 3,
+              "LEFT": 3,
+              "RIGHT": 3
+            }
+          },
+          {
+            "depth": 3,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 288.0375000000054,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 18,
+            "equivalent_unique_score": 288.0375000000054,
+            "beam_cutoff_score": 284.700000000004,
+            "forced_signature_in_global_beam": true,
+            "global_unique_candidate_count": 19,
+            "global_beam_size": 19,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 9,
+              "LEFT": 4,
+              "RIGHT": 6
+            }
+          },
+          {
+            "depth": 4,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 205.43750000000466,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 39,
+            "equivalent_unique_score": 205.43750000000466,
+            "beam_cutoff_score": 248.60000000000335,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 40,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 15,
+              "LEFT": 4,
+              "RIGHT": 5
+            }
+          },
+          {
+            "depth": 5,
+            "forced_action": "RELEASE_ALL",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL"
+            ],
+            "forced_score": 363.7966666666714,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": 257.5000000000027,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 46,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 19,
+              "LEFT": 3,
+              "RIGHT": 2
+            }
+          },
+          {
+            "depth": 6,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RIGHT"
+            ],
+            "forced_score": 358.76916666667165,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": -999790.6,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 48,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 24,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          },
+          {
+            "depth": 7,
+            "forced_action": "RELEASE_ALL",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RIGHT",
+              "RELEASE_ALL"
+            ],
+            "forced_score": 379.6767041666715,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": null,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 0,
+            "global_beam_size": 0,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 0,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          }
+        ],
+        "snapshot_restored": true,
+        "platform_identity_restored": true
+      }
+    },
+    {
+      "seed": 16030,
+      "trigger_step": 56,
+      "forced_branch": {
+        "horizon": 12,
+        "beam_width": 24,
+        "forced_first_action": "RIGHT",
+        "root_floor": 7,
+        "root_headroom": 45.00000000000108,
+        "selected": {
+          "actions": [
+            "RIGHT",
+            "RIGHT",
+            "RIGHT",
+            "RIGHT",
+            "RELEASE_ALL",
+            "RIGHT",
+            "RELEASE_ALL",
+            "LEFT",
+            "LEFT",
+            "RELEASE_ALL",
+            "RIGHT"
+          ],
+          "first_action": "RIGHT",
+          "score": 20540.691106791674,
+          "predicted_terminal_reason": null,
+          "terminal_step": null,
+          "evaluated_steps": 11,
+          "survival_steps_before_terminal": 11,
+          "survived_to_horizon": false,
+          "nonterminal_or_floor_progress": true,
+          "completion_reason": "floor_progress",
+          "deepest_floor": 9,
+          "floor_progress": 2,
+          "headroom": 38.65333333333376,
+          "minimum_headroom": 5.5333333333338715,
+          "supported_floor": null,
+          "last_landed_floor": 9,
+          "landing_count": 1,
+          "support_departure_count": 2,
+          "floor_descended_count": 1,
+          "event_counts": {
+            "support_departed": 2,
+            "landed": 1,
+            "floor_descended": 1
+          },
+          "reversals": 0
+        },
+        "best_completed_by_first_action": {
+          "RELEASE_ALL": null,
+          "LEFT": null,
+          "RIGHT": {
+            "actions": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RIGHT",
+              "RELEASE_ALL",
+              "LEFT",
+              "LEFT",
+              "RELEASE_ALL",
+              "RIGHT"
+            ],
+            "first_action": "RIGHT",
+            "score": 20540.691106791674,
+            "predicted_terminal_reason": null,
+            "terminal_step": null,
+            "evaluated_steps": 11,
+            "survival_steps_before_terminal": 11,
+            "survived_to_horizon": false,
+            "nonterminal_or_floor_progress": true,
+            "completion_reason": "floor_progress",
+            "deepest_floor": 9,
+            "floor_progress": 2,
+            "headroom": 38.65333333333376,
+            "minimum_headroom": 5.5333333333338715,
+            "supported_floor": null,
+            "last_landed_floor": 9,
+            "landing_count": 1,
+            "support_departure_count": 2,
+            "floor_descended_count": 1,
+            "event_counts": {
+              "support_departed": 2,
+              "landed": 1,
+              "floor_descended": 1
+            },
+            "reversals": 0
+          }
+        },
+        "completed_nodes": 78,
+        "expanded_nodes": 403,
+        "runtime_seconds": 0.3037709000000177,
+        "snapshot_restored": true,
+        "platform_identity_restored": true
+      },
+      "global_beam_pruning_trace": {
+        "horizon": 12,
+        "beam_width": 24,
+        "forced_actions": [
+          "RIGHT",
+          "RIGHT",
+          "RIGHT",
+          "RIGHT",
+          "RELEASE_ALL",
+          "RIGHT",
+          "RELEASE_ALL",
+          "LEFT",
+          "LEFT",
+          "RELEASE_ALL",
+          "RIGHT"
+        ],
+        "first_pruned_depth": 4,
+        "depths": [
+          {
+            "depth": 1,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT"
+            ],
+            "forced_score": 356.9000000000047,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 3,
+            "equivalent_unique_score": 356.9000000000047,
+            "beam_cutoff_score": 356.9000000000047,
+            "forced_signature_in_global_beam": true,
+            "global_unique_candidate_count": 3,
+            "global_beam_size": 3,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 1,
+              "LEFT": 1,
+              "RIGHT": 1
+            }
+          },
+          {
+            "depth": 2,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 308.80000000000405,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 7,
+            "equivalent_unique_score": 308.80000000000405,
+            "beam_cutoff_score": 296.80000000000405,
+            "forced_signature_in_global_beam": true,
+            "global_unique_candidate_count": 9,
+            "global_beam_size": 9,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 3,
+              "LEFT": 3,
+              "RIGHT": 3
+            }
+          },
+          {
+            "depth": 3,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 240.03750000000474,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 18,
+            "equivalent_unique_score": 240.03750000000474,
+            "beam_cutoff_score": 236.70000000000334,
+            "forced_signature_in_global_beam": true,
+            "global_unique_candidate_count": 19,
+            "global_beam_size": 19,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 9,
+              "LEFT": 4,
+              "RIGHT": 6
+            }
+          },
+          {
+            "depth": 4,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT"
+            ],
+            "forced_score": 202.43750000000398,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": true,
+            "forced_signature_unique_rank": 39,
+            "equivalent_unique_score": 202.43750000000398,
+            "beam_cutoff_score": 245.60000000000267,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 40,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 15,
+              "LEFT": 4,
+              "RIGHT": 5
+            }
+          },
+          {
+            "depth": 5,
+            "forced_action": "RELEASE_ALL",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL"
+            ],
+            "forced_score": 315.7966666666707,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": -999790.5,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 46,
+            "global_beam_size": 24,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 19,
+              "LEFT": 3,
+              "RIGHT": 2
+            }
+          },
+          {
+            "depth": 6,
+            "forced_action": "RIGHT",
+            "forced_prefix": [
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RIGHT",
+              "RELEASE_ALL",
+              "RIGHT"
+            ],
+            "forced_score": 310.76916666667097,
+            "forced_terminal_reason": null,
+            "forced_deepest_floor": 7,
+            "forced_signature_in_unique_candidates": false,
+            "forced_signature_unique_rank": null,
+            "equivalent_unique_score": null,
+            "beam_cutoff_score": null,
+            "forced_signature_in_global_beam": false,
+            "global_unique_candidate_count": 0,
+            "global_beam_size": 0,
+            "global_beam_first_action_counts": {
+              "RELEASE_ALL": 0,
+              "LEFT": 0,
+              "RIGHT": 0
+            }
+          }
+        ],
+        "snapshot_restored": true,
+        "platform_identity_restored": true
+      }
+    }
+  ],
+  "production_modified": false,
+  "protocol_modified": false,
+  "holdout": {
+    "partition": "17000-17099",
+    "used": false
+  },
+  "training_started": false,
+  "dataset_generated": false,
+  "real_game_started": false
+}

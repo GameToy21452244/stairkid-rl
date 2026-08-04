@@ -16,7 +16,30 @@ class SimulatorRenderer:
         diagnostics: dict[str, object] | None = None,
     ) -> np.ndarray:
         config = simulator.config
-        frame = np.full((config.height, config.width, 3), 18, dtype=np.uint8)
+        frame = np.full((config.height, config.width, 3), 12, dtype=np.uint8)
+        play_left = int(round(config.effective_playfield_left))
+        play_right = int(round(config.effective_playfield_right))
+        play_top = int(round(config.effective_playfield_top))
+        play_bottom = int(round(config.effective_playfield_bottom))
+        frame[play_top:play_bottom, play_left:play_right] = (8, 18, 54)
+        wall_color = (150, 185, 205)
+        frame[play_top:play_bottom, play_left : play_left + 4] = wall_color
+        frame[play_top:play_bottom, play_right - 4 : play_right] = wall_color
+        frame[play_bottom - 4 : play_bottom, play_left:play_right] = wall_color
+        hazard_bottom = int(round(config.effective_top_hazard_bottom))
+        if hazard_bottom > play_top:
+            frame[play_top : play_top + 4, play_left:play_right] = wall_color
+            tooth_width = 16
+            for x in range(play_left, play_right):
+                phase = (x - play_left) % tooth_width
+                tooth_height = int(
+                    round(
+                        (hazard_bottom - play_top)
+                        * (1.0 - abs(phase - tooth_width / 2) / (tooth_width / 2))
+                    )
+                )
+                if tooth_height > 0:
+                    frame[play_top : play_top + tooth_height, x] = wall_color
         for platform in simulator.platforms:
             left = max(0, int(round(platform.left)))
             right = min(config.width, int(round(platform.right)))

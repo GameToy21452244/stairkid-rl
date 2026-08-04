@@ -1,0 +1,51 @@
+{
+  "purpose": "same-seed visual comparison of legacy and repaired Oracle spring control",
+  "seed": 10007,
+  "target_floor": 10,
+  "max_steps": 120,
+  "color_legend": {
+    "player": "yellow",
+    "normal_platform": "green",
+    "spikes": "red",
+    "spring": "orange"
+  },
+  "legacy": {
+    "spring_escape_enabled": false,
+    "steps": 52,
+    "deepest_floor": 4,
+    "outcome": "top",
+    "event_counts": {
+      "floor_descended": 4,
+      "landed": 6,
+      "spring_bounce": 3,
+      "spring_contact": 3
+    },
+    "spring_contact_steps": [
+      26,
+      36,
+      46
+    ],
+    "video": "artifacts/simulator_visuals/spring_oracle_seed_10007_legacy.mp4"
+  },
+  "fixed": {
+    "spring_escape_enabled": true,
+    "steps": 75,
+    "deepest_floor": 10,
+    "outcome": "target_reached",
+    "event_counts": {
+      "damage": 1,
+      "floor_descended": 10,
+      "health_gained": 4,
+      "landed": 10,
+      "spike_contact": 1,
+      "spring_bounce": 1,
+      "spring_contact": 1
+    },
+    "spring_contact_steps": [
+      26
+    ],
+    "video": "artifacts/simulator_visuals/spring_oracle_seed_10007_fixed.mp4"
+  },
+  "comparison_video": "artifacts/simulator_visuals/spring_oracle_seed_10007_comparison.mp4",
+  "contact_montage": "artifacts/simulator_visuals/spring_oracle_seed_10007_contact_montage.png"
+}

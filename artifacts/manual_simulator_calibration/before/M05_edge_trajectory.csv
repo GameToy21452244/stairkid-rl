@@ -1,0 +1,17 @@
+scenario,step,action,x,y,vx,vy,support_floor,deepest_floor,events,terminal_reason,collision_diagnostic
+M05_edge,1,RIGHT,241.98,92.5,104.8,0.0,0,0,[],,null
+M05_edge,2,RIGHT,262.94,92.5,209.6,0.0,0,0,[],,null
+M05_edge,3,RIGHT,285.94,92.5,230.0,0.0,0,0,[],,null
+M05_edge,4,RIGHT,308.94,92.5,230.0,0.0,0,0,[],,null
+M05_edge,5,RIGHT,331.94,92.5,230.0,0.0,0,0,[],,null
+M05_edge,6,RIGHT,354.94,92.446666667,230.0,-6.4,,0,"[""support_departed""]",,"{""current_bottom"":78.94666666666667,""current_platform_top"":79.0,""decision"":""pass_through_no_horizontal_overlap"",""impact_player_bbox_x"":[342.9399999999996,366.9399999999996],""one_way_eligible"":true,""platform_bbox_x"":[131.5,331.5],""platform_floor"":0,""previous_bottom"":79.0,""previous_platform_top"":79.0,""reason"":""swept_top_crossing_outside_platform"",""relative_velocity_y"":-6.4,""time_of_impact"":0.0}"
+M05_edge,7,RIGHT,377.94,91.006666667,230.0,-25.6,,0,[],,"{""current_bottom"":77.50666666666667,""current_platform_top"":79.0,""decision"":""pass_through_no_horizontal_overlap"",""impact_player_bbox_x"":[365.9399999999995,389.9399999999995],""one_way_eligible"":true,""platform_bbox_x"":[131.5,331.5],""platform_floor"":0,""previous_bottom"":77.88000000000001,""previous_platform_top"":79.0,""reason"":""swept_top_crossing_outside_platform"",""relative_velocity_y"":-25.599999999999998,""time_of_impact"":0.0}"
+M05_edge,8,RIGHT,400.94,87.646666667,230.0,-44.8,,0,[],,"{""current_bottom"":77.08000000000001,""current_platform_top"":79.0,""decision"":""pass_through_no_horizontal_overlap"",""impact_player_bbox_x"":[369.7733333333328,393.7733333333328],""one_way_eligible"":true,""platform_bbox_x"":[131.5,331.5],""platform_floor"":0,""previous_bottom"":77.50666666666667,""previous_platform_top"":79.0,""reason"":""swept_top_crossing_outside_platform"",""relative_velocity_y"":-28.799999999999997,""time_of_impact"":0.0}"
+M05_edge,9,RIGHT,411.0,82.366666667,0.0,-64.0,,0,[],,null
+M05_edge,10,RIGHT,411.0,75.166666667,0.0,-83.2,,0,[],,null
+M05_edge,11,RIGHT,411.0,66.046666667,0.0,-102.4,,0,[],,null
+M05_edge,12,RIGHT,411.0,55.006666667,0.0,-121.6,,0,[],,null
+M05_edge,13,RIGHT,411.0,42.046666667,0.0,-140.8,,0,[],,"{""current_bottom"":28.54666666666666,""current_platform_top"":31.0,""decision"":""pass_through_no_horizontal_overlap"",""impact_player_bbox_x"":[399.0,423.0],""one_way_eligible"":true,""platform_bbox_x"":[139.22909976783905,339.22909976783905],""platform_floor"":1,""previous_bottom"":30.839999999999996,""previous_platform_top"":31.0,""reason"":""swept_top_crossing_outside_platform"",""relative_velocity_y"":-140.8,""time_of_impact"":0.0}"
+M05_edge,14,RIGHT,411.0,27.166666667,0.0,-160.0,,0,[],,null
+M05_edge,15,RIGHT,411.0,10.366666667,0.0,-179.2,,0,[],,null
+M05_edge,16,RIGHT,411.0,-8.353333333,0.0,-198.4,,0,[],bottom,"{""current_bottom"":-18.59999999999998,""current_platform_top"":-17.0,""decision"":""pass_through_no_horizontal_overlap"",""impact_player_bbox_x"":[399.0,423.0],""one_way_eligible"":true,""platform_bbox_x"":[129.46088920557435,329.46088920557435],""platform_floor"":2,""previous_bottom"":-15.399999999999984,""previous_platform_top"":-17.0,""reason"":""swept_top_crossing_outside_platform"",""relative_velocity_y"":-195.19999999999982,""time_of_impact"":0.5000000000000056}"

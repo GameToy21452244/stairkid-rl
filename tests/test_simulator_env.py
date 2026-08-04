@@ -47,11 +47,11 @@ def test_fixed_seed_produces_identical_initial_state() -> None:
 
 
 @pytest.mark.parametrize("fps", [8, 10, 12])
-def test_v02_uses_fixed_60hz_physics_with_supported_policy_rates(fps: int) -> None:
+def test_v03_uses_fixed_60hz_physics_with_supported_policy_rates(fps: int) -> None:
     env = ShaftEnv(config=ShaftEnvConfig(fps=fps))
     try:
         _observation, info = env.reset(seed=420)
-        assert info["environment_version"] == "ns-shaft-sim-v0.2"
+        assert info["environment_version"] == "ns-shaft-sim-v0.3"
         assert info["physics_frequency_hz"] == 60
         assert info["control_frequency_hz"] == fps
     finally:
@@ -104,7 +104,11 @@ def test_gravity_horizontal_acceleration_and_release_drag() -> None:
     try:
         env.reset(seed=1)
         body = env.simulator.player.body
-        body.position = (config.width / 2, config.height - 40)
+        env.simulator.supported_floor = None
+        body.position = (
+            (config.playfield_left + config.playfield_right) / 2,
+            config.height / 2,
+        )
         body.velocity = (0.0, 0.0)
         env.step(int(Action.RIGHT))
         assert body.velocity.x > 0.0
@@ -117,12 +121,13 @@ def test_gravity_horizontal_acceleration_and_release_drag() -> None:
         env.close()
 
 
-def test_one_way_platform_landing_bounces_from_above() -> None:
+def test_one_way_platform_landing_acquires_support_from_above() -> None:
     env = ShaftEnv(config=ShaftEnvConfig(scroll_speed=0.0))
     try:
         env.reset(seed=3)
         platform = env.simulator.platforms[0]
         body = env.simulator.player.body
+        env.simulator.supported_floor = None
         body.position = (
             platform.center_x,
             platform.top + env.simulator.player.height / 2 + 18,
@@ -138,7 +143,8 @@ def test_one_way_platform_landing_bounces_from_above() -> None:
                 break
 
         assert landed
-        assert body.velocity.y > 0
+        assert body.velocity.y == pytest.approx(0.0)
+        assert env.simulator.supported_floor == platform.floor_index
         assert body.position.y >= (
             platform.top + env.simulator.player.height / 2
         )
@@ -155,7 +161,9 @@ def test_horizontal_bounds_and_bottom_death() -> None:
         body.velocity = (-500.0, 0.0)
         _obs, _reward, terminated, _truncated, info = env.step(1)
         assert not terminated
-        assert body.position.x >= env.simulator.player.width / 2
+        assert body.position.x >= (
+            env.config.playfield_left + env.simulator.player.width / 2
+        )
         assert info["terminal_reason"] is None
 
         body.position = (100.0, -100.0)

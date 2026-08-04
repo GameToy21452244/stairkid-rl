@@ -209,11 +209,11 @@ def _mean(summary_items, field: str) -> float:
 def _architecture_rank(summary_items, gate: Mapping[str, object]) -> tuple:
     return (
         bool(gate["passed"]),
-        _mean(summary_items, "reach_rate_floor_10"),
         -_mean(summary_items, "bottom_death_rate"),
         _mean(summary_items, "deepest_floor_quantile_25"),
         _mean(summary_items, "deepest_floor_cvar25"),
-        -_mean(summary_items, "direction_switches_per_100_steps"),
+        _mean(summary_items, "reach_rate_floor_10"),
+        -_mean(summary_items, "direction_reversals_per_100_steps"),
         _mean(summary_items, "median_deepest_floor"),
         _mean(summary_items, "mean_deepest_floor"),
     )

@@ -1,0 +1,80 @@
+{
+  "schema_version": "simulator-real-edge-visual-comparison-v1",
+  "semantic_comparison_not_time_synchronized": true,
+  "one_to_one_claimed": false,
+  "real_reference": {
+    "video": "logs/teacher_real_micro_20260803_205952_924961/episode_03.mp4",
+    "alignment": "logs/teacher_real_micro_20260803_205952_924961/episode_03.alignment.jsonl",
+    "episode": 3,
+    "frames": [
+      33,
+      40
+    ],
+    "capture_size": [
+      634,
+      430
+    ],
+    "observed_platform_edge_bounds_x": [
+      40,
+      423
+    ],
+    "observed_platform_top_range_y": [
+      68,
+      400
+    ],
+    "observed_scroll_speed_pixels_per_second": 96
+  },
+  "simulator_v03": {
+    "seed": 10007,
+    "environment_version": "ns-shaft-sim-v0.3",
+    "canvas_size": [
+      634,
+      431
+    ],
+    "playfield_bounds": [
+      40,
+      60,
+      423,
+      416
+    ],
+    "top_hazard_bottom": 88,
+    "initial_player_center_screen": [
+      231.5,
+      338.5
+    ],
+    "departure_frame": 3,
+    "first_landing_frame": 7,
+    "deepest_floor": 2,
+    "outcome": "floor_2_reached",
+    "event_counts": {
+      "floor_descended": 2,
+      "landed": 2,
+      "support_departed": 2
+    }
+  },
+  "legacy_v02": {
+    "invalid_for_real_fidelity": true,
+    "reason": "full-canvas playfield and no support ownership",
+    "deepest_floor": 2,
+    "outcome": "floor_2_reached",
+    "event_counts": {
+      "floor_descended": 2,
+      "landed": 2
+    }
+  },
+  "remaining_unvalidated": [
+    "pixel-perfect character and platform collision masks",
+    "special-platform dynamics under calibrated playfield",
+    "detector noise and missed detections",
+    "long-horizon top-pressure success"
+  ],
+  "outputs": {
+    "legacy": "artifacts/simulator_visuals/simulator_v02_seed_10007_pass_through.mp4",
+    "current": "artifacts/simulator_visuals/simulator_v03_seed_10007_edge_departure.mp4",
+    "legacy_vs_current": "artifacts/simulator_visuals/simulator_v02_vs_v03_edge_comparison.mp4",
+    "real": "artifacts/simulator_visuals/real_episode3_frames33_40_edge_departure.mp4",
+    "real_vs_current": "artifacts/simulator_visuals/real_vs_simulator_v03_edge_departure.mp4",
+    "montage": "artifacts/simulator_visuals/real_vs_simulator_v03_edge_montage.png",
+    "manifest": "artifacts/simulator_visuals/real_vs_simulator_v03_edge_manifest.json"
+  }
+}

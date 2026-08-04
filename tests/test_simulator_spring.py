@@ -13,6 +13,7 @@ from stair_agent.simulator.scenarios import (
     configure_spring_landing,
 )
 from stair_agent.simulator.state import ShaftEnvConfig
+from stair_agent.training.spring_curriculum_gate import spring_curriculum_config
 
 
 def spring_config(**changes) -> ShaftEnvConfig:
@@ -137,3 +138,87 @@ def test_enabling_spring_without_spring_platforms_has_no_effect() -> None:
     finally:
         feature_off.close()
         feature_on.close()
+
+
+def test_oracle_spring_clearance_escapes_aligned_source_before_targeting() -> None:
+    env = ShaftEnv(config=spring_config())
+    try:
+        env.reset(seed=906)
+        source = min(env.simulator.platforms, key=lambda item: item.floor_index)
+        target = min(
+            (
+                item
+                for item in env.simulator.platforms
+                if item.floor_index > source.floor_index
+            ),
+            key=lambda item: item.floor_index,
+        )
+        source.kind = "spring"
+        target.kind = "normal"
+        target.body.position = (source.center_x, target.center_y)
+        env.simulator.deepest_floor = source.floor_index
+        env.simulator.last_landed_floor = source.floor_index
+        env.simulator.player.body.position = (
+            source.center_x,
+            source.top + env.config.player_height / 2 + 24,
+        )
+        env.simulator.player.body.velocity = (0.0, 150.0)
+
+        legacy = OracleFull(enable_spring_escape=False).choose(env.simulator)
+        candidate = OracleFull(enable_spring_escape=True).choose(env.simulator)
+        assert legacy.action.value == 0
+        assert candidate.action.value in {1, 2}
+
+        direction = -1 if candidate.action.value == 1 else 1
+        clear_x = (
+            source.center_x
+            + direction
+            * (
+                source.width / 2
+                + env.config.player_width / 2
+                + 3
+            )
+        )
+        env.simulator.player.body.position = (
+            clear_x,
+            env.simulator.player.body.position.y,
+        )
+        cleared = OracleFull(enable_spring_escape=True).choose(env.simulator)
+        assert cleared.action.value == 0
+    finally:
+        env.close()
+
+
+def test_oracle_spring_escape_repairs_frozen_failure_seed() -> None:
+    def rollout(enabled: bool) -> tuple[int, str | None]:
+        env = ShaftEnv(
+            config=replace(
+                spring_curriculum_config(),
+                environment_version="ns-shaft-sim-v0.2",
+                enable_support_ownership=False,
+                enable_calibrated_playfield=False,
+            )
+        )
+        oracle = OracleFull(enable_spring_escape=enabled)
+        env.reset(seed=10007)
+        terminal = None
+        try:
+            for _ in range(120):
+                decision = oracle.choose(env.simulator)
+                _, _, terminated, truncated, info = env.step(
+                    int(decision.action)
+                )
+                if env.simulator.deepest_floor >= 10:
+                    terminal = "target_reached"
+                    break
+                if terminated or truncated:
+                    terminal = info["terminal_reason"]
+                    break
+            return env.simulator.deepest_floor, terminal
+        finally:
+            env.close()
+
+    legacy = rollout(False)
+    candidate = rollout(True)
+    assert legacy == (4, "top")
+    assert candidate == (10, "target_reached")

@@ -1,0 +1,93 @@
+{
+  "experiment": "P4.1-bounded-S0-S1-S2-S3-ablation-v1",
+  "source_archive": "20260803T085551Z_p41_ablation.zip",
+  "source_archive_sha256": "b1fd2291d4b84bafc1a4fba0822341e56b1c075ff963d6aae2f53aeb35bc2926",
+  "device": "cpu",
+  "status": "FAIL_STOP_SELECTION",
+  "selected_architecture": null,
+  "final_seeds_used": false,
+  "next_stage": "STOP_REVIEW_CAUSAL_SCHEMA_SEQUENCE_LENGTH_OR_DATA_COVERAGE",
+  "dataset": {
+    "records": 3529,
+    "episodes": 60,
+    "sha256": "fa3e111a6204ac53767824e8d71d1ccf841637976427c410c1e14dff308c7a0a"
+  },
+  "selected_updates": {
+    "S0": [300, 300, 200],
+    "S1": [300, 300, 300],
+    "S2": [300, 300, 100],
+    "S3": [300, 200, 200]
+  },
+  "mean_across_initializations": {
+    "S0": {
+      "mean_deepest_floor": 54.83,
+      "deepest_floor_q25": 33.58,
+      "deepest_floor_cvar25": 18.27,
+      "reach_floor_10": 0.883,
+      "bottom_death_rate": 0.133,
+      "health_death_rate": 0.0,
+      "direction_switches_per_100_steps": 0.005
+    },
+    "S1": {
+      "mean_deepest_floor": 62.18,
+      "deepest_floor_q25": 44.25,
+      "deepest_floor_cvar25": 17.0,
+      "reach_floor_10": 0.85,
+      "bottom_death_rate": 0.183,
+      "health_death_rate": 0.0,
+      "direction_switches_per_100_steps": 0.0
+    },
+    "S2": {
+      "mean_deepest_floor": 60.3,
+      "deepest_floor_q25": 14.08,
+      "deepest_floor_cvar25": 7.33,
+      "reach_floor_10": 0.767,
+      "bottom_death_rate": 0.5,
+      "health_death_rate": 0.0,
+      "direction_switches_per_100_steps": 0.19
+    },
+    "S3": {
+      "mean_deepest_floor": 14.02,
+      "deepest_floor_q25": 5.83,
+      "deepest_floor_cvar25": 3.53,
+      "reach_floor_10": 0.4,
+      "bottom_death_rate": 0.983,
+      "health_death_rate": 0.0,
+      "direction_switches_per_100_steps": 0.35
+    }
+  },
+  "gate_delta_vs_s0": {
+    "S1": {
+      "q25": 10.666666666666666,
+      "cvar25": -1.2666666666666675,
+      "reach10": -0.03333333333333336,
+      "bottom_death_reduction": -0.05000000000000001,
+      "oscillation_reduction": 0.005048210409409864,
+      "passed": false
+    },
+    "S2": {
+      "q25": -19.5,
+      "cvar25": -10.933333333333335,
+      "reach10": -0.11666666666666665,
+      "bottom_death_reduction": -0.3666666666666667,
+      "oscillation_reduction": -0.185283937899116,
+      "passed": false
+    },
+    "S3": {
+      "q25": -27.75,
+      "cvar25": -14.733333333333334,
+      "reach10": -0.4833333333333334,
+      "bottom_death_reduction": -0.85,
+      "oscillation_reduction": -0.3446254186071153,
+      "passed": false
+    }
+  },
+  "audit_findings": {
+    "s1_is_only_retained_direction": true,
+    "s2_rejected_for_tail_reliability": true,
+    "s3_rejected_for_compact_information_loss": true,
+    "selection_priority_mismatch_found": true,
+    "oscillation_gate_mathematically_unreachable_with_current_metric": true,
+    "scientific_status_changes_after_metric_audit": false
+  }
+}

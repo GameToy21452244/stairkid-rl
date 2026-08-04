@@ -64,6 +64,20 @@
 4. reward component 總和可重算，terminated 與 truncated 分開。
 5. 物理與真實 telemetry 的差異已列入 calibration report。
 
+## Spring curriculum v0（已執行並停止）
+
+- 凍結規格與seeds以`reports/SPRING_CURRICULUM_V0_PROTOCOL.md`為準。
+- 生成、Reachability與ratio PASS不能覆蓋Oracle FAIL；正式結果為
+  `FAIL_STOP_ORACLE`，100回合reach-floor-10只有71%。
+- Baseline在Oracle失敗後不得執行；10000～10099已成正式失敗證據，不得重用選模。
+- 下一個實驗只能先用診斷trace／既有real packet分離spring physics、top semantics及
+  Oracle escape；新候選與新seed Gate必須另行預先凍結。
+
+後續Oracle clearance候選已依獨立protocol完成：11000～11099 development與
+12000～12099 untouched holdout均100% reach10，spring分支亦100%；Baseline retention
+101.35%、reach3 94%。12000～12099永久凍結。此PASS只屬Simulator solvability，不能
+取代真機spring fidelity或Teacher Gate。
+
 ## Calibration fidelity gate
 
 - LEFT／RIGHT 各至少 30 筆不靠牆、無事件干擾的 transition。
@@ -167,9 +181,42 @@ bootstrap CI `[0.0979,0.1411]`，全部PASS。這只解鎖bounded P4.1消融，�
 - 若selection沒有任何S1/S2/S3通過，不使用final seeds；若final FAIL，保存artifact後
   停止。科學FAIL是正常完成，runner回傳0；只有runtime/schema錯誤才非零中止。
 
+### P4.1 v1結果後的selection-only修正
+
+- v1正式結果固定為`FAIL_STOP_SELECTION`，4100～4139 final seeds從未使用且不得因
+  post-result修正回頭啟用；P4.2維持BLOCKED。
+- 未來selection排序固定為collapse→health death→bottom death→Q25→CVaR25→
+  reach-10→direction reversal→median→mean→offline loss，不再把reach置於bottom前。
+- `direction_switches`保留原始語意，只計相鄰LEFT↔RIGHT；新增
+  `direction_reversals_per_100_steps`，RELEASE不清除最後非release方向，用它評估振盪。
+- Reversal是non-regression constraint：每個candidate相對S0至少2/3 initialization
+  不增加，且三初始化平均不得增加；不再要求已接近零的direct-switch metric固定改善0.10。
+- 只允許用既有checkpoint與selection seeds重播；不得重訓補造缺少的candidate，亦不得
+  讀取final seeds。重播必須逐回合重現舊deepest floor與terminal reason才可採信新metric。
+
+## Dataset v2 reliability-first Gate
+
+- 不以舊 validator／coverage Gate 單獨判定可訓練；同種子結果和 fresh reliability
+  都是 blocking checks。
+- 正式 v2 前須升 Teacher policy version，並在 summary／manifest 嵌入 source 與
+  config fingerprints。Real-game 與 Simulator Teacher 分開版本化。
+- 同 seeds 2000～2059：reach >= 91.33%、bottom <= 8.67%、health death=0、
+  action-distribution TV <= 0.10；direction brake／recovery／spike-target 都跨三個
+  splits，episode coverage至少20／10／10。
+- 同種子 Gate PASS 後才跑 fresh 100 seeds：reach >= 90%、bottom <= 10%、
+  health death=0，且必須報 Q25／CVaR25。
+- 診斷資料不得作訓練；任何 Gate FAIL 立即停止正式 v2 生成與 Student 階段。
+
 ## 當前結論
 
-P3.6 Gate v11與P4.0 State-aliasing Gate已PASS。目前唯一 **Go** 是設計並執行
-bounded P4.1 S0/S1/S2/S3公平短消融；split、seed、update budget與causal schema
-必須先凍結。rare-branch dataset、正式BC/DAgger、長PPO/DQN/DQfD/NEAT及未授權
-實機rollout仍為No-Go。
+P3.6與P4.0已PASS，但P4.1為`FAIL_STOP_SELECTION_CONFIRMED`。Simulator Teacher
+profile、launch-handoff及phase observability均未通過；最新400-episode schema probe的
+base/candidate reach為76.25%／69.25%、bottom為23.75%／30.75%，只有1改善、29退化、
+365不變。Development沒有正向class，狀態固定為
+`INSUFFICIENT_EVIDENCE_STOP_SCHEMA_PROBE`。
+
+目前沒有 Simulator Teacher tuning 的 **Go**。Real alignment packet v1協定、writer、
+validator與coverage Gate已凍結並通過dry-run；下一步唯一Go是使用者監督的3-episode
+bounded真機run。它同步frame／structured observation、action timing、因果history與
+target safe interval，核對spring/spike/edge/wall語意。實際packet Gate仍PENDING；正式
+Dataset v2、fresh100、P4.2、BC/DAgger與所有長訓練仍為No-Go。

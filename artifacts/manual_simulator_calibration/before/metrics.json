@@ -1,0 +1,489 @@
+{
+  "schema_version": "manual-simulator-calibration-profile-v1",
+  "created_at": "2026-08-04T11:30:27.763896+00:00",
+  "label": "before",
+  "formal_evidence": false,
+  "manual_alignment_only": true,
+  "seed_role": "manual_only",
+  "formal_evaluation_allowed": false,
+  "simulator_version": "ns-shaft-sim-v0.3",
+  "config": {
+    "environment_version": "ns-shaft-sim-v0.3",
+    "width": 634,
+    "height": 431,
+    "enable_calibrated_playfield": true,
+    "playfield_left": 40.0,
+    "playfield_right": 423.0,
+    "playfield_top": 60.0,
+    "playfield_bottom": 416.0,
+    "top_hazard_bottom": 88.0,
+    "initial_platform_center_y": 71.0,
+    "fps": 10,
+    "physics_hz": 60,
+    "distribution": "easy",
+    "max_episode_steps": 3000,
+    "player_width": 24.0,
+    "player_height": 27.0,
+    "horizontal_acceleration": 1048.0,
+    "air_control_multiplier": 1.0,
+    "max_horizontal_speed": 230.0,
+    "release_drag": 0.035,
+    "release_deceleration": null,
+    "reverse_brake_multiplier": 1.0,
+    "gravity": -192.0,
+    "max_fall_speed": null,
+    "jump_velocity": 95.0,
+    "platform_width": 96.0,
+    "platform_height": 16.0,
+    "platform_spacing": 48.0,
+    "max_platform_shift": 180.0,
+    "platform_count": 9,
+    "reachability_lookahead": 3,
+    "safe_landing_margin": 14.0,
+    "easy_max_platform_shift": 64.0,
+    "minimum_horizontal_platform_shift": 0.0,
+    "generator_max_attempts": 1,
+    "hard_max_platform_shift": 220.0,
+    "recycle_margin": 64.0,
+    "scroll_speed": 96.0,
+    "enable_swept_edge_collision": false,
+    "enable_support_ownership": true,
+    "support_departure_velocity_y": 0.0,
+    "step_penalty": 0.01,
+    "landing_reward": 0.05,
+    "floor_reward": 1.0,
+    "death_penalty": 5.0,
+    "observation_history_frames": 4,
+    "include_action_history": true,
+    "enable_health": false,
+    "max_health_segments": 12,
+    "initial_health_segments": 12,
+    "normal_platform_heal_segments": 1,
+    "health_gain_reward_per_segment": 0.0,
+    "enable_spikes": false,
+    "spike_damage_segments": 5,
+    "spike_damage_penalty_per_segment": 0.0,
+    "spike_spawn_probability": 0.0,
+    "initial_safe_normal_platforms": 3,
+    "minimum_normal_platforms_between_spikes": 5,
+    "enable_conveyor": false,
+    "conveyor_velocity_delta": 80.0,
+    "enable_spring": false,
+    "spring_jump_velocity": 190.0,
+    "spring_spawn_probability": 0.0,
+    "minimum_normal_platforms_before_spring": 3,
+    "enable_flipping": false,
+    "flipping_active_seconds": 1.0,
+    "flipping_inactive_seconds": 1.0
+  },
+  "control": {
+    "horizontal_acceleration": 1048.0,
+    "air_control_multiplier": 1.0,
+    "max_horizontal_speed": 230.0,
+    "release_drag": 0.035,
+    "release_deceleration": null,
+    "reverse_brake_multiplier": 1.0,
+    "gravity": -192.0,
+    "max_fall_speed": null,
+    "supported_right_delta_vx_first_step": 104.8,
+    "release_speed_after_one_step_from_160": 5.6,
+    "reverse_stop_step_from_max_right": 3,
+    "reverse_leftward_step_from_max_right": 3
+  },
+  "timing": {
+    "control_fps": 10,
+    "control_dt": 0.1,
+    "physics_hz": 60,
+    "physics_dt": 0.016666666666666666,
+    "substeps_per_control_step": 6.0,
+    "render_fps_diagnostic": [
+      30,
+      60,
+      120
+    ]
+  },
+  "scroll": {
+    "pixels_per_second": 96.0,
+    "platform_heights_per_second": 6.0
+  },
+  "layout": {
+    "seed_range": [
+      901100,
+      901199
+    ],
+    "seed_role": "manual_only",
+    "formal_evaluation_allowed": false,
+    "visible_platform_count_initial": {
+      "count": 100,
+      "mean": 2.0,
+      "median": 2.0,
+      "q25": 2.0,
+      "q75": 2.0,
+      "min": 2.0,
+      "max": 2.0
+    },
+    "vertical_gap": {
+      "count": 800,
+      "mean": 48.0,
+      "median": 48.0,
+      "q25": 48.0,
+      "q75": 48.0,
+      "min": 48.0,
+      "max": 48.0
+    },
+    "absolute_horizontal_center_shift": {
+      "count": 800,
+      "mean": 30.639207641503244,
+      "median": 29.784901118898716,
+      "q25": 15.661353209688151,
+      "q75": 45.7911137159699,
+      "min": 0.0,
+      "max": 63.757964658514396
+    },
+    "platform_width": {
+      "count": 900,
+      "mean": 96.0,
+      "median": 96.0,
+      "q25": 96.0,
+      "q75": 96.0,
+      "min": 96.0,
+      "max": 96.0
+    },
+    "trivial_transition_count_shift_below_12": 159,
+    "impossible_transition_count_conservative": 0,
+    "first_three_seed_patterns": [
+      [
+        43.52269693982305,
+        28.198623227234066,
+        27.317001978306337,
+        33.97838517990647,
+        10.48329267473008,
+        0.0,
+        56.56618750743041,
+        42.78289755487617
+      ],
+      [
+        16.41138509268785,
+        28.175556716005588,
+        2.3662778771540047,
+        59.006009499502454,
+        37.5407708146501,
+        30.615128197215654,
+        59.753038331493144,
+        51.470986617854635
+      ],
+      [
+        29.520451240211628,
+        33.74796050740389,
+        36.734015629045075,
+        37.39642437764627,
+        13.394970404571893,
+        37.28026033355155,
+        47.649286240920446,
+        38.02443912978265
+      ]
+    ],
+    "reproducible": true
+  },
+  "fps_invariance": {
+    "passed": true,
+    "interpretation": "render calls are read-only; fixed 60 Hz physics is batched behind 10 Hz control",
+    "results": {
+      "30": {
+        "render_fps": 30,
+        "control_steps": 12,
+        "physics_steps": 72,
+        "final": {
+          "scenario": "M06_fps_invariance",
+          "step": 12,
+          "action": "RELEASE_ALL",
+          "x": 231.5,
+          "y": 207.7,
+          "vx": 0.0,
+          "vy": 96.0,
+          "support_floor": 0,
+          "deepest_floor": 0,
+          "events": "[]",
+          "terminal_reason": null,
+          "collision_diagnostic": "null"
+        },
+        "landing_steps": [
+          1
+        ]
+      },
+      "60": {
+        "render_fps": 60,
+        "control_steps": 12,
+        "physics_steps": 72,
+        "final": {
+          "scenario": "M06_fps_invariance",
+          "step": 12,
+          "action": "RELEASE_ALL",
+          "x": 231.5,
+          "y": 207.7,
+          "vx": 0.0,
+          "vy": 96.0,
+          "support_floor": 0,
+          "deepest_floor": 0,
+          "events": "[]",
+          "terminal_reason": null,
+          "collision_diagnostic": "null"
+        },
+        "landing_steps": [
+          1
+        ]
+      },
+      "120": {
+        "render_fps": 120,
+        "control_steps": 12,
+        "physics_steps": 72,
+        "final": {
+          "scenario": "M06_fps_invariance",
+          "step": 12,
+          "action": "RELEASE_ALL",
+          "x": 231.5,
+          "y": 207.7,
+          "vx": 0.0,
+          "vy": 96.0,
+          "support_floor": 0,
+          "deepest_floor": 0,
+          "events": "[]",
+          "terminal_reason": null,
+          "collision_diagnostic": "null"
+        },
+        "landing_steps": [
+          1
+        ]
+      }
+    }
+  },
+  "collision": {
+    "cases": {
+      "downward_center": {
+        "case": "downward_center",
+        "before": {
+          "player_position": [
+            231.5,
+            100.5
+          ],
+          "player_velocity": [
+            0.0,
+            -1500.0
+          ],
+          "platform_bbox": [
+            183.5,
+            79.0,
+            279.5,
+            95.0
+          ]
+        },
+        "after": {
+          "player_position": [
+            231.5,
+            92.5
+          ],
+          "player_velocity": [
+            0.0,
+            0.0
+          ],
+          "support_floor": 0,
+          "events": [
+            "landed"
+          ],
+          "terminal_reason": null,
+          "terminated": false,
+          "diagnostic": {
+            "decision": "landed",
+            "reason": "legacy_end_position_top_crossing",
+            "platform_floor": 0,
+            "platform_kind": "normal",
+            "time_of_impact": 0.32,
+            "impact_x": 231.5,
+            "collision_normal": [
+              0.0,
+              1.0
+            ],
+            "previous_bottom": 87.0,
+            "current_bottom": 62.0,
+            "relative_velocity_y": -1503.2,
+            "one_way_eligible": true
+          }
+        },
+        "landed": true
+      },
+      "diagonal_edge": {
+        "case": "diagonal_edge",
+        "before": {
+          "player_position": [
+            288.0,
+            93.5
+          ],
+          "player_velocity": [
+            230.0,
+            -240.0
+          ],
+          "platform_bbox": [
+            183.5,
+            79.0,
+            279.5,
+            95.0
+          ]
+        },
+        "after": {
+          "player_position": [
+            310.9999999999999,
+            68.7
+          ],
+          "player_velocity": [
+            230.0,
+            -259.19999999999993
+          ],
+          "support_floor": null,
+          "events": [],
+          "terminal_reason": null,
+          "terminated": false,
+          "diagnostic": {
+            "decision": "pass_through_no_horizontal_overlap",
+            "reason": "swept_top_crossing_outside_platform",
+            "platform_floor": 0,
+            "time_of_impact": 0.25,
+            "impact_player_bbox_x": [
+              279.8333333333333,
+              303.8333333333333
+            ],
+            "platform_bbox_x": [
+              183.5,
+              279.5
+            ],
+            "previous_bottom": 80.0,
+            "current_bottom": 76.0,
+            "previous_platform_top": 79.0,
+            "current_platform_top": 79.0,
+            "relative_velocity_y": -243.2,
+            "one_way_eligible": true
+          }
+        },
+        "landed": false
+      },
+      "moving_platform_relative": {
+        "case": "moving_platform_relative",
+        "before": {
+          "player_position": [
+            231.5,
+            93.5
+          ],
+          "player_velocity": [
+            0.0,
+            0.0
+          ],
+          "platform_bbox": [
+            183.5,
+            79.0,
+            279.5,
+            95.0
+          ]
+        },
+        "after": {
+          "player_position": [
+            231.5,
+            102.09999999999997
+          ],
+          "player_velocity": [
+            0.0,
+            96.0
+          ],
+          "support_floor": 0,
+          "events": [
+            "landed"
+          ],
+          "terminal_reason": null,
+          "terminated": false,
+          "diagnostic": {
+            "decision": "landed",
+            "reason": "legacy_end_position_top_crossing",
+            "platform_floor": 0,
+            "platform_kind": "normal",
+            "time_of_impact": 0.6250000000000022,
+            "impact_x": 231.5,
+            "collision_normal": [
+              0.0,
+              1.0
+            ],
+            "previous_bottom": 80.0,
+            "current_bottom": 80.0,
+            "relative_velocity_y": -99.2,
+            "one_way_eligible": true
+          }
+        },
+        "landed": true
+      },
+      "rising_from_below": {
+        "case": "rising_from_below",
+        "before": {
+          "player_position": [
+            231.5,
+            84.5
+          ],
+          "player_velocity": [
+            0.0,
+            300.0
+          ],
+          "platform_bbox": [
+            183.5,
+            79.0,
+            279.5,
+            95.0
+          ]
+        },
+        "after": {
+          "player_position": [
+            231.5,
+            113.7
+          ],
+          "player_velocity": [
+            0.0,
+            280.80000000000007
+          ],
+          "support_floor": null,
+          "events": [],
+          "terminal_reason": null,
+          "terminated": false,
+          "diagnostic": {
+            "decision": "pass_through_rising",
+            "reason": "relative_vertical_velocity_above_platform",
+            "relative_velocity_y": 280.80000000000007,
+            "one_way_eligible": false
+          }
+        },
+        "landed": false
+      }
+    },
+    "downward_tunneling_detected": false,
+    "diagonal_edge_tunneling_detected": true,
+    "moving_platform_missed": false,
+    "rising_from_below_landed": false,
+    "one_way_semantics": "UNRESOLVED_ONE_WAY_SEMANTICS"
+  },
+  "real_reference": {
+    "source": "artifacts/simulator_real_alignment_audit_v3.json and primary alignment packet",
+    "cadence_ms_median": 125.0,
+    "left_delta_vx_median": -44.0,
+    "right_delta_vx_median": 63.272727,
+    "release_speed_ratio_median_abs_vx_ge_40": 0.26,
+    "absolute_player_vx_median": 128.0,
+    "absolute_player_vx_q75": 172.0,
+    "visible_platform_count_median": 7.0,
+    "vertical_top_gap_median": 48.0,
+    "absolute_horizontal_center_shift_median": 80.0,
+    "platform_width_median": 95.0,
+    "measured_scroll_pixels_per_second": 96.0,
+    "user_reports_scroll_subjectively_too_fast": true
+  },
+  "source_hashes": {
+    "state.py": "820e776fa54ccd729ceb1cd48487fb2566e773d5935c1d6b728accda89adc0ba",
+    "physics.py": "1696798e32da57008286d84657dfc3fe3e4782c468e0be6df49a429cd7165536",
+    "generator.py": "45b981632481c771bdd9475fbb5f8b525f32584fbc9846b9bc24eb1269cf9338",
+    "manual_test.py": "9e8791217203f1d1f8df3eec1fe1d1aaf2c8e7f0d70abc87d469f589a0a43bb9",
+    "calibration_review.py": "ac966462a75a56a7701a257eb7a4ea34d0d8b0b878c2774c898d5b48d4836f42"
+  }
+}

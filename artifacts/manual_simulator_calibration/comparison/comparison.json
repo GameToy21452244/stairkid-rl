@@ -1,0 +1,53 @@
+{
+  "schema_version": "manual-simulator-calibration-comparison-v1",
+  "formal_evidence": false,
+  "manual_alignment_only": true,
+  "before": "artifacts/manual_simulator_calibration/before/metrics.json",
+  "after": "artifacts/manual_simulator_calibration/after/metrics.json",
+  "changes": {
+    "horizontal_acceleration": {
+      "before": 1048.0,
+      "after": 560.0
+    },
+    "air_control_multiplier": {
+      "before": 1.0,
+      "after": 0.85
+    },
+    "max_horizontal_speed": {
+      "before": 230.0,
+      "after": 230.0
+    },
+    "release_speed_after_one_step_from_160": {
+      "before": 5.6,
+      "after": 64.0
+    },
+    "reverse_leftward_step_from_max_right": {
+      "before": 3,
+      "after": 4
+    },
+    "scroll_speed": {
+      "before": 96.0,
+      "after": 80.0
+    },
+    "vertical_gap_median": {
+      "before": 48.0,
+      "after": 48.0
+    },
+    "horizontal_shift_median": {
+      "before": 29.784901118898716,
+      "after": 81.42572278497705
+    },
+    "diagonal_edge_tunneling_detected": {
+      "before": true,
+      "after": false
+    }
+  },
+  "fps_invariance_before": true,
+  "fps_invariance_after": true,
+  "one_way_semantics": "UNRESOLVED_ONE_WAY_SEMANTICS",
+  "needs_more_real_reference": [
+    "subjective scroll-speed preference conflicts with measured 96 px/s",
+    "rising-from-below one-way behavior needs direct real-game clip",
+    "layout statistics need a longer unobstructed real free-play clip"
+  ]
+}

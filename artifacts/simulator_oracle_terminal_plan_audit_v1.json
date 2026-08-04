@@ -1,0 +1,1091 @@
+{
+  "schema_version": "simulator-oracle-terminal-plan-audit-v1",
+  "protocol": "reports\\SIMULATOR_ORACLE_TERMINAL_PLAN_AUDIT_PROTOCOL.md",
+  "protocol_sha256": "9a64156e54eba4025b6d01b5eef9cf9ebac9e9167fac275153e132979aa004cd",
+  "source_artifact": "artifacts\\simulator_oracle_robustness_gate_v1.json",
+  "source_artifact_sha256": "a8d6bbc14079e477dd99281011a3f4809692d749c3dc17a2266df0f8e74cf63a",
+  "taxonomy_artifact": "artifacts\\simulator_oracle_failure_taxonomy_v1.json",
+  "taxonomy_artifact_sha256": "f56d7a9b00e6afafcaf9d56b5802dba707bbfadfd3a8573d52c6fca438626992",
+  "status": "EVIDENCE_TERMINAL_RISK_ISOLATION",
+  "formal_gate": false,
+  "development_diagnostic_only": true,
+  "holdout_used": false,
+  "source_checks": {
+    "formal_status_is_development_fail_stop": true,
+    "holdout_unused": true,
+    "development_seeds_exact": true,
+    "reference_reach10_is_0_96": true,
+    "taxonomy_status_is_open_loop_evidence": true
+  },
+  "evidence_checks": {
+    "all_development_results_reproduced": true,
+    "successful_terminal_plan_exposure_at_most_0_05": true,
+    "all_development_top_failures_exposed": true,
+    "all_three_retired_search_failures_exposed": true,
+    "all_searches_within_fixed_bounds": true
+  },
+  "development_group_summaries": {
+    "success": {
+      "episodes": 96,
+      "terminal_plan_exposed": 0,
+      "terminal_plan_exposure_rate": 0.0,
+      "terminal_plan_kinds": {}
+    },
+    "top_failure": {
+      "episodes": 2,
+      "terminal_plan_exposed": 2,
+      "terminal_plan_exposure_rate": 1.0,
+      "terminal_plan_kinds": {
+        "top": 2
+      }
+    },
+    "bottom_failure": {
+      "episodes": 2,
+      "terminal_plan_exposed": 0,
+      "terminal_plan_exposure_rate": 0.0,
+      "terminal_plan_kinds": {}
+    }
+  },
+  "retired_search_failure_count": 3,
+  "retired_search_failure_terminal_plan_exposed": 3,
+  "episode_results": [
+    {
+      "seed": 16000,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16001,
+      "deepest_floor": 11,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16002,
+      "deepest_floor": 5,
+      "terminal_reason": "top",
+      "terminal_plan_exposed": true,
+      "terminal_plan_count": 1,
+      "first_terminal_plan": {
+        "step": 39,
+        "floor": 5,
+        "predicted_terminal": "top",
+        "actions": [
+          "RELEASE_ALL",
+          "RELEASE_ALL",
+          "RELEASE_ALL",
+          "RELEASE_ALL",
+          "RELEASE_ALL",
+          "RELEASE_ALL",
+          "RELEASE_ALL",
+          "RELEASE_ALL",
+          "RELEASE_ALL",
+          "RELEASE_ALL",
+          "RELEASE_ALL",
+          "RELEASE_ALL"
+        ],
+        "expanded_nodes": 675
+      },
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16003,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16004,
+      "deepest_floor": 11,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16005,
+      "deepest_floor": 11,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16006,
+      "deepest_floor": 12,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16007,
+      "deepest_floor": 12,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16008,
+      "deepest_floor": 11,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16009,
+      "deepest_floor": 7,
+      "terminal_reason": "bottom",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16010,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16011,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16012,
+      "deepest_floor": 12,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16013,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16014,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16015,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16016,
+      "deepest_floor": 12,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16017,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16018,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16019,
+      "deepest_floor": 11,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16020,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16021,
+      "deepest_floor": 11,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16022,
+      "deepest_floor": 11,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16023,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16024,
+      "deepest_floor": 11,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16025,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16026,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16027,
+      "deepest_floor": 11,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16028,
+      "deepest_floor": 11,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16029,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16030,
+      "deepest_floor": 7,
+      "terminal_reason": "top",
+      "terminal_plan_exposed": true,
+      "terminal_plan_count": 1,
+      "first_terminal_plan": {
+        "step": 51,
+        "floor": 7,
+        "predicted_terminal": "top",
+        "actions": [
+          "RELEASE_ALL",
+          "RELEASE_ALL",
+          "RELEASE_ALL",
+          "RELEASE_ALL",
+          "RELEASE_ALL",
+          "RELEASE_ALL",
+          "RELEASE_ALL",
+          "RELEASE_ALL",
+          "RELEASE_ALL",
+          "RELEASE_ALL"
+        ],
+        "expanded_nodes": 528
+      },
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16031,
+      "deepest_floor": 12,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16032,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16033,
+      "deepest_floor": 11,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16034,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16035,
+      "deepest_floor": 11,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16036,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16037,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16038,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16039,
+      "deepest_floor": 11,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16040,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16041,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16042,
+      "deepest_floor": 11,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16043,
+      "deepest_floor": 13,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16044,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16045,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16046,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16047,
+      "deepest_floor": 11,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16048,
+      "deepest_floor": 12,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16049,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16050,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16051,
+      "deepest_floor": 11,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16052,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16053,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16054,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16055,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16056,
+      "deepest_floor": 11,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16057,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16058,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16059,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16060,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16061,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16062,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16063,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16064,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16065,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16066,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16067,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16068,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16069,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16070,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16071,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16072,
+      "deepest_floor": 11,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16073,
+      "deepest_floor": 11,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16074,
+      "deepest_floor": 14,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16075,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16076,
+      "deepest_floor": 11,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16077,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16078,
+      "deepest_floor": 11,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16079,
+      "deepest_floor": 11,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16080,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16081,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16082,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16083,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16084,
+      "deepest_floor": 12,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16085,
+      "deepest_floor": 11,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16086,
+      "deepest_floor": 7,
+      "terminal_reason": "bottom",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16087,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16088,
+      "deepest_floor": 11,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16089,
+      "deepest_floor": 13,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16090,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16091,
+      "deepest_floor": 11,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16092,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16093,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16094,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16095,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16096,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16097,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16098,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    },
+    {
+      "seed": 16099,
+      "deepest_floor": 10,
+      "terminal_reason": "target_reached",
+      "terminal_plan_exposed": false,
+      "terminal_plan_count": 0,
+      "first_terminal_plan": null,
+      "all_plans_within_bounds": true,
+      "formal_result_reproduced": true
+    }
+  ],
+  "training_started": false,
+  "real_game_started": false
+}

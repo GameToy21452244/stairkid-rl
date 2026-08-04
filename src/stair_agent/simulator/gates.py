@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections import Counter
 from dataclasses import asdict, dataclass
 import math
 from time import perf_counter
@@ -37,6 +38,7 @@ FAILURE_REASONS = (
 
 @dataclass(frozen=True)
 class ReachabilityGate:
+    seed_start: int
     seeds: int
     passed: bool
     unreachable_seeds: tuple[int, ...]
@@ -47,15 +49,28 @@ class ReachabilityGate:
     spike_platforms: int
     total_platforms: int
     realized_spike_ratio: float
+    platform_kind_counts: dict[str, int]
+    realized_platform_kind_ratios: dict[str, float]
+    effective_environment_version: str
 
 
-def run_reachability_gate(seed_count: int, *, config: ShaftEnvConfig) -> ReachabilityGate:
+def run_reachability_gate(
+    seed_count: int,
+    *,
+    config: ShaftEnvConfig,
+    seed_start: int = 0,
+) -> ReachabilityGate:
+    if seed_count <= 0:
+        raise ValueError("seed_count 必須大於 0。")
+    if seed_start < 0:
+        raise ValueError("seed_start 不可小於 0。")
     unreachable = []
     unsafe_health = []
     reproducible = True
     spike_platforms = 0
     total_platforms = 0
-    for seed in range(seed_count):
+    kind_counts: Counter[str] = Counter()
+    for seed in range(seed_start, seed_start + seed_count):
         first = ShaftSimulator(config, np.random.default_rng(seed))
         second = ShaftSimulator(config, np.random.default_rng(seed))
         first_sequence = [
@@ -70,12 +85,14 @@ def run_reachability_gate(seed_count: int, *, config: ShaftEnvConfig) -> Reachab
         spike_platforms += sum(
             item.kind == "spikes" for item in first.platforms
         )
+        kind_counts.update(item.kind for item in first.platforms)
         total_platforms += len(first.platforms)
         if not sequence_is_health_safe(config, first.platforms):
             unsafe_health.append(seed)
         if not sequence_is_reachable(config, first.platforms):
             unreachable.append(seed)
     return ReachabilityGate(
+        seed_start=seed_start,
         seeds=seed_count,
         passed=not unreachable and not unsafe_health and reproducible,
         unreachable_seeds=tuple(unreachable),
@@ -88,6 +105,29 @@ def run_reachability_gate(seed_count: int, *, config: ShaftEnvConfig) -> Reachab
         realized_spike_ratio=(
             spike_platforms / max(1, total_platforms)
         ),
+        platform_kind_counts={
+            kind: int(kind_counts.get(kind, 0))
+            for kind in (
+                "normal",
+                "spikes",
+                "spring",
+                "conveyor_left",
+                "conveyor_right",
+                "flipping",
+            )
+        },
+        realized_platform_kind_ratios={
+            kind: float(kind_counts.get(kind, 0) / max(1, total_platforms))
+            for kind in (
+                "normal",
+                "spikes",
+                "spring",
+                "conveyor_left",
+                "conveyor_right",
+                "flipping",
+            )
+        },
+        effective_environment_version=config.effective_environment_version,
     )
 
 
@@ -153,6 +193,9 @@ def evaluation_summary(result: ProbeEvaluation) -> dict[str, Any]:
         ),
         "direction_switches_per_100_steps": float(
             100.0 * result.direction_switches / max(1, result.total_steps)
+        ),
+        "direction_reversals_per_100_steps": float(
+            100.0 * result.direction_reversals / max(1, result.total_steps)
         ),
         "floors_bootstrap_ci95": [ci_low, ci_high],
         "success_rate_floor_1": float(np.mean(floors >= 1)),

@@ -2,6 +2,150 @@
 
 日期：2026-07-30
 
+## 2026-08-03 Simulator／Real Alignment Audit
+
+- 在新Simulator執行前凍結protocol：主要／次要真機run、8000～8029診斷seeds、時間、
+  action response、platform distribution、support alias與反向操作定義。
+- Test-first新增`simulator_real_alignment.py`、bounded collector、audit CLI與6個tests；
+  原版遊戲未啟動、未送鍵、未訓練，fresh6000～6099未使用。
+- 主要真機／Simulator cadence=125／100 ms且左右delta-vx方向一致，相關checks PASS。
+- 真機重要kinds有五類，Simulator一般分布只有normal/spikes；spring/conveyor/flipping
+  缺失。真機rising-support=40.58%、max11，Simulator=16.92%、max2。
+- episode3 step47確認source12有8/8 rising-support persistence並timeout，step50 restart；
+  主要run同departure方向反轉5次，Simulator 0。狀態
+  `FAIL_STOP_SIMULATOR_REAL_ALIGNMENT`，Dataset v2與所有Student／RL訓練維持BLOCKED。
+- 權威產物：`simulator_real_alignment_audit_v3.json`、凍結protocol及完整audit報告。
+- 新增6 tests、相關14 tests、完整468 tests PASS（63.52s）；compileall、JSON/source
+  fingerprint與diff check PASS。
+
+## 2026-08-03 Real Alignment Packet preflight
+
+- 稽核最新真機run後確認舊transition只有268維encoded observation，controller sidecar是
+  post-decision；缺少同一步structured platforms與直接pre-decision memory，不能從MP4
+  猜補target safe interval。
+- Test-first新增`real-alignment-packet-v1` writer、validator、causal chain與coverage Gate；
+  runner每步多寫structured obs/next、pre/post memory、target geometry、timing及frame index。
+- Packet固定diagnostic-only/training-ineligible；沒有修改Teacher action、控制率或安全鏈。
+- Dry-run不尋找視窗、不載入input backend、不送按鍵，狀態PENDING。
+- Alignment/real/transition targeted 50 tests PASS；完整462 tests PASS（71.03s）；
+  dry-run JSON、compileall與diff check PASS。
+- 工程狀態PASS，下一步限使用者監督的3-episode真機run；實際alignment Gate尚未評估。
+
+
+## 2026-08-03 Simulator Observation-Schema Probe
+
+- 執行前凍結7000～7199 development、7200～7299 validation、7300～7399 one-time test；
+  6000～6099 fresh reliability保持未使用。
+- 新增decision前target signed offset輸出、四組deployable feature builder、5-NN held-out
+  audit、CLI與3個tests；probe不修改controller action，也不啟動原版遊戲或訓練。
+- 400回合base/counterfactual reach=`76.25%/69.25%`、bottom=`23.75%/30.75%`、
+  Q25=`10/8`、CVaR25=`5.14/4.04`，確認launch-handoff在較大樣本仍退化。
+- 395次首次分歧只有1 improved、29 regressed、365 unchanged；另5個無分歧種子重播
+  floors完全相同。Development無improved class，所有separability metrics unavailable。
+- 狀態`INSUFFICIENT_EVIDENCE_STOP_SCHEMA_PROBE`；拒絕新Teacher候選、fresh100、正式v2
+  與Student。下一步限使用者監督的bounded真機alignment packet。
+- 已公開記錄protocol deviation：phase_basic協定列vx/vy，執行版basic只含vy；此偏差不
+  影響trajectory evidence FAIL，但禁止解讀basic-vs-combined可分性，也不重跑test。
+- 產物：`simulator_teacher_observation_schema_probe_v1.json`、凍結protocol與
+  `SIMULATOR_OBSERVATION_SCHEMA_PROBE_REPORT.md`。Schema／Teacher相關14 tests PASS
+  （6.04s）；完整457 tests PASS（162.51s）；artifact/protocol/source fingerprint、
+  compileall與diff check PASS。
+
+## 2026-08-03 Simulator Teacher Phase Observability Audit
+
+- 新增無控制修改的decision observer、phase signature/audit模組、CLI與測試；decision前
+  記錄deployable events、motion、screen-coordinate vy、gap、support、edge與landing
+  recency，privileged phase/last-landed只作診斷label。
+- Delayed2 base trace SHA、performance與60/60首次action分歧step完整重現前一artifact。
+- 首次介入結果為2 improved、6 regressed、52 unchanged；證據量三個固定門檻皆FAIL。
+- 8個deployable signatures中一個同時含1 improved、2 regressed與7 unchanged；
+  privileged post-bounce及last-landed也無法分離，故停止phase model/controller修改。
+- 936個support rows中876為rising，確認support heuristic表示bounce附近重疊，不是可靠
+  stable-support phase。Fresh seeds、正式v2、Student訓練與原版遊戲均未使用。
+- 產物：`simulator_teacher_phase_observability_audit_v1.json`與
+  `SIMULATOR_TEACHER_PHASE_OBSERVABILITY_AUDIT.md`。下一步限bounded schema probe。
+- Phase／observer targeted 6、完整454 tests PASS（178.57s）；compileall、artifact
+  JSON/source fingerprint與diff check PASS。
+
+## 2026-08-03 Simulator Teacher Launch-Handoff Gate
+
+- Test-first新增Simulator-only support-aware handoff；stable或無reachable future target均
+  不觸發，legacy與真機default保持關閉。只建立一個v4 candidate，沒有parameter sweep。
+- Delayed2 base的trace SHA、performance與60個floors完整重現前一Gate。
+- Candidate reach/bottom/Q25/CVaR/reversal為`75%/25%/9.5/4.2/10.36`，全面差於base
+  `81.67%/18.33%/10/6.27/9.06`；同種子Gate FAIL，fresh未執行。
+- Launch rows增至991但departure降為0、wall guard升至314，證實廣義handoff過度觸發；
+  下一步改做phase observability audit，不再追加controller heuristic。
+- 產物：`simulator_teacher_launch_handoff_gate_v1.json`與
+  `SIMULATOR_TEACHER_LAUNCH_HANDOFF_GATE_REPORT.md`。
+- Related 90與完整451 tests PASS（174.77s）；compileall、artifact JSON、source
+  fingerprint與diff check PASS。
+
+## 2026-08-03 Simulator Teacher Profile Gate
+
+- Test-first為SafePlatformPolicy新增可選normal-support departure delay/disable；預設仍
+  enabled+delay0，故真機runner未改行為。Simulator Teacher明確分成三個獨立v3 profile。
+- 新增bounded runner、同種子v2 readiness Gate、config/source fingerprints、risk-first
+  selection與條件式fresh100；scientific FAIL正常保存artifact且return 0。
+- 2000～2059：current/delayed2/disabled reach=`75/81.67/76.67%`，bottom=
+  `25/18.33/23.33%`；三者health death=0，但reach、bottom與action TV全FAIL。
+- selected profile為null，6000～6099完全未使用；沒有正式v2、Student訓練或真機操作。
+- 延後使首次分歧由median step1移至step6；53/60由舊launch escape變新aligned，定位
+  下一個最小實驗為Simulator-only support-aware launch handoff，不再掃delay。
+- 產物：`simulator_teacher_profile_gate_v1.json`與
+  `SIMULATOR_TEACHER_PROFILE_GATE_REPORT.md`。
+- Related 88與最終完整449 tests PASS（197.56s）；duration診斷中既有100k headless smoke
+  163.06s、新6-seed integration 0.62s。compileall、artifact JSON與diff check PASS。
+
+## 2026-08-03 P4.1 Dataset v2 Gap Audit
+
+- 新增唯讀audit module／CLI，對凍結Dataset v1與current Teacher diagnostic做同種子
+  outcome、branch、action、release-bridged reversal、split與首次trajectory分歧比較。
+- 同2000～2059 seeds：v1為56 target／4 bottom；current為45 target／15 bottom。
+  Reach由93.33%降至75%，bottom由6.67%升至25%，health death皆0。
+- 60/60在step 1分歧；57次首次reason由aligned變成depart support。RELEASE share
+  37.63%→48.42%、reversal 10.14→11.06/100 steps、action TV=0.10787。
+- 舊Dataset Gate對兩份資料都PASS，確認false positive；新v2 Gate加入policy/source/config
+  provenance、同種子reliability、critical branch coverage與fresh100 reliability。
+- Gate結果`FAIL_STOP_BEFORE_V2_GENERATION`、`v2_ready=false`。沒有正式生成v2、
+  沒有訓練、沒有使用final seeds、沒有啟動原版遊戲。
+- 新增`p41_dataset_gap.py`、`audit_p41_dataset_v2_gap.py`、3個targeted tests、
+  machine-readable artifact與`P41_DATASET_V2_GAP_AUDIT.md`。
+- 下一步限分離Simulator Teacher並做current/delayed/disabled同種子bounded micro-ablation；
+  未過Gate不跑fresh100或Student階段。
+- Dataset audit targeted 3、P4.1 related 28、完整441 tests PASS；compileall、artifact
+  JSON parse與diff check PASS。26.3 MB diagnostic-only JSONL及其暫存summary在確認未被
+  Git追蹤後移除；正式artifact保留完整統計、hash與provenance。
+
+## 2026-08-03 P4.1 Colab bounded selection
+
+- 驗證使用者提供的`20260803T085551Z_p41_ablation.zip`；archive SHA-256為
+  `b1fd2291...`，summary、manifest及12個selected checkpoints完整，Dataset仍為
+  3,529 rows／hash `fa3e111a...`。
+- 正式結果`FAIL_STOP_SELECTION`，沒有selected architecture，4100～4139 final seeds
+  未使用。S0/S1/S2/S3三初始化平均bottom death為13.3%／18.3%／50.0%／98.3%。
+- S1 mean與Q25改善至62.18／44.25，但CVaR25 17.00、reach-10 85.0%、bottom 18.3%
+  均不如S0的18.27／88.3%／13.3%，故維持FAIL；S2/S3淘汰。
+- Post-result audit發現selection priority與全域risk-first排序不一致，且現有相鄰方向
+  switch metric使0.10 improvement threshold不可達。這兩點不會救回S1的CVaR／reach／
+  bottom Gate，故不改判、不碰final seeds。
+- P4.2及後續維持BLOCKED。下一步限修telemetry／排序並用既有selection checkpoints
+  做不訓練reanalysis，再決定是否建立明確升版且另過reliability／coverage Gate的
+  Teacher Dataset v2。
+
+## 2026-08-03 P4.1 Selection-only checkpoint reanalysis
+
+- Test-first新增release-bridged direction reversal：RELEASE不再清除最後方向；舊direct
+  switch欄位保留。P4.1 selection改為collapse→health→bottom→Q25→CVaR→reach→
+  reversal→median→mean，oscillation由固定改善0.10改為跨初始化與平均皆不退化。
+- 新增`p41_reanalysis.py`與`reanalyze_p41_checkpoints.py`；只接受未碰final的
+  `FAIL_STOP_SELECTION`來源，驗證ZIP hash、dataset hash、checkpoint metadata與seed隔離。
+- S0/S1六個checkpoint在原20個selection seeds重播，舊metrics與逐回合floors完全重現；
+  training_started=false、final_seeds_used=false。
+- 新reversal平均S0 10.05、S1 10.73/100 steps；S1三初始化delta皆負，修正Gate為
+  `FAIL_STOP_SELECTION_CONFIRMED`。下一步限Dataset v2 Gap Audit，不生成資料。
+- Targeted 25 tests與完整438 tests PASS；compileall、artifact JSON與diff check PASS。
+
 ## 2026-08-03 P4.1 本機 preflight／interface smoke
 
 - 前置狀態：P3.6 Gate v11與P4.0 State-aliasing均PASS；本輪只執行被解鎖的
@@ -719,3 +863,138 @@ real executable 或 input backend 操作。
 - 刪除範圍限舊ZIP、禁止續訓的weights、已取代中間dataset/corrections、無引用v1
   duplicate與舊啟動logs；Gate v11、calibration、templates、clean easy dataset、
   Spike Dataset v1、summary與失敗provenance全部保留。
+
+## 2026-08-03 Spring Curriculum v0 Gate
+
+- 先建立`SPRING_CURRICULUM_V0_PROTOCOL.md`，凍結6% spring proposal、3-normal gap、
+  seeds 9000～9999／10000～10099與逐Gate停止規則。
+- Test-first新增config validation、feature-off RNG equivalence、長序列normal gap、
+  platform-kind統計、seed range與per-episode event coverage；第一次5 tests如預期FAIL，
+  實作後相關24 tests PASS。
+- `ShaftEnvConfig`新增spring curriculum欄位/version；generator在spawn=0時不消耗額外RNG，
+  並讓spikes間的health gap只計真正normal。Reachability artifact新增通用kind counts/ratios。
+- 正式Gate的Engineering、Reachability 100／1,000與ratio PASS：spring 243/9000=2.70%，
+  spikes 432/9000=4.80%，0 unreachable／unsafe。
+- Oracle只有71/100 reach-floor-10，29 failures全為top death；65個無spring回合全成功，
+  35個spring回合只有6成功，失敗前有2～4次spring contact。狀態`FAIL_STOP_ORACLE`。
+- 依protocol未執行Baseline，未生成Dataset、未訓練、未開啟遊戲或送鍵。下一步只允許
+  Spring Failure Trace／Fidelity Audit，不直接調190 px/s或追加escape heuristic。
+- 相關63 tests與完整475 tests PASS（69.02s）；compileall、artifact JSON、source／
+  protocol fingerprint及`git diff --check`全部PASS。
+
+## 2026-08-03 Spring Failure Audit／Oracle Escape Gate
+
+- 凍結failure/fidelity audit，逐step重播舊10000～10099：29 top deaths全部在2～4次
+  spring contact後，0 first-bounce direct top；失敗後RELEASE/LEFT/RIGHT=547/73/71。
+- 真機308 records有159筆可見spring、7 target-spring，但0 confirmed spring event／
+  vertical pairs；拒絕調190 px/s，唯一批准Oracle-only clearance候選。
+- Test-first新增aligned source離台、clear後RELEASE、10007 failure repair、branch metrics
+  與spike-only exact non-regression。診斷工具另鎖`enable_spring_escape=false`，確保
+  Oracle升版後仍可重播歷史失敗。
+- Development 11000～11099與untouched holdout 12000～12099均100/100 reach10；spring
+  30/30、29/29，top/health death 0。Holdout Baseline 15.76 vs 15.55、retention101.35%、
+  reach3 94%、spring early top 0/40，狀態`PASS_SPRING_ORACLE_ESCAPE_AND_BASELINE`。
+- 未開遊戲、未送鍵、未生成Dataset或訓練。Spring Simulator分布Gate解除，但實機fidelity、
+  conveyor/flipping與support shadow仍阻擋後續Student。
+- Spring／Oracle相關36 tests與完整482 tests PASS（70.32s）；compileall、artifact
+  JSON、candidate source/protocol fingerprint與`git diff --check`全部PASS。
+
+## 2026-08-03 Simulator v0.3 Edge／Playfield Fidelity
+
+- 由使用者指出新版影片仍從平台中央穿越後，test-first建立support ownership與
+  edge-departure invariant；新測試在舊物理4/4失敗，實作後通過。
+- 實機alignment packet的2,083個platform detections確認場地x=40～423；影片首幀
+  player (232,337.5)、scroll約96 px/s。generator／clamp／renderer／top hazard與初始
+  位置全部改用同一實機幾何。
+- v1/v2 Gate仍使用全畫布，保留但作廢為fidelity證據。正式v3 Engineering與
+  Reachability PASS；Oracle development reach3 100%、reach10 48%、mean8.72、
+  52 top deaths、0 edge violations，狀態`FAIL_STOP_ORACLE_DEVELOPMENT`。
+- 依序未跑Baseline與14000～14099 holdout；沒有Dataset、Student、RL或實機操作。
+- 已產生舊／新、實機片段、兩組並排MP4、montage與manifest；人工驗收後才能進
+  bounded top-pressure修正，特殊平台舊PASS不得沿用。
+- 完整490 tests、compileall、JSON／MP4 reopen及diff check全部PASS。
+
+## 2026-08-03 Top-Pressure Departure Commit Gate
+
+- 使用者人工確認v0.3基本左右離台影片正常，依新凍結協議解鎖單一bounded候選。
+- seed13009證明top-pressure在同一support tenure換target會使stateless Oracle中途反向；
+  v5鎖定來源與出口方向，離邊後才重規劃，固定測試PASS。
+- Formal v4 mean 8.72→8.93，但reach10仍48%、top deaths仍52；死亡樓層後移但成功數
+  不變，狀態`FAIL_STOP_ORACLE_DEVELOPMENT`。
+- Baseline與holdout未執行；不追加第二個heuristic。下一步需另凍結action-conditioned
+  route planner，而非放寬門檻或開始訓練。
+- Targeted 14 tests、完整491 tests PASS。
+
+## 2026-08-03 Bounded Action-Conditioned Route Planner
+
+- 凍結12-step／24-beam協議；planner直接用Simulator snapshot重播三動作，trigger由
+  top headroom／scroll時間決定，沒有調physics、場地或門檻。
+- snapshot/restore鎖定state、RNG與platform object identity；ordered departure records
+  可表達同一control step內landing後再次離邊，event-time clearance可稽核。
+- 20-seed micro由v5 reach10 60%改善至v6 95%、top0、edge violation0；seed13009
+  固定失敗由floor6 top修復為floor10。
+- Formal 100-seed Oracle mean10.20、reach3 100%、reach10 96%、0 violations，PASS。
+  Baseline mean5.03但reach3 73%、top88，FAIL；holdout依序未執行。
+- 不生成Dataset、不啟動訓練或遊戲。下一步只允許observable route-intent Gate。
+- 完整測試套件：`495 passed`（83.13 秒）。
+
+## 2026-08-04 Observable Support-Extent Route Intent
+
+- 凍結單一可部署候選；development audit發現926個premature support handoff steps，
+  100/100 episodes與27/27 early failures均受影響。
+- 新候選只沿用PlayerTracker／Simulator nearest-platform既有的AABB overlap語意；
+  使用獨立opt-in class，沒有改真實Teacher預設，也沒有privileged input。
+- Development由舊Baseline mean5.03／reach3 73%／reach10 12%改善為
+  8.26／97%／55%，0 violations、無collapse，PASS。
+- 首次holdout Oracle reach3 100%、reach10 93%、4 bottom／3 top，未達95%；狀態
+  `FAIL_STOP_ORACLE_HOLDOUT`。candidate holdout未執行，14000～14099退休。
+- 未生成Dataset、未啟動任何訓練或實機。下一步先做7個Oracle failure taxonomy，
+  再另凍結全新seed protocol。
+- Targeted 81 tests與完整498 tests PASS（132.51秒）；compileall通過。
+
+## 2026-08-04 Oracle Holdout Failure Taxonomy
+
+- 在執行前凍結7個retired failure seeds與四模式反事實，不修改production Oracle、不使用
+  新development／holdout、不啟動訓練或遊戲。
+- current v6的7/7 failure floor／terminal精確重現；14000～14099 generator
+  reachability、health safety與reproducibility全部PASS。
+- 原trigger＋receding first-action救回4/7；always-receding與24-step／96-beam extended
+  皆0/7。主要證據為open-loop execution，3/7保持unresolved。
+- 所有planner snapshot restoration與固定search bounds PASS；diagnostic artifact狀態
+  `EVIDENCE_OPEN_LOOP_PRIMARY`。
+- 已凍結唯一v7 candidate與16000～16099 development、17000～17099 one-time holdout。
+  尚未實作或執行新Gate；下一步test-first實作，development FAIL即不得碰holdout。
+- 新增taxonomy 7 tests與完整505 tests PASS（117.15秒）；compileall及artifact JSON PASS。
+- 產物：`SIMULATOR_ORACLE_FAILURE_TAXONOMY_PROTOCOL.md`、
+  `SIMULATOR_ORACLE_FAILURE_TAXONOMY_REPORT.md`、
+  `SIMULATOR_ORACLE_ROBUSTNESS_PROTOCOL.md`、
+  `artifacts/simulator_oracle_failure_taxonomy_v1.json`。
+
+## 2026-08-04 Oracle v7 Robustness Gate
+
+- test-first新增顯式`receding` execution；舊v6 cached維持不變。相關41 tests與
+  compileall在Formal Gate前PASS。
+- 16000～16099 reachability／health／reproducibility PASS；v6同批reference reach10
+  96%、mean10.35、bottom2／top2。
+- v7 reach10只有76%、mean9.49、bottom22／top2；絕對95%及相對v6 non-regression
+  同時FAIL，狀態`FAIL_STOP_ORACLE_ROBUSTNESS_DEVELOPMENT`。
+- 配對為75 both success、3 both failure、1 rescued、21 regressions；retired taxonomy
+  的局部4/7改善沒有泛化，v7正式REJECT且只保留opt-in供重現。
+- 17000～17099 `used=false`；holdout reachability、Oracle與observable均未執行。
+  未生成Dataset、未訓練、未操作遊戲。
+- 最終完整回歸520 tests PASS（113.83秒）；compileall、artifact JSON／SHA-256 assertions
+  與diff check PASS。
+- Artifact：`artifacts/simulator_oracle_robustness_gate_v1.json`；報告：
+  `reports/SIMULATOR_ORACLE_ROBUSTNESS_REPORT.md`。
+
+## 2026-08-04 v7 Failure Audit／v8暫停點
+
+- Paired audit固定21 regressions、1 rescue、3 both-failure、10 controls；首次分歧
+  release/opposite/fallback=`11/5/5`，未達16/21，狀態`INSUFFICIENT_EVIDENCE_STOP`。
+- Terminal-plan補充audit重播完整100個v6 development：成功0/96 exposure、top2/2、
+  bottom0/2；retired search failures3/3。狀態`EVIDENCE_TERMINAL_RISK_ISOLATION`。
+- 依證據凍結並test-first實作v8 terminal-risk guard；正常plan保留v6 cache，只在
+  predicted terminal時bounded replan。43 targeted tests與compileall PASS。
+- 正式v8 runner執行約42秒後依使用者要求中止；無artifact、無殘留程序，依既有76秒
+  development基準判定尚未進17000 holdout。v8正式狀態為未評估，不是PASS／FAIL。
+- 完整暫停總結：`reports/PROJECT_STAGE_SUMMARY_2026-08-04.md`。

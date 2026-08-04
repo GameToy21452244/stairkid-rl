@@ -1,0 +1,16 @@
+scenario,step,action,x,y,vx,vy,support_floor,deepest_floor,events,terminal_reason,collision_diagnostic
+M02_acceleration,1,RIGHT,241.98,92.5,104.8,0.0,0,0,[],,null
+M02_acceleration,2,RIGHT,262.94,92.5,209.6,0.0,0,0,[],,null
+M02_acceleration,3,RIGHT,285.94,92.5,230.0,0.0,0,0,[],,null
+M02_acceleration,4,RIGHT,308.94,92.5,230.0,0.0,0,0,[],,null
+M02_acceleration,5,RIGHT,331.94,92.5,230.0,0.0,0,0,[],,null
+M02_acceleration,6,RIGHT,354.94,92.5,230.0,0.0,0,0,[],,null
+M02_acceleration,7,RIGHT,377.94,92.34,230.0,-9.6,,0,"[""support_departed""]",,"{""current_bottom"":78.84,""current_platform_top"":79.0,""decision"":""pass_through_no_horizontal_overlap"",""impact_player_bbox_x"":[365.9399999999995,389.9399999999995],""one_way_eligible"":true,""platform_bbox_x"":[111.5,351.5],""platform_floor"":0,""previous_bottom"":78.94666666666667,""previous_platform_top"":79.0,""reason"":""swept_top_crossing_outside_platform"",""relative_velocity_y"":-9.600000000000001,""time_of_impact"":0.0}"
+M02_acceleration,8,RIGHT,400.94,90.58,230.0,-28.8,,0,[],,"{""current_bottom"":77.08000000000001,""current_platform_top"":79.0,""decision"":""pass_through_no_horizontal_overlap"",""impact_player_bbox_x"":[388.9399999999994,412.9399999999994],""one_way_eligible"":true,""platform_bbox_x"":[111.5,351.5],""platform_floor"":0,""previous_bottom"":77.50666666666667,""previous_platform_top"":79.0,""reason"":""swept_top_crossing_outside_platform"",""relative_velocity_y"":-28.799999999999997,""time_of_impact"":0.0}"
+M02_acceleration,9,RIGHT,411.0,86.9,0.0,-48.0,,0,[],,null
+M02_acceleration,10,RIGHT,411.0,81.3,0.0,-67.2,,0,[],,null
+M02_acceleration,11,RELEASE_ALL,411.0,73.78,0.0,-86.4,,0,[],,null
+M02_acceleration,12,RELEASE_ALL,411.0,64.34,0.0,-105.6,,0,[],,null
+M02_acceleration,13,RELEASE_ALL,411.0,52.98,0.0,-124.8,,0,[],,null
+M02_acceleration,14,RELEASE_ALL,411.0,39.7,0.0,-144.0,,0,[],,"{""current_bottom"":28.54666666666666,""current_platform_top"":31.0,""decision"":""pass_through_no_horizontal_overlap"",""impact_player_bbox_x"":[399.0,423.0],""one_way_eligible"":true,""platform_bbox_x"":[95.82981301992211,335.8298130199221],""platform_floor"":1,""previous_bottom"":30.839999999999996,""previous_platform_top"":31.0,""reason"":""swept_top_crossing_outside_platform"",""relative_velocity_y"":-140.8,""time_of_impact"":0.0}"
+M02_acceleration,15,RELEASE_ALL,411.0,24.5,0.0,-163.2,,0,[],,null

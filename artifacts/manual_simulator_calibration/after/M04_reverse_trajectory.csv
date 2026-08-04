@@ -1,0 +1,11 @@
+scenario,step,action,x,y,vx,vy,support_floor,deepest_floor,events,terminal_reason,collision_diagnostic
+M04_reverse,1,LEFT,247.5,92.5,160.0,0.0,0,0,[],,null
+M04_reverse,2,LEFT,256.5,92.5,90.0,0.0,0,0,[],,null
+M04_reverse,3,LEFT,258.5,92.5,20.0,0.0,0,0,[],,null
+M04_reverse,4,LEFT,253.5,92.5,-50.0,0.0,0,0,[],,null
+M04_reverse,5,LEFT,242.9,92.5,-106.0,0.0,0,0,[],,null
+M04_reverse,6,LEFT,226.7,92.5,-162.0,0.0,0,0,[],,null
+M04_reverse,7,LEFT,204.9,92.5,-218.0,0.0,0,0,[],,null
+M04_reverse,8,LEFT,181.9,92.5,-230.0,0.0,0,0,[],,null
+M04_reverse,9,LEFT,158.9,92.5,-230.0,0.0,0,0,[],,null
+M04_reverse,10,LEFT,135.9,92.5,-230.0,0.0,0,0,[],,null

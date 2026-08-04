@@ -1,8 +1,46 @@
 # Simulator Specification
 
+## v0.4 calibration candidate（人工重測，非formal預設）
+
+- `ShaftEnvConfig()`仍保留v0.3正式預設；v0.4只由manual tool的`after` profile明確啟用，
+  不改寫既有Oracle artifact或seed replay。
+- fixed 60 Hz physics與10 Hz control不變；30／60／120 render FPS invariance PASS。
+- 控制候選：支撐加速度560 px/s²、air multiplier 0.85、RELEASE deceleration
+  960 px/s²、reverse brake multiplier 1.25、max speed仍230 px/s。
+- Collision以top-surface time-of-impact的x做swept overlap，修復斜向edge tunneling；
+  rising-from-below仍沿用one-way pass-through，等待直接實機證據。
+- Scroll候選80 px/s；平台spacing仍48 px。Generator以24 px minimum horizontal shift、
+  8次bounded retry，100個manual seeds的shift median 81.43 px、Q75 118.08 px，未啟用特殊平台。
+- 詳見`reports/MANUAL_SIMULATOR_CALIBRATION_REPORT.md`。
+
+## v0.3：實機 playfield 與 edge-departure 語意（目前有效）
+
+- 畫布 634×431；實際可玩區 x=40～423、y=60～416，頂部尖刺碰撞下緣 y=88。
+- 初始平台 center-y=71、角色畫面中心 (231.5,338.5)，對齊實機參考
+  (232,337.5)。平台生成與角色水平 clamp 都只使用可玩區。
+- 普通、尖刺、輸送帶與 active flipping landing 後取得 support ownership；角色
+  隨平台以 96 px/s 上捲。只有完整 player AABB 離開來源平台左右 footprint 才發出
+  `support_departed` 並開始自由落下。
+- spring bounce 與 inactive flipping 不取得一般 support；one-way platform 仍允許
+  從下方穿越。
+- observation 的 nearest-platform gap 以角色腳底計算；`info` 暴露 support floor／
+  active，Gate 逐事件驗證每次 `floor_descended` 前都有合法來源離邊。
+- 正式 v3 Gate 的工程與幾何通過，但 Oracle development reach-floor-10 僅 48%，
+  後續v6 bounded route planner已使正式Oracle development達96%；observable Baseline
+  reach-floor-3仍僅73%，因此整體仍FAIL／STOP。特殊平台舊Gate必須在v0.3重新驗證。
+- v6 planner使用完整Simulator snapshot與future action replay，只能證明privileged
+  solvability，不是Teacher label或Student可部署能力。
+- Observable support-extent route intent在development達reach3 97%，但首次holdout
+  Oracle只有93%達floor10，低於95%；candidate holdout依序未執行。14000～14099已退休，
+  v0.3仍不可用於Dataset或Student訓練。
+
+詳細數值、影片與限制見 `reports/SIMULATOR_V03_EDGE_FIDELITY_REPORT.md`。
+以下 v0／v0.2 內容只保留歷史脈絡，不再代表目前 fidelity 結論。
+
 ## Sequence-control 對齊限制
 
-Simulator v0.2 已足以作 sequence representation 實驗，但尚未證明 Teacher 能轉移
+歷史 Simulator v0.2 曾被視為足以作 sequence representation 實驗，但後續實機影片
+證明其平台穿透與全畫布場地語意不成立。即使尚未證明 Teacher 能轉移
 到原版遊戲。P3.6 必須先比較真實畫面的 observation confidence、target tracking、
 action latency、loop frequency 與 failure taxonomy。輸送帶 ±80 px/s、彈簧
 190 px/s、翻板 1/1 秒仍是 provisional；Teacher Real Gate 未通過時，優先修正
@@ -169,5 +207,24 @@ Flipping-v1 尚未加入一般 generator、teacher dataset 或模型訓練。
 - baseline 平均 33.07 floors，保留 plain easy 34.68 的 95.36%，
   99% 到第 3 層且 0 health death。
 
-只有 spike curriculum v0 通過 mixed-distribution 前置 gate；conveyor、
-spring、flipping 仍未加入 generator。
+只有 spike curriculum v0 通過 mixed-distribution前置Gate。Spring curriculum v0的
+低比例生成已實作，但正式Oracle Gate失敗，因此不得用於Teacher Dataset或訓練；
+conveyor、flipping仍未加入generator。
+
+### Spring curriculum generator v0（FAIL／未批准訓練）
+
+- 基於spike curriculum加入spring proposal 6%，前3層normal；
+- spring前必須有3個連續normal；spring不計入spikes間5個normal回血間隔；
+- 1,000 seeds的spring/spikes實現比例2.70%／4.80%，Reachability與health safe通過；
+- Oracle 100 seeds只有71%到第10層；無spring65/65成功，遇spring僅6/35；
+- 29個失敗全是top death，且失敗前重複spring contact 2～4次；
+- 狀態`FAIL_STOP_ORACLE`，Baseline未跑。下一步先核對spring vertical/top semantics與
+  Oracle escape，不得直接以此分布生成資料或訓練。
+
+### Spring Oracle clearance v2（PASS，僅Simulator solvability）
+
+- Trace確認29個舊top deaths皆在2～4次contact後，0個first-bounce direct top；
+- Oracle在spring上方先clear source bounds＋2 px，通過source高度後恢復target tracking；
+- development/holdout overall與spring-conditioned reach10均100%，top/health death 0；
+- holdout Baseline 15.76 vs spike-only15.55、retention101.35%、reach3 94%；
+- 190 px/s與physics未改。因真機0個confirmed spring response pairs，不能標為real fidelity。

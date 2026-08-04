@@ -18,6 +18,7 @@ def configure_normal_healing_landing(
     )
     simulator.health_segments = health_segments
     simulator.last_health_delta = 0
+    simulator.supported_floor = None
     simulator.player.body.position = (
         platform.center_x,
         platform.top + simulator.player.height / 2 + 18.0,

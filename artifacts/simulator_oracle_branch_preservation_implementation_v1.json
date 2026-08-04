@@ -1,0 +1,63 @@
+{
+  "schema_version": "simulator-oracle-branch-preservation-implementation-v1",
+  "created_at": "2026-08-04T09:47:55.4804018Z",
+  "status": "READY_FOR_DEVELOPMENT",
+  "candidate": "oracle-full-v9-terminal-branch-preserving",
+  "protocol": "reports/SIMULATOR_ORACLE_BRANCH_PRESERVATION_PROTOCOL.md",
+  "protocol_sha256": "9d4fae44ae6c47714e48a3ebdae4b953f9e6f257c6f6604f8469cfd10859ccbe",
+  "protocol_artifact": "artifacts/simulator_oracle_branch_preservation_protocol_v1.json",
+  "protocol_artifact_sha256": "9c006b61fe32f32daefb9f4bca323868cb2eb44ca8ac71d89dc11e2c1cd72e92",
+  "seed_ledger": "artifacts/simulator_oracle_branch_preservation_seed_ledger_v1.json",
+  "seed_ledger_sha256": "9da4b0b725f0ce7f932f6a15cc7819bf3d7471a59262dc8f861156ad58230c54",
+  "formal_source_hashes": {
+    "src/stair_agent/policies/simulator_teachers.py": "a015ae5b96056ac6341da403c0b7ce25f91ebed28cc929a80b765573908a0872",
+    "src/stair_agent/policies/simulator_route_planner.py": "c22a5985d4a784e95efaa50d94d515e21c5df42c10ceda4d76ccfda4befcffb8",
+    "src/stair_agent/training/simulator_oracle_branch_preservation_gate.py": "d96eb5c476cb23a00c959eee6e846b2e4441694a25ec5425044512580220a928",
+    "src/stair_agent/training/simulator_oracle_branch_preservation_development.py": "062939ea76e651d0fdb12450496eafe83a5b98a4b2279c51d6ea4a539ec6f748",
+    "scripts/run_simulator_oracle_branch_preservation_development.py": "17870f9690b47fa515f7f755fbc532d9cab1d20c6ae163987dee9503c7604de7"
+  },
+  "test_first_evidence": {
+    "initial_status": "FAIL",
+    "initial_failure": "ModuleNotFoundError before production implementation",
+    "targeted_core_and_gate_tests": "13 passed",
+    "targeted_development_tests": "6 passed",
+    "full_pytest": "559 passed in 199.39s",
+    "compileall": "PASS",
+    "git_diff_check": "PASS"
+  },
+  "single_variable_audit": {
+    "first_action_lanes_only": true,
+    "score_modified": false,
+    "selector_modified": false,
+    "horizon_modified": false,
+    "beam_width_per_lane_modified": false,
+    "terminal_trigger_modified": false,
+    "physics_modified": false,
+    "generator_modified": false,
+    "normal_path_behavior_modified": false,
+    "cooldown_or_hysteresis_added": false
+  },
+  "behavior_checks": {
+    "three_independent_lanes": true,
+    "phase2f_rescue_triggers_found": "14/14",
+    "existing_selector_selects_survivor": "14/14",
+    "non_terminal_v6_identity": true,
+    "full_suffix_cached": true,
+    "snapshot_rng_platform_restore": true,
+    "duplicate_replay": true,
+    "all_terminal_fallback": true,
+    "node_time_memory_bounds": true,
+    "development_fail_blocks_holdout": true,
+    "retired_seed_protection": true
+  },
+  "formal_seed_execution": {
+    "18000-18199_used": false,
+    "19000-19099_used": false,
+    "17000-17099_used": false
+  },
+  "holdout_used": false,
+  "training_started": false,
+  "dataset_generated": false,
+  "real_game_started": false,
+  "next_phase": "BRANCH_PRESERVATION_DEVELOPMENT"
+}

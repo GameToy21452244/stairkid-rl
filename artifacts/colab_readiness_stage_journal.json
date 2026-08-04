@@ -1,0 +1,152 @@
+{
+  "schema_version": "colab-readiness-stage-journal-v1",
+  "overall_status": "BLOCKED_WITH_EVIDENCE",
+  "current_phase": "branch_preservation_development",
+  "phases": {
+    "oracle_v8_development": {
+      "development_started": true,
+      "development_completed": true,
+      "development_gate_result": "FAIL",
+      "attempt": 2,
+      "started_at": "2026-08-03T20:33:06.879132+00:00",
+      "completed_at": "2026-08-03T20:36:14.594774+00:00",
+      "protocol": "reports\\SIMULATOR_ORACLE_V8_TERMINAL_GUARD_PROTOCOL.md",
+      "protocol_hash": "78df06c393ff8123d559a98657fadbd791eee3ce3f532aa6a3fabe2cc3f5289e",
+      "source": "src\\stair_agent\\policies\\simulator_teachers.py",
+      "source_hash": "18018669ed6e97056be20bf07642afd766dfa0b3c0bf4e232e476c26c295cbbb",
+      "development_runner_hash": "4b6e3a54f841b0ec7394ce8eb31edd74828c167b6ee0f184f86f78d9804b1a08",
+      "seed_partition": {
+        "role": "development",
+        "start": 16000,
+        "end": 16099,
+        "count": 100
+      },
+      "status": "FAIL_STOP_V8_DEVELOPMENT",
+      "artifact_paths": [
+        "artifacts\\simulator_oracle_v8_terminal_guard_development_v1.json",
+        "reports\\SIMULATOR_ORACLE_V8_TERMINAL_GUARD_DEVELOPMENT_REPORT.md",
+        "reports\\COLAB_READINESS_MASTER_REPORT.md"
+      ],
+      "stop_reason": "v6_top_failures_repaired_at_least_one=false",
+      "artifact_sha256": "b36273b3fb283006d0115ca025df32ed6a8ac8c3ce9d08dbe3d4b4383d7ea166"
+    },
+    "oracle_v8_phase2f_review": {
+      "started_at": "2026-08-04T08:47:58.230737+00:00",
+      "completed_at": "2026-08-04T09:02:18.345668+00:00",
+      "status": "COMPLETE",
+      "protocol_hash": "78df06c393ff8123d559a98657fadbd791eee3ce3f532aa6a3fabe2cc3f5289e",
+      "source_hash": "c52671e08c607d919e8c83b5f63b5c0faaf8b92541322996bdc736b66444a394",
+      "seed_partition": {
+        "role": "development diagnostic only",
+        "start": 16000,
+        "end": 16099,
+        "holdout_used": false
+      },
+      "artifact_paths": [
+        "artifacts\\simulator_oracle_v8_phase2f_review_v1.json",
+        "reports\\SIMULATOR_ORACLE_V8_PHASE2F_DESIGN_REVIEW.md"
+      ],
+      "stop_reason": null,
+      "artifact_sha256": "1343e9183d670c4f4afa865f65818287c7f0fdce667ad48dd300321558e9c98c"
+    },
+    "branch_preservation_protocol_review": {
+      "started_at": "2026-08-04T09:32:23+00:00",
+      "completed_at": "2026-08-04T09:33:20+00:00",
+      "status": "READY_FOR_TEST_FIRST_IMPLEMENTATION",
+      "protocol": "reports\\SIMULATOR_ORACLE_BRANCH_PRESERVATION_PROTOCOL.md",
+      "protocol_hash": "9d4fae44ae6c47714e48a3ebdae4b953f9e6f257c6f6604f8469cfd10859ccbe",
+      "source_hashes": {
+        "src\\stair_agent\\policies\\simulator_teachers.py": "18018669ed6e97056be20bf07642afd766dfa0b3c0bf4e232e476c26c295cbbb",
+        "src\\stair_agent\\policies\\simulator_route_planner.py": "c52671e08c607d919e8c83b5f63b5c0faaf8b92541322996bdc736b66444a394"
+      },
+      "seed_ledger": "artifacts\\simulator_oracle_branch_preservation_seed_ledger_v1.json",
+      "seed_ledger_hash": "9da4b0b725f0ce7f932f6a15cc7819bf3d7471a59262dc8f861156ad58230c54",
+      "seed_partition": {
+        "development": "18000-18099",
+        "conditional_extension": "18100-18199",
+        "holdout": "19000-19099"
+      },
+      "selector_audit": "14/14 PASS with existing selector",
+      "artifact_paths": [
+        "reports\\SIMULATOR_ORACLE_BRANCH_PRESERVATION_PROTOCOL.md",
+        "artifacts\\simulator_oracle_branch_preservation_protocol_v1.json",
+        "artifacts\\simulator_oracle_branch_preservation_seed_ledger_v1.json",
+        "reports\\SIMULATOR_ORACLE_BRANCH_PRESERVATION_IMPLEMENTATION_PLAN.md"
+      ],
+      "stop_reason": null,
+      "artifact_sha256": "9c006b61fe32f32daefb9f4bca323868cb2eb44ca8ac71d89dc11e2c1cd72e92"
+    },
+    "branch_preservation_test_first_implementation": {
+      "started_at": "2026-08-04T09:34:02.1346563Z",
+      "completed_at": "2026-08-04T09:47:55.4804018Z",
+      "status": "PASS",
+      "protocol_hash": "9d4fae44ae6c47714e48a3ebdae4b953f9e6f257c6f6604f8469cfd10859ccbe",
+      "source_hashes": {
+        "src\\stair_agent\\policies\\simulator_teachers.py": "a015ae5b96056ac6341da403c0b7ce25f91ebed28cc929a80b765573908a0872",
+        "src\\stair_agent\\policies\\simulator_route_planner.py": "c22a5985d4a784e95efaa50d94d515e21c5df42c10ceda4d76ccfda4befcffb8"
+      },
+      "seed_partition": "none; tests used retired diagnostic seeds only",
+      "artifact_paths": [
+        "artifacts\\simulator_oracle_branch_preservation_implementation_v1.json"
+      ],
+      "engineering_gate": {
+        "pytest": "559 passed in 199.39s",
+        "compileall": "PASS",
+        "git_diff_check": "PASS"
+      },
+      "stop_reason": null
+    },
+    "branch_preservation_development": {
+      "started_at": "2026-08-04T09:49:26.264395+00:00",
+      "completed_at": "2026-08-04T09:55:22.292992+00:00",
+      "protocol": "reports\\SIMULATOR_ORACLE_BRANCH_PRESERVATION_PROTOCOL.md",
+      "protocol_hash": "9d4fae44ae6c47714e48a3ebdae4b953f9e6f257c6f6604f8469cfd10859ccbe",
+      "source_hashes": {
+        "src\\stair_agent\\policies\\simulator_teachers.py": "a015ae5b96056ac6341da403c0b7ce25f91ebed28cc929a80b765573908a0872",
+        "src\\stair_agent\\policies\\simulator_route_planner.py": "c22a5985d4a784e95efaa50d94d515e21c5df42c10ceda4d76ccfda4befcffb8"
+      },
+      "seed_partition": {
+        "role": "formal development",
+        "start": 18000,
+        "end": 18099,
+        "count": 100,
+        "conditional_extension_used": false
+      },
+      "status": "FAIL_STOP_BRANCH_PRESERVATION_DEVELOPMENT",
+      "development_gate_result": "FAIL",
+      "artifact_paths": [
+        "artifacts\\simulator_oracle_branch_preservation_development_v1.json",
+        "reports\\SIMULATOR_ORACLE_BRANCH_PRESERVATION_REPORT.md"
+      ],
+      "stop_reason": "candidate reach10=0.93 below frozen 0.95 absolute floor",
+      "artifact_sha256": "e4952a8332f7c2a25acb564e28a8b47b9b733e4c4bb073f19eade79501cd9758"
+    }
+  },
+  "holdout": {
+    "partition": "17000-17099",
+    "used": false,
+    "started_at": null
+  },
+  "candidate_holdout": {
+    "partition": "19000-19099",
+    "used": false,
+    "started_at": null,
+    "blocked_by": "FAIL_STOP_BRANCH_PRESERVATION_DEVELOPMENT"
+  },
+  "dataset_generated": false,
+  "training_started": false,
+  "real_game_started": false,
+  "attempt_history": [
+    {
+      "attempt": 1,
+      "started_at": "2026-08-03T20:29:03.182233+00:00",
+      "ended_at": "2026-08-03T20:31:46.686131+00:00",
+      "status": "INCOMPLETE",
+      "development_gate_result": "INCOMPLETE",
+      "stop_reason": "AttributeError: 'EdgeEpisode' object has no attribute 'to_dict'",
+      "artifact_paths": [],
+      "holdout_used": false
+    }
+  ],
+  "updated_at": "2026-08-04T09:55:22.348563+00:00"
+}

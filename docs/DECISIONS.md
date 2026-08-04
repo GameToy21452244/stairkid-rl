@@ -1,5 +1,23 @@
 # Decisions
 
+## D-076：v0.4 calibration以manual profile隔離，保留frozen v0.3
+
+- 日期：2026-08-04
+- 決策：`ShaftEnvConfig()`、舊generator RNG stream與歷史Oracle replay保留v0.3；新的
+  controls、scroll、layout與swept edge collision只由manual `after` profile啟用。
+- 理由：使用者需要可操作的修正候選，但人工alignment不能改寫已凍結的formal artifacts。
+  Targeted tests曾立即偵測全域預設造成4個歷史seed回歸；隔離後全部恢復。
+- 後續：使用者before／after重測後，若要成為新formal simulator version，必須另立protocol、
+  seed ledger與全新development／holdout，不得沿用人工seed或既有Gate結果。
+
+## D-075：平台穿越以swept top-surface crossing修正
+
+- 日期：2026-08-04
+- 決策：v0.4 candidate在平台top crossing的time-of-impact位置判斷水平overlap，並保留
+  relative platform motion與one-way rising pass-through。
+- 證據：30／60／120 render FPS結果一致；舊斜向edge案例crossing時重疊、substep末已離開，
+  candidate修復。故不更動60 Hz physics或10 Hz control。
+
 ## D-001：長期規格是永久恢復來源
 
 - 日期：2026-07-30
@@ -777,3 +795,267 @@
   updates、三初始化、相同selection/final env seeds；offline accuracy不選模。
 - Gate：候選必須對S0的Q25、CVaR25、reach-10、bottom及oscillation跨初始化一致改善，
   維持health safety且不collapse。selection FAIL不碰final；final FAIL停止P4.2。
+
+## D-063：P4.1 Selection FAIL；保留S1方向但不放行P4.2
+
+- 日期：2026-08-03
+- 證據：正式Colab三初始化中，S0 mean/Q25/CVaR25/reach-10/bottom為
+  `54.83/33.58/18.27/88.3%/13.3%`；S1為`62.18/44.25/17.00/85.0%/18.3%`。
+  S2/S3 bottom death為50.0%／98.3%。所有模型health death為0且未collapse。
+- 決策：狀態固定為`FAIL_STOP_SELECTION`；S1只保留作下一輪最小候選，S2 full-GRU與
+  S3 compact-GRU淘汰。Final seeds 4100～4139不使用，P4.2保持BLOCKED。
+- Protocol缺陷：目前selection把reach排在bottom前；相鄰LEFT↔RIGHT metric忽略經
+  RELEASE反轉，使S0只有0.005 switches/100 steps而0.10 improvement不可達。先修排序
+  與release-bridged reversal telemetry，再以已保存selection checkpoints做無訓練
+  reanalysis；不得藉工程修正回頭把本輪改判PASS。
+- 後續條件：若reanalysis仍確認S1 tail退化，需先將current Teacher與dataset明確升版、
+  另過reliability／coverage Gate，再考慮一次bounded S0/S1比較；不得覆寫Dataset v1。
+
+## D-064：修正後重播仍FAIL；下一步只做Dataset v2 Gap Audit
+
+- 日期：2026-08-03
+- 工程修正：新增跨RELEASE的direction reversal；selection改為bottom/Q25/CVaR優先於
+  reach；oscillation改為2/3 initialization與平均皆不退化，不要求固定改善0.10。
+- 重播證據：S0/S1六個封存checkpoints在原4000～4019 seeds完整重現舊metrics與每回合
+  floors。S0 reversal平均10.05，S1 10.73/100 steps；S1三初始化delta全負，平均退化
+  0.679。CVaR、reach、bottom原失敗亦維持。
+- 決策：狀態升級為`FAIL_STOP_SELECTION_CONFIRMED`，不是重開Gate。4100～4139保持
+  未使用並退出本實驗；不得為S2/S3重訓未封存candidate。
+- 下一步：先做Dataset v2 Gap Audit，不生成新資料。Audit需量化current Teacher相對v1的
+  policy provenance、branch／recovery與early-failure coverage，再預先凍結可靠性Gate。
+
+## D-065：Dataset v2 先分離 Simulator Teacher，再過可靠性 Gate
+
+- 日期：2026-08-03
+- 證據：同 seeds 2000～2059 的 frozen v1／current Teacher target-reached 為56／45，
+  bottom death為4／15；current reach 75%、bottom 25%，但舊Dataset Gate仍PASS。
+  60/60 episodes從step 1分歧，57次首次reason為
+  `aligned_with_safe_platform -> depart_support_platform`；action TV=0.10787。
+- 決策：狀態為`FAIL_STOP_BEFORE_V2_GENERATION`。Real-game Teacher與Simulator
+  Teacher分開profile/version；不為模擬器資料而回退已通過P3.6真機Gate的controller。
+- 新Gate：同60 seeds reach>=91.33%、bottom<=8.67%、health death=0、action TV<=0.10，
+  並通過critical branch split/episode coverage；之後才可跑fresh100，要求reach>=90%、
+  bottom<=10%、health death=0。source/config fingerprints與policy version為blocking。
+- 下一步：bounded比較current、normal-support departure delayed、disabled。沒有候選通過
+  同種子Gate就停止；不得生成正式v2、執行fresh100、BC、DAgger或P4.2。
+
+## D-066：離台延後有改善但未過Gate；下一個只隔離launch handoff
+
+- 日期：2026-08-03
+- 實作：Simulator Teacher建立三個獨立v3 profile；SafePlatformPolicy真機預設保持
+  departure enabled／delay0。所有profile與env config都有fingerprint。
+- 證據：current/delayed2/disabled的reach為75%/81.67%/76.67%，bottom為
+  25%/18.33%/23.33%。Delayed最佳但仍未達91.33%/8.67%，action TV 0.207>0.10。
+- 決策：`FAIL_STOP_SAME_SEED_RELIABILITY`；selected=null，fresh6000～6099未使用。
+  不做delay sweep、不放寬Gate、不生成v2。
+- 根因推論：delayed將首次分歧median推到step6，但53/60由舊launch escape變成aligned；
+  下一個最小實驗只測support-aware launch handoff，真機Teacher不變。未過同60 seeds即停。
+
+## D-067：拒絕廣義support-aware launch；先稽核phase可觀測性
+
+- 日期：2026-08-03
+- 證據：唯一候選使reach 81.67%→75%、bottom 18.33%→25%、CVaR25 6.27→4.2、
+  reversal 9.06→10.36。Base trace與per-seed floors完整重現，fresh未使用。
+- 機制：launch rows 736→991，但support departure 117→0、wall guard 223→314；6個
+  base success變bottom，只有2個反向改善。Branch count接近舊資料並未恢復phase timing。
+- 決策：狀態`FAIL_STOP_LAUNCH_HANDOFF_SAME_SEED`，保留候選作負證據但不選用；
+  不追加第二個heuristic、不放寬Gate、不產生v2。
+- 下一步：先做delayed2 decision-level phase observability audit。Privileged state只作
+  label；若observable event/motion/vy/gap/geometry不能分離，升observation/schema。
+
+## D-068：現有phase features證據不足且有alias；先升觀測稽核，不再改控制器
+
+- 日期：2026-08-03
+- 證據：60/60首次分歧完整重現，但只有2改善、6退化、52不變；changed>=20、
+  improved>=10、regressed>=10皆未達。8種deployable signatures中有一個同時含
+  1改善、2退化、7不變。
+- 診斷：privileged `post_bounce_launch` 同時覆蓋2改善與5退化；nearest-is-last-landed
+  true也同時覆蓋2改善與5退化。936個support rows有876個rising，證明support heuristic
+  不是穩定站台phase。
+- 決策：狀態`INSUFFICIENT_EVIDENCE_STOP_PHASE_MODEL`；不以少量changed outcomes
+  追加rule，不把privileged phase/raw ID當input，不跑fresh100或生成Dataset v2。
+- 下一步：只做bounded observation-schema probe。候選必須pre-decision、因果、真機可得，
+  優先檢查past-action commitment及來源／目標safe interval相對幾何；先凍結held-out
+  可分性Gate，再決定是否允許一個新的Simulator Teacher候選。
+
+## D-069：Observation-schema probe否決launch-handoff，轉向真機alignment
+
+- 日期：2026-08-03
+- 協定：執行前凍結7000～7199 development、7200～7299 validation、7300～7399
+  one-time test；6000～6099 fresh reliability保持未使用。
+- 證據：400回合只有1 improved、29 regressed、365 unchanged與5個無action divergence；
+  base/candidate reach為76.25%／69.25%，bottom為23.75%／30.75%，Q25為10／8，
+  CVaR25為5.14／4.04。Development沒有improved class，held-out separability不可評估。
+- 決策：`INSUFFICIENT_EVIDENCE_STOP_SCHEMA_PROBE`。拒絕launch-handoff系列，不新增
+  Teacher rule、不掃參數、不重跑test split、不執行fresh100、Dataset v2或Student訓練。
+- Protocol deviation：協定列phase_basic含vx/vy，但執行版basic只含vy，vx只在
+  causal/combined。此偏差不影響由trajectory決定的evidence/closed-loop FAIL，但禁止把
+  artifact解讀成有效的basic-vs-combined可分性比較，也不以事後修正重用holdout。
+- 下一步：先建立小型同步真機alignment packet，核對observation、action timing、causal
+  history與target safe interval在spring/spike/edge/wall分支的語意；通過另行凍結的
+  alignment Gate後，才可提出一個新的hierarchical target＋low-level controller候選。
+
+## D-070：真機alignment另建diagnostic schema，不遷移舊影片
+
+- 日期：2026-08-03
+- 證據：舊transition只有268維encoder輸出，當步controller sidecar為post-decision；MP4
+  重新偵測無法保證等同live observation，故target safe geometry與因果memory不可證明。
+- 決策：新增`real-alignment-packet-v1`旁路；同步保存structured obs、pre/post memory、
+  target geometry、timing及frame index。舊run不猜補、不migration成新packet。
+- 安全／資料界線：不改Teacher action；packet diagnostic-only、training-ineligible，raw ID
+  不得進Student。Packet PASS只解鎖sim/real alignment audit，不解鎖Dataset v2或訓練。
+- 執行：先3回合、人工監督；coverage不足最多累積10回合，不自動追加、不用固定左右震盪。
+
+## D-071：Simulator／Real Alignment FAIL；先補分布與support phase，不啟動純RL
+
+- 日期：2026-08-03
+- 證據：主要真機packet 308 rows已PASS；cadence真機／Simulator為125／100 ms，左右
+  delta-vx方向一致。但真機重要kinds有五類，Simulator一般分布只有normal/spikes；真機
+  rising-support 40.58%、max streak 11，Simulator只有16.92%、max 2。
+- 因果案例：主要run episode 3 step47在source 12上有8/8 rising-support persistence並
+  timeout，step50同source restart；主要run有5次同departure方向反轉，Simulator為0。
+- 決策：`FAIL_STOP_SIMULATOR_REAL_ALIGNMENT`。不放寬Teacher Gate、不產生Dataset v2，
+  也不以pure RL繞過reality gap。先建立spring/conveyor/flipping低比例生成Gate，並用既有
+  packet做phase-aware support ownership shadow replay；未通過前不做新實機candidate。
+- 純RL定位：保留為環境對齊與Student bootstrap後的固定預算對照／fine-tuning；不得在
+  缺三類平台且support時序不一致的Simulator直接長訓。
+
+## D-072：Spring低比例生成通過，但Oracle遇spring後系統性top death
+
+- 日期：2026-08-03
+- 協定：先凍結spring proposal 6%、前3層normal、spring前3個normal、spikes間5個
+  真正normal；Reachability 9000～9999、Oracle 10000～10099，95% reach-floor-10。
+- 證據：Engineering與Reachability全部PASS；9,000平台spring/spikes比例2.70%／4.80%。
+  Oracle只有71%到第10層；無spring回合65/65成功，有spring回合6/35成功，其餘29回合
+  全為top death且有2～4次spring contact。0 health death、action未collapse。
+- 決策：狀態`FAIL_STOP_ORACLE`，Baseline不執行。不得降低spring比例或Oracle門檻後
+  重用正式seeds，也不得生成Dataset v2或開始Student／純RL訓練。
+- 下一步：先做bounded Spring Failure Trace／Fidelity Audit，分離provisional physics、
+  top/camera semantics與Oracle escape；證據支持前不直接改190 px/s或堆escape heuristic。
+
+## D-073：Spring失敗責任在重複contact，不批准physics猜值
+
+- 日期：2026-08-03
+- 證據：29個top deaths全部有2～4次spring contact，0個first-bounce direct top；失敗後
+  Oracle動作RELEASE/LEFT/RIGHT=`547/73/71`。真機packet有0個confirmed spring event pair。
+- 決策：不改190 px/s、不改top boundary；只批准一個privileged Oracle clearance候選。
+  舊10000～10099只作診斷，不得重新判Gate。
+
+## D-074：Oracle spring clearance與Baseline在untouched holdout通過
+
+- 日期：2026-08-03
+- 候選：player仍在last-landed spring上方時，先完全clear source bounds＋2 px；clear後
+  RELEASE，通過source高度再恢復下一層target tracking。只影響Oracle-full。
+- 證據：development 11000～11099與唯一holdout 12000～12099均100/100 reach10；spring
+  分別30/30、29/29，top/health death 0。Spike-only 40 seeds新舊trajectory完全相同。
+- Baseline：holdout 15.76 vs reference15.55，retention101.35%、reach3 94%、0 health
+  death、無collapse、spring early top 0/40，全部PASS。
+- 影響：spring distribution工程Gate解除；12000～12099永久凍結。這不代表真機spring
+  fidelity或Teacher已通過；conveyor/flipping與support shadow仍在實機前阻擋。
+
+## D-075：v0.2 全畫布／穿透語意作廢；v0.3 實機場地 Gate FAIL／STOP
+
+- 日期：2026-08-03
+- 證據：實機3 episodes／308 records共2,083個平台detections，水平邊界為40～423；
+  episode 3初始player為(232,337.5)，平台scroll約96 px/s。舊Simulator使用0～634，
+  且RELEASE可在未離邊時得到`floor_descended`。
+- 決策：v0.3啟用support ownership、實機playfield、頂刺y=88與完整AABB edge departure；
+  v0.2 Spring／Oracle／Baseline及v0.3 v1/v2全畫布成功率全部降為歷史診斷。
+- Gate v3：Engineering與Reachability PASS；Oracle development mean 8.72、reach3 100%、
+  reach10 48%、52 top deaths、0 invariant violations。依序停止Baseline與holdout。
+- 影響：人工視覺驗收可進行，但不得宣稱1:1完成、不得生成Dataset或開始Student／RL。
+  下一步只准在development修top-pressure／跨層規劃，再首次使用未看holdout。
+
+## D-076：保留離台方向承諾，但拒絕以局部修正解鎖 Gate
+
+- 日期：2026-08-03
+- 前置：使用者人工確認新版實機／Simulator並排影片的基本左右離台語意正常。
+- 候選：同一support tenure鎖定來源與出口方向，離邊後才允許top-pressure retarget；
+  seed13009固定測試由中途折返改為當步合法離邊。
+- 證據：v4 mean 8.93 vs v3 8.72，但reach10同為48%、top deaths同為52；0 edge
+  violations。死亡由floor5～9後移為floor6～9，沒有增加成功數。
+- 決策：局部修正保留，Gate仍`FAIL_STOP_ORACLE_DEVELOPMENT`；不跑Baseline／holdout，
+  不放寬門檻。下一候選必須另建bounded action-conditioned route-planning協議。
+
+## D-077：Privileged Route Oracle通過；整體停在Observable Baseline
+
+- 日期：2026-08-03
+- 候選：12-step／24-beam三動作search直接重播Pymunk snapshot；以top headroom時間
+  自動trigger，規劃後完整還原live state、RNG與platform identity。
+- 證據：development Oracle mean10.20、reach3 100%、reach10 96%、top3、bottom1、
+  0 edge violations，正式PASS；Baseline mean5.03但reach3 73%、top88，正式FAIL。
+- 決策：Simulator normal分布的privileged solvability成立，但deployable control仍不成立。
+  holdout不執行；不得用Oracle action作BC label。下一步只准observable route-intent Gate。
+
+## D-078：Observable route intent通過development，但Oracle holdout失敗即停
+
+- 日期：2026-08-04
+- 根因證據：舊policy在100個development episodes有926 steps提早把仍supported的角色
+  判成airborne；27/27 early failures皆受影響。tracker的nearest已代表AABB overlap，
+  policy額外要求center-in-platform造成phase alias。
+- 候選：獨立`teacher-observable-v5-support-extent-route-intent`沿用tracker overlap，
+  其餘控制與physics不變；真實Teacher預設不切換。
+- Development：mean5.03→8.26、reach3 73%→97%、reach10 12%→55%、top88→45，
+  0 violations且無collapse，候選Gate PASS。
+- Holdout：首次14000～14099 Oracle reach10只有93%（門檻95%），4 bottom／3 top；
+  狀態`FAIL_STOP_ORACLE_HOLDOUT`，observable holdout未執行。
+- 影響：該holdout永久退休；不重跑、不降門檻、不生成Dataset或訓練。下一步先做7個
+  retired failure taxonomy，再另凍結全新Oracle robustness seeds。
+
+## D-079：Oracle v6首要責任為open-loop plan execution；拒絕always-plan與擴大搜尋
+
+- 日期：2026-08-04
+- 協定：先凍結7個retired failures及current／receding-current-trigger／always-receding／
+  extended-always-receding四模式；只作diagnostic，不重判舊holdout。
+- 證據：7/7 v6 failure精確重現；generator reachability與health全部PASS。receding且保留
+  原trigger救回4/7；always與24-step／96-beam extended皆0/7。所有snapshot restore與
+  search bound checks PASS。
+- 決策：批准唯一`oracle-full-v7-receding-route-planner`候選，只在原trigger後每decision
+  重算並執行第一個action。不改trigger、horizon、beam、score、physics或generator。
+- 限制：另3/7仍unresolved；taxonomy不是泛化Gate，不得據此解鎖Dataset／Student。
+
+## D-080：新Oracle robustness Gate使用16000 development與17000 one-time holdout
+
+- 日期：2026-08-04
+- Development固定16000～16099；需reachability、安全、重現性、v7絕對Oracle門檻及相對
+  v6 reach10 non-regression全部PASS。
+- 只有development PASS才可首次使用17000～17099；holdout先驗reachability，再跑一次v7。
+  v7 PASS後才准評估既有observable route-intent candidate。
+- 任一Gate FAIL立即停止；不掃參數、不重用13000～14099、不啟動任何訓練或實機。
+
+## D-081：v7 receding候選在全新development退化，正式REJECT
+
+- 日期：2026-08-04
+- 證據：16000～16099 generator Gate PASS；v6/v7 reach10為96%／76%，mean為
+  10.35／9.49，bottom為2／22。配對只有1 rescued但有21 regressions。
+- 決策：`FAIL_STOP_ORACLE_ROBUSTNESS_DEVELOPMENT`；v7保留明確opt-in供重現，不升為
+  預設、不作Teacher label。taxonomy的retired-seed改善不得解讀為泛化證據。
+- Holdout：17000～17099完全未使用。下一步限先凍結paired trace audit，證據前不新增
+  production候選、不調參重跑development、不開始Dataset／Student／實機。
+
+## D-082：v8為安全但無效no-op；只支持first-action branch preservation進新protocol
+
+- 日期：2026-08-04
+- Formal前提：v6/v8 reach10均96%，bottom/top均2/2，100/100 action sequences相同；
+  v8多20次terminal-risk replans但修復top failure為0，維持`FAIL_STOP_V8_DEVELOPMENT`。
+- Phase 2F證據：22/22 terminal-plan calls都重建相同RELEASE suffix，selected action確實
+  執行且snapshot restore PASS。相同12/24 bounds按first action隔離後有14個RIGHT分支可
+  完整reach10；14/14在production shared beam depth 4以rank 35～39被beam=24剪除。
+- 根因：score-induced intermediate beam pruning，不是trigger太晚、horizon不足、final
+  score比較、overwrite或物理無解。16002／16030 entry分別早於持續無解點8／6 decisions。
+- 決策：v8正式REJECT，只留重現；frozen repair Gate不放寬。D first-action diversity／
+  branch preservation為唯一`SUPPORTED_FOR_NEW_PROTOCOL`方向；A/B/E拒絕，C/F/G證據不足。
+- 限制：只准先寫新protocol與seed ledger；不批准production候選、formal Gate或任何seed
+  消耗。17000～17099維持unused，Dataset／Student／Colab／實機仍blocked。
+
+## D-083：Branch preservation有因果改善但未達絕對95%，formal FAIL即停
+
+- 日期：2026-08-04
+- Protocol／Engineering：既有selector在Phase 2F audit 14/14選到survivor；唯一production
+  變因test-first完成，完整559 tests、compileall與diff check PASS。
+- Formal evidence：18000～18099 v6/candidate reach10為90%／93%，top 4→1、bottom 6→6、
+  CVaR25 7.96→8.36；paired救回3、regression 0，non-terminal identity與reproducibility PASS。
+- 決策：因candidate reach10 93%低於凍結95%，狀態
+  `FAIL_STOP_BRANCH_PRESERVATION_DEVELOPMENT`。相對+3pp與3個causal repairs不覆蓋絕對Gate。
+- 停止：19000 holdout不使用；18100條件擴充不啟動；不改score／selector／bounds、不進
+  Alignment、Teacher、Dataset、Student或Colab。總體`BLOCKED_WITH_EVIDENCE`。

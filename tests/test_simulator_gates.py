@@ -34,6 +34,7 @@ def test_gate_summary_has_required_success_rates_and_bootstrap_ci() -> None:
     assert "deepest_floor_cvar25" in summary
     assert "bottom_death_rate" in summary
     assert "direction_switches_per_100_steps" in summary
+    assert "direction_reversals_per_100_steps" in summary
     assert {"top_death", "bottom_death", "timeout"} <= set(FAILURE_REASONS)
 
 

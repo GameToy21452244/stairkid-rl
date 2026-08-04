@@ -83,6 +83,43 @@ Teacher recovery holdout 作前置 provenance。其 train／validation／test �
 2,327／605／597，validator 0 error；所有列標記
 `teacher-observable-safe-platform-v2`。
 
+## Dataset v2 產生前 Gate
+
+凍結 Dataset v1 與 current Teacher 在相同 seeds 2000～2059 的診斷比較發現，
+current Teacher 的 target-reached 由 56/60 降到 45/60、bottom death 由 4/60
+升到 15/60；舊 coverage Gate 仍會誤判 PASS。因此任何正式 Dataset v2 必須在寫檔前：
+
+- 升級 `teacher_policy_version`，並把 Teacher source 與 config fingerprints 寫入
+  summary／manifest；Real-game 與 Simulator Teacher 使用不同 profile/version；
+- 在相同 60 seeds 達 reach rate >= 91.33%、bottom rate <= 8.67%、health death=0、
+  action-distribution total variation <= 0.10；
+- direction brake、recovery、spike target 都跨 train／validation／test，且 episode
+  coverage 分別至少 20／10／10；
+- 上述全通過後才可在 100 fresh seeds 評估，要求 reach >= 90%、bottom <= 10%、
+  health death=0，並報告 Q25／CVaR25；
+- 任一條件失敗時不得產生或訓練正式 v2，診斷 JSONL 不得改名冒充正式資料。
+
+完整證據見 `reports/P41_DATASET_V2_GAP_AUDIT.md` 與
+`artifacts/p41_dataset_v2_gap_audit.json`。
+
+第一次Simulator profile修復Gate已執行：current／departure delayed2／disabled的
+reach為75%／81.67%／76.67%，bottom為25%／18.33%／23.33%，三者皆未達同種子
+門檻，且action TV亦失敗。因此selected profile為null、fresh100未執行，schema與
+正式Dataset v2均未建立。下一個診斷只允許處理support/contact與launch handoff重疊；
+詳見`reports/SIMULATOR_TEACHER_PROFILE_GATE_REPORT.md`。
+
+其後唯一support-aware launch候選亦FAIL：reach 75%、bottom 25%，且support-departure
+rows被完全取代。Fresh100仍未使用。當時下一步降級為phase observability audit；在可部署
+特徵無法分離phase前，不新增資料schema、不生成Dataset v2。詳見
+`reports/SIMULATOR_TEACHER_LAUNCH_HANDOFF_GATE_REPORT.md`。
+
+Phase observability audit已完成：60個首次分歧只有2改善、6退化、52不變，且一個相同
+deployable signature同時包含改善與退化。現有event/motion/vy/gap/support/edge/landing
+recency view不能解鎖Dataset v2。下一步只允許設計與離線評估候選schema；任何正式欄位
+都必須pre-decision、真機可重建、不含raw platform identity或privileged simulator phase，
+並另升schema/version。詳見
+`reports/SIMULATOR_TEACHER_PHASE_OBSERVABILITY_AUDIT.md`。
+
 ## P4.1 causal／sequence view（不修改原 JSONL）
 
 P4.1不另造或改寫Teacher rows，而是以manifest鎖定上述3,529-row JSONL及SHA-256。
@@ -145,6 +182,26 @@ component 加總，且 terminal/truncated 後拒絕續寫。真實 action timing
 
 同一 episode、seed 或 platform sequence 不得跨 split。branch coverage 以 sequence
 數而非 row 數計算；在 Teacher Real Gate 通過前不得產生正式 sequence dataset。
+
+### 2026-08-03 observation-schema probe停止結論
+
+`simulator_teacher_observation_schema_probe_v1.json`是診斷artifact，不是Teacher
+Dataset v2，也不得併入Student訓練。400回合的launch-handoff counterfactual只有1個
+improved與29個regressed，development沒有正向class，故schema classifier不可評估。
+正式v2仍未生成；下一個資料候選只能是另行定義、同步frame／action timing／causal
+history／target geometry的bounded真機alignment packet，且必須使用新schema/version與
+執行前凍結的split/Gate。
+
+### Real alignment packet v1（診斷專用）
+
+`real-alignment-packet-v1`不取代`ns-shaft-transition-v1`，也不是Student dataset。它在
+受限真機run中額外保存structured observation/next observation、decision前後memory、
+Teacher action/reason、visible target safe geometry、四時間點與MP4 frame index。每筆
+必須`diagnostic_only=true`及`training_eligible=false`；raw track ID只供同幀對齊。
+
+step 0 pre-memory必須是reset；後續pre-memory必須等於前一步post-memory。Integrity或
+coverage Gate未過時不得抽取正式sequence dataset；即使packet PASS，也只能先進行
+Simulator／real target與timing alignment audit。
 
 ### Controller memory 的因果時間序
 

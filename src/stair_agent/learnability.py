@@ -28,6 +28,7 @@ class ProbeEpisode:
     deepest_floor: int
     landings: int
     terminal_reason: str | None
+    event_counts: dict[str, int]
 
 
 @dataclass(frozen=True)
@@ -44,7 +45,9 @@ class ProbeEvaluation:
     collapsed: bool
     longest_same_action_streak: int
     direction_switches: int
+    direction_reversals: int
     terminal_reasons: dict[str, int]
+    event_counts: dict[str, int]
     episode_results: list[ProbeEpisode]
 
     def to_dict(self) -> dict[str, Any]:
@@ -116,9 +119,11 @@ def evaluate_candidate(
         raise ValueError("評估 seeds 不可為空，episode step 上限必須大於 0。")
     action_counts: Counter[str] = Counter()
     terminal_reasons: Counter[str] = Counter()
+    event_counts: Counter[str] = Counter()
     episode_results: list[ProbeEpisode] = []
     longest_same_action_streak = 0
     direction_switches = 0
+    direction_reversals = 0
     for seed in seed_list:
         reset_selector = getattr(selector, "reset", None)
         if callable(reset_selector):
@@ -134,7 +139,9 @@ def evaluate_candidate(
         floors = 0
         landings = 0
         terminal_reason = None
+        episode_event_counts: Counter[str] = Counter()
         previous_action: int | None = None
+        previous_direction: int | None = None
         current_streak = 0
         try:
             for length in range(1, max_episode_steps + 1):
@@ -155,6 +162,10 @@ def evaluate_candidate(
                     ):
                         direction_switches += 1
                 previous_action = action
+                if action in {1, 2}:
+                    if previous_direction is not None and action != previous_direction:
+                        direction_reversals += 1
+                    previous_direction = action
                 longest_same_action_streak = max(
                     longest_same_action_streak, current_streak
                 )
@@ -166,6 +177,8 @@ def evaluate_candidate(
                     info,
                 ) = env.step(action)
                 total_return += float(reward)
+                episode_event_counts.update(info["events"])
+                event_counts.update(info["events"])
                 floors += int("floor_descended" in info["events"])
                 landings += int("landed" in info["events"])
                 if (
@@ -187,6 +200,7 @@ def evaluate_candidate(
                     deepest_floor=env.simulator.deepest_floor,
                     landings=landings,
                     terminal_reason=terminal_reason,
+                    event_counts=dict(episode_event_counts),
                 )
             )
         finally:
@@ -217,6 +231,8 @@ def evaluate_candidate(
         collapsed=max_share >= 0.98,
         longest_same_action_streak=longest_same_action_streak,
         direction_switches=direction_switches,
+        direction_reversals=direction_reversals,
         terminal_reasons=dict(terminal_reasons),
+        event_counts=dict(event_counts),
         episode_results=episode_results,
     )

@@ -13,6 +13,11 @@ import cv2
 from _common import PROJECT_ROOT, load_config, run_main
 
 from stair_agent.baseline_policy import SafePlatformPolicy
+from stair_agent.data.real_alignment import (
+    REAL_ALIGNMENT_SCHEMA_VERSION,
+    RealAlignmentPacketWriter,
+    audit_real_alignment_records,
+)
 from stair_agent.data.schema import PolicySource
 from stair_agent.data.writer import TransitionJsonlWriter, extract_reward_terms
 from stair_agent.live_env import LiveGameAdapter, create_live_environment
@@ -64,7 +69,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--dry-run-output",
         type=Path,
-        default=PROJECT_ROOT / "artifacts" / "teacher_real_game_micro_gate_dry_run.json",
+        default=(
+            PROJECT_ROOT
+            / "artifacts"
+            / "teacher_real_alignment_packet_dry_run.json"
+        ),
     )
     return parser.parse_args()
 
@@ -124,24 +133,32 @@ def _run_episode(
     prefix = run_dir / f"episode_{episode_index:02d}"
     transition_path = prefix.with_suffix(".transitions.jsonl")
     controller_path = prefix.with_suffix(".controller.jsonl")
+    alignment_path = prefix.with_suffix(".alignment.jsonl")
     video_path = prefix.with_suffix(".mp4")
     dropout_dir = run_dir / f"episode_{episode_index:02d}.dropout"
     dropout_forensics = DropoutForensicRecorder(
         dropout_dir,
         diagnose_player=diagnose_player,
     )
+    episode_id = f"teacher-real-{run_dir.name}-{episode_index:02d}"
     transition_writer = TransitionJsonlWriter(
         transition_path,
         policy_source=PolicySource.BASELINE,
-        episode_id=f"teacher-real-{run_dir.name}-{episode_index:02d}",
+        episode_id=episode_id,
     )
     transition_writer.begin(
         features,
         observation_timestamp=float(decision_observation.timestamp),
     )
     controller_file = controller_path.open("x", encoding="utf-8")
+    alignment_writer = RealAlignmentPacketWriter(
+        alignment_path,
+        episode_id=episode_id,
+        landing_margin_pixels=policy.config.landing_margin_pixels,
+    )
     frame = adapter.latest_frame()
     if frame is None:
+        alignment_writer.close()
         controller_file.close()
         transition_writer.close()
         raise RuntimeError("reset 後缺少錄影 frame。")
@@ -229,6 +246,7 @@ def _run_episode(
                 forced_reason = "time_limit"
                 break
             loop_start = time.monotonic()
+            pre_decision_memory = policy.memory_snapshot()
             decision = policy.choose(decision_observation)
             memory = policy.memory_snapshot()
             confidence = observation_confidence(decision_observation)
@@ -420,6 +438,17 @@ def _run_episode(
                 target_platform_kind=decision.target_platform_kind,
                 target_signed_offset=decision.horizontal_delta,
             )
+            alignment_writer.write_step(
+                observation=decision_observation,
+                next_observation=next_observation,
+                pre_decision_memory=pre_decision_memory,
+                post_decision_memory=memory,
+                decision=decision,
+                timing=timing,
+                terminated=terminated,
+                truncated=truncated,
+                events=next_observation.events,
+            )
             loop_seconds = max(1e-9, time.monotonic() - loop_start)
             controller_record = {
                         "step": step,
@@ -570,6 +599,7 @@ def _run_episode(
     finally:
         transition_writer.close()
         controller_file.close()
+        alignment_writer.close()
         video.release()
         adapter.release_all()
         dropout_forensic_manifest = dropout_forensics.finalize()
@@ -661,9 +691,13 @@ def _run_episode(
         "target_lock_seen": target_lock_seen,
         "transition_records": steps,
         "controller_records": steps,
+        "alignment_records": alignment_writer.records,
+        "alignment_schema_version": REAL_ALIGNMENT_SCHEMA_VERSION,
+        "alignment_episode_id": episode_id,
         "video_complete": video_path.exists() and video_path.stat().st_size > 0,
         "transition_path": str(transition_path),
         "controller_path": str(controller_path),
+        "alignment_path": str(alignment_path),
         "video_path": str(video_path),
         "dropout_forensic_manifest_path": str(
             dropout_dir / "manifest.json"
@@ -702,6 +736,19 @@ def main() -> None:
             limits,
             dismiss_name_entry=args.dismiss_name_entry,
         )
+        payload["alignment_packet"] = {
+            "schema_version": REAL_ALIGNMENT_SCHEMA_VERSION,
+            "status": "PENDING",
+            "diagnostic_only": True,
+            "training_eligible": False,
+            "records_structured_observation": True,
+            "records_pre_and_post_decision_memory": True,
+            "records_video_frame_indices": True,
+        }
+        payload["actual_artifacts"].insert(
+            2,
+            "episode_XX.alignment.jsonl",
+        )
         _write_new_json(
             args.dry_run_output,
             payload,
@@ -726,7 +773,10 @@ def main() -> None:
         raise RuntimeError("實機 adapter 類型不符。")
     print(f"唯一目標：{target.title!r}，client={target.client_rect.width}x{target.client_rect.height}")
     print(f"將執行 {limits.episodes} 回合；限制：{limits.to_dict()}")
-    print("每回合保存 transition、controller sidecar、MP4 與 bounded raw-dropout forensics。")
+    print(
+        "每回合保存 transition、controller sidecar、alignment packet、MP4 "
+        "與 bounded raw-dropout forensics。"
+    )
     if input("輸入大寫 TEACHER REAL MICRO 才執行：").strip() != "TEACHER REAL MICRO":
         env.close()
         print("未確認，已安全取消。")
@@ -806,6 +856,7 @@ def main() -> None:
                         for suffix in (
                             ".transitions.jsonl",
                             ".controller.jsonl",
+                            ".alignment.jsonl",
                             ".mp4",
                         )
                     )
@@ -850,6 +901,23 @@ def main() -> None:
             expected_episodes=limits.episodes,
         )
         summary["limits"] = limits.to_dict()
+        alignment_records: list[dict[str, Any]] = []
+        expected_alignment_counts: dict[str, int] = {}
+        for episode in episodes:
+            alignment_path = Path(str(episode["alignment_path"]))
+            with alignment_path.open("r", encoding="utf-8") as stream:
+                alignment_records.extend(
+                    json.loads(line) for line in stream if line.strip()
+                )
+            expected_alignment_counts[str(episode["alignment_episode_id"])] = int(
+                episode["transition_records"]
+            )
+        summary["alignment_packet"] = audit_real_alignment_records(
+            alignment_records,
+            expected_episodes=limits.episodes,
+            safety_events=safety_events,
+            expected_record_counts=expected_alignment_counts,
+        )
         _write_new_json(run_dir / "teacher_real_game_micro_gate.json", summary)
         print(f"Gate artifact：{run_dir / 'teacher_real_game_micro_gate.json'}")
 

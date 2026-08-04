@@ -1,0 +1,2 @@
+scenario,step,action,x,y,vx,vy,support_floor,deepest_floor,events,terminal_reason,collision_diagnostic
+M07_top,1,RELEASE_ALL,231.5,336.7,0.0,80.8,,0,[],top,"{""decision"":""pass_through_rising"",""one_way_eligible"":false,""reason"":""relative_vertical_velocity_above_platform"",""relative_velocity_y"":80.79999999999998}"

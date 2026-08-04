@@ -1,0 +1,11 @@
+scenario,step,action,x,y,vx,vy,support_floor,deepest_floor,events,terminal_reason,collision_diagnostic
+M04_reverse,1,LEFT,244.02,92.5,125.2,0.0,0,0,[],,null
+M04_reverse,2,LEFT,246.06,92.5,20.4,0.0,0,0,[],,null
+M04_reverse,3,LEFT,237.62,92.5,-84.4,0.0,0,0,[],,null
+M04_reverse,4,LEFT,218.7,92.5,-189.2,0.0,0,0,[],,null
+M04_reverse,5,LEFT,195.7,92.5,-230.0,0.0,0,0,[],,null
+M04_reverse,6,LEFT,172.7,92.5,-230.0,0.0,0,0,[],,null
+M04_reverse,7,LEFT,149.7,92.5,-230.0,0.0,0,0,[],,null
+M04_reverse,8,LEFT,126.7,92.5,-230.0,0.0,0,0,[],,null
+M04_reverse,9,LEFT,103.7,92.5,-230.0,0.0,0,0,[],,null
+M04_reverse,10,LEFT,80.7,92.18,-230.0,-12.8,,0,"[""support_departed""]",,"{""current_bottom"":78.68,""current_platform_top"":79.0,""decision"":""pass_through_no_horizontal_overlap"",""impact_player_bbox_x"":[68.69999999999989,92.69999999999989],""one_way_eligible"":true,""platform_bbox_x"":[111.5,351.5],""platform_floor"":0,""previous_bottom"":78.84,""previous_platform_top"":79.0,""reason"":""swept_top_crossing_outside_platform"",""relative_velocity_y"":-12.8,""time_of_impact"":0.0}"

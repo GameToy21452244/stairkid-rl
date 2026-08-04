@@ -1,9 +1,19 @@
 from __future__ import annotations
 
+from dataclasses import dataclass
+
 import numpy as np
 
 from .platform import SimulatorPlatform
 from .state import ShaftEnvConfig
+
+
+@dataclass(frozen=True)
+class PlatformCenterGeneration:
+    center_x: float
+    attempts: int
+    rejections: int
+    used_fallback: bool
 
 
 def maximum_shift(config: ShaftEnvConfig) -> float:
@@ -83,20 +93,47 @@ def next_platform_kind(
     floor_index: int,
     previous_kinds: list[str],
 ) -> str:
-    if (
-        not config.enable_spikes
-        or config.spike_spawn_probability <= 0
-        or floor_index < config.initial_safe_normal_platforms
-    ):
-        return "normal"
-    gap = config.minimum_normal_platforms_between_spikes
-    if "spikes" in previous_kinds[-gap:]:
-        return "normal"
-    return (
-        "spikes"
-        if float(rng.random()) < config.spike_spawn_probability
-        else "normal"
+    spike_enabled = (
+        config.enable_spikes and config.spike_spawn_probability > 0
     )
+    spring_enabled = (
+        config.enable_spring and config.spring_spawn_probability > 0
+    )
+    if floor_index < config.initial_safe_normal_platforms:
+        return "normal"
+
+    if spike_enabled:
+        gap = config.minimum_normal_platforms_between_spikes
+        if spring_enabled and "spikes" in previous_kinds:
+            last_spike = len(previous_kinds) - 1 - previous_kinds[::-1].index(
+                "spikes"
+            )
+            since_spike = previous_kinds[last_spike + 1 :]
+            spike_allowed = (
+                len(since_spike) >= gap
+                and all(kind == "normal" for kind in since_spike[-gap:])
+            )
+        else:
+            spike_allowed = "spikes" not in previous_kinds[-gap:]
+        if (
+            spike_allowed
+            and float(rng.random()) < config.spike_spawn_probability
+        ):
+            return "spikes"
+
+    if spring_enabled:
+        gap = config.minimum_normal_platforms_before_spring
+        spring_allowed = (
+            len(previous_kinds) >= gap
+            and all(kind == "normal" for kind in previous_kinds[-gap:])
+        )
+        if (
+            spring_allowed
+            and float(rng.random()) < config.spring_spawn_probability
+        ):
+            return "spring"
+
+    return "normal"
 
 
 def next_platform_center(
@@ -104,9 +141,63 @@ def next_platform_center(
     rng: np.random.Generator,
     previous_x: float,
 ) -> float:
-    shift = float(rng.uniform(-maximum_shift(config), maximum_shift(config)))
-    margin = config.platform_width / 2 + config.safe_landing_margin
-    return float(np.clip(previous_x + shift, margin, config.width - margin))
+    return next_platform_center_with_diagnostics(
+        config,
+        rng,
+        previous_x,
+    ).center_x
+
+
+def next_platform_center_with_diagnostics(
+    config: ShaftEnvConfig,
+    rng: np.random.Generator,
+    previous_x: float,
+) -> PlatformCenterGeneration:
+    maximum_shift_value = maximum_shift(config)
+    minimum_shift = min(
+        config.minimum_horizontal_platform_shift,
+        maximum_shift_value,
+    )
+    half_width = config.platform_width / 2
+    minimum = config.effective_playfield_left + half_width
+    maximum = config.effective_playfield_right - half_width
+    # Preserve the frozen v0.3 RNG stream and layout exactly.  The calibrated
+    # candidate opts into bounded rejection with a positive minimum shift.
+    if minimum_shift == 0.0 and config.generator_max_attempts == 1:
+        shift = float(rng.uniform(-maximum_shift_value, maximum_shift_value))
+        return PlatformCenterGeneration(
+            center_x=float(np.clip(previous_x + shift, minimum, maximum)),
+            attempts=1,
+            rejections=0,
+            used_fallback=False,
+        )
+    rejections = 0
+    for attempt in range(1, config.generator_max_attempts + 1):
+        magnitude = float(rng.uniform(minimum_shift, maximum_shift_value))
+        direction = -1.0 if float(rng.random()) < 0.5 else 1.0
+        candidate = float(
+            np.clip(previous_x + direction * magnitude, minimum, maximum)
+        )
+        if abs(candidate - previous_x) + 1e-9 >= minimum_shift:
+            return PlatformCenterGeneration(
+                center_x=candidate,
+                attempts=attempt,
+                rejections=rejections,
+                used_fallback=False,
+            )
+        rejections += 1
+
+    left_room = max(0.0, previous_x - minimum)
+    right_room = max(0.0, maximum - previous_x)
+    direction = -1.0 if left_room >= right_room else 1.0
+    distance = min(max(left_room, right_room), max(minimum_shift, 1.0))
+    candidate = float(np.clip(previous_x + direction * distance, minimum, maximum))
+    return PlatformCenterGeneration(
+        center_x=candidate,
+        attempts=config.generator_max_attempts,
+        rejections=rejections,
+        used_fallback=True,
+    )
 
 
 def generate_platforms(
@@ -114,8 +205,15 @@ def generate_platforms(
     rng: np.random.Generator,
 ) -> list[SimulatorPlatform]:
     platforms: list[SimulatorPlatform] = []
-    starting_y = 96.0
-    center_x = config.width / 2
+    starting_y = (
+        config.initial_platform_center_y
+        if config.enable_calibrated_playfield
+        else 96.0
+    )
+    center_x = (
+        config.effective_playfield_left
+        + config.effective_playfield_right
+    ) / 2
     for floor_index in range(config.platform_count):
         if floor_index:
             center_x = next_platform_center(config, rng, center_x)
@@ -143,7 +241,9 @@ __all__ = [
     "generate_platforms",
     "maximum_shift",
     "next_platform_center",
+    "next_platform_center_with_diagnostics",
     "next_platform_kind",
+    "PlatformCenterGeneration",
     "pair_has_safe_reach",
     "safe_center_interval",
     "sequence_is_reachable",

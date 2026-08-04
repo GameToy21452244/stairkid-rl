@@ -1,9 +1,19 @@
 # AI Stair Agent：NS-SHAFT 遊戲介面層
 
+> 新對話請先讀`docs/CODEX_START_HERE.md`。2026-08-04最新工程更新是manual-only v0.4
+> calibration candidate已準備人工before／after重測；formal狀態仍是
+> `BLOCKED_WITH_EVIDENCE`，holdout與training均未使用。
+
 本專案以一般 Windows 視窗 API、螢幕擷取及鍵盤輸入控制既有的
 `NS Shaft.exe`。目前已完成遊戲介面層、角色／平台／血量事件辨識、Gymnasium
 環境，以及具有硬性安全上限的本機 PPO 訓練入口。舊 PPO 與 Colab
 512／768-step checkpoint 已出現單一動作塌縮，不是可用模型，也不得續訓。
+
+> 最新 Simulator 阻擋（2026-08-04）：v7 receding Oracle已test-first實作，但全新
+> 16000～16099 development只有76%到第10層，低於95%門檻與v6 reference 96%；
+> bottom death由2增至22，故正式REJECT並`FAIL_STOP_ORACLE_ROBUSTNESS_DEVELOPMENT`。
+> 17000～17099 one-time holdout完全未使用，Dataset與Student仍未解鎖。詳見
+> `reports/SIMULATOR_ORACLE_ROBUSTNESS_REPORT.md`。
 
 目前最高優先策略為：Teacher 真實遊戲 Micro Gate → State-aliasing Audit →
 S0／S1／S2／S3 memory/sequence 消融 → rare-branch sequence dataset →
@@ -14,10 +24,35 @@ floors 為 `8,11,4,2,2,5,4,4,8,2`；Gate v11 以不可變 sidecars 重分類後�
 PASS。P4.0 已對10回合／753筆實機資料完成 State-aliasing Audit：跨episode 5-NN
 action conflict由observation-only的56.20%降至lagged causal memory的45.39%，相對
 改善19.23%，episode bootstrap下界亦為正，Gate PASS。P4.1 的 causal schema、資料
-manifest、S0～S3介面、checkpoint lifecycle與本機4-update／2-seed smoke均已PASS；
-下一步是Colab三初始化bounded ablation。正式rare-branch dataset與BC、DAgger、PPO、
-DQN、NEAT長訓練仍禁止。當步controller sidecar含post-decision label leakage，不得當
-同一步模型輸入。
+manifest、S0～S3介面及Colab三初始化bounded selection均已完成，但結果為
+`FAIL_STOP_SELECTION`。S1提高mean與Q25，卻使CVaR25、reach-10與bottom death退化；
+S2/S3可靠性更差。修正risk-first排序與跨RELEASE reversal後重播既有S0/S1 checkpoints，
+Gate仍為`FAIL_STOP_SELECTION_CONFIRMED`；S1 reversal平均也較差。Final seeds未使用，
+Dataset v2 Gap Audit確認current Teacher同種子只有75% reach／25% bottom；分離後的
+Simulator Teacher profile Gate中最佳delayed2也只有81.67%／18.33%，仍為
+`FAIL_STOP_SAME_SEED_RELIABILITY`。後續唯一launch-handoff候選又退化至75%／25%，
+狀態`FAIL_STOP_LAUNCH_HANDOFF_SAME_SEED`；Fresh100未執行。Phase observability
+audit再發現首次介入只有2改善／6退化／52不變，且同一可部署簽章同時出現改善與
+退化，狀態`INSUFFICIENT_EVIDENCE_STOP_PHASE_MODEL`。其後依凍結協定完成400回合
+observation-schema probe：launch-handoff只有1改善／29退化／365不變，reach由
+76.25%降至69.25%、bottom由23.75%升至30.75%，狀態
+`INSUFFICIENT_EVIDENCE_STOP_SCHEMA_PROBE`。同步真機alignment packet其後以308 records
+通過Integrity／Coverage，但Simulator／Real Audit發現一般模擬分布缺spring、conveyor、
+flipping，且真機rising-support最長11步、確認造成departure timeout／restart，狀態
+`FAIL_STOP_SIMULATOR_REAL_ALIGNMENT`。下一步先補分布Gate與離線phase-aware shadow
+replay；P4.2與BC、DAgger、PPO、DQN、NEAT長訓練仍禁止。
+第一個分布補充已選spring：工程、Reachability及2.70% spawn ratio通過，但Oracle
+在100個新seeds只有71%到第10層；35個遇spring回合中29個top death，狀態
+`FAIL_STOP_ORACLE`。Baseline依序未跑；下一步先做spring failure trace/fidelity audit，
+不直接訓練或放寬Gate。
+後續trace確認是重複contact時Oracle持續RELEASE；不改190 px/s，只加入privileged
+spring clearance後，development與untouched holdout均100%到第10層，Baseline retention
+101.35%、reach3 94%，Spring Simulator Gate已PASS。真機Teacher沒有因此修改，下一步仍
+是conveyor/flipping分布與support shadow；離線Gate完成前不需要重跑實機。
+當步controller sidecar含post-decision label leakage，不得當
+同一步模型輸入。Alignment packet v1的writer、validator、coverage Gate與真機runner
+旁路已完成，dry-run及完整462 tests PASS；受監督3回合packet也已通過，但它只解鎖
+alignment audit，不代表Simulator fidelity或Teacher資料已通過。
 
 最新 Spike Teacher Dataset v1 有 60 episodes／3,529 rows、validator 0 error；
 但單步 BC0 v1 的 final mean deepest 45.5 雖接近 baseline 49.7，Q25 只有
@@ -51,7 +86,15 @@ Teacher 真機轉移及以 causal memory／sequence 表示能否在閉迴路穩�
 | P3.5 Spike curriculum | 最終 STOP | BC 曾通過，但 DAgger／新版 BC lower-tail 失敗，不再加 epochs |
 | P3.6 Teacher Real-Game Gate | PASS | Gate v11 十回合通過；Teacher 仍有 lower-tail 風險 |
 | P4.0 State-aliasing Audit | **PASS** | causal memory 顯著減少動作衝突 |
-| P4.1 S0／S1／S2／S3 bounded ablation | **LOCAL PREFLIGHT PASS／COLAB NEXT** | 本機介面已通過；科學 Gate 尚未評估 |
+| P4.1 S0／S1／S2／S3 bounded ablation | **FAIL_STOP_SELECTION_CONFIRMED** | S1只改善mean/Q25；tail、reach、bottom與反轉未過，final seeds未使用 |
+| Dataset v2 Gap Audit | **FAIL_STOP_BEFORE_V2_GENERATION** | current Teacher同種子reach 75%、bottom 25%；先分離Simulator Teacher |
+| Simulator Teacher Profile Gate | **FAIL_STOP_SAME_SEED_RELIABILITY** | delayed改善至81.67% reach／18.33% bottom，仍未達門檻；fresh未跑 |
+| Launch-Handoff Gate | **FAIL_STOP_LAUNCH_HANDOFF_SAME_SEED** | 單一候選退化至75% reach／25% bottom；改做phase audit |
+| Phase Observability Audit | **INSUFFICIENT_EVIDENCE_STOP_PHASE_MODEL** | 僅8個changed outcomes且有同簽章相反結果；先升觀測稽核 |
+| Observation-Schema Probe | **INSUFFICIENT_EVIDENCE_STOP_SCHEMA_PROBE** | 400回合僅1改善、29退化；拒絕handoff方向，先做真機alignment |
+| Real Alignment Packet | **PASS（限診斷資料）** | 3回合／308 records，完整性與分支coverage通過，不可直接訓練 |
+| Simulator／Real Alignment Audit | **FAIL_STOP_SIMULATOR_REAL_ALIGNMENT** | 缺3種平台分布，且真機support phase alias造成timeout／restart |
+| Spring curriculum v0 | **PASS（Simulator）** | Oracle dev/holdout 100%；Baseline retention101.35%，但真機physics尚未校正 |
 | P4.2～P8 | BLOCKED | 必須逐 Gate 解鎖，不可直接跳階段 |
 
 ### 共通規則：每一個 Gate 都怎麼做
@@ -225,7 +268,7 @@ entropy 改善 0.1873 bits、accuracy 增 13.01 points、bootstrap CI
 full memory，因此 P4.1 優先 compact S1。Post-decision ceiling 11.42% 是答案洩漏，
 永遠不能當 Student 輸入。完整報告見 `reports/STATE_ALIASING_AUDIT.md`。
 
-### P4.1：S0／S1／S2／S3 公平 bounded ablation（本機 PASS；Colab 下一步）
+### P4.1：S0／S1／S2／S3 公平 bounded ablation（正式 selection FAIL）
 
 目的：確認「明確 causal state」或「sequence model」是否真的在 closed-loop 穩定優於
 原本的單步 MLP，而不是只提高 offline accuracy。
@@ -290,6 +333,41 @@ checkpoint save/load與closed-loop兩回合都PASS；這些seeds永久只作介�
 短回合曾有mean deepest 9.5，但四組bottom rate均為1.0，樣本也只有兩回合，因此不得
 當作S2優勝或P4.1 PASS。完整結果見`artifacts/p41_local_interface_smoke.json`與
 `reports/SEQUENCE_MODEL_ABLATION.md`。
+
+正式 Colab selection 已完成並停止：S1雖提高mean/Q25，但CVaR25、reach-10、bottom
+與release-bridged reversal都不如S0；S2/S3的bottom death更高。狀態為
+`FAIL_STOP_SELECTION_CONFIRMED`，final seeds 4100～4139未使用，P4.2不得開始。
+
+後續 Dataset v2 Gap Audit 又發現current Teacher在相同60 seeds只有45次成功、15次
+bottom，遠差於凍結v1的56/4；舊coverage Gate卻仍PASS。所以下一步不是再跑Colab或
+增加資料，而是分離Simulator Teacher profile，bounded比較support-departure current／
+delayed／disabled。詳細門檻見`reports/P41_DATASET_V2_GAP_AUDIT.md`；同種子與fresh
+reliability未過前，不生成正式Dataset v2、不訓練Student。
+
+三profile實測已完成：current/delayed2/disabled reach為75%/81.67%/76.67%，bottom
+為25%/18.33%/23.33%，全部FAIL且fresh6000～6099未使用。Delayed將首次分歧由step1
+延到median step6，但53/60由舊`escape_launch_platform`變成新
+`aligned_with_safe_platform`。下一個只測Simulator-only support-aware launch handoff，
+不掃更多delay；詳見`reports/SIMULATOR_TEACHER_PROFILE_GATE_REPORT.md`。
+
+該單一handoff候選已實測並被拒絕：reach由81.67%降到75%、bottom由18.33%升到25%、
+CVaR25由6.27降到4.2；launch rows增加，但support departure被完全吃掉且wall guard
+上升。下一步不再改controller，先稽核decision-level phase是否能由deployable events、
+motion、vy、gap與geometry辨識。完整負結果見
+`reports/SIMULATOR_TEACHER_LAUNCH_HANDOFF_GATE_REPORT.md`。
+
+Phase audit已完成並停止：60個首次分歧只有2次改善、6次退化、52次終局不變；8種
+可部署簽章中有一種同時包含改善與退化。Privileged post-bounce phase與last-landed
+identity亦無法可靠分開結果，所以不能再由現有欄位追加heuristic。當時只允許的
+bounded observation-schema probe已在下一段完成。完整phase證據見
+`reports/SIMULATOR_TEACHER_PHASE_OBSERVABILITY_AUDIT.md`。
+
+Schema probe以7000～7399共400回合完成：395個首次分歧只有1 improved、29 regressed、
+365 unchanged；其餘5個無分歧且補充重播終局相同。Launch-handoff reach由76.25%降至
+69.25%、bottom由23.75%升至30.75%，development沒有正向class，故狀態為
+`INSUFFICIENT_EVIDENCE_STOP_SCHEMA_PROBE`。不再調launch heuristic；下一步先建立同步
+真機alignment packet，對齊target geometry、action timing及特殊平台短序列。完整結果見
+`reports/SIMULATOR_OBSERVATION_SCHEMA_PROBE_REPORT.md`。
 
 ### P4.2：Rare-Branch Sequence Dataset
 
@@ -1203,6 +1281,15 @@ DAgger0 smoke 已完成；balanced correction ablation 在 frozen／fresh seeds
 彈簧與翻板結果見 `reports/SPRING_GATE_REPORT.md`、
 `reports/FLIPPING_GATE_REPORT.md`；下一步先設計低比例單一特殊平台 generator，
 尚未開始特殊平台訓練。
+
+Spring curriculum v0後續已加入低比例generator，但只通過Engineering、Reachability與
+spawn ratio，Oracle為`FAIL_STOP_ORACLE`，所以仍未批准特殊平台資料或訓練。可重現命令
+與結果分別在`scripts/run_spring_curriculum_gate.py`、
+`reports/SPRING_CURRICULUM_V0_REPORT.md`；正式artifact拒絕覆寫，不應直接重跑。
+
+Failure trace之後的Oracle-only clearance已在全新development與untouched holdout通過，
+Baseline亦PASS；最新結論以`reports/SPRING_ORACLE_ESCAPE_GATE_REPORT.md`為準。舊FAIL
+artifact保留為根因證據，不覆寫。這仍不授權Dataset v2或真機長訓。
 
 首個低比例 generator 已選 spike curriculum v0，Reachability／Oracle／Baseline
 均通過，並以獨立 seeds 生成 3,541-row Teacher Dataset。結果見

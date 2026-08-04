@@ -28,6 +28,7 @@ models/
 runs/
 checkpoints/
 artifacts/*.jsonl
+artifacts/manual_simulator_test/
 *.pt
 *.pth
 *.onnx

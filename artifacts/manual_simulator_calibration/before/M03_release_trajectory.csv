@@ -1,0 +1,11 @@
+scenario,step,action,x,y,vx,vy,support_floor,deepest_floor,events,terminal_reason,collision_diagnostic
+M03_release,1,RELEASE_ALL,232.06,92.5,5.6,0.0,0,0,[],,null
+M03_release,2,RELEASE_ALL,232.06,92.5,0.0,0.0,0,0,[],,null
+M03_release,3,RELEASE_ALL,232.06,92.5,0.0,0.0,0,0,[],,null
+M03_release,4,RELEASE_ALL,232.06,92.5,0.0,0.0,0,0,[],,null
+M03_release,5,RELEASE_ALL,232.06,92.5,0.0,0.0,0,0,[],,null
+M03_release,6,RELEASE_ALL,232.06,92.5,0.0,0.0,0,0,[],,null
+M03_release,7,RELEASE_ALL,232.06,92.5,0.0,0.0,0,0,[],,null
+M03_release,8,RELEASE_ALL,232.06,92.5,0.0,0.0,0,0,[],,null
+M03_release,9,RELEASE_ALL,232.06,92.5,0.0,0.0,0,0,[],,null
+M03_release,10,RELEASE_ALL,232.06,92.5,0.0,0.0,0,0,[],,null

@@ -13,7 +13,7 @@ from ..input_controller import Action
 from ..observation import GameObservation
 from ..simulator.physics import ShaftSimulator
 from ..simulator.renderer import SimulatorRenderer
-from ..simulator.state import ShaftEnvConfig
+from ..simulator.state import ShaftEnvConfig, SupportDepartureRecord
 from .reward import SimulatorRewardCalculator
 
 
@@ -67,6 +67,7 @@ class ShaftEnv(gym.Env[np.ndarray, int]):
         body = player.body
         screen_x = float(body.position.x)
         screen_y = float(self.config.height - body.position.y)
+        player_screen_bottom = screen_y + player.height / 2
         velocity_x = float(body.velocity.x)
         velocity_y = float(-body.velocity.y)
         if velocity_y < -5:
@@ -95,7 +96,7 @@ class ShaftEnv(gym.Env[np.ndarray, int]):
             }
             if -platform.height <= top <= self.config.height + platform.height:
                 platforms.append(item)
-            gap = top - screen_y
+            gap = top - player_screen_bottom
             horizontal_overlap = (
                 screen_x + player.width / 2 > platform.left
                 and screen_x - player.width / 2 < platform.right
@@ -151,6 +152,7 @@ class ShaftEnv(gym.Env[np.ndarray, int]):
         self,
         *,
         events: tuple[str, ...] = (),
+        support_departures: tuple[SupportDepartureRecord, ...] = (),
         terminal_reason: str | None = None,
         reward_components: dict[str, float] | None = None,
     ) -> dict[str, Any]:
@@ -158,6 +160,13 @@ class ShaftEnv(gym.Env[np.ndarray, int]):
             raise RuntimeError("環境尚未 reset。")
         return {
             "events": list(events),
+            "support_departures": [
+                {
+                    "source_floor": int(record.source_floor),
+                    "clearance": float(record.clearance),
+                }
+                for record in support_departures
+            ],
             "terminal_reason": terminal_reason,
             "reward_components": dict(reward_components or {}),
             "raw_feature_count": self.encoder.feature_count,
@@ -178,7 +187,13 @@ class ShaftEnv(gym.Env[np.ndarray, int]):
             "spring_velocity_delta_y": (
                 self.simulator.last_spring_velocity_delta_y
             ),
+            "support_ownership_enabled": (
+                self.config.enable_support_ownership
+            ),
+            "supported_platform_floor": self.simulator.supported_floor,
+            "support_active": self.simulator.supported_platform is not None,
             "flipping_enabled": self.config.enable_flipping,
+            "collision_diagnostic": self.simulator.last_collision_diagnostic,
             "failure_reason": self._failure_reason(terminal_reason),
             "platforms": [
                 {
@@ -264,6 +279,7 @@ class ShaftEnv(gym.Env[np.ndarray, int]):
             ),
             "control_hz": self.config.fps,
             "terminal_reason": terminal_reason,
+            "support_floor": self.simulator.supported_floor,
         }
         if self.render_mode == "human":
             self.render()
@@ -274,6 +290,7 @@ class ShaftEnv(gym.Env[np.ndarray, int]):
             truncated,
             self._info(
                 events=result.events,
+                support_departures=result.support_departures,
                 terminal_reason=terminal_reason,
                 reward_components=self.reward_calculator.last_components,
             ),

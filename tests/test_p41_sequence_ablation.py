@@ -29,6 +29,7 @@ from stair_agent.training.p41_ablation import (
     make_model,
     make_policy,
     save_p41_checkpoint,
+    selection_key,
     train_variant,
 )
 
@@ -335,13 +336,13 @@ def _rollout_summary(
         "deepest_floor_cvar25": cvar,
         "reach_rate_floor_10": reach,
         "bottom_death_rate": bottom,
-        "direction_switches_per_100_steps": oscillation,
+        "direction_reversals_per_100_steps": oscillation,
         "health_death_rate": health,
         "collapsed": collapsed,
     }
 
 
-def test_p41_gate_requires_tail_reach_bottom_and_oscillation_improvement() -> None:
+def test_p41_gate_requires_tail_reach_bottom_and_oscillation_non_regression() -> None:
     s0 = [_rollout_summary() for _ in range(3)]
     improved = [
         _rollout_summary(q25=6.5, cvar=5.0, reach=0.6, bottom=0.25, oscillation=1.8)
@@ -359,3 +360,33 @@ def test_p41_gate_requires_tail_reach_bottom_and_oscillation_improvement() -> No
     failed = compare_to_s0_gate(mean_only, s0)
     assert not failed["passed"]
     assert not failed["checks"]["material_q25_improvement"]
+
+
+def test_p41_gate_does_not_require_improving_already_low_oscillation() -> None:
+    s0 = [_rollout_summary(oscillation=0.01) for _ in range(3)]
+    improved_elsewhere = [
+        _rollout_summary(
+            q25=6.5,
+            cvar=5.0,
+            reach=0.6,
+            bottom=0.25,
+            oscillation=0.01,
+        )
+        for _ in range(3)
+    ]
+
+    gate = compare_to_s0_gate(improved_elsewhere, s0)
+
+    assert gate["passed"]
+    assert gate["checks"]["mean_oscillation_not_degraded"]
+
+
+def test_selection_key_prioritizes_bottom_risk_before_reach() -> None:
+    lower_bottom = _rollout_summary(reach=0.8, bottom=0.1)
+    higher_reach_but_fragile = _rollout_summary(reach=0.95, bottom=0.2)
+
+    assert selection_key(lower_bottom, 0.5, 100) > selection_key(
+        higher_reach_but_fragile,
+        0.4,
+        200,
+    )
