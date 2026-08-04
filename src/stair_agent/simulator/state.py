@@ -19,6 +19,9 @@ class ShaftEnvConfig:
     # Policy frequency is independent from fixed-rate physics integration.
     fps: int = 10
     physics_hz: int = 60
+    # 60 Hz control is reserved for the manual-only fidelity candidate.  The
+    # formal simulator and training paths remain restricted to 8/10/12 Hz.
+    allow_manual_60hz_control: bool = False
     distribution: str = "easy"
     max_episode_steps: int = 3000
     player_width: float = 24.0
@@ -139,8 +142,19 @@ class ShaftEnvConfig:
         )
 
     def __post_init__(self) -> None:
-        if self.fps not in {8, 10, 12}:
-            raise ValueError("policy fps 只支援 8、10、12 Hz。")
+        supported_policy_fps = self.fps in {8, 10, 12}
+        supported_manual_fps = (
+            self.fps == 60 and self.allow_manual_60hz_control
+        )
+        if not (supported_policy_fps or supported_manual_fps):
+            raise ValueError(
+                "policy fps只支援8、10、12 Hz；"
+                "60 Hz僅允許manual fidelity candidate。"
+            )
+        if self.allow_manual_60hz_control and self.fps != 60:
+            raise ValueError(
+                "allow_manual_60hz_control只可搭配fps=60。"
+            )
         if self.physics_hz != 60:
             raise ValueError("Simulator v0.2 physics_hz 固定為 60。")
         if self.distribution not in {"easy", "calibrated", "hard"}:
