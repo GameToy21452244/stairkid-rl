@@ -1,8 +1,8 @@
 """Run the normal-platform v0.5 responsive-control manual candidate.
 
-This entry point is intentionally manual-only.  It keeps the frozen v0.3 and
+This entry point is intentionally manual-only. It keeps the frozen v0.3 and
 v0.4 profiles untouched, but samples keyboard state and advances the simulator
-at the fixed 60 Hz physics cadence.  Opposite-direction input clears the old
+at the fixed 60 Hz physics cadence. Opposite-direction input clears the old
 horizontal velocity before the new direction accelerates, removing the
 multi-step reverse-braking delay observed in the v0.4 manual sessions.
 """
@@ -95,15 +95,24 @@ class ResponsiveManualSession(ManualSimulatorSession):
         )
 
     def _replace_environment(self, scenario: ManualScenario) -> None:
-        # The shared builder only knows the frozen before/after profiles.  Build
+        # The shared builder only knows the frozen before/after profiles. Build
         # the v0.4 normal environment first, then opt into this isolated v0.5
         # manual controller again.
         self.calibration_profile = "after"
         super()._replace_environment(scenario)
         self._install_v05_profile()
 
+    def next_scenario(self) -> None:
+        normal = _normal_scenarios()
+        current_index = next(
+            index for index, item in enumerate(normal) if item.name == self.scenario.name
+        )
+        next_definition = normal[(current_index + 1) % len(normal)]
+        self._event("scenario_switch", next_scenario=next_definition.name)
+        self._replace_environment(next_definition)
+
     def toggle_calibration_profile(self) -> None:
-        # Keep the candidate isolated.  Use run_simulator_manual_test.py for the
+        # Keep the candidate isolated. Use run_simulator_manual_test.py for the
         # v0.3/v0.4 comparison instead of mutating this v0.5 session in place.
         self._event("v05_profile_toggle_ignored", reason="profile_locked")
 
@@ -115,10 +124,8 @@ class ResponsiveManualSession(ManualSimulatorSession):
         body = simulator.player.body
         velocity_x = float(body.velocity.x)
         opposite = (
-            action is Action.LEFT
-            and velocity_x > 0.0
-            or action is Action.RIGHT
-            and velocity_x < 0.0
+            (action is Action.LEFT and velocity_x > 0.0)
+            or (action is Action.RIGHT and velocity_x < 0.0)
         )
         if opposite:
             previous_velocity_x = velocity_x
