@@ -1,77 +1,88 @@
 # Simulator v0.5 Normal Fidelity Manual Candidate
 
-日期：2026-08-04  
-狀態：`READY_FOR_USER_MANUAL_RETEST`（manual-only，非 formal Gate）
+日期：2026-08-05  
+狀態：`READY_FOR_USER_MANUAL_RETEST_2`（manual-only，非 formal Gate）
 
 ## 目標
 
-本候選只處理普通平台的第一優先問題：
+本候選只處理普通平台，特殊平台暫不加入。第一輪60 Hz版本已改善整體流暢度與方向
+反轉延遲；使用者第二輪回饋指出：
 
-1. 顯示設為60或120 FPS時仍有10 Hz狀態跳格感。
-2. LEFT直接切RIGHT（或反向）時，角色會先花數個control steps抵銷舊速度。
-3. 使用者希望移除方塊式慣性，讓新方向在下一個physics tick就開始生效。
+1. 起步仍有阻力，固定加速度過於線性。
+2. 普通平台96 px明顯太寬。
+3. 下墜重力不足，角色偏飄。
 
-特殊平台（spring、conveyor、spikes、flipping）不在本輪範圍內。
+## 參考與限制
 
-## 依據
-
-### Repository現況
-
-v0.4 manual profile使用：
-
-- control：10 Hz
-- physics：60 Hz
-- render：使用者可選60或120 FPS
-- horizontal acceleration：560 px/s²
-- air control multiplier：0.85
-- max horizontal speed：230 px/s
-- release deceleration：960 px/s²
-- reverse brake multiplier：1.25
-
-因此把render從60提高到120不會增加每秒的控制／模擬狀態更新次數。
-
-### 使用者manual session
-
-已排除太短、沒有方向輸入、reset／focus異常與明顯操作失誤的session。有效v0.4
-normal-baseline資料中，直接方向反轉通常需要約0.3～0.4秒才跨過vx=0。這與使用者
-描述的「按右後仍短暫往左」一致。
-
-### 實機視覺參考
-
-主要參考：
+主要實機視覺參考：
 
 - https://youtu.be/vjeleK5T6T0
 
-此影片用於確認原版普通平台的整體節奏、左右修正感、落台與垂直捲動外觀。本候選沒有
-把影片當成精確按鍵時間資料；沒有可見keypress timestamp時，不宣稱已完成正式
-Simulator／Real Alignment。
+公開遊玩畫面可用來判斷普通平台的比例、下降節奏與街機式修正感，但沒有同步keypress
+timestamp，不能單靠影片聲稱正式Simulator／Real Alignment PASS。
 
-## v0.5做法
+使用者manual session中，已排除太短、沒有方向輸入、reset／focus異常與明顯誤操作的
+紀錄。第一輪v0.5的結論只採用使用者直接人工回饋：流暢度改善，但起步、平台尺寸與
+下墜感仍不接近實機。
 
-新增獨立入口：
+## 第二輪v0.5預設
+
+獨立入口：
 
 ```text
 scripts/run_simulator_manual_v05.py
 ```
 
-只在此manual runner中：
+預設：
 
-- control與physics同為固定60 Hz。
-- display可為60或120 FPS，但不改變模擬結果。
-- LEFT／RIGHT反轉時先清除舊方向vx，再由新方向從0開始加速。
-- 不把完整速度直接鏡射到另一方向。
-- RELEASE仍使用既有線性減速度。
-- collision、scroll、normal generator沿用v0.4。
-- N只循環M01～M08普通平台場景。
-- B不切換profile，避免本session混入v0.3／v0.4。
+- control：60 Hz
+- physics：60 Hz
+- display：120 FPS（可改60；不改模擬結果）
+- base horizontal acceleration：420 px/s²
+- low-speed startup multiplier：2.4
+- acceleration curve exponent：2.0
+- max horizontal speed：230 px/s
+- air control multiplier：0.85
+- release deceleration：960 px/s²
+- normal platform width：72 px（v0.4為96）
+- gravity magnitude：320 px/s²（v0.4為192）
+- max fall speed：420 px/s
+- scroll speed：80 px/s
 
-`ShaftEnvConfig`只在`allow_manual_60hz_control=true`時允許`fps=60`；正式policy路徑仍只
-允許8／10／12 Hz。
+## 水平手感
 
-## 建議第一次執行
+不再採固定線性加速度。低速時使用較強起步加速，接近最高速度時平滑收斂：
+
+```text
+低速：約420 × 2.4 = 1008 px/s²
+中速：倍率逐步下降
+接近最高速：約420 px/s²
+```
+
+這保留快速街機式起步，又避免整段速度都以固定斜率增加。方向反轉時仍先清除舊方向
+vx，再從新方向低速曲線開始，不會把滿速直接鏡射到另一側。
+
+## 平台與重力
+
+- 每個現有normal platform在v0.5 session建立時重建為72 px寬。
+- 高度、中心位置、生成順序與v0.4相同。
+- gravity由-192提高為-320 px/s²。
+- max fall speed設為420 px/s，避免無上限加速。
+- collision仍使用v0.4 swept top-surface crossing。
+
+## 第二次重測
+
+先更新worktree：
 
 ```powershell
-.\.venv\Scripts\python.exe scripts\run_simulator_manual_v05.py `
+git pull
+```
+
+反向與起步：
+
+```powershell
+& "C:\Users\jeffr\Downloads\NS Shaft│小朋友下樓梯\ai-stair-agent\.venv\Scripts\python.exe" `
+  ".\scripts\run_simulator_manual_v05.py" `
   --scenario reverse_braking `
   --seed 900001 `
   --display-fps 120 `
@@ -79,10 +90,11 @@ scripts/run_simulator_manual_v05.py
   --record
 ```
 
-接著執行自由遊玩：
+普通平台自由遊玩：
 
 ```powershell
-.\.venv\Scripts\python.exe scripts\run_simulator_manual_v05.py `
+& "C:\Users\jeffr\Downloads\NS Shaft│小朋友下樓梯\ai-stair-agent\.venv\Scripts\python.exe" `
+  ".\scripts\run_simulator_manual_v05.py" `
   --scenario normal_baseline `
   --seed 900001 `
   --display-fps 120 `
@@ -90,48 +102,64 @@ scripts/run_simulator_manual_v05.py
   --record
 ```
 
-輸出：
+## 不修改程式的調參方式
 
-```text
-artifacts/manual_simulator_test/v05/<session_id>/
+平台仍偏寬：
+
+```powershell
+--platform-width 64
 ```
 
-## 可調參數
+平台變得太窄：
 
-不修改程式即可嘗試：
-
-```text
---horizontal-acceleration
---air-control-multiplier
---max-horizontal-speed
---release-deceleration
---scroll-speed
+```powershell
+--platform-width 80
 ```
 
-先固定其他值，每次只改一個參數。
+起步仍太慢：
 
-建議順序：
+```powershell
+--startup-acceleration-multiplier 2.8
+```
 
-1. 先確認方向反轉延遲是否消失。
-2. 再確認起步是否太快／太慢。
-3. 再確認空中修正是否太強／太弱。
-4. 最後才調RELEASE與scroll。
+起步太衝：
 
-## 人工驗收
+```powershell
+--startup-acceleration-multiplier 2.0
+```
 
-至少確認：
+速度後段仍過於線性：
 
-- LEFT直接切RIGHT後，下一個畫面更新就開始往右。
-- RIGHT直接切LEFT同理。
-- 反向不再有約0.3～0.4秒的舊方向滑行。
-- 角色不會瞬間從滿速LEFT變成滿速RIGHT。
-- 空中反轉不會穿透normal platform。
-- 60／120 display FPS只改流暢度，不改落台結果。
-- normal平台密度與scroll仍維持v0.4候選範圍。
+```powershell
+--acceleration-curve-exponent 2.6
+```
 
-## 建議工程檢查
+下墜仍太飄：
 
-本PR建立端沒有完整repository runtime，因此需在Windows專案目錄執行：
+```powershell
+--gravity 380 --max-fall-speed 480
+```
+
+下墜太重：
+
+```powershell
+--gravity 270 --max-fall-speed 360
+```
+
+每次只調一組相關參數，不要同時改所有值。
+
+## 人工驗收順序
+
+1. 起步是否立即有反應、不再像推重物。
+2. 持續按鍵時是否由快起步平滑進入最高速，而非固定線性。
+3. LEFT／RIGHT反轉是否立即開始新方向。
+4. 普通平台寬度是否接近實機畫面比例。
+5. 離開平台後的下墜是否更快、更有重量。
+6. 空中左右修正後是否仍能正確落台且不穿透。
+
+## 工程檢查
+
+PR建立端沒有完整private repository runtime。合併前在Windows執行：
 
 ```powershell
 .\.venv\Scripts\python.exe scripts\run_simulator_manual_v05.py --list-scenarios
@@ -140,11 +168,12 @@ artifacts/manual_simulator_test/v05/<session_id>/
 git diff --check
 ```
 
-若完整pytest有FAIL，不要合併；把第一個FAIL traceback貼回PR。
+若完整pytest有FAIL，不要合併；保留第一個traceback。
 
 ## 研究隔離
 
 - v0.3與v0.4原始profile未改寫。
+- 60 Hz只允許manual fidelity candidate。
 - Phase C維持FAIL。
 - Holdout未使用。
 - 不生成Dataset v2。
