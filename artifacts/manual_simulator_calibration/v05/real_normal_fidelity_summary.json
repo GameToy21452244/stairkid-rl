@@ -1,0 +1,176 @@
+{
+  "schema_version": "real-normal-fidelity-analysis-v1",
+  "project_root": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\stairkid-rl-v05",
+  "data_sources": {
+    "alignment_audit": {
+      "status": "FOUND",
+      "path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\stairkid-rl-v05\\artifacts\\simulator_real_alignment_audit_v3.json",
+      "real_cadence_ms": 125.0,
+      "simulator_cadence_ms": 100.0,
+      "real_left_delta_vx_median": -44.0,
+      "real_right_delta_vx_median": 63.272727,
+      "real_left_delta_x_median": -18.0,
+      "real_right_delta_x_median": 18.25,
+      "real_release_delta_vx_median": -8.0,
+      "secondary_left_delta_vx_median": -58.524823,
+      "secondary_right_delta_vx_median": 48.0,
+      "sim_left_delta_vx_median": -104.8,
+      "sim_right_delta_vx_median": 104.8,
+      "sim_over_real_left_ratio": 2.381818181818182,
+      "sim_over_real_right_ratio": 1.656321846219778,
+      "real_motion_counts": {
+        "falling": 95,
+        "rising": 201,
+        "stable": 9,
+        "unknown": 3
+      },
+      "real_falling_records": 95,
+      "real_rising_records": 201,
+      "real_max_rising_support_streak": 11,
+      "sim_max_rising_support_streak": 2,
+      "real_left_samples": 97,
+      "real_right_samples": 102,
+      "real_release_samples": 108
+    },
+    "calibration_summary": {
+      "status": "FOUND",
+      "path": "C:\\Users\\jeffr\\Downloads\\NS Shaft│小朋友下樓梯\\stairkid-rl-v05\\artifacts\\manual_simulator_calibration\\calibration_summary.json",
+      "v04_horizontal_acceleration": 560.0,
+      "v04_scroll_speed": 80.0,
+      "v04_horizontal_shift_median": 81.42572278497705,
+      "v04_horizontal_shift_q75": 118.07955175128572,
+      "v04_vertical_gap_median": 48.0,
+      "v04_swept_edge_collision": true
+    },
+    "raw_data_search": {
+      "found_data_files": [
+        "artifacts\\simulator_teacher_observation_schema_probe_v1.json",
+        "artifacts\\teacher_real_micro_20260802_021704_floor_audit.json"
+      ],
+      "missing_directories": [],
+      "gitignore_excludes_captures": true,
+      "gitignore_excludes_manual_sessions": true,
+      "note": "Raw real-game captures (teacher_real_micro_*, platform bounding boxes, falling trajectories) are excluded by .gitignore and not pushed to the repository. Only aggregated statistics in the alignment audit artifact are available."
+    }
+  },
+  "physics_estimates": {
+    "platform_width": {
+      "provisional_value": 72.0,
+      "evidence_source": "VIDEO_VISUAL_RATIO",
+      "playfield_width_px": 383.0,
+      "estimated_ratio_to_playfield": 0.18798955613577023,
+      "player_to_platform_ratio": 0.3333333333333333,
+      "alternatives_for_comparison": [
+        64.0,
+        72.0,
+        80.0
+      ],
+      "note": "No raw platform bounding box data in repo. 72 px is a visual estimate from video. User confirmed 96 px is too wide."
+    },
+    "gravity": {
+      "provisional_value": 320.0,
+      "evidence_source": "USER_SUBJECTIVE_PLUS_ESTIMATE",
+      "v03_value": 192.0,
+      "fall_time_48px_at_192": 0.707,
+      "fall_time_48px_at_320": 0.548,
+      "fall_time_48px_at_400": 0.49,
+      "alternatives_for_comparison": [
+        270.0,
+        320.0,
+        380.0
+      ],
+      "note": "No raw falling trajectory data for proper g estimation. 320 is provisional based on user feedback that 192 is too floaty. Video suggests brisk descent rhythm consistent with ~300-400 range."
+    },
+    "max_fall_speed": {
+      "provisional_value": 420.0,
+      "evidence_source": "PROVISIONAL_ESTIMATE",
+      "note": "No data to identify terminal velocity from real game. 420 px/s prevents unrealistic acceleration in deep falls."
+    },
+    "scroll_speed": {
+      "data_measured_value": 96.0,
+      "v04_subjective_candidate": 80.0,
+      "evidence_source": "REAL_GAME_MEASUREMENT",
+      "note": "Real game measurement from alignment packet is 96 px/s. v0.4 used 80 px/s based on user subjective feedback. v0.5-r3 defaults to 96 (data-supported) with --scroll-speed 80 available for comparison."
+    },
+    "horizontal_response": {
+      "real_left_delta_vx_per_125ms": -44.0,
+      "real_right_delta_vx_per_125ms": 63.272727,
+      "equivalent_left_acceleration": 352.0,
+      "equivalent_right_acceleration": 506.2,
+      "average_equivalent_acceleration": 429.1,
+      "note": "These equivalent accelerations include tracker noise, mixed phases (startup/sustained/release), and are not pure first-tick startup measurements. The asymmetry (LEFT weaker than RIGHT) may reflect game asymmetry or tracking bias.",
+      "v05_base_acceleration": 420.0,
+      "v05_startup_effective": "420 × 2.4 = 1008 px/s²",
+      "sim_over_real_left_ratio": 2.381818181818182,
+      "sim_over_real_right_ratio": 1.656321846219778
+    }
+  },
+  "missing_data_for_proper_calibration": [
+    {
+      "item": "Raw platform bounding boxes",
+      "file_pattern": "captures/*/platform_detection*.json",
+      "impact": "Cannot compute platform width statistics",
+      "workaround": "Using video visual ratio estimate (72 px provisional)"
+    },
+    {
+      "item": "Raw falling trajectory data",
+      "file_pattern": "captures/*/player_track*.jsonl",
+      "impact": "Cannot fit gravity from second-derivative",
+      "workaround": "Using 320 px/s² from user feedback + video rhythm"
+    },
+    {
+      "item": "Raw per-frame scroll measurements",
+      "file_pattern": "captures/*/scroll_estimate*.json",
+      "impact": "Cannot verify per-frame scroll speed consistency",
+      "workaround": "Using 96 px/s from alignment audit aggregate"
+    },
+    {
+      "item": "Per-step velocity time series",
+      "file_pattern": "captures/*/frame_log*.csv",
+      "impact": "Cannot analyse 125/250/375ms velocity buildup or reversal crossing time",
+      "workaround": "Using aggregate delta_vx medians only"
+    }
+  ],
+  "v05_r3_defaults": {
+    "horizontal_acceleration": 420.0,
+    "startup_acceleration_multiplier": 2.4,
+    "acceleration_curve_exponent": 2.0,
+    "air_control_multiplier": 0.85,
+    "max_horizontal_speed": 230.0,
+    "release_deceleration": 960.0,
+    "startup_impulse_speed": 60.0,
+    "reversal_brake_speed": 30.0,
+    "platform_width": 72.0,
+    "gravity": 320.0,
+    "max_fall_speed": 420.0,
+    "scroll_speed": 96.0
+  },
+  "evidence_classification": {
+    "data_measured": [
+      "real_cadence_125ms",
+      "real_left_delta_vx_-44",
+      "real_right_delta_vx_+63.27",
+      "scroll_speed_96",
+      "platform_spacing_48",
+      "playfield_bounds_40_423_60_416"
+    ],
+    "video_visual_inference": [
+      "platform_width_72_provisional",
+      "fall_rhythm_brisk",
+      "arcade_startup_response"
+    ],
+    "user_subjective": [
+      "96px_platform_too_wide",
+      "192_gravity_too_floaty",
+      "linear_acceleration_wrong",
+      "startup_feels_like_resistance"
+    ],
+    "provisional_unverified": [
+      "gravity_320",
+      "max_fall_speed_420",
+      "startup_impulse_60",
+      "reversal_brake_30",
+      "scroll_speed_96_vs_80"
+    ]
+  }
+}
