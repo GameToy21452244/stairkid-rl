@@ -44,8 +44,23 @@ class WindowBackend(Protocol):
     def get_window(self, hwnd: int) -> WindowInfo | None: ...
 
 
+def attach_interactive_desktop() -> None:
+    """讓背景/CLI 進程能正常存取與列舉 WinSta0/Default 的桌面視窗。"""
+    try:
+        user32 = ctypes.windll.user32
+        h_winsta = user32.OpenWindowStationW("WinSta0", False, 0x37F)
+        if h_winsta:
+            user32.SetProcessWindowStation(h_winsta)
+        h_desk = user32.OpenDesktopW("Default", 0, False, 0x01FF)
+        if h_desk:
+            user32.SetThreadDesktop(h_desk)
+    except Exception:
+        pass
+
+
 def enable_dpi_awareness() -> None:
     """避免 Windows DPI scaling 造成畫面座標偏移。"""
+    attach_interactive_desktop()
     try:
         ctypes.windll.user32.SetProcessDpiAwarenessContext(ctypes.c_void_p(-4))
     except (AttributeError, OSError):
@@ -66,11 +81,20 @@ class PyWin32Backend:
             import win32con
             import win32gui
             import win32process
-        except ImportError as exc:
-            raise WindowError("缺少 pywin32，請先安裝 requirements.txt。") from exc
+        except ModuleNotFoundError as exc:
+            raise WindowError(
+                "PYWIN32_NOT_INSTALLED: 找不到 pywin32 Python module，"
+                "請先安裝 requirements.txt。"
+            ) from exc
+        except (ImportError, OSError) as exc:
+            raise WindowError(
+                "PYWIN32_NATIVE_DLL_LOAD_FAILED: pywin32 已安裝，"
+                f"但 Windows native DLL 無法載入：{exc}"
+            ) from exc
         self.win32con = win32con
         self.win32gui = win32gui
         self.win32process = win32process
+        self.user32 = ctypes.windll.user32
 
     def _info(self, hwnd: int) -> WindowInfo | None:
         w = self.win32gui
@@ -96,19 +120,20 @@ class PyWin32Backend:
     def list_visible(self) -> list[WindowInfo]:
         result: list[WindowInfo] = []
 
-        def callback(hwnd: int, _extra: object) -> None:
+        def callback(hwnd: int, _extra: object) -> bool:
             try:
                 info = self._info(hwnd)
+                if info:
+                    result.append(info)
             except Exception:
-                # 某些系統／UWP 視窗可能在列舉途中消失或拒絕查詢；跳過該視窗。
-                return
-            if info:
-                result.append(info)
+                pass
+            return True
 
         try:
             self.win32gui.EnumWindows(callback, None)
-        except Exception as exc:
-            raise WindowError(f"無法列舉 Windows 視窗：{exc}") from exc
+        except Exception:
+            # 即使部分權限受限視窗引起 EnumWindows 警示，亦回傳已成功列舉之視窗列表
+            pass
         return result
 
     def foreground_hwnd(self) -> int:
@@ -121,6 +146,14 @@ class PyWin32Backend:
             self.win32gui.BringWindowToTop(hwnd)
             self.win32gui.SetForegroundWindow(hwnd)
         except Exception:
+            pass
+        if self.foreground_hwnd() == hwnd:
+            return True
+        try:
+            # Windows 的 foreground lock 可能無聲拒絕 SetForegroundWindow。
+            # 只對呼叫者已驗證的同一個 hwnd 使用原生切換備援。
+            self.user32.SwitchToThisWindow(hwnd, True)
+        except Exception:
             return False
         return self.foreground_hwnd() == hwnd
 
@@ -129,6 +162,16 @@ class PyWin32Backend:
 
 
 class WindowManager:
+    _NAME_ENTRY_TITLE_HINTS = (
+        "輸入名稱",
+        "輸入姓名",
+        "輸入名字",
+        "entername",
+        "inputname",
+        "playername",
+        "nameentry",
+    )
+
     def __init__(self, backend: WindowBackend | None = None) -> None:
         self.backend = backend or PyWin32Backend()
 
@@ -208,6 +251,9 @@ class WindowManager:
     def is_foreground(self, hwnd: int) -> bool:
         return self.backend.foreground_hwnd() == hwnd
 
+    def foreground_hwnd(self) -> int:
+        return self.backend.foreground_hwnd()
+
     def focus(self, hwnd: int) -> None:
         if not self.backend.bring_to_foreground(hwnd):
             raise WindowError("無法將遊戲切換至前景；已停止，不會送出按鍵。")
@@ -237,3 +283,38 @@ class WindowManager:
         """回傳可能是模態對話框的同程序／owner 可見視窗。"""
         target = self.refresh(hwnd)
         return self.related_windows(target)
+
+    @classmethod
+    def _is_name_entry_dialog(
+        cls,
+        target: WindowInfo,
+        candidate: WindowInfo,
+    ) -> bool:
+        title = cls._normalized_title(candidate.title)
+        title_match = any(
+            cls._normalized_title(hint) in title
+            for hint in cls._NAME_ENTRY_TITLE_HINTS
+        )
+        same_process = (
+            target.process_id > 0
+            and candidate.process_id == target.process_id
+        )
+        return bool(
+            candidate.class_name.casefold() == "#32770"
+            and candidate.owner_hwnd == target.hwnd
+            and same_process
+            and title_match
+        )
+
+    def find_name_entry_dialog(self, hwnd: int) -> WindowInfo | None:
+        """只接受唯一、同程序、由遊戲擁有且標題符合的姓名 modal。"""
+        target = self.refresh(hwnd)
+        related = self.related_windows(target)
+        if len(related) != 1:
+            return None
+        candidate = related[0]
+        return (
+            candidate
+            if self._is_name_entry_dialog(target, candidate)
+            else None
+        )

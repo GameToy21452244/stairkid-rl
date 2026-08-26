@@ -3,19 +3,21 @@ requires = ["setuptools>=65"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "ai-stair-agent"
+name = "stairkid-rl"
 version = "0.1.0"
-description = "以螢幕擷取與一般鍵盤輸入控制 NS-SHAFT 的安全介面層"
-requires-python = ">=3.11,<3.12"
+description = "NS-SHAFT simulator, verified PPO runtime, and guarded Real interface"
+requires-python = ">=3.11,<3.14"
 dependencies = [
   "mss>=9.0,<11",
   "numpy>=1.26,<3",
   "opencv-python>=4.9,<5",
-  "PyAutoGUI>=0.9.54,<1",
-  "PyDirectInput>=1.0.4,<2",
-  "pywin32>=306",
+  "PyAutoGUI>=0.9.54,<1; platform_system == 'Windows'",
+  "PyDirectInput>=1.0.4,<2; platform_system == 'Windows'",
+  "pywin32>=306; platform_system == 'Windows'",
   "PyYAML>=6.0,<7",
   "gymnasium>=1.0,<2",
+  "pymunk>=6.8,<8",
+  "pygame-ce>=2.5,<3",
 ]
 
 [project.optional-dependencies]

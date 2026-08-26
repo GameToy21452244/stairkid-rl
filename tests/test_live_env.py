@@ -52,7 +52,7 @@ class FakeResource:
 
 
 def test_dialog_focus_guard_requires_calibrated_buttons() -> None:
-    with pytest.raises(RuntimeError, match="避免誤選雙人模式"):
+    with pytest.raises(RuntimeError, match="選單焦點"):
         build_dialog_focus_guard(DetectionConfig())
 
 
@@ -69,6 +69,10 @@ def test_dialog_focus_guard_builds_from_calibrated_config() -> None:
             menu_two_player_button_top=297,
             menu_two_player_button_width=81,
             menu_two_player_button_height=21,
+            menu_exit_button_left=172,
+            menu_exit_button_top=297,
+            menu_exit_button_width=70,
+            menu_exit_button_height=21,
         )
     )
 
@@ -90,7 +94,7 @@ def test_live_adapter_sends_one_bounded_action() -> None:
 
     assert result is observed
     assert controller.applied == [Action.LEFT]
-    assert controller.release_count == 1
+    assert controller.release_count == 0
 
 
 def test_live_adapter_releases_if_capture_fails() -> None:
@@ -121,7 +125,7 @@ def test_live_adapter_does_not_send_direction_after_dialog_appears() -> None:
         observe=lambda: terminal,
         reset_pipeline=lambda: None,
         action_duration_ms=80,
-        action_phase_probe=lambda: GamePhase.DIALOG,
+        latest_phase=lambda: GamePhase.DIALOG,
         sleeper=lambda seconds: None,
     )
 
@@ -139,7 +143,7 @@ def test_live_adapter_sends_direction_when_phase_probe_is_playing() -> None:
         observe=lambda: object(),
         reset_pipeline=lambda: None,
         action_duration_ms=80,
-        action_phase_probe=lambda: GamePhase.PLAYING,
+        latest_phase=lambda: GamePhase.PLAYING,
         sleeper=lambda seconds: None,
     )
 

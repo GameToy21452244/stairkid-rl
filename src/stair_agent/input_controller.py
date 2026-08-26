@@ -3,21 +3,15 @@ from __future__ import annotations
 import ctypes
 import threading
 import time
-from enum import IntEnum
 from typing import Callable, Protocol
 
+from .actions import Action
 from .config import ControlsConfig, SafetyConfig
 from .window_manager import WindowManager
 
 
 class InputError(RuntimeError):
     """輸入控制因安全條件不符而中止。"""
-
-
-class Action(IntEnum):
-    RELEASE_ALL = 0
-    LEFT = 1
-    RIGHT = 2
 
 
 class InputBackend(Protocol):
@@ -132,6 +126,37 @@ class InputController:
             self.release_all()
         return blocked
 
+    def verified_name_entry_dialog(self):
+        """回傳唯一、精確符合的遊戲姓名 modal；其他 related window 一律拒絕。"""
+        return self.window_manager.find_name_entry_dialog(self.hwnd)
+
+    def dismiss_verified_name_entry_dialog(self):
+        """只對已驗證且位於前景的姓名 modal 送一次 Enter，不輸入文字。"""
+        self.release_all()
+        if self.emergency_stopped:
+            return None
+        dialog = self.verified_name_entry_dialog()
+        if dialog is None:
+            return None
+        if self.window_manager.foreground_hwnd() != dialog.hwnd:
+            return None
+        self.backend.press("enter")
+        return dialog
+
+    def resume_after_related_window(self) -> bool:
+        """只有 related window 已消失且遊戲重回前景時才解除 sticky stop。"""
+        if self.window_manager.blocking_related_windows(self.hwnd):
+            return False
+        if (
+            self.safety.require_foreground_window
+            and not self.window_manager.is_foreground(self.hwnd)
+        ):
+            return False
+        with self._lock:
+            self.related_window_stopped = False
+            self._related_window_state_initialized = True
+        return True
+
     def is_target_active(self) -> bool:
         if (
             self.safety.block_on_related_windows
@@ -159,8 +184,17 @@ class InputController:
                 self.backend.key_up(opposite)
                 self.held_keys.discard(opposite)
             if key not in self.held_keys:
-                self.backend.key_down(key)
                 self.held_keys.add(key)
+                try:
+                    self.backend.key_down(key)
+                except Exception:
+                    # 後端可能已送出 key-down 才拋出例外。先登記再送，
+                    # 並在失敗時立即嘗試 key-up，避免未追蹤的卡鍵。
+                    try:
+                        self.backend.key_up(key)
+                    finally:
+                        self.held_keys.discard(key)
+                    raise
 
     def key_up(self, key: str) -> None:
         with self._lock:
@@ -190,11 +224,10 @@ class InputController:
 
     def release_all(self) -> None:
         with self._lock:
-            # 即使追蹤集合因例外不完整，也固定釋放所有可能使用的方向鍵。
-            keys = self.held_keys | {
-                self.controls.left_key,
-                self.controls.right_key,
-            }
+            # 只釋放本控制器實際登記為按住的鍵。key_down 會在呼叫
+            # 後端前先登記，因此例外路徑仍可清理，同時避免舊遊戲
+            # 選單把多餘的 LEFT/RIGHT key-up 當成焦點導覽。
+            keys = set(self.held_keys)
             for key in keys:
                 try:
                     self.backend.key_up(key)

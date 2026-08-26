@@ -35,6 +35,13 @@ class RewardAuditor:
     def __init__(self, config: EnvironmentConfig) -> None:
         self.calculator = RewardCalculator(
             floor_reward=config.floor_reward,
+            direction_change_penalty=config.direction_change_penalty,
+            direction_change_window_steps=(
+                config.direction_change_window_steps
+            ),
+            spike_dwell_penalty=config.spike_dwell_penalty,
+            spike_dwell_grace_steps=config.spike_dwell_grace_steps,
+            spike_contact_max_gap=config.spike_contact_max_gap,
             damage_penalty_per_segment=config.damage_penalty_per_segment,
             death_penalty=config.death_penalty,
         )

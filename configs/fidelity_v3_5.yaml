@@ -1,0 +1,150 @@
+schema_version: stairkid-v3-5-safety-refinement-v1
+strategy_version: fresh-v3-safety-refinement-r4-edge-sign-corrected-flipping-v1
+fresh_profile: configs/fidelity_v3_fresh.yaml
+
+lineage:
+  initialization: TRANSFER_FROM_LEGACY_FLIPPING_PARENT
+  parent_role: PRIMARY_FROZEN_BASELINE_AND_TRAINING_PARENT
+  parent_sha256: e539ad8e9a39991d738ef9d4113968d933d4f2535e3b08fabe27f3b4ffd9f51e
+  parent_timesteps: 524288
+  legacy_bank_training_share: 0.0
+  parent_training_physics: legacy_defective_flipping_runtime_state
+  refinement_physics: corrected_flipping_runtime_state_v1
+  corrected_physics_commit: 0cb23aca7dcb112b2c49347a4777b4234d4ead92
+  audited_local_fix_commit: 0d70ba63f534bfddf1268a995275f6cb8b210a51
+  corrected_baseline_evaluation_commit: e0ea06e2d35f0533fc9b267a648ae01c7cb60e7a
+
+reward:
+  step_penalty: 0.003
+  landing_reward: 0.05
+  floor_reward: 1.0
+  death_penalty: 5.0
+  spike_damage_penalty_per_segment: 0.75
+  health_gain_reward_per_segment: 0.05
+  safe_landing_bonus: 0.30
+  safe_landing_margin: 14.0
+  spike_safe_landing_bonus: 0.0
+  edge_landing_penalty: 1.10
+
+r4_hypothesis:
+  source_postmortem: analysis/v3-5-r3-postmortem-v1
+  primary_finding: FAILURE_LANDING_REWARD_SIGN_MISALIGNMENT
+  single_changed_training_variable: edge_landing_penalty
+  previous_value: 0.10
+  new_value: 1.10
+  edge_event_net_no_heal: -0.053
+  edge_event_net_one_heal: -0.003
+  final_v35_round: true
+  frozen_r1_input_bundle_sha256: 3b8e85d52d94b11cacf1466019558670791471a190d79b80ed18a62985b7f53e
+  reuse_exact_r3_r1_checkpoints_and_banks: true
+  r1_retraining_forbidden: true
+  bank_recollection_forbidden: true
+  stop_rule: "If R4 does not produce a DEV64 candidate that passes the existing corrected absolute gates, stop V3.5 permanently; no R5."
+
+training:
+  train_seeds: [117, 142]
+  parent_timesteps: 524288
+  stage_r1_end: 589824
+  stage_r2_mid: 655360
+  stage_r2_end: 720896
+  checkpoint_targets: [589824, 655360, 720896]
+  r1_schedule: [ordinary]
+  r2_schedule: [ordinary, ordinary, failure, success]
+  n_envs: 4
+  n_steps: 1024
+  batch_size: 256
+  n_epochs: 10
+  learning_rate: 0.0003
+  gamma: 0.99
+  gae_lambda: 0.95
+  clip_range: 0.2
+  ent_coef: 0.01
+  vf_coef: 0.5
+  max_grad_norm: 0.5
+
+curriculum:
+  schema_version: v3-5-targeted-safety-bank-r3-corrected-flipping-v1
+  corrected_physics_commit: 0cb23aca7dcb112b2c49347a4777b4234d4ead92
+  source_stage: R1
+  risk_total: 48
+  risk_counts:
+    landing: 20
+    spike: 20
+    top: 8
+  success_total: 48
+  lookback_steps:
+    landing: 3
+    spike: 5
+    top: 3
+  landing_priority: edge_landing_first_with_miss_or_bottom_fallback
+  spike_priority: first_damage_event_per_episode
+  per_episode_caps:
+    landing: 1
+    spike: 1
+    top: 1
+    success: 1
+  success_min_floor: 5
+  success_requires_safe_landing: true
+  collection_max_episodes: 1024
+  contains_legacy_entries: false
+  runtime_schedule: [ordinary, ordinary, failure, success]
+  runtime_schedule_semantics: fixed_vector_lane_timestep_quota
+  failure_horizon_steps: 12
+  success_horizon_steps: 8
+  risk_runtime_cycle: [landing, spike, landing, spike, top]
+
+evaluation:
+  physical_seconds: 30.0
+  dev_seeds: {start: 50000000, count: 64}
+  final_seeds: {start: 60000000, count: 200}
+  final_holdout_max_candidates: 1
+  final_holdout_reselection_after_attempt: false
+  metric_definitions:
+    spike_contact_episode_rate: episodes_with_spike_contact / episodes
+    damage_segments_per_episode: total_negative_health_delta_segments / episodes
+    health_depleted_death_rate: health_depleted_terminals / episodes
+    bottom_death_rate: bottom_terminals / episodes
+    top_death_rate: top_terminals / episodes
+    safe_landing_rate: safe_non_spike_landings / classified_non_spike_landings
+    edge_landing_rate: edge_non_spike_landings / classified_non_spike_landings
+    steps_per_descended_floor: total_policy_steps / max(total_deepest_floor, 1)
+  development_gate:
+    mean_ratio_min: 0.95
+    p25_delta_min: 0.0
+    floor_le4_delta_max: 0.0
+    damage_segments_ratio_max: 0.75
+    bottom_death_rate_ratio_max: 0.85
+    top_death_rate_delta_max: 0.0
+    safe_landing_rate_delta_min: 0.05
+    steps_per_descended_floor_ratio_max: 1.5
+  corrected_parent_dev_reference:
+    model_sha256: e539ad8e9a39991d738ef9d4113968d933d4f2535e3b08fabe27f3b4ffd9f51e
+    model_timesteps: 524288
+    seed_start: 50000000
+    seed_count: 64
+    mean: 30.6875
+    q25: 16.75
+    median: 29.0
+    floor_le4_rate: 0.03125
+    damage_segments_per_episode: 5.3125
+    bottom_death_rate: 0.3125
+    top_death_rate: 0.359375
+    safe_landing_rate: 0.6819787985865724
+    steps_per_descended_floor: 5.609979633401222
+  absolute_development_gate:
+    mean_min: 29.153125
+    q25_min: 16.75
+    floor_le4_rate_max: 0.03125
+    damage_segments_per_episode_max: 3.984375
+    bottom_death_rate_max: 0.265625
+    top_death_rate_max: 0.359375
+    safe_landing_rate_min: 0.7319787985865724
+    steps_per_descended_floor_max: 8.414969450101832
+
+safety:
+  observation_shape: [268]
+  action_space: Discrete(3)
+  actions: [RELEASE_ALL, LEFT, RIGHT]
+  safe_action_mask_policy_input: false
+  real_game_execution: FORBIDDEN
+  automatic_promotion: false

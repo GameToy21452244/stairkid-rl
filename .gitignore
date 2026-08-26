@@ -21,7 +21,10 @@ logs/*
 *.dll
 *.mp4
 *.avi
-models/
+models/*
+!models/README.md
+!models/manifest.json
+models/cache/
 runs/
 checkpoints/
 *.pt

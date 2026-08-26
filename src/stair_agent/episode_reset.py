@@ -6,6 +6,7 @@ from typing import Protocol
 from .dialog_handler import (
     DialogActionHandler,
     DialogActionOutcome,
+    DialogFocusLocation,
     StableObservation,
 )
 from .game_state import GamePhase
@@ -38,16 +39,21 @@ class SingleEnterEpisodeResetter:
         self.last_enter_sent = False
         self.last_focus_corrected = False
         self.last_focus_recovered_without_input = False
+        self.last_focus_trace: tuple[DialogFocusLocation, ...] = ()
+        self.last_before: StableObservation | None = None
         self.last_stable: StableObservation | None = None
 
     def reset(self) -> GameObservation:
         self.last_enter_sent = False
         self.last_focus_corrected = False
         self.last_focus_recovered_without_input = False
+        self.last_focus_trace = ()
+        self.last_before = None
         self.last_stable = None
         self.controller.release_all()
         try:
             before = self.handler.observe_stable()
+            self.last_before = before
             self.last_stable = before
             if before.phase is GamePhase.PLAYING:
                 pass
@@ -58,6 +64,7 @@ class SingleEnterEpisodeResetter:
                 self.last_focus_recovered_without_input = (
                     result.focus_recovered_without_input
                 )
+                self.last_focus_trace = result.focus_trace
                 self.last_stable = result.after
                 if result.outcome is not DialogActionOutcome.PLAYING:
                     raise EpisodeResetError(
