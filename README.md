@@ -100,9 +100,12 @@ model-specific interactive authorization phrase. See `docs/REAL_GAME.md`.
 ## Train in Colab
 
 Open `notebooks/StairKid_Training_Colab.ipynb`. The notebook clones GitHub,
-checks out `GIT_REF`, installs the package, fetches separate assets, runs one
-precheck, and invokes `scripts/train.py`. Use an exact commit/tag for a formal
-reproducible run. Full mode has an explicit authorization guard.
+checks out `GIT_REF`, installs the reusable environment package, and exposes
+the complete V3/R4 PPO orchestration directly in readable cells—including
+`PPO(...)`, `model.learn(...)`, resume and asset validation, curricula,
+evaluation, checkpointing, and manifests. Use an exact commit/tag for a formal
+reproducible run. The default is precheck, and full mode has an explicit
+authorization guard.
 
 Local source precheck:
 
