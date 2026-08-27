@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "models": {
+    "v3": {
+      "id": "v3",
+      "display_name": "Fresh V3",
+      "seed": 17,
+      "timesteps": 524288,
+      "sha256": "e539ad8e9a39991d738ef9d4113968d933d4f2535e3b08fabe27f3b4ffd9f51e",
+      "status": "STABLE_BASELINE",
+      "description": "Canonical Fresh V3 simulator-trained baseline with historical Real evidence.",
+      "asset_path": "models/cache/fresh_v3_seed17_524288.zip",
+      "asset_source": "Canonical project release asset (URL unpublished; use fetch_models.py --source-dir)",
+      "release_url": null,
+      "observation_shape": [268],
+      "action_count": 3,
+      "simulator_profile": "configs/fidelity_v3_fresh.yaml",
+      "real_evidence": {
+        "episodes": 61,
+        "mean_floor": 4.41,
+        "median_floor": 4,
+        "q25_floor": 2,
+        "q75_floor": 6,
+        "floor_le_4_rate": 0.59
+      }
+    },
+    "r4": {
+      "id": "r4",
+      "display_name": "V3.5 R4 seed142@655360",
+      "seed": 142,
+      "timesteps": 655360,
+      "sha256": "6a9e966ae69c1b3f5610bc5c8a009dcc5519e94fa20d754e54ef0ac445399e10",
+      "status": "EXPERIMENTAL_FINAL",
+      "description": "Final V3.5 experiment. Simulator gate failed; no formal promotion; safety unresolved.",
+      "asset_path": "models/cache/v3_5_r4_seed142_655360.zip",
+      "asset_source": "v3_5_safety_refinement_handoff_20260826T151023Z.zip#seed_142/checkpoints/v3_5_655360.zip",
+      "release_url": null,
+      "observation_shape": [268],
+      "action_count": 3,
+      "simulator_profile": "configs/fidelity_v3_5.yaml",
+      "formal_simulator_gate": "FAIL",
+      "formal_promotion": "NO",
+      "safety_status": "UNRESOLVED",
+      "exploratory_real20": {
+        "status": "COMPLETE",
+        "episodes": 20,
+        "mean_floor": 5.35,
+        "median_floor": 5,
+        "q25_floor": 3,
+        "q75_floor": 8,
+        "min_floor": 1,
+        "max_floor": 13,
+        "floor_le_4_rate": 0.45,
+        "interpretation": "The final audit classifies R4 Real20 as descriptively worse than historical Fresh V3 on the retained summary metrics. Sample sizes differ, so statistical superiority was not claimed; safety remained unresolved."
+      }
+    }
+  }
+}

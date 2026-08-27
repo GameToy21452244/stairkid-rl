@@ -7,7 +7,7 @@ from typing import Any
 
 from .game_events import GameEventDetection
 from .game_state import GamePhase
-from .hud_detection import HealthUpdate
+from .hud_detection import FloorUpdate, HealthUpdate
 from .object_tracking import PlatformTrackingState, PlayerTrackingState
 
 
@@ -21,6 +21,7 @@ class GameObservation:
     platforms: list[dict[str, Any]]
     platform_scroll_velocity_y: float
     events: list[dict[str, Any]]
+    floor: dict[str, Any] | None = None
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -32,6 +33,7 @@ class GameObservation:
             "platforms": self.platforms,
             "platform_scroll_velocity_y": self.platform_scroll_velocity_y,
             "events": self.events,
+            "floor": self.floor,
         }
 
 
@@ -61,6 +63,7 @@ class ObservationBuilder:
         platform_state: PlatformTrackingState,
         health: HealthUpdate,
         events: list[GameEventDetection],
+        floor: FloorUpdate | None = None,
     ) -> GameObservation:
         player = None
         if player_state.player is not None:
@@ -72,6 +75,8 @@ class ObservationBuilder:
                 "velocity_y": player_state.velocity_y,
                 "motion": player_state.motion.value,
                 "confidence": player_state.player.confidence,
+                "detection_source": player_state.detection_source,
+                "missing_streak": player_state.missing_streak,
             }
         nearest = (
             None
@@ -114,6 +119,16 @@ class ObservationBuilder:
             ],
             platform_scroll_velocity_y=platform_state.scroll_velocity_y,
             events=event_payloads,
+            floor=(
+                None
+                if floor is None
+                else {
+                    "value": floor.value,
+                    "delta": floor.delta,
+                    "stable": floor.stable,
+                    "confidence": floor.confidence,
+                }
+            ),
         )
 
 

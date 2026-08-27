@@ -70,7 +70,7 @@ def test_tracker_selects_nearest_overlapping_platform_below() -> None:
         PlatformKind.NORMAL,
         1.0,
     )
-    tracker = PlayerTracker()
+    tracker = PlayerTracker(max_missing_frames=0)
 
     state = tracker.update(
         objects(BoundingBox(50, 40, 20, 20), [far, side, near]),
@@ -82,7 +82,7 @@ def test_tracker_selects_nearest_overlapping_platform_below() -> None:
 
 
 def test_missing_player_resets_velocity_history() -> None:
-    tracker = PlayerTracker()
+    tracker = PlayerTracker(max_missing_frames=0)
     tracker.update(objects(BoundingBox(50, 40, 20, 20)), timestamp=1.0)
     missing = tracker.update(objects(None), timestamp=2.0)
     returned = tracker.update(

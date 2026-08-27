@@ -7,9 +7,9 @@ import gymnasium as gym
 import numpy as np
 from gymnasium import spaces
 
+from .actions import Action
 from .config import EnvironmentConfig
 from .game_state import GamePhase
-from .input_controller import Action
 from .observation import GameObservation
 
 
@@ -90,7 +90,7 @@ class FeatureEncoder:
             values[4] = self._clip(float(player.get("velocity_y", 0.0)) / self.velocity_scale)
             values[5] = self.MOTION_CODES.get(str(player.get("motion", "")), 0.0)
 
-        values[6] = self._clip(float(health.get("segments", 0)) / 12.0)
+        values[6] = self._clip(float(health.get("segments") or 0) / 12.0)
         values[7] = self._clip(
             float(observation.platform_scroll_velocity_y) / self.velocity_scale
         )
@@ -250,37 +250,517 @@ class TemporalObservationStack:
 
 
 class RewardCalculator:
-    """第一版保守獎勵：下樓得分、掉血扣分、死亡額外扣分。"""
+    """保守獎勵與可重設的短期控制 shaping。"""
 
     def __init__(
         self,
         *,
         floor_reward: float = 1.0,
         step_penalty: float = 0.0,
+        direction_change_penalty: float = 0.0,
+        direction_change_window_steps: int = 0,
+        spike_dwell_penalty: float = 0.0,
+        spike_dwell_grace_steps: int = 0,
+        spike_contact_max_gap: int = 12,
+        idle_action_penalty: float = 0.0,
+        idle_action_grace_steps: int = 0,
+        platform_dwell_penalty: float = 0.0,
+        platform_dwell_grace_steps: int = 0,
+        platform_dwell_max_gap: int = 80,
+        reference_height: int = 431,
+        top_danger_penalty: float = 0.0,
+        top_danger_grace_steps: int = 0,
+        top_danger_y_ratio: float = 0.0,
+        playfield_left: float = 0.0,
+        playfield_right: float = 634.0,
+        wall_margin_pixels: int = 0,
+        wall_push_penalty: float = 0.0,
+        platform_alignment_reward_scale: float = 0.0,
+        platform_target_action_reward: float = 0.0,
+        platform_alignment_min_vertical_gap: int = 25,
+        platform_alignment_max_vertical_gap: int = 260,
+        platform_alignment_landing_margin: int = 10,
+        platform_alignment_rising_origin_exclusion_gap: int = 150,
+        platform_alignment_safe_kinds: list[str] | None = None,
         damage_penalty_per_segment: float = 0.2,
         death_penalty: float = 5.0,
     ) -> None:
         self.floor_reward = float(floor_reward)
         self.step_penalty = float(step_penalty)
+        self.direction_change_penalty = float(direction_change_penalty)
+        self.direction_change_window_steps = max(
+            0,
+            int(direction_change_window_steps),
+        )
+        self.spike_dwell_penalty = float(spike_dwell_penalty)
+        self.spike_dwell_grace_steps = max(
+            0,
+            int(spike_dwell_grace_steps),
+        )
+        self.spike_contact_max_gap = max(0, int(spike_contact_max_gap))
+        self.idle_action_penalty = float(idle_action_penalty)
+        self.idle_action_grace_steps = max(
+            0,
+            int(idle_action_grace_steps),
+        )
+        self.platform_dwell_penalty = float(platform_dwell_penalty)
+        self.platform_dwell_grace_steps = max(
+            0,
+            int(platform_dwell_grace_steps),
+        )
+        self.platform_dwell_max_gap = max(
+            0,
+            int(platform_dwell_max_gap),
+        )
+        self.reference_height = max(1.0, float(reference_height))
+        self.top_danger_penalty = float(top_danger_penalty)
+        self.top_danger_grace_steps = max(
+            0,
+            int(top_danger_grace_steps),
+        )
+        self.top_danger_y_ratio = float(
+            np.clip(top_danger_y_ratio, 0.0, 1.0)
+        )
+        self.playfield_left = float(playfield_left)
+        self.playfield_right = float(playfield_right)
+        if self.playfield_right <= self.playfield_left:
+            raise ValueError("playfield_right 必須大於 playfield_left。")
+        self.wall_margin_pixels = min(
+            max(0.0, float(wall_margin_pixels)),
+            (self.playfield_right - self.playfield_left) / 2,
+        )
+        self.wall_push_penalty = float(wall_push_penalty)
+        self.platform_alignment_reward_scale = float(
+            platform_alignment_reward_scale
+        )
+        self.platform_target_action_reward = float(
+            platform_target_action_reward
+        )
+        self.platform_alignment_min_vertical_gap = max(
+            0.0,
+            float(platform_alignment_min_vertical_gap),
+        )
+        self.platform_alignment_max_vertical_gap = max(
+            self.platform_alignment_min_vertical_gap,
+            float(platform_alignment_max_vertical_gap),
+        )
+        self.platform_alignment_landing_margin = max(
+            0.0,
+            float(platform_alignment_landing_margin),
+        )
+        self.platform_alignment_rising_origin_exclusion_gap = max(
+            0.0,
+            float(platform_alignment_rising_origin_exclusion_gap),
+        )
+        self.platform_alignment_safe_kinds = set(
+            platform_alignment_safe_kinds
+            or ["normal", "spring", "conveyor", "flipping"]
+        )
         self.damage_penalty_per_segment = float(damage_penalty_per_segment)
         self.death_penalty = float(death_penalty)
+        self.last_components: dict[str, Any] = {}
+        self.reset()
+
+    def reset(self) -> None:
+        self._last_direction: Action | None = None
+        self._steps_since_direction = 0
+        self._spike_dwell_steps = 0
+        self._idle_action_steps = 0
+        self._platform_dwell_key: tuple[int, str] | None = None
+        self._platform_dwell_steps = 0
+        self._top_danger_steps = 0
+        self._alignment_target_id: int | None = None
+        self._alignment_distance: float | None = None
+        self.last_components = {
+            "step_penalty": 0.0,
+            "floor_reward": 0.0,
+            "damage_penalty": 0.0,
+            "death_penalty": 0.0,
+            "direction_changed": False,
+            "direction_change_penalty": 0.0,
+            "spike_contact": False,
+            "spike_dwell_steps": 0,
+            "spike_dwell_penalty": 0.0,
+            "idle_action_steps": 0,
+            "idle_action_penalty": 0.0,
+            "platform_dwell_steps": 0,
+            "platform_dwell_penalty": 0.0,
+            "top_danger": False,
+            "top_danger_steps": 0,
+            "top_danger_penalty": 0.0,
+            "wall_push": None,
+            "wall_push_penalty": 0.0,
+            "platform_alignment_target_id": None,
+            "platform_alignment_distance": None,
+            "platform_alignment_reward": 0.0,
+            "platform_target_action_reward": 0.0,
+        }
+
+    def _platform_alignment(
+        self,
+        observation: GameObservation,
+    ) -> tuple[int, float] | None:
+        player = observation.player
+        if player is None:
+            return None
+        motion = str(player.get("motion", ""))
+        if motion not in {"stable", "rising", "falling"}:
+            return None
+        player_x = float(player.get("center_x", 0.0))
+        player_y = float(player.get("center_y", 0.0))
+        candidates: list[tuple[float, float, int]] = []
+        for platform in observation.platforms:
+            if str(platform.get("kind", "")) not in (
+                self.platform_alignment_safe_kinds
+            ):
+                continue
+            track_id = platform.get("track_id")
+            box = platform.get("box")
+            if track_id is None or not isinstance(box, dict):
+                continue
+            top = float(box.get("top", 0.0))
+            vertical_gap = top - player_y
+            if not (
+                self.platform_alignment_min_vertical_gap
+                <= vertical_gap
+                <= self.platform_alignment_max_vertical_gap
+            ):
+                continue
+            left = float(box.get("left", 0.0))
+            width = max(0.0, float(box.get("width", 0.0)))
+            landing_left = left + self.platform_alignment_landing_margin
+            landing_right = (
+                left + width - self.platform_alignment_landing_margin
+            )
+            if landing_right < landing_left:
+                landing_left = left
+                landing_right = left + width
+            horizontal_distance = max(
+                landing_left - player_x,
+                0.0,
+                player_x - landing_right,
+            )
+            candidates.append(
+                (vertical_gap, horizontal_distance, int(track_id))
+            )
+        if not candidates:
+            return None
+        if motion == "rising":
+            origin = min(candidates)
+            if (
+                origin[0]
+                <= self.platform_alignment_rising_origin_exclusion_gap
+            ):
+                candidates.remove(origin)
+                if not candidates:
+                    return None
+        _gap, distance, track_id = min(candidates)
+        return track_id, distance
+
+    def _update_platform_alignment(
+        self,
+        observation: GameObservation,
+    ) -> tuple[int | None, float | None, float]:
+        target = self._platform_alignment(observation)
+        if target is None:
+            self._alignment_target_id = None
+            self._alignment_distance = None
+            return None, None, 0.0
+        track_id, distance = target
+        reward = 0.0
+        if (
+            track_id == self._alignment_target_id
+            and self._alignment_distance is not None
+        ):
+            playfield_width = self.playfield_right - self.playfield_left
+            reward = (
+                (self._alignment_distance - distance)
+                / playfield_width
+                * self.platform_alignment_reward_scale
+            )
+        self._alignment_target_id = track_id
+        self._alignment_distance = distance
+        return track_id, distance, float(reward)
+
+    def _target_action_reward(
+        self,
+        observation: GameObservation,
+        action: Action,
+    ) -> float:
+        player = observation.player
+        if (
+            player is None
+            or str(player.get("motion", "")) != "falling"
+            or not self.platform_target_action_reward
+        ):
+            return 0.0
+        player_x = float(player.get("center_x", 0.0))
+        candidates: list[tuple[float, float]] = []
+        for platform in observation.platforms:
+            if str(platform.get("kind", "")) not in (
+                self.platform_alignment_safe_kinds
+            ):
+                continue
+            box = platform.get("box")
+            if not isinstance(box, dict):
+                continue
+            vertical_gap = float(box.get("top", 0.0)) - float(
+                player.get("center_y", 0.0)
+            )
+            if not (
+                self.platform_alignment_min_vertical_gap
+                <= vertical_gap
+                <= self.platform_alignment_max_vertical_gap
+            ):
+                continue
+            left = float(box.get("left", 0.0))
+            width = max(0.0, float(box.get("width", 0.0)))
+            safe_left = left + self.platform_alignment_landing_margin
+            safe_right = left + width - self.platform_alignment_landing_margin
+            if safe_right < safe_left:
+                safe_left, safe_right = left, left + width
+            signed_offset = (
+                safe_left - player_x
+                if player_x < safe_left
+                else (
+                    safe_right - player_x
+                    if player_x > safe_right
+                    else 0.0
+                )
+            )
+            candidates.append((vertical_gap, signed_offset))
+        if not candidates:
+            return 0.0
+        _gap, signed_offset = min(candidates, key=lambda item: item[0])
+        if signed_offset == 0:
+            return 0.0
+        desired = Action.RIGHT if signed_offset > 0 else Action.LEFT
+        if action is desired:
+            return self.platform_target_action_reward
+        if action is Action.RELEASE_ALL:
+            return -self.platform_target_action_reward / 2
+        return -self.platform_target_action_reward
+
+    def _update_direction(self, action: Action) -> bool:
+        if action not in {Action.LEFT, Action.RIGHT}:
+            if self._last_direction is not None:
+                self._steps_since_direction += 1
+            return False
+        changed = (
+            self._last_direction is not None
+            and action != self._last_direction
+            and self._steps_since_direction
+            <= self.direction_change_window_steps
+        )
+        self._last_direction = action
+        self._steps_since_direction = 0
+        return changed
+
+    def _update_spike_contact(
+        self,
+        observation: GameObservation,
+    ) -> bool:
+        nearest = observation.nearest_platform
+        gap = None if nearest is None else nearest.get("vertical_gap")
+        contact = bool(
+            nearest is not None
+            and str(nearest.get("kind", "")) == "spikes"
+            and gap is not None
+            and 0 <= float(gap) <= self.spike_contact_max_gap
+        )
+        self._spike_dwell_steps = (
+            self._spike_dwell_steps + 1 if contact else 0
+        )
+        return contact
+
+    def _update_platform_dwell(
+        self,
+        observation: GameObservation,
+    ) -> int:
+        nearest = observation.nearest_platform
+        gap = None if nearest is None else nearest.get("vertical_gap")
+        track_id = None if nearest is None else nearest.get("track_id")
+        if (
+            nearest is None
+            or track_id is None
+            or gap is None
+            or not 0 <= float(gap) <= self.platform_dwell_max_gap
+        ):
+            self._platform_dwell_key = None
+            self._platform_dwell_steps = 0
+            return 0
+        key = (int(track_id), str(nearest.get("kind", "")))
+        if key == self._platform_dwell_key:
+            self._platform_dwell_steps += 1
+        else:
+            self._platform_dwell_key = key
+            self._platform_dwell_steps = 1
+        return self._platform_dwell_steps
+
+    def _update_top_danger(
+        self,
+        observation: GameObservation,
+    ) -> bool:
+        player = observation.player
+        in_danger = bool(
+            player is not None
+            and float(player.get("center_y", self.reference_height))
+            / self.reference_height
+            <= self.top_danger_y_ratio
+        )
+        self._top_danger_steps = (
+            self._top_danger_steps + 1 if in_danger else 0
+        )
+        return in_danger
 
     def calculate(
         self,
         observation: GameObservation,
         *,
         terminated: bool,
+        action: Action | None = None,
     ) -> float:
         reward = -self.step_penalty
+        components: dict[str, Any] = {
+            "step_penalty": -self.step_penalty,
+            "floor_reward": 0.0,
+            "damage_penalty": 0.0,
+            "death_penalty": 0.0,
+            "direction_changed": False,
+            "direction_change_penalty": 0.0,
+            "spike_contact": False,
+            "spike_dwell_steps": 0,
+            "spike_dwell_penalty": 0.0,
+            "idle_action_steps": 0,
+            "idle_action_penalty": 0.0,
+            "platform_dwell_steps": 0,
+            "platform_dwell_penalty": 0.0,
+            "top_danger": False,
+            "top_danger_steps": 0,
+            "top_danger_penalty": 0.0,
+            "wall_push": None,
+            "wall_push_penalty": 0.0,
+            "platform_alignment_target_id": None,
+            "platform_alignment_distance": None,
+            "platform_alignment_reward": 0.0,
+            "platform_target_action_reward": 0.0,
+        }
+        took_damage = False
         for event in observation.events:
             event_type = event.get("type")
             if event_type == "floor_descended":
                 reward += self.floor_reward
+                components["floor_reward"] += self.floor_reward
             elif event_type in {"damage", "spike_damage"}:
+                took_damage = True
                 health_delta = min(0, int(event.get("health_delta") or 0))
-                reward += health_delta * self.damage_penalty_per_segment
+                damage_penalty = (
+                    health_delta * self.damage_penalty_per_segment
+                )
+                reward += damage_penalty
+                components["damage_penalty"] += damage_penalty
         if terminated:
             reward -= self.death_penalty
+            components["death_penalty"] = -self.death_penalty
+        if action is not None:
+            (
+                alignment_target_id,
+                alignment_distance,
+                alignment_reward,
+            ) = self._update_platform_alignment(observation)
+            components["platform_alignment_target_id"] = (
+                alignment_target_id
+            )
+            components["platform_alignment_distance"] = alignment_distance
+            components["platform_alignment_reward"] = alignment_reward
+            reward += alignment_reward
+            target_action_reward = self._target_action_reward(
+                observation,
+                action,
+            )
+            components["platform_target_action_reward"] = (
+                target_action_reward
+            )
+            reward += target_action_reward
+            player = observation.player
+            wall_push: str | None = None
+            if player is not None:
+                player_x = float(player.get("center_x", 0.0))
+                if (
+                    action is Action.LEFT
+                    and player_x
+                    <= self.playfield_left + self.wall_margin_pixels
+                ):
+                    wall_push = "left"
+                elif (
+                    action is Action.RIGHT
+                    and player_x
+                    >= self.playfield_right - self.wall_margin_pixels
+                ):
+                    wall_push = "right"
+            components["wall_push"] = wall_push
+            if wall_push is not None:
+                reward -= self.wall_push_penalty
+                components["wall_push_penalty"] = (
+                    -self.wall_push_penalty
+                )
+            self._idle_action_steps = (
+                self._idle_action_steps + 1
+                if action is Action.RELEASE_ALL
+                else 0
+            )
+            components["idle_action_steps"] = self._idle_action_steps
+            if self._idle_action_steps > self.idle_action_grace_steps:
+                reward -= self.idle_action_penalty
+                components["idle_action_penalty"] = (
+                    -self.idle_action_penalty
+                )
+            if took_damage:
+                # 頂端尖刺可能強制角色向下穿越原平台；掉血時先清除
+                # 舊平台停留歷史，避免把遊戲的強制位移算成持續駐留。
+                self._platform_dwell_key = None
+                self._platform_dwell_steps = 0
+            platform_dwell_steps = self._update_platform_dwell(observation)
+            components["platform_dwell_steps"] = platform_dwell_steps
+            if (
+                platform_dwell_steps
+                > self.platform_dwell_grace_steps
+            ):
+                reward -= self.platform_dwell_penalty
+                components["platform_dwell_penalty"] = (
+                    -self.platform_dwell_penalty
+                )
+            top_danger = self._update_top_danger(observation)
+            components["top_danger"] = top_danger
+            components["top_danger_steps"] = self._top_danger_steps
+            if (
+                top_danger
+                and self._top_danger_steps > self.top_danger_grace_steps
+            ):
+                reward -= self.top_danger_penalty
+                components["top_danger_penalty"] = (
+                    -self.top_danger_penalty
+                )
+            direction_changed = self._update_direction(action)
+            components["direction_changed"] = direction_changed
+            if direction_changed:
+                reward -= self.direction_change_penalty
+                components["direction_change_penalty"] = (
+                    -self.direction_change_penalty
+                )
+            spike_contact = self._update_spike_contact(observation)
+            components["spike_contact"] = spike_contact
+            components["spike_dwell_steps"] = self._spike_dwell_steps
+            if (
+                spike_contact
+                and self._spike_dwell_steps
+                > self.spike_dwell_grace_steps
+            ):
+                reward -= self.spike_dwell_penalty
+                components["spike_dwell_penalty"] = (
+                    -self.spike_dwell_penalty
+                )
+        self.last_components = components
         return float(reward)
 
 
@@ -296,6 +776,8 @@ class StairAgentEnv(gym.Env[np.ndarray, int]):
         *,
         reference_width: int = 634,
         reference_height: int = 431,
+        playfield_left: float | None = None,
+        playfield_right: float | None = None,
     ) -> None:
         super().__init__()
         self.adapter = adapter
@@ -310,6 +792,58 @@ class StairAgentEnv(gym.Env[np.ndarray, int]):
         self.reward_calculator = RewardCalculator(
             floor_reward=self.config.floor_reward,
             step_penalty=self.config.step_penalty,
+            direction_change_penalty=(
+                self.config.direction_change_penalty
+            ),
+            direction_change_window_steps=(
+                self.config.direction_change_window_steps
+            ),
+            spike_dwell_penalty=self.config.spike_dwell_penalty,
+            spike_dwell_grace_steps=self.config.spike_dwell_grace_steps,
+            spike_contact_max_gap=self.config.spike_contact_max_gap,
+            idle_action_penalty=self.config.idle_action_penalty,
+            idle_action_grace_steps=self.config.idle_action_grace_steps,
+            platform_dwell_penalty=self.config.platform_dwell_penalty,
+            platform_dwell_grace_steps=(
+                self.config.platform_dwell_grace_steps
+            ),
+            platform_dwell_max_gap=self.config.platform_dwell_max_gap,
+            reference_height=reference_height,
+            top_danger_penalty=self.config.top_danger_penalty,
+            top_danger_grace_steps=self.config.top_danger_grace_steps,
+            top_danger_y_ratio=self.config.top_danger_y_ratio,
+            playfield_left=(
+                0.0 if playfield_left is None else playfield_left
+            ),
+            playfield_right=(
+                float(reference_width)
+                if playfield_right is None
+                else playfield_right
+            ),
+            wall_margin_pixels=self.config.wall_margin_pixels,
+            wall_push_penalty=self.config.wall_push_penalty,
+            platform_alignment_reward_scale=(
+                self.config.platform_alignment_reward_scale
+            ),
+            platform_target_action_reward=(
+                self.config.platform_target_action_reward
+            ),
+            platform_alignment_min_vertical_gap=(
+                self.config.platform_alignment_min_vertical_gap
+            ),
+            platform_alignment_max_vertical_gap=(
+                self.config.platform_alignment_max_vertical_gap
+            ),
+            platform_alignment_landing_margin=(
+                self.config.platform_alignment_landing_margin
+            ),
+            platform_alignment_rising_origin_exclusion_gap=(
+                self.config
+                .platform_alignment_rising_origin_exclusion_gap
+            ),
+            platform_alignment_safe_kinds=(
+                self.config.platform_alignment_safe_kinds
+            ),
             damage_penalty_per_segment=self.config.damage_penalty_per_segment,
             death_penalty=self.config.death_penalty,
         )
@@ -323,8 +857,13 @@ class StairAgentEnv(gym.Env[np.ndarray, int]):
         self._step_count = 0
         self.last_observation: GameObservation | None = None
 
-    def _info(self, observation: GameObservation) -> dict[str, Any]:
-        return {
+    def _info(
+        self,
+        observation: GameObservation,
+        *,
+        reward_components: dict[str, Any] | None = None,
+    ) -> dict[str, Any]:
+        info = {
             "phase": observation.phase,
             "events": [
                 str(event.get("type", "unknown"))
@@ -334,6 +873,9 @@ class StairAgentEnv(gym.Env[np.ndarray, int]):
             "raw_feature_count": self.encoder.feature_count,
             "stacked_feature_count": self.observation_space.shape[0],
         }
+        if reward_components is not None:
+            info["reward_components"] = dict(reward_components)
+        return info
 
     @staticmethod
     def _is_terminated(phase: str) -> bool:
@@ -353,6 +895,7 @@ class StairAgentEnv(gym.Env[np.ndarray, int]):
         super().reset(seed=seed)
         del options
         self._step_count = 0
+        self.reward_calculator.reset()
         try:
             observation = self.adapter.reset()
             self.last_observation = observation
@@ -367,12 +910,61 @@ class StairAgentEnv(gym.Env[np.ndarray, int]):
             self.adapter.release_all()
             raise
 
+    def initialize_from_observation(
+        self,
+        observation: GameObservation,
+    ) -> tuple[np.ndarray, dict[str, Any]]:
+        """Passively initialize an episode from an already captured PLAYING frame.
+
+        Unlike :meth:`reset`, this method never calls the adapter and therefore
+        cannot release, press, or otherwise send a key.  It is intended for a
+        user-prepared Real game where menu/restart input must remain manual.
+        The initial four-frame stack repeats the captured state with zero action
+        history; subsequent ``step(A_t)`` calls append the resulting observation
+        together with that actually executed ``A_t``.
+        """
+        if observation.phase != GamePhase.PLAYING.value:
+            raise GymEnvironmentError(
+                "passive initialization requires PLAYING observation"
+            )
+        if observation.player is None:
+            raise GymEnvironmentError(
+                "passive initialization requires player tracking"
+            )
+        if not observation.platforms:
+            raise GymEnvironmentError(
+                "passive initialization requires platform context"
+            )
+        self._step_count = 0
+        self.reward_calculator.reset()
+        self.last_observation = observation
+        features = self.encoder.encode(observation)
+        stacked = self.temporal_stack.reset(features)
+        if not np.isfinite(stacked).all():
+            raise GymEnvironmentError("passive initialization produced nonfinite observation")
+        return stacked, self._info(observation)
+
     def step(
         self,
         action: int,
     ) -> tuple[np.ndarray, float, bool, bool, dict[str, Any]]:
         if not self.action_space.contains(action):
             raise GymEnvironmentError(f"無效動作：{action!r}，只允許 0、1、2。")
+        # Use the observation already returned to the policy.  Never insert a
+        # second capture between that observation and the selected action.
+        # Phase is also guarded by LiveGameAdapter's cache-only provider so a
+        # terminal cached frame cannot send LEFT/RIGHT.  Tracking loss is a
+        # fail-closed error because there is no safe directional action.
+        if (
+            self.last_observation is not None
+            and self.last_observation.phase == GamePhase.PLAYING.value
+            and self.last_observation.player is None
+        ):
+            self.adapter.release_all()
+            raise GymEnvironmentError(
+                "最新 PLAYING observation 無 player tracking；"
+                "已釋放按鍵並拒絕送出方向動作。"
+            )
         mapped_action = Action(int(action))
         try:
             observation = self.adapter.step(mapped_action)
@@ -386,6 +978,7 @@ class StairAgentEnv(gym.Env[np.ndarray, int]):
             reward = self.reward_calculator.calculate(
                 observation,
                 terminated=terminated,
+                action=mapped_action,
             )
             if terminated or truncated:
                 self.adapter.release_all()
@@ -397,7 +990,12 @@ class StairAgentEnv(gym.Env[np.ndarray, int]):
                 reward,
                 terminated,
                 truncated,
-                self._info(observation),
+                self._info(
+                    observation,
+                    reward_components=(
+                        self.reward_calculator.last_components
+                    ),
+                ),
             )
         except Exception:
             self.adapter.release_all()

@@ -1,4 +1,5 @@
 .venv/
+.venv-*/
 .env
 .env.*
 !.env.example
@@ -12,7 +13,14 @@ secrets*.yaml
 secrets*.yml
 __pycache__/
 *.py[cod]
+*.egg-info/
 .pytest_cache/
+.coverage
+htmlcov/
+.ipynb_checkpoints/
+build/
+dist/
+downloads/
 captures/*
 !captures/.gitkeep
 logs/*
@@ -21,9 +29,15 @@ logs/*
 *.dll
 *.mp4
 *.avi
-models/
+models/*
+!models/README.md
+!models/manifest.json
+models/cache/
+training_assets/cache/
 runs/
 checkpoints/
+tmp/
+.local_tools/
 *.pt
 *.pth
 *.onnx

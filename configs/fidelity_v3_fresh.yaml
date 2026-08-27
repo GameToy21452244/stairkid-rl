@@ -1,0 +1,106 @@
+fidelity_version: ns-shaft-sim-real-anchored-v3-v0.1
+training_lineage: fresh-random-init-v1
+
+# Standalone materialization of the already validated physics values.
+# Fresh V3 must not load configs/fidelity_v2.yaml at runtime.
+physics_profile:
+  source_note: materialized_from_validated_fidelity_v2_physics_values_no_runtime_dependency
+  nominal:
+    platform_width: 95.0
+    platform_height: 16.0
+    scroll_speed: 85.0
+  ranges:
+    platform_width: [88.0, 100.0]
+    scroll_speed: [80.0, 90.0]
+    horizontal_acceleration: [399.0, 441.0]
+    release_deceleration: [912.0, 1008.0]
+    reverse_brake_multiplier: [1.0, 1.08]
+    max_horizontal_speed: [224.0, 236.0]
+    gravity: [-489.6, -470.4]
+    max_fall_speed: [529.0, 551.0]
+  observation:
+    player_position_jitter_px: 1.0
+    platform_position_jitter_px: 1.0
+    platform_dropout_probability: 0.01
+    scroll_noise_px_s: 2.0
+    scroll_zero_probability: 0.01
+
+provenance:
+  corrected_audit_commit: 0b8bda9311b115df9a62fb108fbdb422e4a875a0
+  blocker_fix_commit: 1e78959c859b40d499bf92cd2cfec291260d86ba
+  tier_a_frames: 1537
+  tier_a_episodes: 20
+  real_replay_source: diagnostics/v3-real-sim-distribution-audit-v1/real_reprocessed_frames.csv.gz
+  layout_source: diagnostics/v3-real-sim-distribution-audit-v1/real_vs_sim_layout_metrics.csv
+  policy_parent: NONE
+  initialization: RANDOM
+
+cadence:
+  hz_probabilities: {8: 0.70, 10: 0.25, 12: 0.05}
+
+layout:
+  physical_platform_count: 9
+  platform_spacing_px: 48.0
+  platform_width_range_px: [95.0, 96.0]
+  initial_safe_shift_components: [small, ordinary]
+  horizontal_shift_mixture:
+    small: {probability: 0.25, magnitude_range_px: [0.0, 35.0]}
+    ordinary: {probability: 0.55, magnitude_range_px: [35.0, 165.0]}
+    large_tail: {probability: 0.20, magnitude_range_px: [165.0, 220.0]}
+    direction_left_probability: 0.50
+  special_probability_envelope:
+    spikes: [0.06, 0.10]
+    spring: [0.04, 0.08]
+    conveyor_combined: [0.08, 0.12]
+    flipping: [0.04, 0.08]
+    conveyor_left_given_conveyor: 0.50
+    initial_safe_normal_platforms: 4
+    minimum_normal_platforms_between_specials: 1
+    minimum_normal_platforms_between_spikes: 5
+    minimum_normal_platforms_before_spring: 3
+
+observation_emulator:
+  player_center_quantum_px: 0.5
+  player_position_noise_uniform_px: 0.5
+  player_dropout_start_probability: 0.046353101567825496
+  player_dropout_continue_probability: 0.028985507246376812
+  player_dropout_max_frames: 2
+  platform_box_quantum_px: 1.0
+  platform_position_noise_uniform_px: 0.5
+  platform_track_dropout_start_probability: 0.04747550866616428
+  platform_track_dropout_continue_probability: 0.03
+  platform_track_dropout_max_frames: 2
+  visible_count_initial_pmf:
+    3: 0.035784
+    4: 0.170462
+    5: 0.339623
+    6: 0.339623
+    7: 0.108653
+    8: 0.005856
+  visible_count_transition:
+    3: {3: 0.618182, 4: 0.381818}
+    4: {3: 0.053640, 4: 0.586207, 5: 0.314176, 6: 0.045977}
+    5: {3: 0.003861, 4: 0.137066, 5: 0.611969, 6: 0.225869, 7: 0.021236}
+    6: {4: 0.015625, 5: 0.212891, 6: 0.658203, 7: 0.113281}
+    7: {5: 0.049383, 6: 0.339506, 7: 0.574074, 8: 0.037037}
+    8: {6: 0.111111, 7: 0.555556, 8: 0.333333}
+  no_match_scroll_value_px_s: 0.0
+
+fresh_curriculum:
+  stage_a:
+    end_timesteps: 196608
+    schedule_cycle: [ordinary]
+    description: learn V3 from random initialization without snapshot curriculum
+  stage_b:
+    end_timesteps: 393216
+    schedule_cycle: [ordinary, ordinary, ordinary, ordinary, ordinary, ordinary, failure, success]
+    description: 75 percent ordinary plus self-generated failure/success snapshots
+  stage_c:
+    end_timesteps: 655360
+    schedule_cycle: [ordinary, ordinary, failure, success]
+    description: full 50/25/25 V3 using freshly regenerated self-curriculum
+  bank_target_per_class: 48
+  bank_collection_max_episodes: 256
+  failure_snapshot_lookback_steps: 3
+  success_min_floor: 5
+  success_snapshots_max_per_episode: 3

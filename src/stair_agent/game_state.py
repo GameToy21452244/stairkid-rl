@@ -39,10 +39,7 @@ class GameStateDetector:
         if not template_path.is_absolute():
             template_path = Path(project_root) / template_path
         if not template_path.is_file():
-            raise RuntimeError(
-                f"找不到對話框範本：{template_path}。"
-                "請先執行 scripts/calibrate_dialog.py。"
-            )
+            return cls(config, None)
         return cls(config, load_image(template_path))
 
     def _configured(self) -> bool:

@@ -19,6 +19,7 @@ class DialogActionError(RuntimeError):
 class DialogFocusLocation(Enum):
     START = "start"
     TWO_PLAYER = "two_player"
+    EXIT = "exit"
     UNKNOWN = "unknown"
 
 
@@ -30,6 +31,7 @@ class DialogFocusGuard:
     reference_height: int
     start_button_rect: tuple[int, int, int, int]
     two_player_button_rect: tuple[int, int, int, int]
+    exit_button_rect: tuple[int, int, int, int] | None = None
     focused_border_mean_max: float = 180.0
     minimum_contrast: float = 20.0
     focused_inner_gray_max: int = 80
@@ -116,46 +118,40 @@ class DialogFocusGuard:
             if frame.ndim == 3
             else frame
         )
-        start_mean = self._top_border_mean(
-            gray,
-            self.start_button_rect,
-        )
-        two_player_mean = self._top_border_mean(
-            gray,
-            self.two_player_button_rect,
-        )
-        start_inner = self._inner_border_dark_ratio(
-            gray,
-            self.start_button_rect,
-        )
-        two_player_inner = self._inner_border_dark_ratio(
-            gray,
-            self.two_player_button_rect,
-        )
-        start_has_inner_focus = (
-            start_inner >= self.focused_inner_dark_ratio_min
-        )
-        two_player_has_inner_focus = (
-            two_player_inner >= self.focused_inner_dark_ratio_min
-        )
-        if start_has_inner_focus != two_player_has_inner_focus:
-            return (
-                DialogFocusLocation.START
-                if start_has_inner_focus
-                else DialogFocusLocation.TWO_PLAYER
-            )
-        if start_has_inner_focus:
+        button_rects = {
+            DialogFocusLocation.START: self.start_button_rect,
+            DialogFocusLocation.TWO_PLAYER: self.two_player_button_rect,
+        }
+        if self.exit_button_rect is not None:
+            button_rects[DialogFocusLocation.EXIT] = self.exit_button_rect
+        border_means = {
+            location: self._top_border_mean(gray, rect)
+            for location, rect in button_rects.items()
+        }
+        inner_focus = [
+            location
+            for location, rect in button_rects.items()
+            if self._inner_border_dark_ratio(gray, rect)
+            >= self.focused_inner_dark_ratio_min
+        ]
+        if len(inner_focus) == 1:
+            return inner_focus[0]
+        if inner_focus:
             return DialogFocusLocation.UNKNOWN
-        if (
-            start_mean <= self.focused_border_mean_max
-            and two_player_mean - start_mean >= self.minimum_contrast
-        ):
-            return DialogFocusLocation.START
-        if (
-            two_player_mean <= self.focused_border_mean_max
-            and start_mean - two_player_mean >= self.minimum_contrast
-        ):
-            return DialogFocusLocation.TWO_PLAYER
+        for location, focused_mean in border_means.items():
+            other_means = [
+                mean
+                for other_location, mean in border_means.items()
+                if other_location is not location
+            ]
+            if (
+                focused_mean <= self.focused_border_mean_max
+                and all(
+                    other_mean - focused_mean >= self.minimum_contrast
+                    for other_mean in other_means
+                )
+            ):
+                return location
         return DialogFocusLocation.UNKNOWN
 
     def __call__(self, frame: np.ndarray) -> bool:
@@ -194,6 +190,7 @@ class DialogActionResult:
     frame_change: float
     focus_corrected: bool = False
     focus_recovered_without_input: bool = False
+    focus_trace: tuple[DialogFocusLocation, ...] = ()
 
 
 def normalized_frame_difference(before: np.ndarray, after: np.ndarray) -> float:
@@ -231,8 +228,10 @@ class DialogActionHandler:
         focus_guard: DialogFocusGuard | None = None,
         focus_correction_key: str | None = None,
         focus_correction_duration_ms: int | None = None,
+        focus_correction_max_presses: int = 1,
         focus_correction_delay_seconds: float = 0.1,
         focus_max_observation_frames: int | None = None,
+        focus_correction_max_observation_frames: int | None = None,
         sleep_fn: Callable[[float], None] = time.sleep,
     ) -> None:
         if required_consecutive <= 0:
@@ -253,6 +252,10 @@ class DialogActionHandler:
         self.focus_guard = focus_guard
         self.focus_correction_key = focus_correction_key
         self.focus_correction_duration_ms = focus_correction_duration_ms
+        self.focus_correction_max_presses = max(
+            1,
+            int(focus_correction_max_presses),
+        )
         self.focus_correction_delay_seconds = max(
             0.0,
             focus_correction_delay_seconds,
@@ -266,7 +269,21 @@ class DialogActionHandler:
             raise ValueError(
                 "focus_max_observation_frames 不可小於 required_consecutive。"
             )
+        self.focus_correction_max_observation_frames = (
+            self.focus_max_observation_frames
+            if focus_correction_max_observation_frames is None
+            else int(focus_correction_max_observation_frames)
+        )
+        if (
+            self.focus_correction_max_observation_frames
+            < self.required_consecutive
+        ):
+            raise ValueError(
+                "focus_correction_max_observation_frames "
+                "不可小於 required_consecutive。"
+            )
         self.sleep_fn = sleep_fn
+        self.last_focus_trace: list[DialogFocusLocation] = []
 
     def observe_stable(self) -> StableObservation:
         last_phase: GamePhase | None = None
@@ -328,11 +345,57 @@ class DialogActionHandler:
                 self.sleep_fn(self.observation_delay_seconds)
         return None
 
+    def _observe_stable_known_focus(
+        self,
+        max_frames: int,
+    ) -> tuple[StableObservation, DialogFocusLocation] | None:
+        """逐幀擷取，直到同一個已知 DIALOG focus 連續穩定。"""
+        assert self.focus_guard is not None
+        observation_frames = max(
+            self.required_consecutive,
+            int(max_frames),
+        )
+        last_location = DialogFocusLocation.UNKNOWN
+        consecutive = 0
+        for index in range(observation_frames):
+            frame = self.frame_source()
+            phase, score = self.detector.detect_with_score(frame)
+            location = (
+                self.focus_guard.focus_location(frame)
+                if phase is GamePhase.DIALOG
+                else DialogFocusLocation.UNKNOWN
+            )
+            if (
+                location is not DialogFocusLocation.UNKNOWN
+                and location is last_location
+            ):
+                consecutive += 1
+            elif location is not DialogFocusLocation.UNKNOWN:
+                last_location = location
+                consecutive = 1
+            else:
+                last_location = DialogFocusLocation.UNKNOWN
+                consecutive = 0
+            if consecutive >= self.required_consecutive:
+                return (
+                    StableObservation(
+                        phase,
+                        score,
+                        frame.copy(),
+                        consecutive,
+                    ),
+                    location,
+                )
+            if index + 1 < observation_frames:
+                self.sleep_fn(self.observation_delay_seconds)
+        return None
+
     def execute_once(
         self,
         confirmed_before: StableObservation | None = None,
     ) -> DialogActionResult:
         try:
+            self.last_focus_trace = []
             before = confirmed_before or self.observe_stable()
             focus_corrected = False
             focus_recovered_without_input = False
@@ -343,45 +406,104 @@ class DialogActionHandler:
                 )
             if self.focus_guard is not None:
                 location = self.focus_guard.focus_location(before.frame)
-                if location is DialogFocusLocation.TWO_PLAYER:
-                    # 死亡可能發生在方向鍵狀態切換期間。再次送出純
-                    # key-up，再等待舊遊戲完成對話框焦點重繪；此處
-                    # 不送任何 key-down，也不主動切換選項。
-                    self.controller.release_all()
-                    corrected = self._observe_stable_start_focus()
-                    if corrected is None:
-                        # 實機觀察到舊版遊戲偶爾會漏掉選單剛出現時的
-                        # 第一批 key-up，但在程序結束的再次清理後恢復
-                        # 單人焦點。只重送一次 key-up 清理並短暫驗證；
-                        # 不送 Tab、方向 key-down 或 Enter。
-                        self.controller.release_all()
-                        corrected = self._observe_stable_start_focus(
-                            self.max_observation_frames,
+                self.last_focus_trace.append(location)
+                if (
+                    location is not DialogFocusLocation.START
+                    and (
+                        location is not DialogFocusLocation.UNKNOWN
+                        or (
+                            self.focus_correction_key is not None
+                            and self.focus_correction_key.casefold() == "tab"
                         )
-                    if corrected is not None:
-                        before = corrected
-                        focus_recovered_without_input = True
-                    else:
-                        if not self.focus_correction_key:
-                            raise DialogActionError(
-                                "雙人焦點未在等待期限內自然恢復，且未設定"
-                                "安全修正鍵；沒有送出 Enter。"
-                            )
+                    )
+                ):
+                    # 死亡可能發生在方向鍵狀態切換期間。先釋放控制器
+                    # 實際追蹤的按鍵，再以有界步數逐次修正。每次按鍵後
+                    # 都重新擷取並辨識最新 focus；未確認 START 絕不 Enter。
+                    self.controller.release_all()
+                    corrected = None
+                    if not self.focus_correction_key:
+                        raise DialogActionError(
+                            "選單焦點不在 START，且未設定安全修正鍵；"
+                            "沒有送出 Enter。"
+                        )
+                    for _attempt in range(
+                        self.focus_correction_max_presses
+                    ):
+                        previous_location = location
                         self.controller.release_all()
                         self.controller.tap(
                             self.focus_correction_key,
                             self.focus_correction_duration_ms,
                         )
                         self.controller.release_all()
-                        self.sleep_fn(self.focus_correction_delay_seconds)
-                        corrected = self._observe_stable_start_focus()
-                        if corrected is None:
-                            raise DialogActionError(
-                                "已嘗試一次焦點修正，但無法確認單人開始；"
-                                "沒有送出 Enter。"
+                        self.sleep_fn(
+                            self.focus_correction_delay_seconds
+                        )
+                        is_right_correction = (
+                            self.focus_correction_key.casefold() == "right"
+                        )
+                        if is_right_correction:
+                            observed = self._observe_stable_known_focus(
+                                self.focus_correction_max_observation_frames,
                             )
-                        before = corrected
-                        focus_corrected = True
+                        else:
+                            start_observation = (
+                                self._observe_stable_start_focus(
+                                    self.focus_correction_max_observation_frames,
+                                )
+                            )
+                            observed = (
+                                (start_observation, DialogFocusLocation.START)
+                                if start_observation is not None
+                                else None
+                            )
+                        if observed is None:
+                            if is_right_correction:
+                                raise DialogActionError(
+                                    "焦點修正後無法辨識穩定的選單焦點；"
+                                    "沒有送出 Enter，也不會繼續送方向鍵。"
+                                )
+                            self.last_focus_trace.append(
+                                DialogFocusLocation.UNKNOWN
+                            )
+                            continue
+                        still_dialog, location = observed
+                        self.last_focus_trace.append(location)
+                        if is_right_correction:
+                            expected_locations = (
+                                {
+                                    DialogFocusLocation.TWO_PLAYER,
+                                    DialogFocusLocation.START,
+                                }
+                                if previous_location
+                                is DialogFocusLocation.EXIT
+                                else {DialogFocusLocation.START}
+                            )
+                            if location not in expected_locations:
+                                expected_names = "/".join(
+                                    item.name
+                                    for item in sorted(
+                                        expected_locations,
+                                        key=lambda item: item.value,
+                                    )
+                                )
+                                raise DialogActionError(
+                                    "RIGHT 後焦點轉移不符預期："
+                                    f"{previous_location.name} 應到 "
+                                    f"{expected_names}，實際為 "
+                                    f"{location.name}；沒有送出 Enter。"
+                                )
+                        if location is DialogFocusLocation.START:
+                            corrected = still_dialog
+                            break
+                    if corrected is None:
+                        raise DialogActionError(
+                            "已達焦點修正次數上限，但無法確認單人開始；"
+                            "沒有送出 Enter。"
+                        )
+                    before = corrected
+                    focus_corrected = True
                 elif location is not DialogFocusLocation.START:
                     raise DialogActionError(
                         "無法判斷選單焦點位置；沒有送出 Enter。"
@@ -417,6 +539,7 @@ class DialogActionHandler:
                 frame_change,
                 focus_corrected,
                 focus_recovered_without_input,
+                tuple(self.last_focus_trace),
             )
         finally:
             self.controller.release_all()

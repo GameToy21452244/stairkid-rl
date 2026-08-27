@@ -87,7 +87,7 @@ def tracked_platform(kind, track_id):
     )
 
 
-def test_second_distinct_landing_emits_floor_descended() -> None:
+def test_track_id_change_alone_does_not_emit_floor_descended() -> None:
     detector = GameplayEventDetector(
         landing_contact_gap=4,
         spring_contact_gap=8,
@@ -112,10 +112,7 @@ def test_second_distinct_landing_emits_floor_descended() -> None:
     )
 
     assert [item.event for item in first_landing] == [GameEvent.LANDED]
-    assert [item.event for item in second_landing] == [
-        GameEvent.LANDED,
-        GameEvent.FLOOR_DESCENDED,
-    ]
+    assert [item.event for item in second_landing] == [GameEvent.LANDED]
 
 
 def test_positive_health_delta_emits_health_gained() -> None:

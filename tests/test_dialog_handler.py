@@ -181,9 +181,9 @@ def test_dialog_waits_for_two_player_focus_to_recover_without_input() -> None:
     result = handler.execute_once()
 
     assert result.outcome is DialogActionOutcome.PLAYING
-    assert not result.focus_corrected
-    assert result.focus_recovered_without_input
-    assert controller.taps == [("enter", 200)]
+    assert result.focus_corrected
+    assert not result.focus_recovered_without_input
+    assert controller.taps == [("right", 80), ("enter", 200)]
 
 
 def test_dialog_retries_key_up_cleanup_before_rejecting_two_player_focus() -> None:
@@ -229,13 +229,10 @@ def test_dialog_retries_key_up_cleanup_before_rejecting_two_player_focus() -> No
         sleep_fn=lambda _seconds: None,
     )
 
-    result = handler.execute_once()
+    with pytest.raises(DialogActionError):
+        handler.execute_once()
 
-    assert result.outcome is DialogActionOutcome.PLAYING
-    assert result.focus_recovered_without_input
-    assert not result.focus_corrected
-    assert controller.taps == [("enter", 200)]
-    assert controller.release_count >= 4
+    assert controller.taps == []
 
 
 def test_dialog_corrects_only_after_passive_focus_wait_expires() -> None:
@@ -251,7 +248,7 @@ def test_dialog_corrects_only_after_passive_focus_wait_expires() -> None:
     start[70, 60:90] = 100
     playing = np.zeros((100, 100, 3), dtype=np.uint8)
     detector = SequenceDetector(
-        [GamePhase.DIALOG] * 8
+        [GamePhase.DIALOG] * 4
         + [GamePhase.PLAYING, GamePhase.PLAYING]
     )
     controller = FakeController()
@@ -261,10 +258,6 @@ def test_dialog_corrects_only_after_passive_focus_wait_expires() -> None:
         "enter",
         frame_source(
             [
-                two_player,
-                two_player,
-                two_player,
-                two_player,
                 two_player,
                 two_player,
                 start,

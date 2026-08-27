@@ -1,0 +1,77 @@
+schema_version: stairkid-unified-training-v1
+target: r4
+display_name: V3.5 R4 reproducibility and experimentation preset
+status: EXPERIMENTAL_FINAL_REPRODUCIBILITY
+provenance:
+  source_commit: 4a4d093ccb2591d8f922e4965b01f82211748c0c
+  source_module: src/stair_agent/rl/fidelity_v3_5_training.py
+  source_script: scripts/run_v3_5_r4_frozen_r1.py
+  corrected_physics_commit: 0cb23aca7dcb112b2c49347a4777b4234d4ead92
+  unresolved_fields: []
+algorithm:
+  name: PPO
+  policy: MlpPolicy
+  policy_architecture: SB3_2.9.0_MlpPolicy_default
+  seed_candidates: [117, 142]
+  default_seed: 142
+  n_envs: 4
+  n_steps: 1024
+  batch_size: 256
+  n_epochs: 10
+  learning_rate: 0.0003
+  gamma: 0.99
+  gae_lambda: 0.95
+  clip_range: 0.2
+  ent_coef: 0.01
+  vf_coef: 0.5
+  max_grad_norm: 0.5
+  device: cpu
+environment:
+  profile: configs/fidelity_v3_5.yaml
+  observation_shape: [268]
+  action_count: 3
+  physics_hz: 60
+  cadence_hz_probabilities: {8: 0.70, 10: 0.25, 12: 0.05}
+reward:
+  edge_landing_penalty: 1.10
+training:
+  initialization: FROZEN_R1_AND_TARGETED_BANK_REUSE
+  parent_timesteps: 524288
+  start_timesteps: 589824
+  total_timesteps: 720896
+  stages:
+    - {name: R1, end_timesteps: 589824, schedule: [ordinary], frozen_input: true}
+    - {name: R2_MID, end_timesteps: 655360, schedule: [ordinary, ordinary, failure, success]}
+    - {name: R2_END, end_timesteps: 720896, schedule: [ordinary, ordinary, failure, success]}
+  checkpoint_targets: [589824, 655360, 720896]
+  checkpoint_frequency_semantics: exact_aligned_targets
+  rollout_quantum: 4096
+curriculum:
+  kind: external_frozen_targeted_bank
+  schedule: [ordinary, ordinary, failure, success]
+  bank_recollection_forbidden: true
+  r1_retraining_forbidden: true
+  risk_counts: {landing: 20, spike: 20, top: 8}
+  success_count: 48
+  failure_horizon_steps: 12
+  success_horizon_steps: 8
+evaluation:
+  frequency: every_checkpoint_target
+  dev_seed_start: 50000000
+  dev_episodes: 64
+  final_seed_start: 60000000
+  final_episodes: 200
+  physical_seconds: 30.0
+  formal_simulator_gate: FAIL
+  automatic_promotion: false
+assets:
+  required: [r4_frozen_r1_bundle]
+resume:
+  allowed_initial_timesteps: [589824, 655360]
+  require_matching_target_and_config_metadata: true
+safety:
+  stop_v3_5_unchanged: true
+  r5_r6_forbidden: true
+  canonical_models_read_only: true
+  real_game_execution: FORBIDDEN
+  formal_promotion: FORBIDDEN

@@ -19,15 +19,10 @@ def test_defaults() -> None:
     assert config.environment.step_penalty == 0.01
     assert not config.environment.auto_restart_on_reset
     assert config.environment.reset_required_consecutive_frames == 3
-    assert config.environment.reset_focus_max_observation_frames == 225
+    assert config.environment.reset_focus_max_observation_frames == 24
     assert config.environment.max_observation_platforms == 8
     assert config.environment.observation_history_frames == 4
     assert config.environment.include_action_history
-    assert config.training.algorithm == "ppo"
-    assert config.training.device == "cpu"
-    assert config.training.max_episodes == 3
-    assert config.baseline.max_episode_steps == 300
-    assert config.baseline.direction_switch_release_frames == 1
 
 
 def test_parse_yaml(tmp_path: Path) -> None:
@@ -88,21 +83,7 @@ def test_invalid_environment_config() -> None:
         )
 
 
-def test_invalid_baseline_config() -> None:
-    with pytest.raises(ConfigError, match="horizontal_deadzone_pixels"):
-        AppConfig.from_dict(
-            {"baseline": {"horizontal_deadzone_pixels": -1}}
-        )
-
-
-def test_invalid_training_config() -> None:
-    with pytest.raises(ConfigError, match="algorithm"):
-        AppConfig.from_dict({"training": {"algorithm": "dqn"}})
-
-    with pytest.raises(ConfigError, match="n_steps"):
-        AppConfig.from_dict(
-            {"training": {"n_steps": 63, "batch_size": 32}}
-        )
-
-    with pytest.raises(ConfigError, match="device"):
-        AppConfig.from_dict({"training": {"device": "cuda"}})
+def test_retired_sections_are_rejected() -> None:
+    for section in ("training", "baseline", "diagnostics"):
+        with pytest.raises(ConfigError, match="未知的設定區段"):
+            AppConfig.from_dict({section: {}})

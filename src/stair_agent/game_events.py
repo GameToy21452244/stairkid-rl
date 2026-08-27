@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from enum import Enum
 
-from .hud_detection import HealthUpdate
+from .hud_detection import FloorUpdate, HealthUpdate
 from .object_detection import PlatformDetection, PlatformKind
 from .object_tracking import MotionState, PlayerTrackingState
 
@@ -103,7 +103,6 @@ class SpringBounceDetector:
 @dataclass(frozen=True)
 class LandingDetection:
     landed: bool
-    descended: bool
     platform: PlatformDetection | None
 
 
@@ -119,12 +118,10 @@ class LandingDetector:
         self.max_wait_frames = max(1, max_wait_frames)
         self._pending_frames = 0
         self._pending_platform: PlatformDetection | None = None
-        self._last_landed_track_id: int | None = None
 
     def reset(self) -> None:
         self._pending_frames = 0
         self._pending_platform = None
-        self._last_landed_track_id = None
 
     def update(self, state: PlayerTrackingState) -> LandingDetection:
         platform = state.nearest_platform_below
@@ -144,23 +141,15 @@ class LandingDetector:
             and self._pending_platform is not None
         ):
             landed = self._pending_platform
-            track_id = landed.track_id
-            descended = (
-                track_id is not None
-                and self._last_landed_track_id is not None
-                and track_id != self._last_landed_track_id
-            )
-            if track_id is not None:
-                self._last_landed_track_id = track_id
             self._pending_frames = 0
             self._pending_platform = None
-            return LandingDetection(True, descended, landed)
+            return LandingDetection(True, landed)
 
         if self._pending_frames > 0:
             self._pending_frames -= 1
             if self._pending_frames == 0:
                 self._pending_platform = None
-        return LandingDetection(False, False, None)
+        return LandingDetection(False, None)
 
 
 class GameplayEventDetector:
@@ -192,6 +181,7 @@ class GameplayEventDetector:
         self,
         state: PlayerTrackingState,
         health: HealthUpdate,
+        floor: FloorUpdate | None = None,
     ) -> list[GameEventDetection]:
         events: list[GameEventDetection] = []
         landing = self.landing_detector.update(state)
@@ -199,15 +189,14 @@ class GameplayEventDetector:
             events.append(
                 GameEventDetection(GameEvent.LANDED, landing.platform)
             )
-            if landing.descended:
-                events.append(
-                    GameEventDetection(
-                        GameEvent.FLOOR_DESCENDED,
-                        landing.platform,
-                    )
-                )
             self._recent_platform = landing.platform
             self._recent_frames = self.correlation_frames
+
+        if floor is not None and floor.delta is not None and floor.delta > 0:
+            events.extend(
+                GameEventDetection(GameEvent.FLOOR_DESCENDED)
+                for _ in range(floor.delta)
+            )
 
         spring = self.spring_detector.update(state)
         if spring.event is GameEvent.SPRING_BOUNCE:
