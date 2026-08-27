@@ -78,6 +78,11 @@ def test_notebook_shows_r4_bundle_structural_validation() -> None:
         "expected_policy_seed=seed",
         "expected_source_sha256=checkpoint_sha",
         "expected_source_timesteps=589824",
+        "R4_BANK_SCHEMA_MISMATCH",
+        "snapshot_sha256",
+        "fidelity-v3-snapshot-v1",
+        "R4_BANK_ENTRY_SOURCE_SHA_MISMATCH",
+        "R4_BANK_COUNTS_INCOMPLETE",
     ):
         assert required in text
 
