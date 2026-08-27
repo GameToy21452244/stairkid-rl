@@ -30,7 +30,6 @@ def validate_resume(
     target: TrainingTarget,
     *,
     env: Any,
-    expected_sha256: str | None = None,
     metadata_path: Path | None = None,
     device: str = "cpu",
     allow_pinned_external: bool = False,
@@ -39,8 +38,6 @@ def validate_resume(
     if not path.is_file():
         raise ResumeValidationError(f"RESUME_CHECKPOINT_REQUIRED:{path}")
     actual_sha = sha256_file(path)
-    if expected_sha256 is not None and actual_sha != expected_sha256:
-        raise ResumeValidationError("RESUME_CHECKPOINT_SHA_MISMATCH")
     if metadata_path is not None:
         try:
             metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
@@ -50,8 +47,6 @@ def validate_resume(
             raise ResumeValidationError("RESUME_TARGET_MISMATCH")
         if metadata.get("config_sha256") != target.config_sha256:
             raise ResumeValidationError("RESUME_CONFIG_MISMATCH")
-        if metadata.get("output_sha256") not in {None, actual_sha}:
-            raise ResumeValidationError("RESUME_METADATA_SHA_MISMATCH")
     elif target.raw["resume"]["require_matching_target_and_config_metadata"] and not allow_pinned_external:
         raise ResumeValidationError("RESUME_METADATA_REQUIRED")
 

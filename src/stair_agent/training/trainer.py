@@ -19,7 +19,7 @@ from stair_agent.fresh_v3_curriculum import (
     collect_self_curriculum_bank,
 )
 from stair_agent.v3_5_curriculum import V35TargetedCurriculumEnv
-from .assets import load_training_assets, stage_r4_bundle, verify_asset
+from .assets import load_training_assets, stage_r4_bundle
 from .configs import TrainingTarget, load_training_target
 from .manifest import git_state, initial_manifest, utc_now, write_json_atomic
 from .resume import ValidatedResume, validate_resume
@@ -41,7 +41,6 @@ class TrainingRequest:
     seed: int | None = None
     device: str | None = None
     resume: Path | None = None
-    resume_sha256: str | None = None
     resume_metadata: Path | None = None
     allow_dirty: bool = False
     authorization: str = ""
@@ -276,6 +275,13 @@ def _smoke(request: TrainingRequest, target: TrainingTarget, precheck: dict[str,
     _write_resolved_config(run_dir, target)
     canonical = load_model_registry(request.project_root)
     before = {model_id: sha256_file(spec.asset_path) for model_id, spec in canonical.items()}
+    mismatched = [
+        model_id
+        for model_id, spec in canonical.items()
+        if before[model_id] != spec.sha256
+    ]
+    if mismatched:
+        raise TrainingError(f"CANONICAL_MODEL_SHA_MISMATCH:{mismatched}")
     source_model = None
     source_sha = None
     env = _ordinary_vec(target, profile, seed, smoke=True)
@@ -289,7 +295,6 @@ def _smoke(request: TrainingRequest, target: TrainingTarget, precheck: dict[str,
                 source.asset_path,
                 target,
                 env=env,
-                expected_sha256=source.sha256,
                 device=device,
                 allow_pinned_external=True,
             )
@@ -350,29 +355,20 @@ def _full(request: TrainingRequest, target: TrainingTarget, precheck: dict[str, 
 
     if target.id == "r4":
         stage = stage_r4_bundle(request.project_root)
-        assets = load_training_assets(request.project_root)
         source_path = stage / f"seed_{seed}/checkpoints/v3_5_589824.zip"
-        source_asset = assets[f"r4_seed{seed}_r1_checkpoint"]
-        verify_asset(source_asset, source_path)
+        frozen_source_sha = sha256_file(source_path)
         bank_dir = stage / f"banks/seed_{seed}/r1_targeted"
         env = _r4_curriculum_vec(
             profile,
             seed,
             bank_dir,
-            source_asset.sha256,
+            frozen_source_sha,
             n_envs=int(target.algorithm["n_envs"]),
         )
-        if request.resume is not None and request.resume_sha256 is None:
-            raise TrainingError("RESUME_SHA256_REQUIRED")
         validated = validate_resume(
             request.resume or source_path,
             target,
             env=env,
-            expected_sha256=(
-                request.resume_sha256
-                if request.resume is not None
-                else source_asset.sha256
-            ),
             metadata_path=request.resume_metadata,
             device=device,
             allow_pinned_external=request.resume is None,
@@ -388,7 +384,6 @@ def _full(request: TrainingRequest, target: TrainingTarget, precheck: dict[str, 
                 request.resume,
                 target,
                 env=env,
-                expected_sha256=request.resume_sha256,
                 metadata_path=request.resume_metadata,
                 device=device,
             )

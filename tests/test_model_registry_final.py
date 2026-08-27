@@ -23,6 +23,9 @@ def test_registry_contains_exactly_two_explicit_models_and_no_default() -> None:
     assert "default" not in registry
     assert "v2" not in registry
     assert "champion" not in registry
+    raw = json.loads((ROOT / "models/manifest.json").read_text(encoding="utf-8"))
+    for model in raw["models"].values():
+        assert "policy_parameter_sha256" not in model
 
 
 @pytest.mark.parametrize("model_id", MODEL_IDS)
@@ -36,6 +39,7 @@ def test_canonical_asset_sha_and_ppo_contract(model_id: str) -> None:
     assert loaded.model.num_timesteps == spec.timesteps
     assert loaded.model.observation_space.shape == (268,)
     assert loaded.model.action_space.n == 3
+    assert not hasattr(loaded, "policy_parameter_sha256")
 
 
 def test_bad_sha_fails_closed(tmp_path: Path) -> None:

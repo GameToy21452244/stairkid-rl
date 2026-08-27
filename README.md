@@ -20,7 +20,7 @@ Real-game calibration
 - Human play and PPO inference over the same simulator implementation.
 - Exact V3/R4 model identity with fail-closed SHA and PPO-contract checks.
 - Guarded Real shadow/control runner with explicit model selection.
-- Unified V3/R4 trainer, external SHA-pinned assets, resume validation, and
+- Unified V3/R4 trainer, three top-level SHA-pinned assets, resume validation, and
   provenance manifests.
 - A single Git-clone Google Colab notebook; no project source ZIP.
 

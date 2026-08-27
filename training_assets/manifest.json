@@ -10,46 +10,6 @@
       "source": {"kind": "UNPUBLISHED_RELEASE_ASSET", "url": null},
       "cache_path": "training_assets/cache/stairkid-v3-5-r4-frozen-r1-input.zip",
       "required": true
-    },
-    "r4_seed117_r1_checkpoint": {
-      "asset_id": "r4_seed117_r1_checkpoint",
-      "filename": "v3_5_589824.zip",
-      "purpose": "Frozen seed117 R1 checkpoint embedded in r4_frozen_r1_bundle.",
-      "sha256": "d25dacc88b65563b392b18f3264747e665411116197268d5e5344972b4f1ca0a",
-      "required_for": ["r4"],
-      "source": {"kind": "BUNDLE_MEMBER", "bundle": "r4_frozen_r1_bundle", "member": "seed_117/checkpoints/v3_5_589824.zip"},
-      "cache_path": "training_assets/cache/r4/seed_117/checkpoints/v3_5_589824.zip",
-      "required": false
-    },
-    "r4_seed142_r1_checkpoint": {
-      "asset_id": "r4_seed142_r1_checkpoint",
-      "filename": "v3_5_589824.zip",
-      "purpose": "Frozen seed142 R1 checkpoint embedded in r4_frozen_r1_bundle.",
-      "sha256": "4f105b391a3e6dbf6ae88a4ff85c2e229dac025f9ab7eadb48862db369995b59",
-      "required_for": ["r4"],
-      "source": {"kind": "BUNDLE_MEMBER", "bundle": "r4_frozen_r1_bundle", "member": "seed_142/checkpoints/v3_5_589824.zip"},
-      "cache_path": "training_assets/cache/r4/seed_142/checkpoints/v3_5_589824.zip",
-      "required": false
-    },
-    "r4_seed117_bank_manifest": {
-      "asset_id": "r4_seed117_bank_manifest",
-      "filename": "manifest.json",
-      "purpose": "Corrected targeted-bank manifest for seed117 embedded in the frozen bundle.",
-      "sha256": "1609cbe829ecd66de6bf47cc195bf2e7db60f2efdd8e40791d8b906472e62def",
-      "required_for": ["r4"],
-      "source": {"kind": "BUNDLE_MEMBER", "bundle": "r4_frozen_r1_bundle", "member": "banks/seed_117/r1_targeted/manifest.json"},
-      "cache_path": "training_assets/cache/r4/banks/seed_117/r1_targeted/manifest.json",
-      "required": false
-    },
-    "r4_seed142_bank_manifest": {
-      "asset_id": "r4_seed142_bank_manifest",
-      "filename": "manifest.json",
-      "purpose": "Corrected targeted-bank manifest for seed142 embedded in the frozen bundle.",
-      "sha256": "547f8ae66409799def75cbfab81c67f28188844cf93009ae0acf26fbc31bdc40",
-      "required_for": ["r4"],
-      "source": {"kind": "BUNDLE_MEMBER", "bundle": "r4_frozen_r1_bundle", "member": "banks/seed_142/r1_targeted/manifest.json"},
-      "cache_path": "training_assets/cache/r4/banks/seed_142/r1_targeted/manifest.json",
-      "required": false
     }
   }
 }

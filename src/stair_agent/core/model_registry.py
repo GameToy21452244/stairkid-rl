@@ -36,7 +36,6 @@ class CanonicalModel:
     seed: int
     timesteps: int
     sha256: str
-    policy_parameter_sha256: str | None
     status: str
     description: str
     asset_path: Path
@@ -52,7 +51,6 @@ class LoadedCanonicalModel:
     spec: CanonicalModel
     path: Path
     model: Any
-    policy_parameter_sha256: str | None
 
     def predict(self, observation: np.ndarray) -> int:
         array = np.asarray(observation, dtype=np.float32)
@@ -84,7 +82,6 @@ def _parse_model(project_root: Path, model_id: str, raw: Mapping[str, Any]) -> C
         "seed",
         "timesteps",
         "sha256",
-        "policy_parameter_sha256",
         "status",
         "description",
         "asset_path",
@@ -99,11 +96,8 @@ def _parse_model(project_root: Path, model_id: str, raw: Mapping[str, Any]) -> C
     if raw["id"] != model_id:
         raise ModelRegistryError(f"MODEL_ID_MISMATCH:{model_id}:{raw['id']}")
     digest = str(raw["sha256"])
-    parameter_digest = raw["policy_parameter_sha256"]
     if not SHA256_PATTERN.fullmatch(digest):
         raise ModelRegistryError(f"MODEL_SHA_INVALID:{model_id}")
-    if parameter_digest is not None and not SHA256_PATTERN.fullmatch(str(parameter_digest)):
-        raise ModelRegistryError(f"MODEL_PARAMETER_SHA_INVALID:{model_id}")
     observation_shape = tuple(int(value) for value in raw["observation_shape"])
     if observation_shape != (268,) or int(raw["action_count"]) != 3:
         raise ModelRegistryError(f"MODEL_SPACE_CONTRACT_INVALID:{model_id}")
@@ -113,7 +107,6 @@ def _parse_model(project_root: Path, model_id: str, raw: Mapping[str, Any]) -> C
         seed=int(raw["seed"]),
         timesteps=int(raw["timesteps"]),
         sha256=digest,
-        policy_parameter_sha256=None if parameter_digest is None else str(parameter_digest),
         status=str(raw["status"]),
         description=str(raw["description"]),
         asset_path=_project_path(project_root, str(raw["asset_path"]), field="ASSET"),
@@ -149,17 +142,6 @@ def load_model_registry(project_root: Path) -> dict[str, CanonicalModel]:
     }
 
 
-def policy_parameter_sha256(model: Any) -> str:
-    digest = hashlib.sha256()
-    for name, tensor in sorted(model.policy.state_dict().items()):
-        array = tensor.detach().cpu().contiguous().numpy()
-        digest.update(name.encode("utf-8"))
-        digest.update(str(array.dtype).encode("ascii"))
-        digest.update(np.asarray(array.shape, dtype=np.int64).tobytes())
-        digest.update(array.tobytes())
-    return digest.hexdigest()
-
-
 def load_canonical_model(
     project_root: Path,
     model_id: str,
@@ -193,13 +175,6 @@ def load_canonical_model(
         raise ModelRegistryError(
             f"MODEL_ACTION_SPACE_MISMATCH:{model_id}:{model.action_space}"
         )
-    parameter_digest = None
-    if spec.policy_parameter_sha256 is not None:
-        parameter_digest = policy_parameter_sha256(model)
-        if parameter_digest != spec.policy_parameter_sha256:
-            raise ModelRegistryError(
-                f"MODEL_POLICY_PARAMETER_SHA_MISMATCH:{model_id}:{parameter_digest}"
-            )
     after = sha256_file(spec.asset_path)
     if after != spec.sha256:
         raise ModelRegistryError(f"MODEL_CHANGED_DURING_LOAD:{model_id}:{after}")
@@ -207,5 +182,4 @@ def load_canonical_model(
         spec=spec,
         path=spec.asset_path,
         model=model,
-        policy_parameter_sha256=parameter_digest,
     )

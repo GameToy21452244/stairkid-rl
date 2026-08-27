@@ -18,7 +18,6 @@ Git under the ignored `models/cache/` directory.
 - ID: `r4`
 - Seed / timesteps: `142 / 655360`
 - SHA-256: `6a9e966ae69c1b3f5610bc5c8a009dcc5519e94fa20d754e54ef0ac445399e10`
-- Policy parameter SHA-256: `2bb3910e0f0be001caaafe9e2f8ea2feec186003fca9737988a8d8927a69a104`
 - Status: `EXPERIMENTAL_FINAL`
 - Formal simulator gate: FAIL
 - Formal promotion: NO
@@ -30,5 +29,7 @@ R4 showed a descriptively stronger Real-game floor distribution than the
 historical Fresh V3 sample. Statistical superiority was not established and
 safety remained unresolved.
 
-The loader verifies the file hash before and after load, timesteps, observation
-and action spaces, plus R4's parameter hash. Every mismatch fails closed.
+The loader verifies the canonical archive hash before and after load, then
+checks timesteps, observation shape, and action space. The historical R4
+policy-parameter digest is provenance only (recorded in `PROJECT_HISTORY.md`),
+not a second runtime gate.

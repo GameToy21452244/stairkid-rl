@@ -25,7 +25,6 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--seed", type=int)
     parser.add_argument("--device")
     parser.add_argument("--resume", type=Path)
-    parser.add_argument("--resume-sha256")
     parser.add_argument("--resume-metadata", type=Path)
     parser.add_argument("--allow-dirty", action="store_true")
     parser.add_argument("--authorization", default="")
@@ -63,7 +62,6 @@ def main() -> int:
             seed=args.seed,
             device=args.device,
             resume=args.resume,
-            resume_sha256=args.resume_sha256,
             resume_metadata=args.resume_metadata,
             allow_dirty=args.allow_dirty,
             authorization=args.authorization,

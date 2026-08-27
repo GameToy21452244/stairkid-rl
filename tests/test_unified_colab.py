@@ -59,3 +59,5 @@ def test_notebook_supports_exact_ref_drive_resume_and_two_targets() -> None:
         '{"v3", "r4"}',
     ):
         assert required in text
+    assert "RESUME_SHA256" not in text
+    assert "--resume-sha256" not in text

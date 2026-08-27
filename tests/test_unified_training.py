@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import inspect
 from pathlib import Path
 
 import gymnasium as gym
@@ -13,6 +14,7 @@ from stair_agent.training.assets import (
     TrainingAsset,
     TrainingAssetError,
     load_training_assets,
+    stage_r4_bundle,
     verify_asset,
 )
 from stair_agent.training.configs import (
@@ -59,13 +61,10 @@ def test_r4_edge_penalty_and_frozen_inputs_are_exact() -> None:
     assert target.training["checkpoint_targets"] == [589824, 655360, 720896]
 
 
-def test_training_asset_manifest_preserves_all_known_pins() -> None:
+def test_training_asset_manifest_has_one_external_bundle_pin() -> None:
     assets = load_training_assets(ROOT)
+    assert tuple(assets) == ("r4_frozen_r1_bundle",)
     assert assets["r4_frozen_r1_bundle"].sha256 == "3b8e85d52d94b11cacf1466019558670791471a190d79b80ed18a62985b7f53e"
-    assert assets["r4_seed117_r1_checkpoint"].sha256 == "d25dacc88b65563b392b18f3264747e665411116197268d5e5344972b4f1ca0a"
-    assert assets["r4_seed142_r1_checkpoint"].sha256 == "4f105b391a3e6dbf6ae88a4ff85c2e229dac025f9ab7eadb48862db369995b59"
-    assert assets["r4_seed117_bank_manifest"].sha256 == "1609cbe829ecd66de6bf47cc195bf2e7db60f2efdd8e40791d8b906472e62def"
-    assert assets["r4_seed142_bank_manifest"].sha256 == "547f8ae66409799def75cbfab81c67f28188844cf93009ae0acf26fbc31bdc40"
 
 
 def test_invalid_training_asset_sha_fails_closed(tmp_path: Path) -> None:
@@ -85,27 +84,57 @@ def test_invalid_training_asset_sha_fails_closed(tmp_path: Path) -> None:
         verify_asset(asset)
 
 
-def test_r4_resume_uses_existing_timesteps_not_target_as_increment() -> None:
+def test_r4_bundle_structural_staging_when_asset_is_available() -> None:
+    bundle = load_training_assets(ROOT)["r4_frozen_r1_bundle"]
+    if not bundle.cache_path.is_file():
+        pytest.skip("R4 external training bundle not installed")
+    stage = stage_r4_bundle(ROOT)
+    for seed in (117, 142):
+        assert (stage / f"seed_{seed}/checkpoints/v3_5_589824.zip").is_file()
+        assert (stage / f"banks/seed_{seed}/r1_targeted/manifest.json").is_file()
+
+
+def test_r4_resume_uses_existing_timesteps_not_target_as_increment(
+    tmp_path: Path,
+) -> None:
     target = load_training_target(ROOT, "r4")
     spec = load_model_registry(ROOT)["r4"]
     if not spec.asset_path.is_file():
         pytest.skip("canonical R4 cache asset not installed")
     from stair_agent.envs.fidelity_v3_5 import make_fidelity_v3_5_env
 
+    metadata = tmp_path / "training_manifest.json"
+    metadata.write_text(
+        json.dumps(
+            {
+                "training_target": "r4",
+                "config_sha256": target.config_sha256,
+                # Output digests remain useful metadata but are not a resume gate.
+                "output_sha256": "0" * 64,
+            }
+        ),
+        encoding="utf-8",
+    )
     env = make_fidelity_v3_5_env(ROOT / "configs/fidelity_v3_5.yaml", base_seed=7)
     try:
         result = validate_resume(
             spec.asset_path,
             target,
             env=env,
-            expected_sha256=spec.sha256,
-            allow_pinned_external=True,
+            metadata_path=metadata,
         )
     finally:
         env.close()
     assert result.current_timesteps == 655360
     assert result.target_timesteps == 720896
     assert result.remaining_timesteps == 65536
+
+
+def test_resume_has_no_user_supplied_sha_requirement() -> None:
+    assert "expected_sha256" not in inspect.signature(validate_resume).parameters
+    assert "resume_sha256" not in inspect.signature(TrainingRequest).parameters
+    cli = (ROOT / "scripts/train.py").read_text(encoding="utf-8")
+    assert "--resume-sha256" not in cli
 
 
 class WrongObservationEnv(gym.Env):

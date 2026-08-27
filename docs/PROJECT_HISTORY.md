@@ -65,6 +65,11 @@ Historical Fresh V3 evidence was N=61, mean 4.41, median 4, Q25 2, Q75 6,
 and floor <= 4 rate 59.0%. R4 was descriptively stronger on floor distribution,
 but statistical superiority was not established and safety remained unresolved.
 
+The audited R4 policy-parameter SHA-256 was
+`2bb3910e0f0be001caaafe9e2f8ea2feec186003fca9737988a8d8927a69a104`.
+It is retained only as historical provenance. The final runtime uses the
+canonical model archive SHA as its sole model integrity gate.
+
 ## Final consolidation
 
 The final active system retains:

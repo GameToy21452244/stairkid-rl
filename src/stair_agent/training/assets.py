@@ -16,10 +16,6 @@ from stair_agent.core.model_registry import sha256_file
 ASSET_MANIFEST = Path("training_assets/manifest.json")
 KNOWN_ASSET_SHA256 = {
     "r4_frozen_r1_bundle": "3b8e85d52d94b11cacf1466019558670791471a190d79b80ed18a62985b7f53e",
-    "r4_seed117_r1_checkpoint": "d25dacc88b65563b392b18f3264747e665411116197268d5e5344972b4f1ca0a",
-    "r4_seed142_r1_checkpoint": "4f105b391a3e6dbf6ae88a4ff85c2e229dac025f9ab7eadb48862db369995b59",
-    "r4_seed117_bank_manifest": "1609cbe829ecd66de6bf47cc195bf2e7db60f2efdd8e40791d8b906472e62def",
-    "r4_seed142_bank_manifest": "547f8ae66409799def75cbfab81c67f28188844cf93009ae0acf26fbc31bdc40",
 }
 
 
@@ -145,7 +141,12 @@ def _safe_member(name: str) -> PurePosixPath:
 
 
 def stage_r4_bundle(project_root: Path) -> Path:
-    """Validate and extract the historical bundle as data, never as source."""
+    """Validate and extract the historical bundle as data, never as source.
+
+    The externally managed integrity gate is the bundle SHA. Embedded
+    checkpoint and bank identities are validated structurally and against one
+    another after extraction instead of being duplicated as user-facing pins.
+    """
 
     assets = load_training_assets(project_root)
     bundle = verify_asset(assets["r4_frozen_r1_bundle"])
@@ -155,6 +156,30 @@ def stage_r4_bundle(project_root: Path) -> Path:
         bad = archive.testzip()
         if bad is not None:
             raise TrainingAssetError(f"R4_BUNDLE_CRC_FAIL:{bad}")
+        try:
+            bundle_manifest = json.loads(
+                archive.read("FROZEN_R1_BUNDLE_MANIFEST.json")
+            )
+        except (KeyError, json.JSONDecodeError) as exc:
+            raise TrainingAssetError("R4_BUNDLE_MANIFEST_INVALID") from exc
+        expected_bundle_contract = {
+            "schema_version": "stairkid-v3-5-r4-frozen-r1-input-v1",
+            "purpose": "R4_FROZEN_R1_AND_TARGETED_BANK_REUSE_ONLY",
+            "policy_seeds": [117, 142],
+            "r1_timesteps": 589824,
+            "r1_retraining_forbidden": True,
+            "bank_recollection_forbidden": True,
+            "bank_schema_version": "v3-5-targeted-safety-bank-r3-corrected-flipping-v1",
+            "bank_counts_per_seed": {
+                "landing": 20,
+                "spike": 20,
+                "top": 8,
+                "success": 48,
+            },
+        }
+        for key, expected in expected_bundle_contract.items():
+            if bundle_manifest.get(key) != expected:
+                raise TrainingAssetError(f"R4_BUNDLE_CONTRACT_MISMATCH:{key}")
         for name in archive.namelist():
             member = _safe_member(name)
             destination = (stage_root / Path(*member.parts)).resolve()
@@ -170,12 +195,45 @@ def stage_r4_bundle(project_root: Path) -> Path:
             temporary = destination.with_suffix(destination.suffix + ".partial")
             temporary.write_bytes(data)
             temporary.replace(destination)
-    checks = {
-        "r4_seed117_r1_checkpoint": stage_root / "seed_117/checkpoints/v3_5_589824.zip",
-        "r4_seed142_r1_checkpoint": stage_root / "seed_142/checkpoints/v3_5_589824.zip",
-        "r4_seed117_bank_manifest": stage_root / "banks/seed_117/r1_targeted/manifest.json",
-        "r4_seed142_bank_manifest": stage_root / "banks/seed_142/r1_targeted/manifest.json",
-    }
-    for asset_id, path in checks.items():
-        verify_asset(assets[asset_id], path)
+    from stair_agent.v3_5_curriculum import validate_v35_targeted_bank
+
+    for seed in (117, 142):
+        checkpoint = stage_root / f"seed_{seed}/checkpoints/v3_5_589824.zip"
+        checkpoint_metadata = checkpoint.with_suffix(".json")
+        bank_dir = stage_root / f"banks/seed_{seed}/r1_targeted"
+        bank_manifest = bank_dir / "manifest.json"
+        if not checkpoint.is_file() or not checkpoint_metadata.is_file():
+            raise TrainingAssetError(f"R4_BUNDLE_CHECKPOINT_MISSING:{seed}")
+        if not bank_manifest.is_file():
+            raise TrainingAssetError(f"R4_BUNDLE_BANK_MISSING:{seed}")
+        try:
+            checkpoint_row = json.loads(checkpoint_metadata.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as exc:
+            raise TrainingAssetError(f"R4_CHECKPOINT_METADATA_INVALID:{seed}") from exc
+        checkpoint_sha = sha256_file(checkpoint)
+        expected_checkpoint_path = f"seed_{seed}/checkpoints/v3_5_589824.zip"
+        if (
+            checkpoint_row.get("policy_seed") != seed
+            or checkpoint_row.get("num_timesteps") != 589824
+            or checkpoint_row.get("target_timesteps") != 589824
+            or checkpoint_row.get("path") != expected_checkpoint_path
+            or checkpoint_row.get("sha256") != checkpoint_sha
+        ):
+            raise TrainingAssetError(f"R4_CHECKPOINT_PAIRING_INVALID:{seed}")
+        try:
+            with zipfile.ZipFile(checkpoint) as checkpoint_archive:
+                if checkpoint_archive.testzip() is not None:
+                    raise TrainingAssetError(f"R4_CHECKPOINT_CRC_FAIL:{seed}")
+        except zipfile.BadZipFile as exc:
+            raise TrainingAssetError(f"R4_CHECKPOINT_ZIP_INVALID:{seed}") from exc
+        try:
+            validate_v35_targeted_bank(
+                bank_dir,
+                bank_manifest,
+                expected_policy_seed=seed,
+                expected_source_sha256=checkpoint_sha,
+                expected_source_timesteps=589824,
+            )
+        except (OSError, ValueError) as exc:
+            raise TrainingAssetError(f"R4_BANK_STRUCTURE_INVALID:{seed}:{exc}") from exc
     return stage_root

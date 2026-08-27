@@ -11,8 +11,8 @@ These are deliberately separate:
 
 - Source is a Git checkout. The resolved commit SHA is recorded in every run
   manifest. A project source ZIP is not a supported training input.
-- Model and training assets are external SHA-pinned files. They are stored only
-  in ignored local caches.
+- Canonical models and the single R4 training bundle are external SHA-pinned
+  files. They are stored only in ignored local caches.
 - Outputs are written below `runs/` locally or an explicitly selected Google
   Drive directory. The canonical V3 and R4 cache paths are write-protected.
 
@@ -93,10 +93,13 @@ python scripts/fetch_training_assets.py --target r4 --source-dir C:\path\to\asse
 ```
 
 V3 needs no external training input. R4 needs the exact historical frozen-R1
-bundle declared in `training_assets/manifest.json`. The fetcher verifies the
-bundle and each staged checkpoint/bank manifest and fails closed on any SHA
-mismatch. GitHub Release URLs are intentionally marked unpublished until the
-assets are actually released; no similar checkpoint is substituted.
+bundle declared in `training_assets/manifest.json`. The bundle archive SHA is
+the single external integrity gate. After extraction, staging still validates
+the required seed/checkpoint pairs, checkpoint metadata and ZIP integrity,
+targeted-bank schema/content, snapshot integrity, and checkpoint-to-bank
+identity. Embedded child hashes are not separate user-managed pins. GitHub
+Release URLs are intentionally marked unpublished until the asset is actually
+released; no similar checkpoint is substituted.
 
 ## Precheck, smoke, and full mode
 
@@ -130,15 +133,16 @@ Resume is explicit:
 ```powershell
 python scripts/train.py --target r4 --mode full \
   --resume C:\path\to\checkpoint.zip \
-  --resume-sha256 <sha256> \
   --resume-metadata C:\path\to\training_manifest.json \
   --authorization AUTHORIZE_STAIRKID_FULL_TRAINING
 ```
 
-Before learning, the loader verifies the checkpoint SHA, target/config
-metadata, PPO load, observation `(268,)`, action `Discrete(3)`, and permitted
-starting timestep. A custom R4 resume requires an explicit SHA. Remaining work
-is `target_total_timesteps - checkpoint.num_timesteps`; the target total is not
+Before learning, the loader verifies target/config metadata, PPO load,
+observation `(268,)`, action `Discrete(3)`, and the permitted starting
+timestep. It computes the local checkpoint SHA automatically for provenance;
+the user does not provide a resume SHA and the recorded output SHA is not a
+resume prerequisite. Remaining work is
+`target_total_timesteps - checkpoint.num_timesteps`; the target total is not
 mistaken for additional steps. Any incompatibility fails closed.
 
 ## Run outputs and manifests
