@@ -227,15 +227,18 @@ def test_shared_trainer_rejects_unauthorized_full_training(tmp_path: Path) -> No
 def test_tiny_training_smoke_writes_isolated_manifest(
     target_id: str, tmp_path: Path
 ) -> None:
-    if target_id == "r4":
-        spec = load_model_registry(ROOT)["r4"]
-        if not spec.asset_path.is_file():
-            pytest.skip(f"local canonical asset not installed: {spec.asset_path}")
     registry = load_model_registry(ROOT)
+    missing_assets = [
+        spec.asset_path for spec in registry.values() if not spec.asset_path.is_file()
+    ]
+    if missing_assets:
+        pytest.skip(
+            "canonical model assets not installed: "
+            + ", ".join(str(path) for path in missing_assets)
+        )
     before = {
         model_id: sha256_file(spec.asset_path)
         for model_id, spec in registry.items()
-        if spec.asset_path.is_file()
     }
     result = run_training(
         TrainingRequest(
@@ -255,6 +258,5 @@ def test_tiny_training_smoke_writes_isolated_manifest(
     after = {
         model_id: sha256_file(spec.asset_path)
         for model_id, spec in registry.items()
-        if spec.asset_path.is_file()
     }
     assert after == before
