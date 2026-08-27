@@ -25,6 +25,7 @@ captures/*
 !captures/.gitkeep
 logs/*
 !logs/.gitkeep
+/diagnostics/
 *.exe
 *.dll
 *.mp4
