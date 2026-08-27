@@ -231,9 +231,11 @@ def test_tiny_training_smoke_writes_isolated_manifest(
         spec = load_model_registry(ROOT)["r4"]
         if not spec.asset_path.is_file():
             pytest.skip(f"local canonical asset not installed: {spec.asset_path}")
+    registry = load_model_registry(ROOT)
     before = {
         model_id: sha256_file(spec.asset_path)
-        for model_id, spec in load_model_registry(ROOT).items()
+        for model_id, spec in registry.items()
+        if spec.asset_path.is_file()
     }
     result = run_training(
         TrainingRequest(
@@ -252,6 +254,7 @@ def test_tiny_training_smoke_writes_isolated_manifest(
     assert manifest["canonical_models_unchanged"] is True
     after = {
         model_id: sha256_file(spec.asset_path)
-        for model_id, spec in load_model_registry(ROOT).items()
+        for model_id, spec in registry.items()
+        if spec.asset_path.is_file()
     }
     assert after == before
