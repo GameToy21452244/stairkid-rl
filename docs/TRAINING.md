@@ -1,9 +1,21 @@
 # Unified training
 
-StairKid uses one simulator-only PPO trainer with two explicit reproducibility
-targets: `v3` and `r4`. The trainer imports the same corrected simulator core
-used by the human and model viewers. It never connects to the Real game and it
-cannot promote a checkpoint.
+The primary human and Colab interface is
+`notebooks/StairKid_Training_Colab.ipynb`. Its cells directly expose the full
+simulator-only PPO workflow for the two explicit reproducibility targets, `v3`
+and `r4`: artifact and resume validation, environment/PPO factories,
+curriculum transitions, `model.learn(...)`, deterministic evaluation,
+checkpoint saves, and training manifests.
+
+The notebook imports the same corrected simulator, environment, reward, and
+curriculum environment classes used by the rest of the project. Those reusable
+mechanics remain package code; training orchestration is visible in the
+notebook. It never connects to the Real game and cannot promote a checkpoint.
+
+`scripts/train.py` and `src/stair_agent/training/` remain the validated Python
+reference implementation and CLI compatibility surface. They are deliberately
+retained for regression comparison; the notebook no longer delegates its
+training operation to that CLI.
 
 ## Source, assets, and outputs
 
@@ -166,8 +178,22 @@ the run was `SMOKE_ONLY` or full training.
 ## Google Colab
 
 Open `notebooks/StairKid_Training_Colab.ipynb`. It is the sole active training
-notebook. It clones GitHub, checks out `GIT_REF`, installs the repository, runs
-one precheck, and invokes this CLI. For R4, set the training-asset source; an
-R4 smoke also needs its canonical model source. Google Drive contains outputs
-only. Full mode cannot run from **Run all** without
+notebook. It clones GitHub, checks out `GIT_REF`, installs the reusable package,
+then executes notebook-local training orchestration. The cells visibly map the
+canonical YAML values into `PPO(...)`, show the V3 and R4 curriculum paths, and
+contain both smoke/full `model.learn(...)` calls.
+
+The top settings cell selects `TRAIN_TARGET`, `TRAINING_MODE`, seed, device,
+resume paths, asset source directories, and output location without CLI
+arguments. The default mode is `precheck`; smoke is fixed to eight steps. For
+R4 full training, set the training-asset source. Smoke requires the canonical
+model archives when they are not already cached. Google Drive contains outputs
+only. Full mode cannot run from **Run all** without the exact phrase
 `AUTHORIZE_STAIRKID_FULL_TRAINING`.
+
+The notebook validates resume target/config metadata, PPO environment spaces,
+allowed current timesteps, and remaining-step arithmetic. It computes the
+resume checkpoint SHA as output provenance but never asks the user for a resume
+SHA. R4 bundle staging visibly validates the single external bundle SHA, ZIP
+integrity, seed/checkpoint pairs, bank schema/snapshots, and checkpoint-to-bank
+identity without restoring separate child SHA gates.

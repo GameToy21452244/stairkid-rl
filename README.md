@@ -20,8 +20,9 @@ Real-game calibration
 - Human play and PPO inference over the same simulator implementation.
 - Exact V3/R4 model identity with fail-closed SHA and PPO-contract checks.
 - Guarded Real shadow/control runner with explicit model selection.
-- Unified V3/R4 trainer, three top-level SHA-pinned assets, resume validation, and
-  provenance manifests.
+- Self-contained Colab V3/R4 training orchestration with three top-level
+  SHA-pinned external assets, resume validation, and provenance manifests.
+- A retained Python trainer/CLI reference for regression and headless automation.
 - A single Git-clone Google Colab notebook; no project source ZIP.
 
 ## Install
@@ -100,11 +101,14 @@ model-specific interactive authorization phrase. See `docs/REAL_GAME.md`.
 ## Train in Colab
 
 Open `notebooks/StairKid_Training_Colab.ipynb`. The notebook clones GitHub,
-checks out `GIT_REF`, installs the package, fetches separate assets, runs one
-precheck, and invokes `scripts/train.py`. Use an exact commit/tag for a formal
-reproducible run. Full mode has an explicit authorization guard.
+checks out `GIT_REF`, installs the reusable environment package, and exposes
+the complete V3/R4 PPO orchestration directly in readable cells—including
+`PPO(...)`, `model.learn(...)`, resume and asset validation, curricula,
+evaluation, checkpointing, and manifests. Use an exact commit/tag for a formal
+reproducible run. The default is precheck, and full mode has an explicit
+authorization guard.
 
-Local source precheck:
+Local source precheck and the retained reference CLI remain available:
 
 ```powershell
 python scripts/train.py --target v3 --mode precheck
@@ -117,9 +121,9 @@ python scripts/verify_project.py
 ```text
 configs/          corrected simulator profiles and V3/R4 training presets
 models/           canonical model manifest; binaries live in ignored cache
-notebooks/        one active Git-clone training notebook
+notebooks/        one active Git-clone self-contained training notebook
 scripts/          eight user/developer entrypoints
-src/stair_agent/  simulator, Real, training, evaluation, and core runtime
+src/stair_agent/  simulator, Real, reference training, evaluation, and core runtime
 tests/            current regression suite
 training_assets/  SHA-pinned external training-asset manifest
 docs/             current architecture, usage, models, and project history
@@ -131,9 +135,10 @@ docs/             current architecture, usage, models, and project history
 - `r4`: V3.5 R4 seed142@655360, `EXPERIMENTAL_FINAL`. Its formal simulator
   gate failed, it was not promoted, and safety remains unresolved.
 
-R4's exploratory Real20 result was descriptively stronger than historical V3
-on floor distribution, but did not establish statistical superiority or
-overturn `STOP_V3_5`. Neither model is a default, champion, or fallback.
+R4's exploratory Real20 result was descriptively worse than historical Fresh
+V3 on the retained summary metrics. The samples differ in size, so no
+statistical superiority was claimed. `STOP_V3_5` remains unchanged. Neither
+model is a default, champion, or fallback.
 
 ## Documentation
 
@@ -143,4 +148,3 @@ overturn `STOP_V3_5`. Neither model is a default, champion, or fallback.
 - `docs/REAL_GAME.md`
 - `docs/TRAINING.md`
 - `docs/PROJECT_HISTORY.md`
-- `docs/BRANCH_CLEANUP_AUDIT.md`
