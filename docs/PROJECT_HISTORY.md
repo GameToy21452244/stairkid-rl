@@ -80,8 +80,12 @@ The final active system retains:
 - V3.5 R4 seed142@655360 (`EXPERIMENTAL_FINAL`)
 - one corrected simulator used by human and PPO controllers
 - one guarded Real runtime
-- one unified V3/R4 trainer and one Git-clone Colab notebook
+- one self-contained Git-clone Colab training notebook
+- one retained Python trainer/CLI reference for regression and automation
 - generic evaluation and current regression tests
 
-Historical branches remain available until the separately gated branch-cleanup
-phase. They are not required to use the consolidated project.
+The historical remote-branch cleanup phase completed after the consolidated
+release was validated and tagged. The former research branches are no longer
+active remote refs. Their provenance remains available through Git history,
+archival tags, and this concise project history; the large branch-by-branch
+cleanup inventory is no longer part of the active documentation surface.
