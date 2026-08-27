@@ -25,9 +25,9 @@ Git under the ignored `models/cache/` directory.
 - Exploratory Real20: N=20, mean=5.35, median=5, Q25=3, Q75=8,
   min=1, max=13, floor<=4=45%.
 
-R4 showed a descriptively stronger Real-game floor distribution than the
-historical Fresh V3 sample. Statistical superiority was not established and
-safety remained unresolved.
+The final audit classifies R4 Real20 as descriptively worse than the historical
+Fresh V3 sample on the retained summary metrics. The sample sizes differ, so
+statistical superiority was not claimed, and safety remained unresolved.
 
 The loader verifies the canonical archive hash before and after load, then
 checks timesteps, observation shape, and action space. The historical R4
