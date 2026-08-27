@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from stair_agent.core.model_registry import MODEL_IDS
+from stair_agent.core.model_registry import MODEL_IDS, load_model_registry
 from stair_agent.real.runtime import prepare_real_dry_run
 
 
@@ -18,6 +18,9 @@ ACTIVE_REAL_FILES = (
 
 @pytest.mark.parametrize("model_id", MODEL_IDS)
 def test_real_dry_run_builds_perception_only_and_sends_zero_actions(model_id: str) -> None:
+    spec = load_model_registry(ROOT)[model_id]
+    if not spec.asset_path.is_file():
+        pytest.skip(f"local canonical asset not installed: {spec.asset_path}")
     result = prepare_real_dry_run(ROOT, model_id)
     assert result.loaded_model.spec.id == model_id
     assert result.loaded_model.model.observation_space.shape == (268,)

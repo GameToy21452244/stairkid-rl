@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Any
 
 from .config import AppConfig, DetectionConfig
-from .data.writer import ActionTiming
+from .core.contracts import ActionTiming
 from .dialog_handler import DialogActionHandler, DialogFocusGuard, DialogFocusLocation
 from .episode_reset import SingleEnterEpisodeResetter
 from .game_state import GamePhase, GameStateDetector

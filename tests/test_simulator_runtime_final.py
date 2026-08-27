@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from stair_agent.core.model_registry import MODEL_IDS, load_canonical_model
+from stair_agent.core.model_registry import MODEL_IDS, load_canonical_model, load_model_registry
 from stair_agent.sim.runtime import create_simulator_environment, run_simulator_policy
 
 
@@ -13,6 +13,9 @@ ROOT = Path(__file__).resolve().parents[1]
 
 @pytest.mark.parametrize("model_id", MODEL_IDS)
 def test_simulator_contract_and_deterministic_inference(model_id: str) -> None:
+    spec = load_model_registry(ROOT)[model_id]
+    if not spec.asset_path.is_file():
+        pytest.skip(f"local canonical asset not installed: {spec.asset_path}")
     loaded = load_canonical_model(ROOT, model_id)
     env = create_simulator_environment(
         ROOT, model_id, base_seed=12345, render_mode=None

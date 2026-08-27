@@ -19,6 +19,9 @@ These are deliberately separate:
 For a reproducible run, check out an exact commit or release tag rather than a
 moving branch:
 
+On Windows, prefer an ASCII-only checkout path; some legacy code pages cannot
+decode editable-install metadata containing box-drawing or CJK path symbols.
+
 ```powershell
 git clone https://github.com/GameToy21452244/stairkid-rl.git
 cd stairkid-rl

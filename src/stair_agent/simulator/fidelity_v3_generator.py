@@ -1,4 +1,4 @@
-"""Isolated Real-anchored V3 layout generation; V1/V2 stay frozen."""
+"""Isolated Real-anchored V3 layout generation."""
 
 from __future__ import annotations
 

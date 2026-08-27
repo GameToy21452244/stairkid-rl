@@ -1,9 +1,0 @@
-mss>=9.0,<11
-numpy>=1.26,<3
-opencv-python>=4.9,<5
-PyAutoGUI>=0.9.54,<1
-PyDirectInput>=1.0.4,<2
-pywin32>=306
-PyYAML>=6.0,<7
-pytest>=8.0,<9
-gymnasium>=1.0,<2

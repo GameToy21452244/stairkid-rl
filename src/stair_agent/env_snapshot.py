@@ -1,4 +1,4 @@
-"""Environment Snapshot capture and restore utilities for FidelityV2Env.
+"""Portable snapshot utilities used by current simulator curricula.
 
 Preserves full environment state including simulator physics, temporal observation frame stack,
 previous-action temporal stack, last_observation, step_count, diagnostics, reward calculator,
@@ -37,7 +37,7 @@ class EnvSnapshot:
 
 
 def capture_env(env: Any) -> EnvSnapshot:
-    """Captures a complete, replay-safe snapshot of a FidelityV2Env instance."""
+    """Capture a complete, replay-safe simulator environment snapshot."""
     return EnvSnapshot(
         simulator=env.simulator.capture_snapshot(),
         frames=tuple(frame.copy() for frame in env.temporal_stack._frames),
@@ -51,7 +51,7 @@ def capture_env(env: Any) -> EnvSnapshot:
 
 
 def restore_env(env: Any, snapshot: EnvSnapshot) -> np.ndarray:
-    """Restores a FidelityV2Env instance from an EnvSnapshot and returns the flattened 268-D observation vector."""
+    """Restore an environment and return its flattened 268-D observation."""
     env.simulator.restore_snapshot(snapshot.simulator)
     env.temporal_stack._frames = deque(
         (value.copy() for value in snapshot.frames),

@@ -6,7 +6,7 @@ import gymnasium as gym
 import numpy as np
 from gymnasium import spaces
 
-from ..data.schema import OBSERVATION_SCHEMA_VERSION
+from ..core.contracts import OBSERVATION_SCHEMA_VERSION
 from ..game_state import GamePhase
 from ..gym_env import FeatureEncoder, TemporalObservationStack
 from ..input_controller import Action

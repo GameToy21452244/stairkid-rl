@@ -1,22 +1,35 @@
 # Architecture
 
-M2 consolidates verified behavior without redesigning its semantics.
+The final active tree consolidates verified behavior without changing its
+physics, observation, action, reward, or PPO semantics.
+
+```text
+Canonical model registry ───────┬── corrected simulator ── human controller
+                                │                       └── PPO controller
+                                └── guarded Real perception ── shadow/control
+
+Git source ── unified configs ── unified trainer ── external assets / outputs
+```
 
 | Layer | Active implementation | Responsibility |
 | --- | --- | --- |
-| Core | `stair_agent.core.model_registry` | Explicit V3/R4 identity, hashes, PPO compatibility, deterministic prediction |
-| Simulator | `stair_agent.simulator`, `stair_agent.envs`, `stair_agent.sim` | Corrected 60 Hz physics, V3 layout, observations, human/PPO controller adapters |
-| Real perception | detection/tracking modules and `real_observation_pipeline` | Frames to structured observation; no input side effects |
-| Real composition | `stair_agent.real.runtime` | Fail-closed model/perception dry-run in M2 |
-| Evaluation | `stair_agent.evaluation.metrics` | Generic descriptive metrics and JSON serialization |
+| Core | `stair_agent.actions`, `stair_agent.core` | Action identity, 268-D contract, canonical model pins and loading |
+| Simulator | `stair_agent.simulator`, `stair_agent.envs`, `stair_agent.sim` | Corrected physics/layout/renderer and PPO adapter |
+| Real | detection/tracking modules, `real_observation_pipeline`, `stair_agent.real` | Calibrated frame observations and guarded bounded execution |
+| Training | `stair_agent.training`, Fresh V3/R4 curriculum modules | Config-driven simulator-only PPO, assets, resume, manifests |
+| Evaluation | `stair_agent.evaluation` | Generic metrics and JSON reporting |
 
-The action contract is fixed: `0=RELEASE_ALL`, `1=LEFT`, `2=RIGHT`. Both model
-spaces are `(268,)` and `Discrete(3)`. Simulator physics, observation semantics,
-and cadence were imported at module level from canonical R4 source
-`4a4d093ccb2591d8f922e4965b01f82211748c0c`; corrected flipping provenance is
-`0cb23aca7dcb112b2c49347a4777b4234d4ead92`.
+The action contract is fixed: `0=RELEASE_ALL`, `1=LEFT`, `2=RIGHT`.
+Observation is `(268,)`; action space is `Discrete(3)`. Physics advances at
+60 Hz while formal policy decisions use the real-system-anchored 8/10/12 Hz
+cadence distribution.
 
-Importing core, simulator, evaluation, or Real modules does not launch the
-game. Live imports and I/O occur only after the CLI leaves dry-run; control also
-requires an exact interactive authorization phrase. Unified training belongs
-to M3; historical/obsolete removal belongs to M4.
+Human play and model play call the same corrected simulator. Real dry-run does
+not construct capture or input backends. Live control requires both `--control`
+and an exact interactive authorization phrase. Training never imports the Real
+controller and canonical model paths are write-protected.
+
+The active architecture contains no retired-model selection, mixed-policy
+routing, automatic model fallback, online learning, promotion gate, or source
+package workflow. Historical research is recorded in `PROJECT_HISTORY.md` and
+Git history rather than executable parallel architectures.

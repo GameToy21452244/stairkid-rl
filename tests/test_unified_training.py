@@ -198,6 +198,10 @@ def test_shared_trainer_rejects_unauthorized_full_training(tmp_path: Path) -> No
 def test_tiny_training_smoke_writes_isolated_manifest(
     target_id: str, tmp_path: Path
 ) -> None:
+    if target_id == "r4":
+        spec = load_model_registry(ROOT)["r4"]
+        if not spec.asset_path.is_file():
+            pytest.skip(f"local canonical asset not installed: {spec.asset_path}")
     before = {
         model_id: sha256_file(spec.asset_path)
         for model_id, spec in load_model_registry(ROOT).items()

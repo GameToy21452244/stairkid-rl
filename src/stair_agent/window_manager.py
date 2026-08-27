@@ -84,7 +84,7 @@ class PyWin32Backend:
         except ModuleNotFoundError as exc:
             raise WindowError(
                 "PYWIN32_NOT_INSTALLED: 找不到 pywin32 Python module，"
-                "請先安裝 requirements.txt。"
+                "請先執行 python -m pip install -e .。"
             ) from exc
         except (ImportError, OSError) as exc:
             raise WindowError(

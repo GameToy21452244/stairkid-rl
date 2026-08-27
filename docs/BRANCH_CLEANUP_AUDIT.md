@@ -187,5 +187,5 @@ Only six historical remote tips have commits that no other remote tip contains:
 ## M1 deletion status
 
 No local or remote branch was deleted. No tag was created or pushed. No merge
-to main was performed. Branch deletion remains blocked until all M2-M6 gates in
-`CONSOLIDATION_PLAN.md` pass and tags are verified on the remote.
+to main was performed. Branch deletion remains blocked until final validation,
+main consolidation, and archive tags are verified on the remote.

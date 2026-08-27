@@ -55,13 +55,6 @@ class SafetyConfig:
 
 
 @dataclass
-class DiagnosticsConfig:
-    save_debug_frames: bool = True
-    show_fps: bool = True
-    draw_capture_border: bool = True
-
-
-@dataclass
 class DetectionConfig:
     dialog_template_path: str = "captures/templates/dialog.png"
     dialog_roi_left: int | None = None
@@ -216,104 +209,16 @@ class EnvironmentConfig:
 
 
 @dataclass
-class TrainingConfig:
-    algorithm: str = "ppo"
-    total_timesteps: int = 1024
-    max_episodes: int = 3
-    max_training_seconds: float = 120.0
-    n_steps: int = 128
-    batch_size: int = 64
-    n_epochs: int = 4
-    learning_rate: float = 0.0002
-    gamma: float = 0.99
-    gae_lambda: float = 0.95
-    ent_coef: float = 0.03
-    target_kl: float = 0.01
-    seed: int = 2
-    device: str = "cpu"
-    checkpoint_freq_steps: int = 256
-    model_dir: str = "models/ppo"
-    policy_hidden_sizes: list[int] = field(
-        default_factory=lambda: [128, 128]
-    )
-
-
-@dataclass
-class BaselineConfig:
-    max_episode_steps: int = 300
-    max_episode_seconds: float = 30.0
-    horizontal_deadzone_pixels: float = 12.0
-    min_target_vertical_gap_pixels: float = 25.0
-    max_target_vertical_gap_pixels: float = 260.0
-    hazard_vertical_gap_pixels: float = 180.0
-    hazard_horizontal_margin_pixels: float = 64.0
-    direction_switch_release_frames: int = 1
-    rising_origin_exclusion_gap_pixels: float = 150.0
-    rising_origin_horizontal_margin_pixels: float = 12.0
-    target_reacquire_distance_pixels: float = 80.0
-    landing_margin_pixels: float = 10.0
-    reachability_base_pixels: float = 70.0
-    reachability_per_vertical_pixel: float = 0.8
-    launch_platform_vertical_gap_pixels: float = 30.0
-    launch_escape_clearance_pixels: float = 16.0
-    launch_commit_max_steps: int = 3
-    launch_replan_cooldown_steps: int = 2
-    support_departure_max_steps: int = 8
-    support_departure_lost_frames: int = 1
-    support_departure_abort_cooldown_steps: int = 2
-    post_launch_coast_frames: int = 2
-    landing_velocity_lookahead_seconds: float = 0.25
-    landing_prediction_max_seconds: float = 0.55
-    landing_release_projection_seconds: float = 0.05
-    landing_vertical_speed_floor_pixels_per_second: float = 80.0
-    special_escape_edge_guard_pixels: float = 12.0
-    special_escape_outward_velocity_threshold_pixels_per_second: float = 40.0
-    special_contact_direction_commit_steps: int = 3
-    special_contact_destination_stability_steps: int = 2
-    special_contact_replan_limit: int = 1
-    special_contact_forced_exit_steps: int = 4
-    special_contact_reacquire_center_tolerance_pixels: float = 32.0
-    fallback_center_x_pixels: float = 231.5
-    top_danger_player_y_threshold: float = 140.0
-    top_pressure_memory_steps: int = 4
-    top_pressure_dropout_continue_steps: int = 2
-    top_pressure_support_settle_steps: int = 2
-    deep_landing_horizontal_cost: float = 0.75
-    emergency_spike_min_health_segments: int = 6
-    recovery_full_health_segments: int = 12
-    special_contact_escape_max_steps: int = 12
-    aligned_platform_dwell_escape_steps: int = 4
-    aligned_platform_dwell_gap_tolerance_pixels: float = 3.0
-    playfield_left_pixels: float = 40.0
-    playfield_right_pixels: float = 423.0
-    wall_guard_margin_pixels: float = 32.0
-    wall_guard_velocity_lookahead_seconds: float = 0.20
-    wall_evacuation_exit_margin_pixels: float = 64.0
-    wall_evacuation_cooldown_steps: int = 4
-    safe_platform_kinds: list[str] = field(
-        default_factory=lambda: [
-            "normal",
-            "spring",
-            "conveyor",
-            "flipping",
-        ]
-    )
-
-
-@dataclass
 class AppConfig:
     game: GameConfig = field(default_factory=GameConfig)
     capture: CaptureConfig = field(default_factory=CaptureConfig)
     controls: ControlsConfig = field(default_factory=ControlsConfig)
     safety: SafetyConfig = field(default_factory=SafetyConfig)
-    diagnostics: DiagnosticsConfig = field(default_factory=DiagnosticsConfig)
     detection: DetectionConfig = field(default_factory=DetectionConfig)
     vision: VisionConfig = field(default_factory=VisionConfig)
     hud: HudConfig = field(default_factory=HudConfig)
     events: EventsConfig = field(default_factory=EventsConfig)
     environment: EnvironmentConfig = field(default_factory=EnvironmentConfig)
-    training: TrainingConfig = field(default_factory=TrainingConfig)
-    baseline: BaselineConfig = field(default_factory=BaselineConfig)
 
     @classmethod
     def from_dict(cls, data: dict[str, Any] | None) -> "AppConfig":
@@ -323,14 +228,11 @@ class AppConfig:
             "capture",
             "controls",
             "safety",
-            "diagnostics",
             "detection",
             "vision",
             "hud",
             "events",
             "environment",
-            "training",
-            "baseline",
         }
         unknown = set(data) - known
         if unknown:
@@ -340,14 +242,11 @@ class AppConfig:
             capture=CaptureConfig(**data.get("capture", {})),
             controls=ControlsConfig(**data.get("controls", {})),
             safety=SafetyConfig(**data.get("safety", {})),
-            diagnostics=DiagnosticsConfig(**data.get("diagnostics", {})),
             detection=DetectionConfig(**data.get("detection", {})),
             vision=VisionConfig(**data.get("vision", {})),
             hud=HudConfig(**data.get("hud", {})),
             events=EventsConfig(**data.get("events", {})),
             environment=EnvironmentConfig(**data.get("environment", {})),
-            training=TrainingConfig(**data.get("training", {})),
-            baseline=BaselineConfig(**data.get("baseline", {})),
         )
         config.validate()
         return config
@@ -632,243 +531,6 @@ class AppConfig:
                 "environment.platform_alignment_safe_kinds "
                 "必須是已知平台類型的非空清單。"
             )
-        if self.training.algorithm != "ppo":
-            raise ConfigError("training.algorithm 目前只支援 ppo。")
-        if self.training.device != "cpu":
-            raise ConfigError("training.device 本階段只允許 cpu。")
-        for name in (
-            "total_timesteps",
-            "max_episodes",
-            "n_steps",
-            "batch_size",
-            "n_epochs",
-            "checkpoint_freq_steps",
-        ):
-            if getattr(self.training, name) <= 0:
-                raise ConfigError(f"training.{name} 必須大於 0。")
-        if self.training.max_training_seconds <= 0:
-            raise ConfigError(
-                "training.max_training_seconds 必須大於 0。"
-            )
-        if self.training.n_steps % self.training.batch_size != 0:
-            raise ConfigError(
-                "training.n_steps 必須可被 batch_size 整除。"
-            )
-        for name in (
-            "learning_rate",
-            "gamma",
-            "gae_lambda",
-            "target_kl",
-        ):
-            value = getattr(self.training, name)
-            if not 0.0 < value <= 1.0:
-                raise ConfigError(f"training.{name} 必須介於 0 與 1。")
-        if self.training.ent_coef < 0:
-            raise ConfigError("training.ent_coef 不可小於 0。")
-        if (
-            not isinstance(self.training.model_dir, str)
-            or not self.training.model_dir.strip()
-        ):
-            raise ConfigError("training.model_dir 不可為空。")
-        if (
-            not isinstance(self.training.policy_hidden_sizes, list)
-            or not self.training.policy_hidden_sizes
-            or not all(
-                isinstance(size, int) and size > 0
-                for size in self.training.policy_hidden_sizes
-            )
-        ):
-            raise ConfigError(
-                "training.policy_hidden_sizes 必須是正整數清單。"
-            )
-        for name in ("max_episode_steps", "max_episode_seconds"):
-            if getattr(self.baseline, name) <= 0:
-                raise ConfigError(f"baseline.{name} 必須大於 0。")
-        for name in (
-            "horizontal_deadzone_pixels",
-            "min_target_vertical_gap_pixels",
-            "max_target_vertical_gap_pixels",
-            "hazard_vertical_gap_pixels",
-            "hazard_horizontal_margin_pixels",
-            "rising_origin_exclusion_gap_pixels",
-            "rising_origin_horizontal_margin_pixels",
-            "target_reacquire_distance_pixels",
-            "landing_margin_pixels",
-            "reachability_base_pixels",
-            "reachability_per_vertical_pixel",
-            "launch_platform_vertical_gap_pixels",
-            "launch_escape_clearance_pixels",
-            "top_danger_player_y_threshold",
-            "deep_landing_horizontal_cost",
-            "fallback_center_x_pixels",
-            "landing_velocity_lookahead_seconds",
-            "landing_prediction_max_seconds",
-            "landing_release_projection_seconds",
-            "special_escape_edge_guard_pixels",
-            "special_escape_outward_velocity_threshold_pixels_per_second",
-            "special_contact_reacquire_center_tolerance_pixels",
-            "wall_evacuation_exit_margin_pixels",
-            "wall_guard_velocity_lookahead_seconds",
-        ):
-            if getattr(self.baseline, name) < 0:
-                raise ConfigError(f"baseline.{name} 不可小於 0。")
-        if (
-            self.baseline.landing_vertical_speed_floor_pixels_per_second
-            <= 0
-        ):
-            raise ConfigError(
-                "baseline.landing_vertical_speed_floor_pixels_per_second "
-                "必須大於 0。"
-            )
-        if (
-            self.baseline.landing_prediction_max_seconds
-            < self.baseline.landing_velocity_lookahead_seconds
-        ):
-            raise ConfigError(
-                "baseline.landing_prediction_max_seconds 不可小於 "
-                "landing_velocity_lookahead_seconds。"
-            )
-        if (
-            self.baseline.landing_release_projection_seconds
-            > self.baseline.landing_prediction_max_seconds
-        ):
-            raise ConfigError(
-                "baseline.landing_release_projection_seconds 不可大於 "
-                "landing_prediction_max_seconds。"
-            )
-        if self.baseline.direction_switch_release_frames <= 0:
-            raise ConfigError(
-                "baseline.direction_switch_release_frames 必須大於 0。"
-            )
-        if self.baseline.emergency_spike_min_health_segments <= 0:
-            raise ConfigError(
-                "baseline.emergency_spike_min_health_segments 必須大於 0。"
-            )
-        if self.baseline.recovery_full_health_segments <= 0:
-            raise ConfigError(
-                "baseline.recovery_full_health_segments 必須大於 0。"
-            )
-        if self.baseline.special_contact_escape_max_steps <= 0:
-            raise ConfigError(
-                "baseline.special_contact_escape_max_steps 必須大於 0。"
-            )
-        for name in (
-            "special_contact_direction_commit_steps",
-            "special_contact_destination_stability_steps",
-            "special_contact_forced_exit_steps",
-        ):
-            if getattr(self.baseline, name) <= 0:
-                raise ConfigError(f"baseline.{name} 必須大於 0。")
-        if self.baseline.special_contact_replan_limit < 0:
-            raise ConfigError(
-                "baseline.special_contact_replan_limit 不可小於 0。"
-            )
-        if self.baseline.launch_commit_max_steps <= 0:
-            raise ConfigError(
-                "baseline.launch_commit_max_steps 必須大於 0。"
-            )
-        if self.baseline.launch_replan_cooldown_steps < 0:
-            raise ConfigError(
-                "baseline.launch_replan_cooldown_steps 不可小於 0。"
-            )
-        if self.baseline.support_departure_max_steps <= 0:
-            raise ConfigError(
-                "baseline.support_departure_max_steps 必須大於 0。"
-            )
-        if self.baseline.support_departure_lost_frames <= 0:
-            raise ConfigError(
-                "baseline.support_departure_lost_frames 必須大於 0。"
-            )
-        if self.baseline.support_departure_abort_cooldown_steps <= 0:
-            raise ConfigError(
-                "baseline.support_departure_abort_cooldown_steps 必須大於 0。"
-            )
-        if self.baseline.wall_evacuation_cooldown_steps < 0:
-            raise ConfigError(
-                "baseline.wall_evacuation_cooldown_steps 不可小於 0。"
-            )
-        if self.baseline.aligned_platform_dwell_escape_steps <= 0:
-            raise ConfigError(
-                "baseline.aligned_platform_dwell_escape_steps 必須大於 0。"
-            )
-        for name in (
-            "top_pressure_memory_steps",
-            "top_pressure_dropout_continue_steps",
-            "top_pressure_support_settle_steps",
-        ):
-            if getattr(self.baseline, name) <= 0:
-                raise ConfigError(f"baseline.{name} 必須大於 0。")
-        if (
-            self.baseline.top_pressure_dropout_continue_steps
-            > self.baseline.top_pressure_memory_steps
-        ):
-            raise ConfigError(
-                "baseline.top_pressure_dropout_continue_steps 不可大於 "
-                "top_pressure_memory_steps。"
-            )
-        if self.baseline.aligned_platform_dwell_gap_tolerance_pixels < 0:
-            raise ConfigError(
-                "baseline.aligned_platform_dwell_gap_tolerance_pixels 不可小於 0。"
-            )
-        if self.baseline.playfield_left_pixels < 0:
-            raise ConfigError("baseline.playfield_left_pixels 不可小於 0。")
-        if (
-            self.baseline.playfield_right_pixels
-            <= self.baseline.playfield_left_pixels
-        ):
-            raise ConfigError(
-                "baseline.playfield_right_pixels 必須大於 playfield_left_pixels。"
-            )
-        if (
-            self.baseline.wall_guard_margin_pixels < 0
-            or self.baseline.wall_guard_margin_pixels * 2
-            >= self.baseline.playfield_right_pixels
-            - self.baseline.playfield_left_pixels
-        ):
-            raise ConfigError(
-                "baseline.wall_guard_margin_pixels 必須非負且小於 playfield 寬度一半。"
-            )
-        if (
-            self.baseline.wall_evacuation_exit_margin_pixels
-            <= self.baseline.wall_guard_margin_pixels
-            or self.baseline.wall_evacuation_exit_margin_pixels * 2
-            >= self.baseline.playfield_right_pixels
-            - self.baseline.playfield_left_pixels
-        ):
-            raise ConfigError(
-                "baseline.wall_evacuation_exit_margin_pixels 必須大於"
-                " wall_guard_margin_pixels 且小於 playfield 寬度一半。"
-            )
-        if self.baseline.post_launch_coast_frames < 0:
-            raise ConfigError(
-                "baseline.post_launch_coast_frames 不可小於 0。"
-            )
-        if (
-            self.baseline.max_target_vertical_gap_pixels
-            <= self.baseline.min_target_vertical_gap_pixels
-        ):
-            raise ConfigError(
-                "baseline.max_target_vertical_gap_pixels 必須大於"
-                " min_target_vertical_gap_pixels。"
-            )
-        allowed_kinds = {
-            "normal",
-            "spikes",
-            "spring",
-            "conveyor",
-            "flipping",
-        }
-        if (
-            not self.baseline.safe_platform_kinds
-            or not all(
-                isinstance(kind, str) and kind in allowed_kinds
-                for kind in self.baseline.safe_platform_kinds
-            )
-        ):
-            raise ConfigError(
-                "baseline.safe_platform_kinds 必須是已知平台類型的非空清單。"
-            )
-
     def validated_exe_path(self) -> Path:
         path = Path(self.game.exe_path).expanduser()
         if not path.is_file() or path.suffix.lower() != ".exe":
