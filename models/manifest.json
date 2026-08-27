@@ -51,7 +51,7 @@
         "min_floor": 1,
         "max_floor": 13,
         "floor_le_4_rate": 0.45,
-        "interpretation": "Descriptively stronger floor distribution than historical Fresh V3; statistical superiority was not established and safety remained unresolved."
+        "interpretation": "The final audit classifies R4 Real20 as descriptively worse than historical Fresh V3 on the retained summary metrics. Sample sizes differ, so statistical superiority was not claimed; safety remained unresolved."
       }
     }
   }
