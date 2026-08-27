@@ -34,9 +34,13 @@ PPO model execution additionally needs the pinned RL extra:
 python -m pip install -e ".[rl]"
 ```
 
-Canonical model binaries are not committed. Place the exact assets at the
-paths in `models/manifest.json`; the download workflow will be consolidated in
-M3.
+Canonical model binaries are not committed. Fetch exact local assets with
+SHA verification (the current manifests support local source directories while
+Release URLs remain unpublished):
+
+```powershell
+python scripts/fetch_models.py --all --source-dir C:\path\to\canonical-models
+```
 
 ## Play the simulator
 
@@ -89,8 +93,23 @@ Exact hashes and evidence are documented in [Models](docs/MODELS.md).
 
 ## Training
 
-Unified training configuration and the single Git-clone Colab notebook are M3
-work. No training is performed by any M2 runtime command.
+The single active notebook is
+[`notebooks/StairKid_Training_Colab.ipynb`](notebooks/StairKid_Training_Colab.ipynb).
+It clones this Git repository directly, checks out a branch/tag/exact commit,
+installs the package, performs precheck, and invokes the shared trainer. No
+project source ZIP is required.
+
+Local precheck and explicitly bounded smoke commands are also available:
+
+```powershell
+python scripts/train.py --target v3 --mode precheck
+python scripts/train.py --target r4 --mode precheck
+python scripts/train.py --target v3 --mode smoke --output C:\temp\stairkid-runs
+```
+
+Training targets are exactly `v3` and `r4`. Full mode requires an explicit
+authorization phrase, writes a provenance manifest, never writes canonical
+model paths, and never controls the Real game. See [Training](docs/TRAINING.md).
 
 ## Tests
 
@@ -100,5 +119,6 @@ python -m compileall src scripts tests
 ```
 
 Architecture and provenance are in [Architecture](docs/ARCHITECTURE.md), the
+[training guide](docs/TRAINING.md), the
 [branch audit](docs/BRANCH_CLEANUP_AUDIT.md), and the
 [consolidation plan](docs/CONSOLIDATION_PLAN.md).
