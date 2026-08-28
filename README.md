@@ -44,6 +44,13 @@ Install the pinned PPO stack when running models or training:
 python -m pip install -e ".[rl]"
 ```
 
+Windows users can instead double-click `FIRST_RUN_SETUP.cmd`. It creates the
+repository-local `.venv`, installs the PPO/runtime dependencies, verifies the
+canonical model files, and creates the ignored local `config.yaml`. If the
+model Release is private, download its two model assets in the browser and
+enter that download directory when prompted; SHA verification remains
+fail-closed.
+
 ## Fetch models
 
 Canonical binaries are external and are never committed. Until Release URLs
@@ -103,6 +110,12 @@ For supervised multi-episode Real evaluation on Windows, double-click:
 ```text
 START_REAL_MODEL_TEST.cmd
 ```
+
+Before the first Real run, complete `FIRST_RUN_SETUP.cmd` and then the passive
+`CALIBRATE_REAL_GAME.cmd` wizard. Calibration captures the visible NS-SHAFT
+client and lets the user crop detector templates; it sends no game keys. The
+Real launcher now refuses missing/placeholder configuration before displaying
+the run menu, instead of passing the sample title into the Windows finder.
 
 The launcher selects V3/R4, Shadow/Control, 1–100 episodes, diagnostics, and
 the historically verified `none`/`best`/`all` video modes. Exact `RUN` is only

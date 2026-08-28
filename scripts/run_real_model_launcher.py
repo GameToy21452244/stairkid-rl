@@ -9,6 +9,7 @@ import sys
 from typing import Callable
 
 from stair_agent.core.model_registry import load_model_registry, sha256_file
+from stair_agent.real.setup import inspect_real_setup
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -93,6 +94,16 @@ def interactive_main(
     run_fn: Callable[..., object] = subprocess.run,
 ) -> int:
     root = project_root.resolve()
+    setup = inspect_real_setup(root)
+    if not setup.ready:
+        output_fn("REAL_SETUP_REQUIRED")
+        output_fn(f"REAL_CONFIG={setup.config_path}")
+        for problem in setup.problems:
+            output_fn(f"REAL_SETUP_PROBLEM={problem}")
+        for path in setup.missing_templates:
+            output_fn(f"MISSING_REAL_TEMPLATE={path}")
+        output_fn("Run FIRST_RUN_SETUP.cmd and CALIBRATE_REAL_GAME.cmd first.")
+        return 5
     registry = load_model_registry(root)
     output_fn("=" * 64)
     output_fn("StairKid RL - Guarded Real Model Test")

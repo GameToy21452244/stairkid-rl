@@ -41,6 +41,27 @@ Repository cleanup and automated tests never execute the Real game.
 
 ## Supervised bulk evaluation
 
+### First run on Windows
+
+Double-click `FIRST_RUN_SETUP.cmd`. It uses the Windows `py` launcher only to
+create `.venv` with Python 3.11–3.13, then all project commands use that local
+interpreter. It installs `.[rl]`, initializes the local-only `config.yaml`, and
+verifies both canonical model archives. No Real window, capture, controller,
+or action backend is constructed during setup.
+
+Detector templates are installation calibration, not Python packages. They
+were intentionally not fabricated from historical screenshots during cleanup.
+Run `CALIBRATE_REAL_GAME.cmd` once with NS-SHAFT open and visible. Its menu
+captures one passive client frame per selected object and lets the user crop
+the dialog and platform templates. It never sends keyboard input. Until every
+declared template exists, `START_REAL_MODEL_TEST.cmd` stops with
+`REAL_SETUP_REQUIRED` before its model/run menu.
+
+The shipped example profile contains the standard `NS-SHAFT` title,
+`NsShaftClass`, 634x431 reference geometry, HUD/playfield calibration, and
+local template paths. Menu reset rectangles remain unset so a fresh clone uses
+the supervised manual episode reset path instead of unverified menu input.
+
 On Windows, double-click `START_REAL_MODEL_TEST.cmd`. It requires the
 repository-local `.venv\Scripts\python.exe` and never falls back to a global
 Python installation. The menu provides:

@@ -11,7 +11,7 @@ set "LAUNCHER=%PROJECT_ROOT%scripts\run_real_model_launcher.py"
 if not exist "%PYTHON_EXE%" (
   echo ERROR: Repository-local Python was not found:
   echo   "%PYTHON_EXE%"
-  echo Create .venv and install the project before running Real evaluation.
+  echo Run FIRST_RUN_SETUP.cmd before running Real evaluation.
   if /I not "%STAIRKID_NO_PAUSE%"=="1" pause
   exit /b 2
 )
@@ -24,6 +24,14 @@ if not exist "%LAUNCHER%" (
 )
 
 pushd "%PROJECT_ROOT%" || exit /b 4
+"%PYTHON_EXE%" -m stair_agent.real.setup --project-root . --check
+if errorlevel 1 (
+  echo.
+  echo REAL_SETUP_REQUIRED: Complete FIRST_RUN_SETUP.cmd and CALIBRATE_REAL_GAME.cmd first.
+  popd
+  if /I not "%STAIRKID_NO_PAUSE%"=="1" pause
+  exit /b 5
+)
 "%PYTHON_EXE%" "%LAUNCHER%"
 set "EXIT_CODE=%ERRORLEVEL%"
 popd

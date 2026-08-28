@@ -608,7 +608,7 @@ def run_bulk_session(
     root = Path(project_root).resolve()
     loaded = load_canonical_model(root, model_id, device="cpu")
     model_before = sha256_file(loaded.path)
-    selected_config = resolve_real_config(root, config_path)
+    selected_config = resolve_real_config(root, config_path, allow_example=False)
     app_config = AppConfig.load(selected_config)
     verified_reset = (
         bulk_config.mode == "control"

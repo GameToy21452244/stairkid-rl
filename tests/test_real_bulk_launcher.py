@@ -82,6 +82,11 @@ def test_exact_run_gate_does_not_start_child_on_wrong_confirmation(monkeypatch) 
     answers = iter(["1", "1", "1", "n", "1", "not-run"])
     calls: list[list[str]] = []
     monkeypatch.setattr(module, "verify_model_archive", lambda *_args: None)
+    monkeypatch.setattr(
+        module,
+        "inspect_real_setup",
+        lambda _root: SimpleNamespace(ready=True),
+    )
     result = module.interactive_main(
         project_root=ROOT,
         python_executable=Path(sys.executable),
@@ -91,6 +96,30 @@ def test_exact_run_gate_does_not_start_child_on_wrong_confirmation(monkeypatch) 
     )
     assert result == 2
     assert calls == []
+
+
+def test_launcher_rejects_incomplete_real_setup_before_child(monkeypatch, tmp_path: Path) -> None:
+    module = _load_launcher()
+    missing = tmp_path / "captures/templates/dialog.png"
+    monkeypatch.setattr(
+        module,
+        "inspect_real_setup",
+        lambda _root: SimpleNamespace(
+            ready=False,
+            config_path=tmp_path / "config.yaml",
+            problems=("REAL_CONFIG_REQUIRED",),
+            missing_templates=(missing,),
+        ),
+    )
+    output: list[str] = []
+    result = module.interactive_main(
+        project_root=ROOT,
+        input_fn=lambda _prompt: pytest.fail("menu must not be shown"),
+        output_fn=output.append,
+    )
+    assert result == 5
+    assert "REAL_SETUP_REQUIRED" in output
+    assert any("MISSING_REAL_TEMPLATE" in line for line in output)
 
 
 def test_cmd_uses_only_repo_local_venv_and_quoted_repo_relative_paths() -> None:
