@@ -90,7 +90,10 @@ Before the child runner starts, the launcher prints project/model provenance,
 the output directory and child command, then requires exact `RUN`. The child
 performs a passive capture preflight. Control subsequently requires exact
 `AUTHORIZE_V3_REAL_CONTROL` or `AUTHORIZE_R4_REAL_CONTROL`; the launcher never
-passes or bypasses this second authorization.
+passes or bypasses this second authorization. The child runner prints the
+required phrase in a dedicated `TYPE EXACTLY (case-sensitive)` block and also
+includes it directly in the input prompt, so the user never has to guess what
+`Authorization` means. A mismatch rejects control and releases all keys.
 
 Shadow sends zero actions and asks the supervising user to manually prepare
 each episode. Control reuses the existing single-Enter reset coordination,

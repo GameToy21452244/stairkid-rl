@@ -22,6 +22,7 @@ from stair_agent.real.bulk import (
     run_live_episode,
     run_passive_preflight,
     render_bulk_overlay,
+    request_control_authorization,
     select_best_episode,
     write_episode_jsonl,
 )
@@ -188,6 +189,40 @@ def test_controller_backend_exception_disarms_and_releases() -> None:
     assert raw.release_count == 1
     with pytest.raises(RuntimeError, match="REAL_CONTROL_NOT_ARMED"):
         gate.apply(Action.LEFT)
+
+
+def test_control_authorization_prompt_displays_exact_model_phrase() -> None:
+    raw = FakeController()
+    gate = AuthorizationGatedController(raw, model_id="r4", episode_limit=20)
+    output: list[str] = []
+    prompts: list[str] = []
+
+    request_control_authorization(
+        gate,
+        output_fn=output.append,
+        input_fn=lambda prompt: prompts.append(prompt) or "AUTHORIZE_R4_REAL_CONTROL",
+    )
+
+    assert gate.session_authorized is True
+    assert any("TYPE EXACTLY" in line for line in output)
+    assert any("AUTHORIZE_R4_REAL_CONTROL" in line for line in output)
+    assert prompts == ["Authorization [AUTHORIZE_R4_REAL_CONTROL]: "]
+    assert output[-1] == "REAL_CONTROL_AUTHORIZATION=PASS"
+
+
+def test_control_authorization_prompt_rejects_mismatch_and_releases() -> None:
+    raw = FakeController()
+    gate = AuthorizationGatedController(raw, model_id="v3", episode_limit=1)
+    output: list[str] = []
+    with pytest.raises(RuntimeError, match="REAL_CONTROL_AUTHORIZATION_REJECTED"):
+        request_control_authorization(
+            gate,
+            output_fn=output.append,
+            input_fn=lambda _prompt: "authorize_v3_real_control",
+        )
+    assert gate.session_authorized is False
+    assert raw.release_count == 1
+    assert output[-1].startswith("REAL_CONTROL_AUTHORIZATION=REJECTED")
 
 
 def test_shadow_contract_sends_zero_actions() -> None:

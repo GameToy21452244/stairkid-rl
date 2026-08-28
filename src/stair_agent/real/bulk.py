@@ -250,6 +250,27 @@ class AuthorizationGatedController:
         return bool(self._controller.resume_after_related_window())
 
 
+def request_control_authorization(
+    gate: AuthorizationGatedController,
+    *,
+    input_fn: Callable[[str], str] = input,
+    output_fn: Callable[[str], None] = print,
+) -> None:
+    """Show the exact second-layer phrase and fail closed on any mismatch."""
+
+    phrase = gate.expected_phrase
+    output_fn("")
+    output_fn("CONTROL MODE - SECOND SAFETY AUTHORIZATION")
+    output_fn("Real keyboard actions remain disabled until this exact phrase is entered.")
+    output_fn("F8 remains the emergency stop; keep the game focused and supervised.")
+    output_fn(f"TYPE EXACTLY (case-sensitive): {phrase}")
+    entered = input_fn(f"Authorization [{phrase}]: ").strip()
+    if not gate.authorize(entered):
+        output_fn("REAL_CONTROL_AUTHORIZATION=REJECTED (no policy action was enabled)")
+        raise RuntimeError("REAL_CONTROL_AUTHORIZATION_REJECTED")
+    output_fn("REAL_CONTROL_AUTHORIZATION=PASS")
+
+
 def install_authorization_gate(env: Any, gate: AuthorizationGatedController) -> None:
     """Route gameplay and the existing resetter through one capability gate."""
 
@@ -665,9 +686,11 @@ def run_bulk_session(
         output_fn("R4/V3 REAL BULK PASSIVE PREFLIGHT=PASS")
         output_fn(f"EPISODE_RESET_MODE={manifest['episode_reset_mode']}")
         if bulk_config.mode == "control":
-            output_fn(f"CONTROL_AUTHORIZATION_REQUIRED={gate.expected_phrase}")
-            if not gate.authorize(input_fn("Authorization: ").strip()):
-                raise RuntimeError("REAL_CONTROL_AUTHORIZATION_REJECTED")
+            request_control_authorization(
+                gate,
+                input_fn=input_fn,
+                output_fn=output_fn,
+            )
         for episode_id in range(1, bulk_config.episodes + 1):
             initial = None
             if bulk_config.mode == "control":
@@ -828,6 +851,7 @@ __all__ = [
     "run_live_episode",
     "run_passive_preflight",
     "render_bulk_overlay",
+    "request_control_authorization",
     "select_best_episode",
     "write_episode_jsonl",
 ]
