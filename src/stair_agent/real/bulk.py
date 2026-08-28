@@ -260,6 +260,29 @@ def install_authorization_gate(env: Any, gate: AuthorizationGatedController) -> 
         resetter.handler.controller = gate
 
 
+def has_verified_reset_calibration(app_config: Any) -> bool:
+    """Return true only when every coordinate required by the reset guard exists."""
+
+    detection = app_config.detection
+    names = (
+        "reference_width",
+        "reference_height",
+        "menu_start_button_left",
+        "menu_start_button_top",
+        "menu_start_button_width",
+        "menu_start_button_height",
+        "menu_two_player_button_left",
+        "menu_two_player_button_top",
+        "menu_two_player_button_width",
+        "menu_two_player_button_height",
+        "menu_exit_button_left",
+        "menu_exit_button_top",
+        "menu_exit_button_width",
+        "menu_exit_button_height",
+    )
+    return all(getattr(detection, name, None) is not None for name in names)
+
+
 def active_safety_failure(adapter: Any, observation: Any) -> str | None:
     if bool(adapter.emergency_stopped):
         return "F8_EMERGENCY_STOP"
@@ -587,6 +610,10 @@ def run_bulk_session(
     model_before = sha256_file(loaded.path)
     selected_config = resolve_real_config(root, config_path)
     app_config = AppConfig.load(selected_config)
+    verified_reset = (
+        bulk_config.mode == "control"
+        and has_verified_reset_calibration(app_config)
+    )
     timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     session = (Path(output_root).resolve() / f"{timestamp}_{model_id}_{bulk_config.mode}")
     session.mkdir(parents=True, exist_ok=False)
@@ -612,13 +639,16 @@ def run_bulk_session(
         "action_duration_ms": app_config.controls.action_duration_ms,
         "max_continuous_hold_ms": app_config.controls.max_continuous_hold_ms,
         "emergency_stop_key": app_config.safety.emergency_stop_key,
+        "episode_reset_mode": (
+            "VERIFIED_SINGLE_ENTER" if verified_reset else "MANUAL_USER_SUPERVISED"
+        ),
         "real_game_evaluation": True,
         "training_performed": False,
     }
     _write_json(session / "session_manifest.json", manifest)
     try:
         env, _target = create_live_environment(
-            app_config, root, allow_single_enter_reset=bulk_config.mode == "control"
+            app_config, root, allow_single_enter_reset=verified_reset
         )
         raw_controller = env.adapter.controller
         gate = AuthorizationGatedController(
@@ -633,6 +663,7 @@ def run_bulk_session(
         install_authorization_gate(env, gate)
         preflight = run_passive_preflight(env)
         output_fn("R4/V3 REAL BULK PASSIVE PREFLIGHT=PASS")
+        output_fn(f"EPISODE_RESET_MODE={manifest['episode_reset_mode']}")
         if bulk_config.mode == "control":
             output_fn(f"CONTROL_AUTHORIZATION_REQUIRED={gate.expected_phrase}")
             if not gate.authorize(input_fn("Authorization: ").strip()):
@@ -641,12 +672,24 @@ def run_bulk_session(
             initial = None
             if bulk_config.mode == "control":
                 assert gate is not None
-                with gate.menu_reset_scope():
-                    vector, _ = env.reset()
+                if verified_reset:
+                    with gate.menu_reset_scope():
+                        env.reset()
+                    initial = env.last_observation
+                else:
+                    answer = input_fn(
+                        f"Episode {episode_id}: manually reset/start the game, "
+                        "then type READY: "
+                    ).strip()
+                    if answer != "READY":
+                        raise RuntimeError("CONTROL_EPISODE_READY_NOT_CONFIRMED")
+                    initial = env.adapter.observe()
+                    failure = active_safety_failure(env.adapter, initial)
+                    if failure is not None:
+                        raise RuntimeError(
+                            f"CONTROL_MANUAL_RESET_UNSAFE:{failure}"
+                        )
                 gate.arm_episode(episode_id)
-                initial = env.last_observation
-                # Avoid a second reset while preserving the reset vector state.
-                env.temporal_stack.reset(env.encoder.encode(initial))
             else:
                 answer = input_fn(
                     f"Episode {episode_id}: manually start/reset the game, then type READY: "
@@ -780,6 +823,7 @@ __all__ = [
     "build_bulk_summary",
     "create_verified_session_zip",
     "install_authorization_gate",
+    "has_verified_reset_calibration",
     "run_bulk_session",
     "run_live_episode",
     "run_passive_preflight",

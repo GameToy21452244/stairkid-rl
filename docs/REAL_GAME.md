@@ -59,9 +59,12 @@ passes or bypasses this second authorization.
 
 Shadow sends zero actions and asks the supervising user to manually prepare
 each episode. Control reuses the existing single-Enter reset coordination,
-but only through a separately scoped, explicitly authorized menu capability.
-F8, focus loss, tracking loss, exceptions, and termination all release held
-keys and stop fail-closed.
+but only when all menu focus coordinates exist and only through a separately
+scoped, explicitly authorized menu capability. If the local Real config lacks
+that calibration, Control safely falls back to supervised manual reset: the
+user starts each episode and types exact `READY`, while the runner sends no
+menu/reset input. F8, focus loss, tracking loss, exceptions, and termination
+all release held keys and stop fail-closed.
 
 Outputs under `runs/real_bulk/` include a session manifest, per-episode JSON
 and JSONL, aggregate floor statistics, optional failure snapshots and video,

@@ -9,6 +9,7 @@ import numpy as np
 import pytest
 
 from stair_agent.actions import Action
+from stair_agent.config import AppConfig
 import stair_agent.real.bulk as bulk_module
 from stair_agent.real.bulk import (
     AuthorizationGatedController,
@@ -17,6 +18,7 @@ from stair_agent.real.bulk import (
     active_safety_failure,
     build_bulk_summary,
     create_verified_session_zip,
+    has_verified_reset_calibration,
     run_live_episode,
     run_passive_preflight,
     render_bulk_overlay,
@@ -127,6 +129,36 @@ def test_video_modes_are_historically_confirmed() -> None:
         assert BulkEvaluationConfig(video_mode=mode).video_mode == mode
     with pytest.raises(ValueError, match="VIDEO_MODE_INVALID"):
         BulkEvaluationConfig(video_mode="latest")
+
+
+def test_verified_reset_requires_every_focus_coordinate() -> None:
+    names = (
+        "reference_width",
+        "reference_height",
+        "menu_start_button_left",
+        "menu_start_button_top",
+        "menu_start_button_width",
+        "menu_start_button_height",
+        "menu_two_player_button_left",
+        "menu_two_player_button_top",
+        "menu_two_player_button_width",
+        "menu_two_player_button_height",
+        "menu_exit_button_left",
+        "menu_exit_button_top",
+        "menu_exit_button_width",
+        "menu_exit_button_height",
+    )
+    detection = SimpleNamespace(**{name: 1 for name in names})
+    config = SimpleNamespace(detection=detection)
+    assert has_verified_reset_calibration(config) is True
+    detection.menu_exit_button_left = None
+    assert has_verified_reset_calibration(config) is False
+
+
+def test_example_config_uses_safe_manual_reset_fallback() -> None:
+    root = Path(__file__).resolve().parents[1]
+    config = AppConfig.load(root / "config.example.yaml")
+    assert has_verified_reset_calibration(config) is False
 
 
 def test_control_cannot_bypass_authorization_and_releases_on_exception() -> None:
