@@ -46,7 +46,9 @@ python -m pip install -e ".[rl]"
 
 Windows users can instead double-click `FIRST_RUN_SETUP.cmd`. It creates the
 repository-local `.venv`, installs the PPO/runtime dependencies, verifies the
-canonical model files, and creates the ignored local `config.yaml`. If the
+canonical model files, creates the ignored local `config.yaml`, and installs
+the included SHA-verified detector templates for the canonical 634x431
+NS-SHAFT profile. If the
 model Release is private, download its two model assets in the browser and
 enter that download directory when prompted; SHA verification remains
 fail-closed.
@@ -111,11 +113,13 @@ For supervised multi-episode Real evaluation on Windows, double-click:
 START_REAL_MODEL_TEST.cmd
 ```
 
-Before the first Real run, complete `FIRST_RUN_SETUP.cmd` and then the passive
-`CALIBRATE_REAL_GAME.cmd` wizard. Calibration captures the visible NS-SHAFT
-client and lets the user crop detector templates; it sends no game keys. The
-Real launcher now refuses missing/placeholder configuration before displaying
-the run menu, instead of passing the sample title into the Windows finder.
+Before the first Real run, complete `FIRST_RUN_SETUP.cmd`. Users of the same
+canonical game build and resolution normally do not need calibration. Run the
+passive `CALIBRATE_REAL_GAME.cmd` wizard only if the game build/capture geometry
+differs or passive detector preflight reports incompatibility. Calibration
+captures the visible NS-SHAFT client and lets the user crop detector templates;
+it sends no game keys. The Real launcher refuses missing/placeholder
+configuration before displaying the run menu.
 
 The launcher selects V3/R4, Shadow/Control, 1–100 episodes, diagnostics, and
 the historically verified `none`/`best`/`all` video modes. Exact `RUN` is only
@@ -146,6 +150,7 @@ python scripts/verify_project.py
 configs/          corrected simulator profiles and V3/R4 training presets
 models/           canonical model manifest; binaries live in ignored cache
 notebooks/        one active Git-clone self-contained training notebook
+real_assets/      canonical, SHA-verified Real detector profile
 scripts/          current user/developer entrypoints, including guarded Real bulk evaluation
 src/stair_agent/  simulator, Real, reference training, evaluation, and core runtime
 tests/            current regression suite

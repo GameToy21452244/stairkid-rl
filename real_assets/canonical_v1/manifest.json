@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "asset_id": "ns-shaft-canonical-detector-v1",
+  "game_profile": "NS-SHAFT NAGI-P SOFT (project canonical build)",
+  "reference_size": [634, 431],
+  "source": {
+    "preservation_release": "real-data-preservation-v1",
+    "archive": "stairkid-real-calibration-v1.zip",
+    "archive_sha256": "fc3320197944d7e16a658dd14974ca027b61999f9a17d23664ac2790b560a7a4",
+    "method": "lossless current-build dialog/normal capture plus clean gameplay crops recovered from preserved Real videos"
+  },
+  "validation": {
+    "holdout_videos": 46,
+    "holdout_frames": 6716,
+    "player_detection_rate": 0.9724538415723645,
+    "platform_context_rate": 0.9928528886241811,
+    "real_actions_sent": 0
+  },
+  "files": [
+    {
+      "source": "templates/dialog.png",
+      "target": "captures/templates/dialog.png",
+      "sha256": "d2c248646fdcaae9cb354bb0429325ea816b2d20af6238aaed120186f31490b2"
+    },
+    {
+      "source": "templates/platform_normal.png",
+      "target": "captures/templates/platform_normal.png",
+      "sha256": "13fa16d83e5357a6b772efca441308143c9a5770b18adb52ecf846da05519eec"
+    },
+    {
+      "source": "templates/platform_spikes.png",
+      "target": "captures/templates/platform_spikes.png",
+      "sha256": "0aa67d14d3000fe332dc16a62627221d75edbe42a46f2d3ff4cb05e9a4aa4251"
+    },
+    {
+      "source": "templates/platform_green.png",
+      "target": "captures/templates/platform_green.png",
+      "sha256": "8a677e7b8cae64df09fe64951966edcc99b17fd9993065fc66e6877c6264fea5"
+    },
+    {
+      "source": "templates/platform_metal.png",
+      "target": "captures/templates/platform_metal.png",
+      "sha256": "4142bb100d20398d9125967687125103e62d0338496d73646984d4cd47836331"
+    },
+    {
+      "source": "templates/platform_conveyor_2.png",
+      "target": "captures/templates/platform_conveyor_2.png",
+      "sha256": "1e10692fde6b1f5cd1efa59c5f0eca06afad3fd1666cc67f04b27dc18cb278fa"
+    },
+    {
+      "source": "templates/platform_flipping_1.png",
+      "target": "captures/templates/platform_flipping_1.png",
+      "sha256": "68cad8dd3051f712bdbcf756b9fd9556b1f5e9f5d24e0663ee50b7c1eef0855e"
+    },
+    {
+      "source": "templates/platform_flipping_2.png",
+      "target": "captures/templates/platform_flipping_2.png",
+      "sha256": "274deec4394f4bd5ad7931fa28649c56ecd37e13c5138d3ca7887ca43e2f4bd1"
+    }
+  ]
+}

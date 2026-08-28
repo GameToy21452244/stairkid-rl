@@ -89,6 +89,7 @@ if errorlevel 1 (
 echo.
 echo FIRST_RUN_SETUP=PASS
 echo You can now run START_REAL_MODEL_TEST.cmd.
+echo CALIBRATE_REAL_GAME.cmd is only needed if the canonical game/profile compatibility check fails.
 popd
 if /I not "%STAIRKID_NO_PAUSE%"=="1" pause
 exit /b 0

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import ast
+import hashlib
 import json
 from pathlib import Path
 
@@ -17,6 +18,29 @@ from stair_agent.training.configs import TARGET_IDS, load_training_registry
 
 ROOT = Path(__file__).resolve().parents[1]
 NOTEBOOK = ROOT / "notebooks/StairKid_Training_Colab.ipynb"
+
+
+def _sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for block in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+def _verify_real_assets() -> None:
+    asset_root = ROOT / "real_assets" / "canonical_v1"
+    manifest = json.loads((asset_root / "manifest.json").read_text(encoding="utf-8"))
+    if manifest.get("schema_version") != 1 or len(manifest.get("files", [])) != 8:
+        raise RuntimeError("CANONICAL_REAL_ASSET_MANIFEST_INVALID")
+    if manifest.get("reference_size") != [634, 431]:
+        raise RuntimeError("CANONICAL_REAL_ASSET_GEOMETRY_INVALID")
+    for entry in manifest["files"]:
+        path = (asset_root / entry["source"]).resolve()
+        if asset_root not in path.parents or not path.is_file():
+            raise RuntimeError(f"CANONICAL_REAL_ASSET_REQUIRED:{path}")
+        if _sha256(path) != entry["sha256"]:
+            raise RuntimeError(f"CANONICAL_REAL_ASSET_SHA_MISMATCH:{path}")
 
 
 def _verify_notebook() -> None:
@@ -106,6 +130,7 @@ def main() -> int:
     if tuple(assets) != ("r4_frozen_r1_bundle",):
         raise RuntimeError("TRAINING_ASSET_TOP_LEVEL_GATE_INVALID")
     AppConfig.load(ROOT / "config.example.yaml")
+    _verify_real_assets()
     _verify_notebook()
     _verify_active_surface()
     _verify_simulator_contract()
@@ -118,6 +143,7 @@ def main() -> int:
     print(f"TRAINING_TARGETS={','.join(targets)}")
     print(f"TRAINING_ASSETS={len(assets)}")
     print("REAL_CONFIG=PASS")
+    print("CANONICAL_REAL_ASSETS=PASS")
     print("SIMULATOR_CONTRACT=PASS")
     print("CORRECTED_FLIPPING_IDENTITY=PASS")
     print("OBSOLETE_ACTIVE_DEPENDENCIES=NONE")
