@@ -124,7 +124,11 @@ configuration before displaying the run menu.
 The launcher selects V3/R4, Shadow/Control, 1–100 episodes, diagnostics, and
 the historically verified `none`/`best`/`all` video modes. Exact `RUN` is only
 the outer launch gate; Control still requires the model-specific Python
-authorization after a passive preflight. F8 remains the emergency stop.
+authorization after a passive preflight. With the canonical 634x431 profile,
+authorization is followed by a visible 3-2-1 countdown and the recovered
+guarded menu reset: Start/2-player/Exit focus is verified before the single
+Enter, so no per-episode terminal `READY` is needed. F8 remains the emergency
+stop.
 
 ## Train in Colab
 

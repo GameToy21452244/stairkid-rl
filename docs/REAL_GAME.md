@@ -64,9 +64,12 @@ dialog/platform templates. It never sends keyboard input. Missing templates
 still stop the Real launcher with `REAL_SETUP_REQUIRED` before its model menu.
 
 The shipped example profile contains the standard `NS-SHAFT` title,
-`NsShaftClass`, 634x431 reference geometry, HUD/playfield calibration, and
-local template paths. Menu reset rectangles remain unset so a fresh clone uses
-the supervised manual episode reset path instead of unverified menu input.
+`NsShaftClass`, 634x431 reference geometry, HUD/playfield calibration, local
+template paths, and the frozen historical Start/2-player/Exit focus rectangles.
+Their source profile SHA is
+`505187ab25459608f7f7aaa240c738dd96ccd6c745dd37f50426ff6cad91a4b6`.
+`START_REAL_MODEL_TEST.cmd` safely migrates an older all-null copy of this exact
+canonical geometry, but never overwrites partial/custom calibration.
 
 The canonical templates were recovered from the preserved
 `real-data-preservation-v1` evidence and revalidated offline on 46 held-out
@@ -96,17 +99,15 @@ includes it directly in the input prompt, so the user never has to guess what
 `Authorization` means. A mismatch rejects control and releases all keys.
 
 Shadow sends zero actions and asks the supervising user to manually prepare
-each episode. Control reuses the existing single-Enter reset coordination,
-but only when all menu focus coordinates exist and only through a separately
-scoped, explicitly authorized menu capability. If the local Real config lacks
-that calibration, Control safely falls back to supervised manual reset: the
-user starts each episode and types exact `READY`, while the runner sends no
-menu/reset input. Because typing `READY` necessarily focuses the terminal, the
-runner then releases all keys, focuses only the already-verified NS-SHAFT hwnd,
-waits briefly, and repeats focus/player/platform safety checks before starting
-the episode. Failure to refocus or revalidate remains fail-closed. F8, focus
-loss, tracking loss, exceptions, and termination all release held keys and
-stop fail-closed.
+each episode. Canonical Control reuses the historical guarded menu lifecycle:
+after model-specific authorization it displays a 3-2-1 countdown, focuses only
+the verified NS-SHAFT hwnd, detects Start/2-player/Exit focus, performs at most
+the bounded configured correction, sends one Enter only after Start is proven,
+and verifies PLAYING before arming policy actions. Subsequent episodes repeat
+the same guarded reset without another terminal `READY` prompt. If a custom
+profile lacks complete menu calibration, Control retains the supervised
+manual-reset fallback instead of guessing. F8, focus loss, tracking loss,
+exceptions, and termination all release held keys and stop fail-closed.
 
 Outputs under `runs/real_bulk/` include a session manifest, per-episode JSON
 and JSONL, aggregate floor statistics, optional failure snapshots and video,

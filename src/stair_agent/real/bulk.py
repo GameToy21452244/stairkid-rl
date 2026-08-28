@@ -641,6 +641,37 @@ def prepare_supervised_episode(
     return observation
 
 
+def prepare_verified_menu_episode(
+    env: Any,
+    gate: AuthorizationGatedController,
+    *,
+    episode_id: int,
+    countdown_seconds: int = 0,
+    output_fn: Callable[[str], None] = print,
+    sleeper: Callable[[float], None] = time.sleep,
+) -> Any:
+    """Focus and execute the historical guarded one-Enter menu reset."""
+
+    env.adapter.release_all()
+    output_fn(f"EPISODE_{episode_id}_VERIFIED_MENU_RESET=ARMED")
+    if countdown_seconds > 0:
+        output_fn("The verified NS-SHAFT window will be focused after this countdown:")
+        for remaining in range(int(countdown_seconds), 0, -1):
+            output_fn(f"STARTING_IN={remaining}")
+            sleeper(1.0)
+    gate.focus_target()
+    sleeper(0.5)
+    with gate.menu_reset_scope():
+        env.reset()
+    observation = env.last_observation
+    failure = active_safety_failure(env.adapter, observation)
+    if failure is not None:
+        env.adapter.release_all()
+        raise RuntimeError(f"VERIFIED_MENU_RESET_UNSAFE:{failure}")
+    output_fn(f"EPISODE_{episode_id}_VERIFIED_MENU_RESET=PASS")
+    return observation
+
+
 def run_bulk_session(
     project_root: Path,
     *,
@@ -727,9 +758,13 @@ def run_bulk_session(
             if bulk_config.mode == "control":
                 assert gate is not None
                 if verified_reset:
-                    with gate.menu_reset_scope():
-                        env.reset()
-                    initial = env.last_observation
+                    initial = prepare_verified_menu_episode(
+                        env,
+                        gate,
+                        episode_id=episode_id,
+                        countdown_seconds=3 if episode_id == 1 else 0,
+                        output_fn=output_fn,
+                    )
                 else:
                     answer = input_fn(
                         f"Episode {episode_id}: manually reset/start the game, "
@@ -884,6 +919,7 @@ __all__ = [
     "install_authorization_gate",
     "has_verified_reset_calibration",
     "prepare_supervised_episode",
+    "prepare_verified_menu_episode",
     "run_bulk_session",
     "run_live_episode",
     "run_passive_preflight",

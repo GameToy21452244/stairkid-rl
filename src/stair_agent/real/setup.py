@@ -13,6 +13,23 @@ from stair_agent.config import AppConfig
 
 
 PLACEHOLDER_MARKERS = ("請使用者填入", "replace-me", "example title")
+CANONICAL_MENU_RECTS = {
+    "menu_start_button_left": 381,
+    "menu_start_button_top": 297,
+    "menu_start_button_width": 81,
+    "menu_start_button_height": 21,
+    "menu_two_player_button_left": 289,
+    "menu_two_player_button_top": 297,
+    "menu_two_player_button_width": 81,
+    "menu_two_player_button_height": 21,
+    "menu_exit_button_left": 172,
+    "menu_exit_button_top": 297,
+    "menu_exit_button_width": 70,
+    "menu_exit_button_height": 21,
+}
+CANONICAL_REAL_PROFILE_SHA256 = (
+    "505187ab25459608f7f7aaa240c738dd96ccd6c745dd37f50426ff6cad91a4b6"
+)
 
 
 @dataclass(frozen=True)
@@ -22,6 +39,7 @@ class RealSetupReport:
     missing_templates: tuple[Path, ...]
     problems: tuple[str, ...]
     canonical_assets_installed: tuple[Path, ...] = ()
+    canonical_menu_profile_applied: bool = False
 
     @property
     def ready(self) -> bool:
@@ -81,6 +99,49 @@ def initialize_local_config(project_root: Path) -> tuple[Path, bool]:
     return destination, True
 
 
+def apply_canonical_menu_profile(config_path: Path) -> bool:
+    """Migrate only the exact standard 634x431 profile or its all-null legacy copy."""
+
+    path = Path(config_path).resolve()
+    config = AppConfig.load(path)
+    canonical_geometry = (
+        config.game.window_title_contains == "NS-SHAFT"
+        and config.game.window_class_name == "NsShaftClass"
+        and config.capture.resize_width == 634
+        and config.capture.resize_height == 431
+        and config.detection.reference_width == 634
+        and config.detection.reference_height == 431
+        and config.detection.dialog_roi_left == 158
+        and config.detection.dialog_roi_top == 97
+        and config.detection.dialog_roi_width == 317
+        and config.detection.dialog_roi_height == 235
+    )
+    if not canonical_geometry:
+        return False
+    current = {
+        name: getattr(config.detection, name)
+        for name in CANONICAL_MENU_RECTS
+    }
+    if not (
+        all(value is None for value in current.values())
+        or current == CANONICAL_MENU_RECTS
+    ):
+        # Partial/custom calibration is never overwritten automatically.
+        return False
+    changed = current != CANONICAL_MENU_RECTS
+    for name, value in CANONICAL_MENU_RECTS.items():
+        setattr(config.detection, name, value)
+    if config.controls.menu_focus_correction_key != "tab":
+        config.controls.menu_focus_correction_key = "tab"
+        changed = True
+    if not config.environment.auto_restart_on_reset:
+        config.environment.auto_restart_on_reset = True
+        changed = True
+    if changed:
+        config.save(path)
+    return changed
+
+
 def _resolve_local(root: Path, value: str) -> Path:
     path = Path(value)
     if not path.is_absolute():
@@ -91,13 +152,22 @@ def _resolve_local(root: Path, value: str) -> Path:
 def inspect_real_setup(project_root: Path, *, initialize: bool = False) -> RealSetupReport:
     root = Path(project_root).resolve()
     installed: tuple[Path, ...] = ()
+    menu_applied = False
     if initialize:
         config_path, created = initialize_local_config(root)
         installed = install_canonical_real_assets(root)
+        menu_applied = apply_canonical_menu_profile(config_path)
     else:
         config_path, created = root / "config.yaml", False
     if not config_path.is_file():
-        return RealSetupReport(config_path, created, (), ("REAL_CONFIG_REQUIRED",), installed)
+        return RealSetupReport(
+            config_path,
+            created,
+            (),
+            ("REAL_CONFIG_REQUIRED",),
+            installed,
+            menu_applied,
+        )
 
     config = AppConfig.load(config_path)
     problems: list[str] = []
@@ -121,7 +191,14 @@ def inspect_real_setup(project_root: Path, *, initialize: bool = False) -> RealS
         for path in dict.fromkeys(_resolve_local(root, value) for value in required_values)
         if not path.is_file()
     )
-    return RealSetupReport(config_path, created, missing, tuple(problems), installed)
+    return RealSetupReport(
+        config_path,
+        created,
+        missing,
+        tuple(problems),
+        installed,
+        menu_applied,
+    )
 
 
 def print_report(report: RealSetupReport) -> None:
@@ -129,6 +206,11 @@ def print_report(report: RealSetupReport) -> None:
     print(f"REAL_CONFIG_CREATED={'YES' if report.config_created else 'NO'}")
     for path in report.canonical_assets_installed:
         print(f"CANONICAL_REAL_ASSET_INSTALLED={path}")
+    print(
+        "CANONICAL_MENU_PROFILE_APPLIED="
+        f"{'YES' if report.canonical_menu_profile_applied else 'NO'}"
+    )
+    print(f"CANONICAL_REAL_PROFILE_SHA256={CANONICAL_REAL_PROFILE_SHA256}")
     for problem in report.problems:
         print(f"REAL_SETUP_PROBLEM={problem}")
     for path in report.missing_templates:

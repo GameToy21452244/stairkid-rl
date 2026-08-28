@@ -24,7 +24,7 @@ if not exist "%LAUNCHER%" (
 )
 
 pushd "%PROJECT_ROOT%" || exit /b 4
-"%PYTHON_EXE%" -m stair_agent.real.setup --project-root . --check
+"%PYTHON_EXE%" -m stair_agent.real.setup --project-root . --initialize --check
 if errorlevel 1 (
   echo.
   echo REAL_SETUP_REQUIRED: Complete FIRST_RUN_SETUP.cmd and CALIBRATE_REAL_GAME.cmd first.

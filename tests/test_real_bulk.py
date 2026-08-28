@@ -20,6 +20,7 @@ from stair_agent.real.bulk import (
     create_verified_session_zip,
     has_verified_reset_calibration,
     prepare_supervised_episode,
+    prepare_verified_menu_episode,
     run_live_episode,
     run_passive_preflight,
     render_bulk_overlay,
@@ -162,10 +163,10 @@ def test_verified_reset_requires_every_focus_coordinate() -> None:
     assert has_verified_reset_calibration(config) is False
 
 
-def test_example_config_uses_safe_manual_reset_fallback() -> None:
+def test_example_config_uses_canonical_verified_menu_reset() -> None:
     root = Path(__file__).resolve().parents[1]
     config = AppConfig.load(root / "config.example.yaml")
-    assert has_verified_reset_calibration(config) is False
+    assert has_verified_reset_calibration(config) is True
 
 
 def test_control_cannot_bypass_authorization_and_releases_on_exception() -> None:
@@ -295,6 +296,45 @@ def test_ready_flow_still_fails_closed_after_refocus_when_tracking_is_missing() 
         )
     assert raw.actions == []
     assert gate.actions_sent == 0
+
+
+def test_canonical_control_countdown_uses_verified_menu_reset_without_ready() -> None:
+    raw = FakeController()
+    gate = AuthorizationGatedController(raw, model_id="r4", episode_limit=20)
+    assert gate.authorize("AUTHORIZE_R4_REAL_CONTROL")
+    observation = _observation()
+    reset_calls: list[bool] = []
+    adapter = SimpleNamespace(
+        controller=gate,
+        emergency_stopped=False,
+        is_foreground=lambda: True,
+        release_all=gate.release_all,
+    )
+    env = SimpleNamespace(
+        adapter=adapter,
+        last_observation=observation,
+        reset=lambda: reset_calls.append(True),
+    )
+    output: list[str] = []
+    result = prepare_verified_menu_episode(
+        env,
+        gate,
+        episode_id=1,
+        countdown_seconds=3,
+        output_fn=output.append,
+        sleeper=lambda _seconds: None,
+    )
+    assert result is observation
+    assert reset_calls == [True]
+    assert raw.focus_count == 1
+    assert raw.actions == []
+    assert gate.actions_sent == 0
+    assert [line for line in output if line.startswith("STARTING_IN=")] == [
+        "STARTING_IN=3",
+        "STARTING_IN=2",
+        "STARTING_IN=1",
+    ]
+    assert output[-1] == "EPISODE_1_VERIFIED_MENU_RESET=PASS"
 
 
 def test_shadow_episode_writes_jsonl_and_sends_zero_actions(tmp_path: Path) -> None:

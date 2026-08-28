@@ -44,20 +44,21 @@ detection:
   reference_height: 431
   dialog_threshold: 0.80
   search_margin: 8
-  # Menu focus rectangles remain per-install calibration. Null keeps bulk reset
-  # in supervised manual mode instead of sending unverified menu keys.
-  menu_start_button_left: null
-  menu_start_button_top: null
-  menu_start_button_width: null
-  menu_start_button_height: null
-  menu_two_player_button_left: null
-  menu_two_player_button_top: null
-  menu_two_player_button_width: null
-  menu_two_player_button_height: null
-  menu_exit_button_left: null
-  menu_exit_button_top: null
-  menu_exit_button_width: null
-  menu_exit_button_height: null
+  # Canonical 634x431 menu focus rectangles recovered from the frozen
+  # historical Real profile (SHA256 505187ab...). Different builds must
+  # recalibrate instead of reusing these coordinates.
+  menu_start_button_left: 381
+  menu_start_button_top: 297
+  menu_start_button_width: 81
+  menu_start_button_height: 21
+  menu_two_player_button_left: 289
+  menu_two_player_button_top: 297
+  menu_two_player_button_width: 81
+  menu_two_player_button_height: 21
+  menu_exit_button_left: 172
+  menu_exit_button_top: 297
+  menu_exit_button_width: 70
+  menu_exit_button_height: 21
   menu_focus_border_mean_max: 180.0
   menu_focus_minimum_contrast: 20.0
   menu_focus_inner_gray_max: 200
@@ -131,7 +132,7 @@ environment:
   death_penalty: 5.0
   velocity_scale: 500.0
   max_platforms_per_type: 8
-  auto_restart_on_reset: false
+  auto_restart_on_reset: true
   reset_required_consecutive_frames: 3
   reset_max_observation_frames: 30
   reset_focus_max_observation_frames: 24
