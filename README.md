@@ -98,6 +98,17 @@ python scripts/run_real_agent.py --model r4
 Live control is never implicit: it additionally requires `--control` and the
 model-specific interactive authorization phrase. See `docs/REAL_GAME.md`.
 
+For supervised multi-episode Real evaluation on Windows, double-click:
+
+```text
+START_REAL_MODEL_TEST.cmd
+```
+
+The launcher selects V3/R4, Shadow/Control, 1–100 episodes, diagnostics, and
+the historically verified `none`/`best`/`all` video modes. Exact `RUN` is only
+the outer launch gate; Control still requires the model-specific Python
+authorization after a passive preflight. F8 remains the emergency stop.
+
 ## Train in Colab
 
 Open `notebooks/StairKid_Training_Colab.ipynb`. The notebook clones GitHub,
@@ -122,7 +133,7 @@ python scripts/verify_project.py
 configs/          corrected simulator profiles and V3/R4 training presets
 models/           canonical model manifest; binaries live in ignored cache
 notebooks/        one active Git-clone self-contained training notebook
-scripts/          eight user/developer entrypoints
+scripts/          current user/developer entrypoints, including guarded Real bulk evaluation
 src/stair_agent/  simulator, Real, reference training, evaluation, and core runtime
 tests/            current regression suite
 training_assets/  SHA-pinned external training-asset manifest
