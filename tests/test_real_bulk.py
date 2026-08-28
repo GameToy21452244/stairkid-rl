@@ -10,12 +10,14 @@ import pytest
 
 from stair_agent.actions import Action
 from stair_agent.config import AppConfig
+from stair_agent.gym_env import TemporalObservationStack
 import stair_agent.real.bulk as bulk_module
 from stair_agent.real.bulk import (
     AuthorizationGatedController,
     BulkEvaluationConfig,
     EpisodeVideoRetention,
     active_safety_failure,
+    assert_causal_history_contract,
     build_bulk_summary,
     create_verified_session_zip,
     has_verified_reset_calibration,
@@ -26,6 +28,7 @@ from stair_agent.real.bulk import (
     render_bulk_overlay,
     request_control_authorization,
     select_best_episode,
+    validate_policy_observation,
     write_episode_jsonl,
 )
 
@@ -103,10 +106,38 @@ class FakeEnv:
         self.temporal_stack = SimpleNamespace(
             append=lambda _features, _action: np.zeros(268, dtype=np.float32)
         )
+        self.initialize_calls = 0
 
     def initialize_from_observation(self, observation):
+        self.initialize_calls += 1
         self.last_observation = observation
         return np.zeros(268, dtype=np.float32), {}
+
+
+class FakeControlEnv:
+    def __init__(self, initial) -> None:
+        self.last_observation = initial
+        self.encoder = SimpleNamespace(
+            encode=lambda _observation: np.zeros(64, dtype=np.float32)
+        )
+        self.temporal_stack = TemporalObservationStack(
+            64, history_frames=4, include_action_history=True
+        )
+        self.adapter = FakeAdapter([])
+        self.adapter.last_action_timing = None
+
+    def step(self, action: int):
+        next_observation = _observation("dialog", floor=3)
+        features = self.encoder.encode(next_observation)
+        vector = self.temporal_stack.append(features, Action(action))
+        self.last_observation = next_observation
+        self.adapter.last_action_timing = SimpleNamespace(
+            action_applied=True,
+            action_command_timestamp=0.01,
+            action_effective_timestamp=0.01,
+            next_observation_timestamp=0.09,
+        )
+        return vector, 0.0, True, False, {"phase": "dialog"}
 
 
 class FakeLoadedModel:
@@ -119,6 +150,23 @@ class FakeLoadedModel:
         if self.error is not None:
             raise self.error
         return int(Action.LEFT)
+
+    def predict_with_probabilities(self, observation):
+        action = self.predict(observation)
+        return action, [0.1, 0.8, 0.1]
+
+
+class FakeClock:
+    def __init__(self) -> None:
+        self.now = 0.0
+        self.sleeps: list[float] = []
+
+    def __call__(self) -> float:
+        return self.now
+
+    def sleep(self, seconds: float) -> None:
+        self.sleeps.append(float(seconds))
+        self.now += float(seconds)
 
 
 @pytest.mark.parametrize("episodes", [1, 20, 100])
@@ -313,7 +361,7 @@ def test_canonical_control_countdown_uses_verified_menu_reset_without_ready() ->
     env = SimpleNamespace(
         adapter=adapter,
         last_observation=observation,
-        reset=lambda: reset_calls.append(True),
+        reset=lambda: (reset_calls.append(True) or np.zeros(268, dtype=np.float32), {}),
     )
     output: list[str] = []
     result = prepare_verified_menu_episode(
@@ -359,6 +407,111 @@ def test_shadow_episode_writes_jsonl_and_sends_zero_actions(tmp_path: Path) -> N
     assert record["deepest_floor"] == 5
     assert json.loads(output.read_text(encoding="utf-8").strip())["action_sent"] is False
     assert env.adapter.release_count == 1
+
+
+def test_verified_reset_policy_stack_is_used_without_second_initialization(
+    tmp_path: Path,
+) -> None:
+    initial = _observation(floor=2)
+    env = FakeEnv([_observation("dialog", floor=2)])
+    loaded = FakeLoadedModel()
+    expected = np.full(268, 0.25, dtype=np.float32)
+    run_live_episode(
+        env,
+        loaded,  # type: ignore[arg-type]
+        episode_id=1,
+        config=BulkEvaluationConfig(
+            episodes=1, mode="shadow", video_mode="none", max_episode_seconds=10
+        ),
+        step_jsonl=tmp_path / "episode.jsonl",
+        video_path=None,
+        capture_fps=10,
+        initial_observation=initial,
+        initial_policy_observation=expected,
+        sleeper=lambda _seconds: None,
+    )
+    assert env.initialize_calls == 0
+
+
+def test_policy_observation_and_causal_action_history_contract() -> None:
+    observation = _observation()
+    features = np.arange(64, dtype=np.float32)
+    action_features = np.asarray([0.0, 1.0, 0.0], dtype=np.float32)
+    stack = SimpleNamespace(
+        include_action_history=True,
+        history_frames=4,
+        _frames=[features.copy()],
+        _actions=[action_features.copy()],
+        _action_features=lambda action: (
+            action_features.copy()
+            if action is Action.LEFT
+            else np.zeros(3, dtype=np.float32)
+        ),
+    )
+    env = SimpleNamespace(
+        temporal_stack=stack,
+        encoder=SimpleNamespace(encode=lambda _raw: features.copy()),
+    )
+    assert validate_policy_observation(np.zeros(268, dtype=np.float32)).shape == (268,)
+    assert_causal_history_contract(
+        env, resulting_observation=observation, executed_action=Action.LEFT
+    )
+    stack._actions[-1] = np.zeros(3, dtype=np.float32)
+    with pytest.raises(RuntimeError, match="CAUSAL_EXECUTED_ACTION_HISTORY_MISMATCH"):
+        assert_causal_history_contract(
+            env, resulting_observation=observation, executed_action=Action.LEFT
+        )
+
+
+def test_shadow_loop_restores_historical_minimum_policy_period(tmp_path: Path) -> None:
+    clock = FakeClock()
+    env = FakeEnv([_observation("playing", floor=2), _observation("dialog", floor=2)])
+    output = tmp_path / "paced.jsonl"
+    run_live_episode(
+        env,
+        FakeLoadedModel(),  # type: ignore[arg-type]
+        episode_id=1,
+        config=BulkEvaluationConfig(
+            episodes=1, mode="shadow", video_mode="none", max_episode_seconds=10
+        ),
+        step_jsonl=output,
+        video_path=None,
+        capture_fps=10,
+        initial_observation=_observation(floor=1),
+        monotonic=clock,
+        sleeper=clock.sleep,
+    )
+    rows = [json.loads(line) for line in output.read_text(encoding="utf-8").splitlines()]
+    assert clock.sleeps.count(0.1) == 1
+    assert rows[1]["policy_loop_period_ms"] == pytest.approx(100.0)
+
+
+def test_control_step_records_audited_causal_timing_and_probabilities(
+    tmp_path: Path,
+) -> None:
+    initial = _observation(floor=1)
+    env = FakeControlEnv(initial)
+    initial_vector = env.temporal_stack.reset(env.encoder.encode(initial))
+    output = tmp_path / "control.jsonl"
+    record = run_live_episode(
+        env,
+        FakeLoadedModel(),  # type: ignore[arg-type]
+        episode_id=1,
+        config=BulkEvaluationConfig(
+            episodes=1, mode="control", video_mode="none", max_episode_seconds=10
+        ),
+        step_jsonl=output,
+        video_path=None,
+        capture_fps=10,
+        initial_observation=initial,
+        initial_policy_observation=initial_vector,
+    )
+    row = json.loads(output.read_text(encoding="utf-8").strip())
+    assert record["termination_reason"] == "EPISODE_TERMINATED"
+    assert row["action_probabilities"] == [0.1, 0.8, 0.1]
+    assert row["action_applied"] is True
+    assert row["ACTION_HISTORY_SOURCE"] == "ACTUALLY_EXECUTED_POLICY_ACTION"
+    assert row["next_observation_shape"] == [268]
 
 
 def test_episode_exception_always_releases_keys(tmp_path: Path) -> None:

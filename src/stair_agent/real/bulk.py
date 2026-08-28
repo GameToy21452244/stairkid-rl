@@ -19,6 +19,8 @@ import time
 from typing import Any, Callable, Iterable, Iterator, Mapping
 import zipfile
 
+import numpy as np
+
 from stair_agent.actions import Action
 from stair_agent.core.model_registry import (
     LoadedCanonicalModel,
@@ -33,6 +35,8 @@ MIN_EPISODES = 1
 MAX_EPISODES = 100
 MIN_EPISODE_SECONDS = 10.0
 MAX_EPISODE_SECONDS = 600.0
+POLICY_PERIOD_SECONDS = 0.10
+ACTION_HISTORY_SOURCE = "ACTUALLY_EXECUTED_POLICY_ACTION"
 
 
 @dataclass(frozen=True)
@@ -324,6 +328,36 @@ def active_safety_failure(adapter: Any, observation: Any) -> str | None:
     return None
 
 
+def validate_policy_observation(observation: Any) -> np.ndarray:
+    """Validate the frozen V3/R4 Real policy input contract."""
+
+    array = np.asarray(observation, dtype=np.float32)
+    if tuple(array.shape) != (268,):
+        raise RuntimeError(f"OBSERVATION_SHAPE_MISMATCH:{tuple(array.shape)}!=(268,)")
+    if not np.isfinite(array).all():
+        raise RuntimeError("OBSERVATION_NONFINITE")
+    return array
+
+
+def assert_causal_history_contract(
+    env: Any,
+    *,
+    resulting_observation: Any,
+    executed_action: Action,
+) -> None:
+    """Prove the newest temporal entry is (features(O_t+1), executed A_t)."""
+
+    stack = env.temporal_stack
+    if not bool(stack.include_action_history) or int(stack.history_frames) != 4:
+        raise RuntimeError("CAUSAL_TEMPORAL_STACK_CONFIGURATION_VIOLATION")
+    expected_features = env.encoder.encode(resulting_observation)
+    expected_action = stack._action_features(executed_action)
+    if not np.array_equal(stack._frames[-1], expected_features):
+        raise RuntimeError("CAUSAL_RESULTING_OBSERVATION_MISMATCH")
+    if not np.array_equal(stack._actions[-1], expected_action):
+        raise RuntimeError("CAUSAL_EXECUTED_ACTION_HISTORY_MISMATCH")
+
+
 def select_best_episode(records: Iterable[Mapping[str, Any]]) -> Mapping[str, Any]:
     eligible = [
         row for row in records
@@ -346,6 +380,12 @@ def build_bulk_summary(records: Iterable[Mapping[str, Any]]) -> dict[str, Any]:
         raise ValueError("NO_VALID_REAL_EPISODES")
     metrics = floor_metrics(floors)
     best = select_best_episode(valid)
+    action_counts = {
+        name: sum(int(row.get("action_counts", {}).get(name, 0)) for row in valid)
+        for name in (Action.RELEASE_ALL.name, Action.LEFT.name, Action.RIGHT.name)
+    }
+    total_actions = sum(action_counts.values())
+    total_duration = sum(float(row.get("duration_seconds", 0.0)) for row in valid)
     return {
         "episodes_requested": len(rows),
         "episodes_completed": len(valid),
@@ -359,6 +399,12 @@ def build_bulk_summary(records: Iterable[Mapping[str, Any]]) -> dict[str, Any]:
         "best_episode": int(best["episode_id"]),
         "best_floor": int(best["deepest_floor"]),
         "invalid_technical": len(rows) - len(valid),
+        "total_policy_steps": total_actions,
+        "effective_policy_hz": total_actions / max(total_duration, 1e-9),
+        "action_counts": action_counts,
+        "action_rates": {
+            name: count / max(total_actions, 1) for name, count in action_counts.items()
+        },
     }
 
 
@@ -367,12 +413,28 @@ def write_episode_jsonl(path: Path, records: Iterable[Mapping[str, Any]]) -> Non
     destination.parent.mkdir(parents=True, exist_ok=True)
     with destination.open("w", encoding="utf-8", newline="\n") as handle:
         for row in records:
-            handle.write(json.dumps(dict(row), ensure_ascii=False) + "\n")
+            handle.write(
+                json.dumps(dict(row), ensure_ascii=False, default=_json_default) + "\n"
+            )
+
+
+def _json_default(value: Any) -> Any:
+    if isinstance(value, np.generic):
+        return value.item()
+    if isinstance(value, np.ndarray):
+        return value.tolist()
+    if isinstance(value, Path):
+        return str(value)
+    enum_value = getattr(value, "value", None)
+    if isinstance(enum_value, (str, int, float, bool)):
+        return enum_value
+    raise TypeError(f"NOT_JSON_SERIALIZABLE:{type(value).__name__}")
 
 
 def _write_json(path: Path, payload: Mapping[str, Any]) -> None:
     path.write_text(
-        json.dumps(dict(payload), ensure_ascii=False, indent=2) + "\n",
+        json.dumps(dict(payload), ensure_ascii=False, indent=2, default=_json_default)
+        + "\n",
         encoding="utf-8",
     )
 
@@ -475,49 +537,76 @@ def run_live_episode(
     video_path: Path | None,
     capture_fps: float,
     initial_observation: Any | None = None,
+    initial_policy_observation: Any | None = None,
+    monotonic: Callable[[], float] = time.monotonic,
+    sleeper: Callable[[float], None] = time.sleep,
 ) -> dict[str, Any]:
-    """Run one bounded inference episode; caller owns authorization/reset."""
+    """Run one bounded inference episode with the audited R4 Real20 contract."""
 
-    started = time.monotonic()
+    started = monotonic()
     steps = 0
     deepest: int | None = None
     terminal_reason = "LIMIT"
     valid = True
     writer = None
     records: list[dict[str, Any]] = []
+    previous_step: float | None = None
     try:
         if initial_observation is None:
             vector, _ = env.reset()
             structured = env.last_observation
         else:
             structured = initial_observation
-            vector, _ = env.initialize_from_observation(structured)
+            if initial_policy_observation is None:
+                vector, _ = env.initialize_from_observation(structured)
+            else:
+                vector = initial_policy_observation
+                env.last_observation = structured
+        vector = validate_policy_observation(vector)
         deepest = _floor_value(structured)
         frame = env.adapter.latest_frame()
         writer = _open_video(video_path, frame, capture_fps)
         while (
             steps < config.max_episode_steps
-            and time.monotonic() - started < config.max_episode_seconds
+            and monotonic() - started < config.max_episode_seconds
         ):
+            step_started = monotonic()
             failure = active_safety_failure(env.adapter, structured)
             if failure is not None:
                 terminal_reason = failure
                 valid = failure.startswith("PHASE_") and steps > 0
                 break
-            action = loaded.predict(vector)
+            policy_input = validate_policy_observation(vector)
+            action, probabilities = loaded.predict_with_probabilities(policy_input)
+            predicted = Action(int(action))
+            observation_timestamp = getattr(structured, "timestamp", None)
+            timing = None
             if config.mode == "control":
                 vector, _reward, terminated, truncated, info = env.step(action)
                 structured = env.last_observation
+                timing = env.adapter.last_action_timing
+                if timing is None or not bool(timing.action_applied):
+                    raise RuntimeError("ACTION_NOT_ACTUALLY_APPLIED")
+                assert_causal_history_contract(
+                    env,
+                    resulting_observation=structured,
+                    executed_action=predicted,
+                )
+                vector = validate_policy_observation(vector)
                 steps += 1
                 if terminated or truncated:
-                    terminal_reason = str(info.get("phase", "TERMINATED")).upper()
+                    terminal_reason = (
+                        "EPISODE_TERMINATED" if terminated else "EPISODE_TRUNCATED"
+                    )
             else:
-                time.sleep(env.adapter.action_duration_ms / 1000.0)
+                sleeper(env.adapter.action_duration_ms / 1000.0)
                 structured = env.adapter.observe()
                 features = env.encoder.encode(structured)
                 vector = env.temporal_stack.append(features, Action.RELEASE_ALL)
+                vector = validate_policy_observation(vector)
                 terminated = structured.phase != "playing"
                 truncated = False
+                info = {}
                 steps += 1
                 if terminated:
                     terminal_reason = str(structured.phase).upper()
@@ -545,15 +634,58 @@ def run_live_episode(
                     "step": steps,
                     "timestamp": datetime.now(timezone.utc).isoformat(),
                     "predicted_action": int(action),
+                    "predicted_action_name": predicted.name,
+                    "action_probabilities": probabilities,
                     "action_sent": config.mode == "control",
+                    "actually_executed_action": (
+                        predicted.name if config.mode == "control" else "NONE_SHADOW"
+                    ),
+                    "action_applied": bool(
+                        config.mode == "control"
+                        and timing is not None
+                        and timing.action_applied
+                    ),
+                    "observation_shape": list(policy_input.shape),
+                    "observation_finite": bool(np.isfinite(policy_input).all()),
+                    "next_observation_shape": list(vector.shape),
+                    "next_observation_finite": bool(np.isfinite(vector).all()),
                     "phase": structured.phase,
                     "floor": floor,
                     "health": getattr(structured, "health", None),
                     "events": getattr(structured, "events", None),
+                    "player_detected": getattr(structured, "player", None) is not None,
+                    "player": getattr(structured, "player", None),
+                    "platform_context": bool(getattr(structured, "platforms", None)),
+                    "platform_count": len(getattr(structured, "platforms", []) or []),
+                    "nearest_platform": getattr(structured, "nearest_platform", None),
+                    "observation_timestamp": observation_timestamp,
+                    "action_command_timestamp": (
+                        None if timing is None else timing.action_command_timestamp
+                    ),
+                    "action_effective_timestamp": (
+                        None if timing is None else timing.action_effective_timestamp
+                    ),
+                    "next_observation_timestamp": (
+                        None if timing is None else timing.next_observation_timestamp
+                    ),
+                    "policy_loop_period_ms": (
+                        None
+                        if previous_step is None
+                        else 1000.0 * (step_started - previous_step)
+                    ),
+                    "ACTION_HISTORY_SOURCE": ACTION_HISTORY_SOURCE,
+                    "info": info,
                 }
             )
+            previous_step = step_started
             if terminated or truncated:
                 break
+            failure = active_safety_failure(env.adapter, structured)
+            if failure is not None:
+                terminal_reason = failure
+                valid = False
+                break
+            sleeper(max(0.0, POLICY_PERIOD_SECONDS - (monotonic() - step_started)))
         else:
             terminal_reason = "TIME_OR_STEP_LIMIT"
     except BaseException as exc:
@@ -565,12 +697,22 @@ def run_live_episode(
             writer.release()
         env.adapter.release_all()
         write_episode_jsonl(step_jsonl, records)
+    duration = monotonic() - started
+    action_counts = {
+        action.name: sum(
+            row.get("predicted_action_name") == action.name for row in records
+        )
+        for action in (Action.RELEASE_ALL, Action.LEFT, Action.RIGHT)
+    }
     return {
         "episode_id": int(episode_id),
         "valid": bool(valid and deepest is not None),
         "deepest_floor": deepest,
         "steps": steps,
-        "duration_seconds": time.monotonic() - started,
+        "duration_seconds": duration,
+        "policy_hz": steps / max(duration, 1e-9),
+        "action_counts": action_counts,
+        "release_rate": action_counts[Action.RELEASE_ALL.name] / max(steps, 1),
         "termination_reason": terminal_reason,
         "actions_sent": steps if config.mode == "control" else 0,
         "jsonl": str(step_jsonl),
@@ -649,6 +791,7 @@ def prepare_verified_menu_episode(
     countdown_seconds: int = 0,
     output_fn: Callable[[str], None] = print,
     sleeper: Callable[[float], None] = time.sleep,
+    return_policy_observation: bool = False,
 ) -> Any:
     """Focus and execute the historical guarded one-Enter menu reset."""
 
@@ -662,13 +805,16 @@ def prepare_verified_menu_episode(
     gate.focus_target()
     sleeper(0.5)
     with gate.menu_reset_scope():
-        env.reset()
+        policy_observation, _info = env.reset()
+    policy_observation = validate_policy_observation(policy_observation)
     observation = env.last_observation
     failure = active_safety_failure(env.adapter, observation)
     if failure is not None:
         env.adapter.release_all()
         raise RuntimeError(f"VERIFIED_MENU_RESET_UNSAFE:{failure}")
     output_fn(f"EPISODE_{episode_id}_VERIFIED_MENU_RESET=PASS")
+    if return_policy_observation:
+        return observation, policy_observation
     return observation
 
 
@@ -720,6 +866,8 @@ def run_bulk_session(
         "real_config": str(selected_config),
         "capture_fps": app_config.capture.target_fps,
         "action_duration_ms": app_config.controls.action_duration_ms,
+        "policy_period_seconds": POLICY_PERIOD_SECONDS,
+        "action_history_source": ACTION_HISTORY_SOURCE,
         "max_continuous_hold_ms": app_config.controls.max_continuous_hold_ms,
         "emergency_stop_key": app_config.safety.emergency_stop_key,
         "episode_reset_mode": (
@@ -755,15 +903,17 @@ def run_bulk_session(
             )
         for episode_id in range(1, bulk_config.episodes + 1):
             initial = None
+            initial_policy_observation = None
             if bulk_config.mode == "control":
                 assert gate is not None
                 if verified_reset:
-                    initial = prepare_verified_menu_episode(
+                    initial, initial_policy_observation = prepare_verified_menu_episode(
                         env,
                         gate,
                         episode_id=episode_id,
                         countdown_seconds=3 if episode_id == 1 else 0,
                         output_fn=output_fn,
+                        return_policy_observation=True,
                     )
                 else:
                     answer = input_fn(
@@ -802,6 +952,7 @@ def run_bulk_session(
                     video_path=candidate,
                     capture_fps=float(app_config.capture.target_fps),
                     initial_observation=initial,
+                    initial_policy_observation=initial_policy_observation,
                 )
             except BaseException as exc:
                 record = {

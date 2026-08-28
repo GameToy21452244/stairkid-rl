@@ -93,7 +93,6 @@ vision:
   metal_platform_threshold: 0.90
   flipping_platform_template_paths:
     - "captures/templates/platform_flipping_1.png"
-    - "captures/templates/platform_flipping_2.png"
   flipping_platform_threshold: 0.90
 
 hud:

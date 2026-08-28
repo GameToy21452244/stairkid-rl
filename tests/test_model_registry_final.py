@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import numpy as np
 import pytest
 
 from stair_agent.core.model_registry import (
@@ -40,6 +41,12 @@ def test_canonical_asset_sha_and_ppo_contract(model_id: str) -> None:
     assert loaded.model.observation_space.shape == (268,)
     assert loaded.model.action_space.n == 3
     assert not hasattr(loaded, "policy_parameter_sha256")
+    action, probabilities = loaded.predict_with_probabilities(
+        np.zeros(268, dtype=np.float32)
+    )
+    assert action in (0, 1, 2)
+    assert len(probabilities) == 3
+    assert sum(probabilities) == pytest.approx(1.0)
 
 
 def test_bad_sha_fails_closed(tmp_path: Path) -> None:

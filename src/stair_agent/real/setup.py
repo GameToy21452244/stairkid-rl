@@ -30,6 +30,10 @@ CANONICAL_MENU_RECTS = {
 CANONICAL_REAL_PROFILE_SHA256 = (
     "505187ab25459608f7f7aaa240c738dd96ccd6c745dd37f50426ff6cad91a4b6"
 )
+CANONICAL_FLIPPING_TEMPLATE = "captures/templates/platform_flipping_1.png"
+RETIRED_FALSE_POSITIVE_FLIPPING_TEMPLATE = (
+    "captures/templates/platform_flipping_2.png"
+)
 
 
 @dataclass(frozen=True)
@@ -100,7 +104,7 @@ def initialize_local_config(project_root: Path) -> tuple[Path, bool]:
 
 
 def apply_canonical_menu_profile(config_path: Path) -> bool:
-    """Migrate only the exact standard 634x431 profile or its all-null legacy copy."""
+    """Migrate only the exact standard 634x431 profile or its legacy copy."""
 
     path = Path(config_path).resolve()
     config = AppConfig.load(path)
@@ -136,6 +140,18 @@ def apply_canonical_menu_profile(config_path: Path) -> bool:
         changed = True
     if not config.environment.auto_restart_on_reset:
         config.environment.auto_restart_on_reset = True
+        changed = True
+    if config.vision.flipping_platform_template_paths == [
+        CANONICAL_FLIPPING_TEMPLATE,
+        RETIRED_FALSE_POSITIVE_FLIPPING_TEMPLATE,
+    ]:
+        # The second recovered crop was never an original tracked calibration
+        # asset.  R4 Real20 golden replay proved it creates persistent false
+        # flipping platforms.  Migrate only this exact canonical legacy list;
+        # never alter custom user calibration.
+        config.vision.flipping_platform_template_paths = [
+            CANONICAL_FLIPPING_TEMPLATE
+        ]
         changed = True
     if changed:
         config.save(path)

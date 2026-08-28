@@ -66,6 +66,21 @@ class LoadedCanonicalModel:
             raise ModelRegistryError(f"MODEL_RETURNED_INVALID_ACTION:{action_index}")
         return action_index
 
+    def predict_with_probabilities(
+        self, observation: np.ndarray
+    ) -> tuple[int, list[float]]:
+        """Return deterministic action plus diagnostic categorical probabilities."""
+
+        import torch
+
+        array = np.asarray(observation, dtype=np.float32)
+        action_index = self.predict(array)
+        with torch.no_grad():
+            observation_tensor, _ = self.model.policy.obs_to_tensor(array)
+            distribution = self.model.policy.get_distribution(observation_tensor)
+            probabilities = distribution.distribution.probs.detach().cpu().numpy()[0]
+        return action_index, [float(value) for value in probabilities]
+
 
 def _project_path(project_root: Path, value: str, *, field: str) -> Path:
     root = project_root.resolve()

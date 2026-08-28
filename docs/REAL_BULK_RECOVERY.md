@@ -32,3 +32,23 @@ registry remains the only model source of truth (`v3` and `r4`).
 
 The recovered path performs deterministic inference only. It contains no
 `learn`, gradient update, replay-buffer update, or model save operation.
+
+## R4 Real20 runtime parity correction
+
+The first restored bulk sessions loaded the exact R4 archive but produced a
+different policy-input distribution from the preserved exploratory Real20.
+The runner now restores the audited 100 ms minimum policy period, validates
+every 268-D input, preserves the policy stack returned by the guarded reset,
+asserts that each temporal-history action is the action actually executed, and
+records probabilities, geometry, timing, and action-history provenance per
+step.
+
+An offline golden replay used 871 frames from five preserved R4 Real20
+episodes. With both recovered flipping crops active, the detector produced
+10.63 platforms per frame versus the historical 7.30 and reproduced 72.86% of
+the next deterministic actions. `platform_flipping_2.png` caused persistent
+false positives. Keeping only `platform_flipping_1.png` reduced the detected
+mean to 6.92 and increased action agreement to 80.96%. The second crop remains
+SHA-pinned as an inactive audit/calibration asset; it is no longer selected by
+the canonical runtime profile. No Real input or training was performed during
+this correction.

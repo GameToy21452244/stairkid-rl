@@ -16,6 +16,17 @@
     "platform_context_rate": 0.9928528886241811,
     "real_actions_sent": 0
   },
+  "runtime_selection": {
+    "active_flipping_templates": ["platform_flipping_1.png"],
+    "retained_inactive_templates": ["platform_flipping_2.png"],
+    "reason": "Five-episode R4 Real20 golden replay found platform_flipping_2 produced persistent false positives on recorded gameplay overlays.",
+    "golden_replay_frames": 871,
+    "historical_platform_count_mean": 7.2973593570608495,
+    "active_profile_platform_count_mean": 6.921928817451206,
+    "active_profile_action_agreement": 0.8096357226792009,
+    "two_template_action_agreement": 0.7285546415981199,
+    "real_actions_sent": 0
+  },
   "files": [
     {
       "source": "templates/dialog.png",

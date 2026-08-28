@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 import shutil
 
@@ -97,6 +98,10 @@ def test_legacy_all_null_menu_profile_is_migrated_but_partial_custom_is_not(
     ):
         setattr(config.detection, name, None)
     config.environment.auto_restart_on_reset = False
+    config.vision.flipping_platform_template_paths = [
+        "captures/templates/platform_flipping_1.png",
+        "captures/templates/platform_flipping_2.png",
+    ]
     config.save(config_path)
     assert apply_canonical_menu_profile(config_path) is True
     migrated = AppConfig.load(config_path)
@@ -105,6 +110,9 @@ def test_legacy_all_null_menu_profile_is_migrated_but_partial_custom_is_not(
     assert migrated.detection.menu_exit_button_left == 172
     assert migrated.controls.menu_focus_correction_key == "tab"
     assert migrated.environment.auto_restart_on_reset is True
+    assert migrated.vision.flipping_platform_template_paths == [
+        "captures/templates/platform_flipping_1.png"
+    ]
 
     migrated.detection.menu_start_button_left = 400
     migrated.detection.menu_start_button_top = None
@@ -123,6 +131,24 @@ def test_canonical_dialog_template_confirms_historical_start_focus() -> None:
     assert CANONICAL_REAL_PROFILE_SHA256 == (
         "505187ab25459608f7f7aaa240c738dd96ccd6c745dd37f50426ff6cad91a4b6"
     )
+
+
+def test_canonical_runtime_excludes_false_positive_second_flipping_crop() -> None:
+    config = AppConfig.load(ROOT / "config.example.yaml")
+    assert config.vision.flipping_platform_template_paths == [
+        "captures/templates/platform_flipping_1.png"
+    ]
+    manifest = json.loads(
+        (ROOT / "real_assets/canonical_v1/manifest.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    selection = manifest["runtime_selection"]
+    assert selection["active_flipping_templates"] == ["platform_flipping_1.png"]
+    assert selection["retained_inactive_templates"] == [
+        "platform_flipping_2.png"
+    ]
+    assert selection["real_actions_sent"] == 0
 
 
 def test_real_cmds_are_repo_relative_and_setup_never_runs_real_control() -> None:
