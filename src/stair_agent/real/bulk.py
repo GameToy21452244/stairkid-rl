@@ -238,6 +238,12 @@ class AuthorizationGatedController:
     def is_target_active(self) -> bool:
         return bool(self._controller.is_target_active())
 
+    def focus_target(self) -> None:
+        """Focus is not a game action; held keys are released before forwarding."""
+
+        self.release_all()
+        self._controller.focus_target()
+
     def verified_name_entry_dialog(self):
         return self._controller.verified_name_entry_dialog()
 
@@ -610,6 +616,31 @@ def run_passive_preflight(env: Any, *, frames: int = 3) -> dict[str, Any]:
     return {"status": "PASS", "frames": frames, "phases": phases, "actions_sent": 0}
 
 
+def prepare_supervised_episode(
+    env: Any,
+    *,
+    episode_id: int,
+    output_fn: Callable[[str], None] = print,
+    sleeper: Callable[[float], None] = time.sleep,
+    settle_seconds: float = 0.75,
+) -> Any:
+    """Refocus after terminal READY, then revalidate without sending game input."""
+
+    env.adapter.release_all()
+    output_fn(
+        f"EPISODE_{episode_id}_READY_ACCEPTED: focusing the verified NS-SHAFT window..."
+    )
+    env.adapter.controller.focus_target()
+    sleeper(max(0.0, settle_seconds))
+    observation = env.adapter.observe()
+    failure = active_safety_failure(env.adapter, observation)
+    if failure is not None:
+        env.adapter.release_all()
+        raise RuntimeError(f"SUPERVISED_EPISODE_UNSAFE:{failure}")
+    output_fn(f"EPISODE_{episode_id}_FOCUS_TRACKING_PREFLIGHT=PASS")
+    return observation
+
+
 def run_bulk_session(
     project_root: Path,
     *,
@@ -702,24 +733,29 @@ def run_bulk_session(
                 else:
                     answer = input_fn(
                         f"Episode {episode_id}: manually reset/start the game, "
-                        "then type READY: "
+                        "return here, then type READY "
+                        "(the runner will refocus the game): "
                     ).strip()
                     if answer != "READY":
                         raise RuntimeError("CONTROL_EPISODE_READY_NOT_CONFIRMED")
-                    initial = env.adapter.observe()
-                    failure = active_safety_failure(env.adapter, initial)
-                    if failure is not None:
-                        raise RuntimeError(
-                            f"CONTROL_MANUAL_RESET_UNSAFE:{failure}"
-                        )
+                    initial = prepare_supervised_episode(
+                        env,
+                        episode_id=episode_id,
+                        output_fn=output_fn,
+                    )
                 gate.arm_episode(episode_id)
             else:
                 answer = input_fn(
-                    f"Episode {episode_id}: manually start/reset the game, then type READY: "
+                    f"Episode {episode_id}: manually start/reset the game, return here, "
+                    "then type READY (the runner will refocus the game): "
                 ).strip()
                 if answer != "READY":
                     raise RuntimeError("SHADOW_EPISODE_READY_NOT_CONFIRMED")
-                initial = env.adapter.observe()
+                initial = prepare_supervised_episode(
+                    env,
+                    episode_id=episode_id,
+                    output_fn=output_fn,
+                )
             candidate = retention.candidate_path(episode_id)
             try:
                 record = run_live_episode(
@@ -847,6 +883,7 @@ __all__ = [
     "create_verified_session_zip",
     "install_authorization_gate",
     "has_verified_reset_calibration",
+    "prepare_supervised_episode",
     "run_bulk_session",
     "run_live_episode",
     "run_passive_preflight",

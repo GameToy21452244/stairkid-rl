@@ -101,8 +101,12 @@ but only when all menu focus coordinates exist and only through a separately
 scoped, explicitly authorized menu capability. If the local Real config lacks
 that calibration, Control safely falls back to supervised manual reset: the
 user starts each episode and types exact `READY`, while the runner sends no
-menu/reset input. F8, focus loss, tracking loss, exceptions, and termination
-all release held keys and stop fail-closed.
+menu/reset input. Because typing `READY` necessarily focuses the terminal, the
+runner then releases all keys, focuses only the already-verified NS-SHAFT hwnd,
+waits briefly, and repeats focus/player/platform safety checks before starting
+the episode. Failure to refocus or revalidate remains fail-closed. F8, focus
+loss, tracking loss, exceptions, and termination all release held keys and
+stop fail-closed.
 
 Outputs under `runs/real_bulk/` include a session manifest, per-episode JSON
 and JSONL, aggregate floor statistics, optional failure snapshots and video,

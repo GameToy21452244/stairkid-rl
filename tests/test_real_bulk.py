@@ -19,6 +19,7 @@ from stair_agent.real.bulk import (
     build_bulk_summary,
     create_verified_session_zip,
     has_verified_reset_calibration,
+    prepare_supervised_episode,
     run_live_episode,
     run_passive_preflight,
     render_bulk_overlay,
@@ -34,6 +35,7 @@ class FakeController:
         self.release_count = 0
         self.emergency_stopped = False
         self.active = True
+        self.focus_count = 0
 
     def apply(self, action: Action) -> None:
         self.actions.append(action)
@@ -47,6 +49,10 @@ class FakeController:
 
     def is_target_active(self) -> bool:
         return self.active
+
+    def focus_target(self) -> None:
+        self.focus_count += 1
+        self.active = True
 
 
 class FailingController(FakeController):
@@ -250,6 +256,45 @@ def test_passive_preflight_rejects_preexisting_held_keys() -> None:
     with pytest.raises(RuntimeError, match="PREFLIGHT_HELD_KEYS_PRESENT"):
         run_passive_preflight(env)
     assert env.adapter.release_count == 1
+
+
+def test_ready_flow_refocuses_then_revalidates_without_action() -> None:
+    env = FakeEnv([_observation()])
+    raw = FakeController()
+    gate = AuthorizationGatedController(raw, model_id="r4", episode_limit=1)
+    env.adapter.controller = gate
+    output: list[str] = []
+    observation = prepare_supervised_episode(
+        env,
+        episode_id=1,
+        output_fn=output.append,
+        sleeper=lambda _seconds: None,
+    )
+    assert observation.phase == "playing"
+    assert raw.focus_count == 1
+    assert raw.actions == []
+    assert gate.actions_sent == 0
+    assert output[-1] == "EPISODE_1_FOCUS_TRACKING_PREFLIGHT=PASS"
+
+
+def test_ready_flow_still_fails_closed_after_refocus_when_tracking_is_missing() -> None:
+    missing_player = SimpleNamespace(phase="playing", player=None, platforms=[{}])
+    env = FakeEnv([missing_player])
+    raw = FakeController()
+    gate = AuthorizationGatedController(raw, model_id="v3", episode_limit=1)
+    env.adapter.controller = gate
+    with pytest.raises(
+        RuntimeError,
+        match="SUPERVISED_EPISODE_UNSAFE:PLAYER_TRACKING_LOST",
+    ):
+        prepare_supervised_episode(
+            env,
+            episode_id=1,
+            output_fn=lambda _line: None,
+            sleeper=lambda _seconds: None,
+        )
+    assert raw.actions == []
+    assert gate.actions_sent == 0
 
 
 def test_shadow_episode_writes_jsonl_and_sends_zero_actions(tmp_path: Path) -> None:

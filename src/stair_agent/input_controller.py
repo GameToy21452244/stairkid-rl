@@ -172,6 +172,12 @@ class InputController:
             return False
         return True
 
+    def focus_target(self) -> None:
+        """Release held keys, then focus only the already-verified game hwnd."""
+
+        self.release_all()
+        self.window_manager.focus(self.hwnd)
+
     def key_down(self, key: str) -> None:
         with self._lock:
             self._ensure_safe_to_send()
