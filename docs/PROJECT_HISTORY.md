@@ -63,9 +63,8 @@ R4 seed142@655360 completed 20 explicitly exploratory Real episodes:
 
 Historical Fresh V3 evidence was N=61, mean 4.41, median 4, Q25 2, Q75 6,
 and floor <= 4 rate 59.0%. The final audit classifies the R4 Real20 result as
-descriptively worse than historical Fresh V3 on the retained summary metrics.
-The sample sizes differ, so statistical superiority was not claimed, and
-safety remained unresolved.
+descriptively stronger in floor performance than historical Fresh V3, but
+statistical superiority was not established and safety remained unresolved.
 
 The audited R4 policy-parameter SHA-256 was
 `2bb3910e0f0be001caaafe9e2f8ea2feec186003fca9737988a8d8927a69a104`.

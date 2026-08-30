@@ -10,8 +10,8 @@
       "status": "STABLE_BASELINE",
       "description": "Canonical Fresh V3 simulator-trained baseline with historical Real evidence.",
       "asset_path": "models/cache/fresh_v3_seed17_524288.zip",
-      "asset_source": "Canonical project release asset (URL unpublished; use fetch_models.py --source-dir)",
-      "release_url": null,
+      "asset_source": "GitHub Release real-data-preservation-v1",
+      "release_url": "https://github.com/GameToy21452244/stairkid-rl/releases/download/real-data-preservation-v1/fresh_v3_seed17_524288.zip",
       "observation_shape": [268],
       "action_count": 3,
       "simulator_profile": "configs/fidelity_v3_fresh.yaml",
@@ -34,7 +34,7 @@
       "description": "Final V3.5 experiment. Simulator gate failed; no formal promotion; safety unresolved.",
       "asset_path": "models/cache/v3_5_r4_seed142_655360.zip",
       "asset_source": "v3_5_safety_refinement_handoff_20260826T151023Z.zip#seed_142/checkpoints/v3_5_655360.zip",
-      "release_url": null,
+      "release_url": "https://github.com/GameToy21452244/stairkid-rl/releases/download/real-data-preservation-v1/v3_5_r4_seed142_655360.zip",
       "observation_shape": [268],
       "action_count": 3,
       "simulator_profile": "configs/fidelity_v3_5.yaml",
@@ -51,7 +51,7 @@
         "min_floor": 1,
         "max_floor": 13,
         "floor_le_4_rate": 0.45,
-        "interpretation": "The final audit classifies R4 Real20 as descriptively worse than historical Fresh V3 on the retained summary metrics. Sample sizes differ, so statistical superiority was not claimed; safety remained unresolved."
+        "interpretation": "R4 showed descriptively stronger real-game floor performance than historical Fresh V3, but statistical superiority was not established and safety remained unresolved."
       }
     }
   }

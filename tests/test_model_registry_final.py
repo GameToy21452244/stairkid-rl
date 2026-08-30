@@ -16,6 +16,10 @@ from stair_agent.core.model_registry import (
 
 
 ROOT = Path(__file__).resolve().parents[1]
+RELEASE_ROOT = (
+    "https://github.com/GameToy21452244/stairkid-rl/releases/download/"
+    "real-data-preservation-v1/"
+)
 
 
 def test_registry_contains_exactly_two_explicit_models_and_no_default() -> None:
@@ -27,6 +31,19 @@ def test_registry_contains_exactly_two_explicit_models_and_no_default() -> None:
     raw = json.loads((ROOT / "models/manifest.json").read_text(encoding="utf-8"))
     for model in raw["models"].values():
         assert "policy_parameter_sha256" not in model
+    interpretation = raw["models"]["r4"]["exploratory_real20"]["interpretation"]
+    assert "descriptively stronger" in interpretation
+    assert "statistical superiority was not established" in interpretation
+
+
+def test_canonical_models_have_exact_public_release_urls() -> None:
+    registry = load_model_registry(ROOT)
+    assert registry["v3"].metadata["release_url"] == (
+        RELEASE_ROOT + "fresh_v3_seed17_524288.zip"
+    )
+    assert registry["r4"].metadata["release_url"] == (
+        RELEASE_ROOT + "v3_5_r4_seed142_655360.zip"
+    )
 
 
 @pytest.mark.parametrize("model_id", MODEL_IDS)

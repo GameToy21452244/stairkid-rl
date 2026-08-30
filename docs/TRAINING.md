@@ -109,9 +109,9 @@ bundle declared in `training_assets/manifest.json`. The bundle archive SHA is
 the single external integrity gate. After extraction, staging still validates
 the required seed/checkpoint pairs, checkpoint metadata and ZIP integrity,
 targeted-bank schema/content, snapshot integrity, and checkpoint-to-bank
-identity. Embedded child hashes are not separate user-managed pins. GitHub
-Release URLs are intentionally marked unpublished until the asset is actually
-released; no similar checkpoint is substituted.
+identity. Embedded child hashes are not separate user-managed pins. Canonical
+URLs point to the `real-data-preservation-v1` GitHub Release and remain
+SHA-verified; no similar checkpoint is substituted.
 
 ## Precheck, smoke, and full mode
 

@@ -18,6 +18,10 @@ from stair_agent.training.configs import TARGET_IDS, load_training_registry
 
 ROOT = Path(__file__).resolve().parents[1]
 NOTEBOOK = ROOT / "notebooks/StairKid_Training_Colab.ipynb"
+RELEASE_ROOT = (
+    "https://github.com/GameToy21452244/stairkid-rl/releases/download/"
+    "real-data-preservation-v1/"
+)
 
 
 def _sha256(path: Path) -> str:
@@ -50,6 +54,23 @@ def _verify_notebook() -> None:
     for index, cell in enumerate(notebook.get("cells", [])):
         if cell.get("cell_type") == "code":
             ast.parse("".join(cell.get("source", [])), filename=f"cell_{index}")
+
+
+def _verify_release_metadata(models, assets) -> None:
+    expected_models = {
+        "v3": "fresh_v3_seed17_524288.zip",
+        "r4": "v3_5_r4_seed142_655360.zip",
+    }
+    for model_id, filename in expected_models.items():
+        if models[model_id].metadata.get("release_url") != RELEASE_ROOT + filename:
+            raise RuntimeError(f"MODEL_RELEASE_URL_INVALID:{model_id}")
+    bundle = assets["r4_frozen_r1_bundle"]
+    if (
+        bundle.source.get("kind") != "GITHUB_RELEASE_ASSET"
+        or bundle.source.get("url")
+        != RELEASE_ROOT + "stairkid-v3-5-r4-frozen-r1-input.zip"
+    ):
+        raise RuntimeError("TRAINING_ASSET_RELEASE_URL_INVALID")
 
 
 def _verify_active_surface() -> None:
@@ -129,6 +150,7 @@ def main() -> int:
         raise RuntimeError("POLICY_PARAMETER_SHA_RUNTIME_GATE_PRESENT")
     if tuple(assets) != ("r4_frozen_r1_bundle",):
         raise RuntimeError("TRAINING_ASSET_TOP_LEVEL_GATE_INVALID")
+    _verify_release_metadata(models, assets)
     AppConfig.load(ROOT / "config.example.yaml")
     _verify_real_assets()
     _verify_notebook()
@@ -148,6 +170,7 @@ def main() -> int:
     print("CORRECTED_FLIPPING_IDENTITY=PASS")
     print("OBSOLETE_ACTIVE_DEPENDENCIES=NONE")
     print("SIMPLIFIED_SHA_POLICY=PASS")
+    print("RELEASE_METADATA=PASS")
     print("NOTEBOOK=PASS")
     print("PROJECT_SOURCE_VERIFY=PASS")
     print("REAL_GAME_EXECUTED=NO")

@@ -48,16 +48,22 @@ Windows users can instead double-click `FIRST_RUN_SETUP.cmd`. It creates the
 repository-local `.venv`, installs the PPO/runtime dependencies, verifies the
 canonical model files, creates the ignored local `config.yaml`, and installs
 the included SHA-verified detector templates for the canonical 634x431
-NS-SHAFT profile. If the
-model Release is private, download its two model assets in the browser and
-enter that download directory when prompted; SHA verification remains
-fail-closed.
+NS-SHAFT profile. If the repository or model Release is private, download its
+two model assets in the browser and enter that download directory when
+prompted. Once the repository is public, setup downloads the pinned Release
+assets directly; SHA verification remains fail-closed.
 
 ## Fetch models
 
-Canonical binaries are external and are never committed. Until Release URLs
-are published, provide a directory containing the exact filenames from
-`models/manifest.json`:
+Canonical binaries are external and are never committed. Fetch the exact
+SHA-pinned assets from the `real-data-preservation-v1` GitHub Release:
+
+```powershell
+python scripts/fetch_models.py --all
+```
+
+For an offline install, provide a directory containing the exact filenames
+from `models/manifest.json`:
 
 ```powershell
 python scripts/fetch_models.py --all --source-dir C:\path\to\canonical-models
@@ -168,10 +174,19 @@ docs/             current architecture, usage, models, and project history
 - `r4`: V3.5 R4 seed142@655360, `EXPERIMENTAL_FINAL`. Its formal simulator
   gate failed, it was not promoted, and safety remains unresolved.
 
-R4's exploratory Real20 result was descriptively worse than historical Fresh
-V3 on the retained summary metrics. The samples differ in size, so no
-statistical superiority was claimed. `STOP_V3_5` remains unchanged. Neither
-model is a default, champion, or fallback.
+R4's exploratory Real20 showed descriptively stronger floor performance than
+historical Fresh V3. The samples differ in size, statistical superiority was
+not established, and R4 safety remains unresolved. `STOP_V3_5` remains
+unchanged. Neither model is a default, champion, or fallback.
+
+## Public-use notice
+
+No open-source license file is currently included. Making the repository
+public allows inspection, but does not by itself grant permission to reuse,
+modify, or redistribute the code. The owner should choose an explicit license
+before inviting third-party reuse or contributions. Historical milestone tags
+and the preservation Release intentionally retain research evidence; active
+users should start from `main`.
 
 ## Documentation
 
