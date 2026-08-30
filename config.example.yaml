@@ -1,19 +1,20 @@
 game:
-  exe_path: "請使用者填入完整 exe 路徑"
-  window_title_contains: "請使用者填入部分視窗標題"
-  window_class_name: null
+  # auto_launch is disabled, so exe_path is not used by the guarded runner.
+  exe_path: "NS-SHAFT.exe"
+  window_title_contains: "NS-SHAFT"
+  window_class_name: "NsShaftClass"
   auto_launch: false
   launch_wait_seconds: 3.0
 
 capture:
   mode: "client_area"
-  left: null
-  top: null
+  left: 0
+  top: 0
   width: null
   height: null
   target_fps: 15
-  resize_width: 320
-  resize_height: 480
+  resize_width: 634
+  resize_height: 431
   grayscale: false
 
 controls:
@@ -22,8 +23,9 @@ controls:
   restart_key: "enter"
   pause_key: null
   action_duration_ms: 80
+  max_continuous_hold_ms: 500
   restart_duration_ms: 200
-  menu_focus_correction_key: null
+  menu_focus_correction_key: "tab"
   input_backend: "pyautogui"
 
 safety:
@@ -34,40 +36,47 @@ safety:
 
 detection:
   dialog_template_path: "captures/templates/dialog.png"
-  dialog_roi_left: null
-  dialog_roi_top: null
-  dialog_roi_width: null
-  dialog_roi_height: null
-  reference_width: null
-  reference_height: null
+  dialog_roi_left: 158
+  dialog_roi_top: 97
+  dialog_roi_width: 317
+  dialog_roi_height: 235
+  reference_width: 634
+  reference_height: 431
   dialog_threshold: 0.80
   search_margin: 8
-  menu_start_button_left: null
-  menu_start_button_top: null
-  menu_start_button_width: null
-  menu_start_button_height: null
-  menu_two_player_button_left: null
-  menu_two_player_button_top: null
-  menu_two_player_button_width: null
-  menu_two_player_button_height: null
+  # Canonical 634x431 menu focus rectangles recovered from the frozen
+  # historical Real profile (SHA256 505187ab...). Different builds must
+  # recalibrate instead of reusing these coordinates.
+  menu_start_button_left: 381
+  menu_start_button_top: 297
+  menu_start_button_width: 81
+  menu_start_button_height: 21
+  menu_two_player_button_left: 289
+  menu_two_player_button_top: 297
+  menu_two_player_button_width: 81
+  menu_two_player_button_height: 21
+  menu_exit_button_left: 172
+  menu_exit_button_top: 297
+  menu_exit_button_width: 70
+  menu_exit_button_height: 21
   menu_focus_border_mean_max: 180.0
   menu_focus_minimum_contrast: 20.0
-  menu_focus_inner_gray_max: 80
-  menu_focus_inner_dark_ratio_min: 0.20
+  menu_focus_inner_gray_max: 200
+  menu_focus_inner_dark_ratio_min: 0.08
 
 vision:
-  playfield_left: null
-  playfield_top: null
-  playfield_width: null
-  playfield_height: null
-  reference_width: null
-  reference_height: null
+  playfield_left: 40
+  playfield_top: 64
+  playfield_width: 383
+  playfield_height: 363
+  reference_width: 634
+  reference_height: 431
   player_hue_max: 40
   player_saturation_min: 140
   player_value_min: 170
   player_min_width: 15
   player_max_width: 50
-  player_min_height: 15
+  player_min_height: 14
   player_max_height: 50
   player_dilate_width: 7
   player_dilate_height: 9
@@ -79,16 +88,18 @@ vision:
   green_platform_template_paths: []
   green_platform_threshold: 0.90
   metal_platform_template_path: "captures/templates/platform_metal.png"
-  metal_platform_template_paths: []
+  metal_platform_template_paths:
+    - "captures/templates/platform_conveyor_2.png"
   metal_platform_threshold: 0.90
-  flipping_platform_template_paths: []
+  flipping_platform_template_paths:
+    - "captures/templates/platform_flipping_1.png"
   flipping_platform_threshold: 0.90
 
 hud:
-  reference_width: null
-  reference_height: null
-  life_left: null
-  life_top: null
+  reference_width: 634
+  reference_height: 431
+  life_left: 49
+  life_top: 32
   life_segment_width: 6
   life_segment_height: 14
   life_segment_pitch: 8
@@ -97,6 +108,15 @@ hud:
   life_green_min: 100
   life_blue_max: 100
   life_filled_ratio: 0.50
+  floor_counter_left: 266
+  floor_counter_top: 16
+  floor_counter_width: 112
+  floor_counter_height: 32
+  floor_counter_initial_value: 1
+  floor_binary_threshold: 120
+  floor_change_ratio_threshold: 0.025
+  floor_stability_ratio_threshold: 0.02
+  floor_change_required_consecutive: 2
 
 events:
   landing_contact_gap: 6
@@ -111,10 +131,12 @@ environment:
   death_penalty: 5.0
   velocity_scale: 500.0
   max_platforms_per_type: 8
-  auto_restart_on_reset: false
+  auto_restart_on_reset: true
   reset_required_consecutive_frames: 3
   reset_max_observation_frames: 30
-  reset_focus_max_observation_frames: 225
+  reset_focus_max_observation_frames: 24
+  reset_focus_correction_max_observation_frames: 30
+  reset_focus_correction_max_presses: 3
   reset_post_action_delay_seconds: 0.4
   max_observation_platforms: 8
   observation_history_frames: 4

@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import numpy as np
 import pytest
 
 from stair_agent.core.model_registry import (
@@ -15,6 +16,10 @@ from stair_agent.core.model_registry import (
 
 
 ROOT = Path(__file__).resolve().parents[1]
+RELEASE_ROOT = (
+    "https://github.com/GameToy21452244/stairkid-rl/releases/download/"
+    "real-data-preservation-v1/"
+)
 
 
 def test_registry_contains_exactly_two_explicit_models_and_no_default() -> None:
@@ -26,6 +31,19 @@ def test_registry_contains_exactly_two_explicit_models_and_no_default() -> None:
     raw = json.loads((ROOT / "models/manifest.json").read_text(encoding="utf-8"))
     for model in raw["models"].values():
         assert "policy_parameter_sha256" not in model
+    interpretation = raw["models"]["r4"]["exploratory_real20"]["interpretation"]
+    assert "descriptively stronger" in interpretation
+    assert "statistical superiority was not established" in interpretation
+
+
+def test_canonical_models_have_exact_public_release_urls() -> None:
+    registry = load_model_registry(ROOT)
+    assert registry["v3"].metadata["release_url"] == (
+        RELEASE_ROOT + "fresh_v3_seed17_524288.zip"
+    )
+    assert registry["r4"].metadata["release_url"] == (
+        RELEASE_ROOT + "v3_5_r4_seed142_655360.zip"
+    )
 
 
 @pytest.mark.parametrize("model_id", MODEL_IDS)
@@ -40,6 +58,12 @@ def test_canonical_asset_sha_and_ppo_contract(model_id: str) -> None:
     assert loaded.model.observation_space.shape == (268,)
     assert loaded.model.action_space.n == 3
     assert not hasattr(loaded, "policy_parameter_sha256")
+    action, probabilities = loaded.predict_with_probabilities(
+        np.zeros(268, dtype=np.float32)
+    )
+    assert action in (0, 1, 2)
+    assert len(probabilities) == 3
+    assert sum(probabilities) == pytest.approx(1.0)
 
 
 def test_bad_sha_fails_closed(tmp_path: Path) -> None:

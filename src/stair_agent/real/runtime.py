@@ -36,11 +36,16 @@ class RealRunResult:
     terminal_reason: str
 
 
-def resolve_real_config(project_root: Path, config_path: Path | None = None) -> Path:
+def resolve_real_config(
+    project_root: Path,
+    config_path: Path | None = None,
+    *,
+    allow_example: bool = True,
+) -> Path:
     root = project_root.resolve()
     selected = (config_path or Path("config.yaml"))
     candidate = selected if selected.is_absolute() else root / selected
-    if not candidate.is_file() and config_path is None:
+    if not candidate.is_file() and config_path is None and allow_example:
         candidate = root / "config.example.yaml"
     candidate = candidate.resolve()
     if not candidate.is_relative_to(root):
@@ -108,7 +113,7 @@ def run_live_real(
     from stair_agent.live_env import create_live_environment
 
     root = project_root.resolve()
-    selected_config = resolve_real_config(root, config_path)
+    selected_config = resolve_real_config(root, config_path, allow_example=False)
     config = AppConfig.load(selected_config)
     env, _target = create_live_environment(
         config,

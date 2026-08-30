@@ -13,11 +13,13 @@ from stair_agent.core.contracts import (
 
 ROOT = Path(__file__).resolve().parents[1]
 ACTIVE_SCRIPTS = {
+    "bulk_real_evaluation.py",
     "evaluate.py",
     "fetch_models.py",
     "fetch_training_assets.py",
     "play_simulator.py",
     "run_real_agent.py",
+    "run_real_model_launcher.py",
     "run_simulator_agent.py",
     "train.py",
     "verify_project.py",

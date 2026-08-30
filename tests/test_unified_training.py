@@ -65,6 +65,13 @@ def test_training_asset_manifest_has_one_external_bundle_pin() -> None:
     assets = load_training_assets(ROOT)
     assert tuple(assets) == ("r4_frozen_r1_bundle",)
     assert assets["r4_frozen_r1_bundle"].sha256 == "3b8e85d52d94b11cacf1466019558670791471a190d79b80ed18a62985b7f53e"
+    assert assets["r4_frozen_r1_bundle"].source == {
+        "kind": "GITHUB_RELEASE_ASSET",
+        "url": (
+            "https://github.com/GameToy21452244/stairkid-rl/releases/download/"
+            "real-data-preservation-v1/stairkid-v3-5-r4-frozen-r1-input.zip"
+        ),
+    }
 
 
 def test_invalid_training_asset_sha_fails_closed(tmp_path: Path) -> None:

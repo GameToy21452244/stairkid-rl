@@ -44,11 +44,26 @@ Install the pinned PPO stack when running models or training:
 python -m pip install -e ".[rl]"
 ```
 
+Windows users can instead double-click `FIRST_RUN_SETUP.cmd`. It creates the
+repository-local `.venv`, installs the PPO/runtime dependencies, verifies the
+canonical model files, creates the ignored local `config.yaml`, and installs
+the included SHA-verified detector templates for the canonical 634x431
+NS-SHAFT profile. If the repository or model Release is private, download its
+two model assets in the browser and enter that download directory when
+prompted. Once the repository is public, setup downloads the pinned Release
+assets directly; SHA verification remains fail-closed.
+
 ## Fetch models
 
-Canonical binaries are external and are never committed. Until Release URLs
-are published, provide a directory containing the exact filenames from
-`models/manifest.json`:
+Canonical binaries are external and are never committed. Fetch the exact
+SHA-pinned assets from the `real-data-preservation-v1` GitHub Release:
+
+```powershell
+python scripts/fetch_models.py --all
+```
+
+For an offline install, provide a directory containing the exact filenames
+from `models/manifest.json`:
 
 ```powershell
 python scripts/fetch_models.py --all --source-dir C:\path\to\canonical-models
@@ -98,6 +113,29 @@ python scripts/run_real_agent.py --model r4
 Live control is never implicit: it additionally requires `--control` and the
 model-specific interactive authorization phrase. See `docs/REAL_GAME.md`.
 
+For supervised multi-episode Real evaluation on Windows, double-click:
+
+```text
+START_REAL_MODEL_TEST.cmd
+```
+
+Before the first Real run, complete `FIRST_RUN_SETUP.cmd`. Users of the same
+canonical game build and resolution normally do not need calibration. Run the
+passive `CALIBRATE_REAL_GAME.cmd` wizard only if the game build/capture geometry
+differs or passive detector preflight reports incompatibility. Calibration
+captures the visible NS-SHAFT client and lets the user crop detector templates;
+it sends no game keys. The Real launcher refuses missing/placeholder
+configuration before displaying the run menu.
+
+The launcher selects V3/R4, Shadow/Control, 1–100 episodes, diagnostics, and
+the historically verified `none`/`best`/`all` video modes. Exact `RUN` is only
+the outer launch gate; Control still requires the model-specific Python
+authorization after a passive preflight. With the canonical 634x431 profile,
+authorization is followed by a visible 3-2-1 countdown and the recovered
+guarded menu reset: Start/2-player/Exit focus is verified before the single
+Enter, so no per-episode terminal `READY` is needed. F8 remains the emergency
+stop.
+
 ## Train in Colab
 
 Open `notebooks/StairKid_Training_Colab.ipynb`. The notebook clones GitHub,
@@ -122,7 +160,8 @@ python scripts/verify_project.py
 configs/          corrected simulator profiles and V3/R4 training presets
 models/           canonical model manifest; binaries live in ignored cache
 notebooks/        one active Git-clone self-contained training notebook
-scripts/          eight user/developer entrypoints
+real_assets/      canonical, SHA-verified Real detector profile
+scripts/          current user/developer entrypoints, including guarded Real bulk evaluation
 src/stair_agent/  simulator, Real, reference training, evaluation, and core runtime
 tests/            current regression suite
 training_assets/  SHA-pinned external training-asset manifest
@@ -135,10 +174,19 @@ docs/             current architecture, usage, models, and project history
 - `r4`: V3.5 R4 seed142@655360, `EXPERIMENTAL_FINAL`. Its formal simulator
   gate failed, it was not promoted, and safety remains unresolved.
 
-R4's exploratory Real20 result was descriptively worse than historical Fresh
-V3 on the retained summary metrics. The samples differ in size, so no
-statistical superiority was claimed. `STOP_V3_5` remains unchanged. Neither
-model is a default, champion, or fallback.
+R4's exploratory Real20 showed descriptively stronger floor performance than
+historical Fresh V3. The samples differ in size, statistical superiority was
+not established, and R4 safety remains unresolved. `STOP_V3_5` remains
+unchanged. Neither model is a default, champion, or fallback.
+
+## Public-use notice
+
+No open-source license file is currently included. Making the repository
+public allows inspection, but does not by itself grant permission to reuse,
+modify, or redistribute the code. The owner should choose an explicit license
+before inviting third-party reuse or contributions. Historical milestone tags
+and the preservation Release intentionally retain research evidence; active
+users should start from `main`.
 
 ## Documentation
 
