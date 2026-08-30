@@ -6,7 +6,7 @@
   "source": {
     "preservation_release": "real-data-preservation-v1",
     "archive": "stairkid-real-calibration-v1.zip",
-    "archive_sha256": "fc3320197944d7e16a658dd14974ca027b61999f9a17d23664ac2790b560a7a4",
+    "archive_sha256": "7bd8246580a51d2e3258348d5f32f5093c499aafaa1c3e6b6a601e466b8afcf3",
     "method": "lossless current-build dialog/normal capture plus clean gameplay crops recovered from preserved Real videos"
   },
   "validation": {
